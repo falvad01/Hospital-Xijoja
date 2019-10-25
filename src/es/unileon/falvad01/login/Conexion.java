@@ -1,8 +1,6 @@
 package es.unileon.falvad01.login;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 
 import javax.swing.JOptionPane;
 
@@ -26,7 +24,7 @@ public class Conexion {
 	private Conexion() {
 		try {
 			// obtenemos el driver de para mysql
-			Class.forName("com.mysql.cj.jdbc.Driver"); // com.mysql.cj.jdbc.Drivercom.mysql.jdbc.Driver is deprecated in
+			Class.forName("com.mysql.jdbc.Driver"); // com.mysql.cj.jdbc.Drivercom.mysql.jdbc.Driver is deprecated in
 														// new versions
 			// obtenemos la conexión
 			/*
