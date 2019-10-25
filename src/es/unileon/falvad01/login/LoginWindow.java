@@ -46,7 +46,8 @@ public class LoginWindow extends JFrame {
 	}
 
 	private void initComponents() throws IOException {
-
+		Conexion co= Conexion.getInstance();
+		co.getConnection();
 		getContentPane().setLayout(null);
 		listener list = new listener();
 
