@@ -34,7 +34,7 @@ public class LoginWindow extends JFrame {
 	JPanel loginPanel;
 	private JTextField loginUser;
 	private JPasswordField loginPassword;
-	
+
 	private Connection conn;
 	private Conexion co;
 
@@ -58,7 +58,7 @@ public class LoginWindow extends JFrame {
 	}
 
 	private void initComponents() throws IOException {
-		co= Conexion.getInstance();
+		co = Conexion.getInstance();
 		conn = co.getConnection();
 		getContentPane().setLayout(null);
 		listener list = new listener();
@@ -138,38 +138,62 @@ public class LoginWindow extends JFrame {
 			if (arg0.getActionCommand().equals("Login")) {
 
 				System.out.println(loginPassword.getPassword());
-				
-				/*
+
 				try {
+
 					Statement st = conn.createStatement();
-					String sql = "Select * from personal where usuario='"+loginUser.getText()+"' and contraseña= '"+loginPassword.getText().toString()+"'";
+					String sql = "Select * from personal where usuario='" + loginUser.getText() + "' and contrasenia= '"
+							+ loginPassword.getText().toString() + "'";
+
 					ResultSet rs = st.executeQuery(sql);
-					if(rs.next()) {
-						JOptionPane.showConfirmDialog(null, "Login correcto");
-					}else {
-						JOptionPane.showConfirmDialog(null, "Login incorracto");
+
+					if (rs.next()) {
+						
+
+						String profession = rs.getString(8);// Obtenemos la profesion para abrir la ventana correcta
+						System.out.println(profession);
+
+						if (profession == "Medico") {
+
+						} else if (profession.equals("Administrador")) {
+							
+							AdminWindow window = new AdminWindow(rs);//Creamos la ventana del administrador y pasamos el statement
+							
+							window.setVisible(true);
+
+							
+							
+						} else if (profession == "Enfermero") {
+
+						} else if (profession == "Secreatario") {
+
+						} else {
+							JOptionPane.showMessageDialog(null, "Profesion incorrecta.", "Conexion BBDD",
+									JOptionPane.ERROR_MESSAGE);
+						}
+
+					} else {
+						JOptionPane.showConfirmDialog(null, "Login incorrecto");
 					}
+					
+					co.disconect();//Cerramos la conexion con la base de datos
 
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				*/
-				
-				try {
-					Statement st = conn.createStatement();
-					
-					String sql="INSERT INTO personal (idTrabajador, Nombre, Apellido1, Apellido2, NIFNIE, FechaAlta, CuentaBancaria, Puesto, contraseña, usuario) VALUES(0, 'javier', 'alvarez', 'De la Mancha', '21345675C', '2019-10-25', 'ewrftyr657uyi', 'medico', '12345', 'root1')";
-					
-					st.executeUpdate(sql);
-					System.out.println("se ha introducido una persona");
-				//co.desconectar();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				
-				
+
+				/*
+				 * try { Statement st = conn.createStatement();
+				 * 
+				 * String
+				 * sql="INSERT INTO personal (idTrabajador, Nombre, Apellido1, Apellido2, NIFNIE, FechaAlta, CuentaBancaria, Puesto, contraseña, usuario) VALUES(0, 'javier', 'alvarez', 'De la Mancha', '21345675C', '2019-10-25', 'ewrftyr657uyi', 'medico', '12345', 'root1')"
+				 * ;
+				 * 
+				 * st.executeUpdate(sql); System.out.println("se ha introducido una persona");
+				 * //co.desconectar(); } catch (SQLException e) { // TODO Auto-generated catch
+				 * block e.printStackTrace(); }
+				 */
+
 			}
 		}
 	}

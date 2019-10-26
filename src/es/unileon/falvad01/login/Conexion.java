@@ -38,7 +38,7 @@ public class Conexion {
 			conn = DriverManager.getConnection(urlServerLocal, userLocal, passwordLocal);
 
 			if (conn == null) {
-				JOptionPane.showMessageDialog(null, "No se ha podido conectar a la base de datos.","ConexiÃ³n BBDD", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, "No se ha podido conectar a la base de datos.","Conexion BBDD", JOptionPane.ERROR_MESSAGE);
 			}
 
 		} catch (ClassNotFoundException e) {
@@ -61,7 +61,7 @@ public class Conexion {
 		return conn;
 	}
 
-	public void desconectar() {
+	public void disconect() {
 		
 		instance = null;
 	}
