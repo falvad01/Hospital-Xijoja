@@ -4,9 +4,18 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 import javax.swing.JFrame;
 import javax.swing.JTextField;
+
+import com.sun.corba.se.spi.orbutil.fsm.Guard.Result;
+
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JButton;
 import javax.swing.JPasswordField;
@@ -25,6 +34,8 @@ public class LoginWindow extends JFrame {
 	JPanel loginPanel;
 	private JTextField loginUser;
 	private JPasswordField loginPassword;
+	
+	private Connection conn;
 
 	public LoginWindow() {
 		getContentPane().setBackground(Color.WHITE);
@@ -47,7 +58,7 @@ public class LoginWindow extends JFrame {
 
 	private void initComponents() throws IOException {
 		Conexion co= Conexion.getInstance();
-		co.getConnection();
+		conn = co.getConnection();
 		getContentPane().setLayout(null);
 		listener list = new listener();
 
@@ -126,7 +137,23 @@ public class LoginWindow extends JFrame {
 			if (arg0.getActionCommand().equals("Login")) {
 
 				System.out.println(loginPassword.getPassword());
+				
+				try {
+					Statement st = conn.createStatement();
+					String sql = "Select * from personal where usuario='"+loginUser.getText()+"' and contraseña= '"+loginPassword.getText().toString()+"'";
+					ResultSet rs = st.executeQuery(sql);
+					if(rs.next()) {
+						JOptionPane.showConfirmDialog(null, "Login correcto");
+					}else {
+						JOptionPane.showConfirmDialog(null, "Login incorracto");
+					}
 
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				
 			}
 		}
 	}
