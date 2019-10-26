@@ -138,6 +138,7 @@ public class LoginWindow extends JFrame {
 			if (arg0.getActionCommand().equals("Login")) {
 
 				System.out.println(loginPassword.getPassword());
+				
 				/*
 				try {
 					Statement st = conn.createStatement();
