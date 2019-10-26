@@ -57,12 +57,10 @@ public class Conexion {
 	}
 
 	public Connection getConnection() {
-		
 		return conn;
 	}
 
 	public void desconectar() {
-		
 		instance = null;
 	}
 }

@@ -155,6 +155,7 @@ public class LoginWindow extends JFrame {
 					e.printStackTrace();
 				}
 				*/
+				
 				try {
 					Statement st = conn.createStatement();
 					
