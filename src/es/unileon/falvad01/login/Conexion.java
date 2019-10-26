@@ -1,8 +1,6 @@
 package es.unileon.falvad01.login;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 
 import javax.swing.JOptionPane;
 
@@ -13,34 +11,34 @@ public class Conexion {
 	/*
 	 * Datos de BBDD en local
 	 */
-	private final String urlServerLocal = "jdbc:mysql://localhost:3306/sql7271929?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+	private final String urlServerLocal = "jdbc:mysql://localhost:3306/xijoja base de datos?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
 	private final String serverLocal = "localhost";
 	private final String userLocal = "root";
 	private final String passwordLocal = "";
 	
 	/*
-	 * Nombre de BBDD común a servidor y local
+	 * Nombre de BBDD comÃºn a servidor y local
 	 */
-	private final String databaseName = "sql7271929";
+	private final String databaseName = "xijoja base de datos";
 
 	private Conexion() {
 		try {
 			// obtenemos el driver de para mysql
-			Class.forName("com.mysql.cj.jdbc.Driver"); // com.mysql.cj.jdbc.Drivercom.mysql.jdbc.Driver is deprecated in
+			Class.forName("com.mysql.jdbc.Driver"); // com.mysql.cj.jdbc.Drivercom.mysql.jdbc.Driver is deprecated in
 														// new versions
-			// obtenemos la conexión
+			// obtenemos la conexiÃ³n
 			/*
-			 * Conexión para servidor BBDD remoto
+			 * ConexiÃ³n para servidor BBDD remoto
 			 */
 			//conn = DriverManager.getConnection(urlServer, user, password);
 			
 			/*
-			 * Conexión para BBDD local
+			 * ConexiÃ³n para BBDD local
 			 */
 			conn = DriverManager.getConnection(urlServerLocal, userLocal, passwordLocal);
 
 			if (conn == null) {
-				JOptionPane.showMessageDialog(null, "No se ha podido conectar a la base de datos.","Conexión BBDD", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, "No se ha podido conectar a la base de datos.","ConexiÃ³n BBDD", JOptionPane.ERROR_MESSAGE);
 			}
 
 		} catch (ClassNotFoundException e) {
@@ -66,3 +64,4 @@ public class Conexion {
 		instance = null;
 	}
 }
+
