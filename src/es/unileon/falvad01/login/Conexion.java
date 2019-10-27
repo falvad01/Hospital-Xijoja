@@ -16,25 +16,19 @@ public class Conexion {
 	private final String userLocal = "root";
 	private final String passwordLocal = "";
 	
-	/*
-	 * Nombre de BBDD comÃºn a servidor y local
+	/**
+	 * Nombre de la base de datos
 	 */
 	private final String databaseName = "xijoja base de datos";
 
+	/**
+	 * Constructor privado del singleton
+	 */
 	private Conexion() {
 		try {
 			// obtenemos el driver de para mysql
-			Class.forName("com.mysql.jdbc.Driver"); // com.mysql.cj.jdbc.Drivercom.mysql.jdbc.Driver is deprecated in
-														// new versions
-			// obtenemos la conexiÃ³n
-			/*
-			 * ConexiÃ³n para servidor BBDD remoto
-			 */
-			//conn = DriverManager.getConnection(urlServer, user, password);
+			Class.forName("com.mysql.jdbc.Driver"); 
 			
-			/*
-			 * ConexiÃ³n para BBDD local
-			 */
 			conn = DriverManager.getConnection(urlServerLocal, userLocal, passwordLocal);
 
 			if (conn == null) {
@@ -48,6 +42,10 @@ public class Conexion {
 		}
 	}
 	
+	/**
+	 * Obtenemos la instancia 
+	 * @return
+	 */
 	public synchronized static Conexion getInstance() {
 		
 		if(instance == null) {
@@ -56,11 +54,18 @@ public class Conexion {
 		return instance;
 	}
 
+	/**
+	 * Retornamos la conexion de la base de datos
+	 * @return
+	 */
 	public Connection getConnection() {
 		
 		return conn;
 	}
 
+	/**
+	 * Metodo para desconectar la conexion con la base de datos
+	 */
 	public void disconect() {
 		
 		instance = null;

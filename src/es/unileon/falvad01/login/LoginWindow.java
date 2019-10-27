@@ -137,18 +137,17 @@ public class LoginWindow extends JFrame {
 
 			if (arg0.getActionCommand().equals("Login")) {
 
-				System.out.println(loginPassword.getPassword());
+				
 
 				try {
 
 					Statement st = conn.createStatement();
 					String sql = "Select * from personal where usuario='" + loginUser.getText() + "' and contrasenia= '"
-							+ loginPassword.getText().toString() + "'";
+							+ loginPassword.getText().toString() + "'";//Sentencia para ller el usuario y contraseña de la base de datos
 
 					ResultSet rs = st.executeQuery(sql);
 
 					if (rs.next()) {
-						
 
 						String profession = rs.getString(8);// Obtenemos la profesion para abrir la ventana correcta
 						System.out.println(profession);
@@ -156,13 +155,11 @@ public class LoginWindow extends JFrame {
 						if (profession == "Medico") {
 
 						} else if (profession.equals("Administrador")) {
-							
-							AdminWindow window = new AdminWindow(rs);//Creamos la ventana del administrador y pasamos el statement
-							
+
+							AdminWindow window = new AdminWindow(rs);// Creamos la ventana del administrador y pasamos
+																		// el result set
 							window.setVisible(true);
 
-							
-							
 						} else if (profession == "Enfermero") {
 
 						} else if (profession == "Secreatario") {
@@ -173,26 +170,14 @@ public class LoginWindow extends JFrame {
 						}
 
 					} else {
-						JOptionPane.showConfirmDialog(null, "Login incorrecto");
+						JOptionPane.showMessageDialog(null, "Login incorrrecto.", "Login", JOptionPane.ERROR_MESSAGE);
 					}
-					
-					co.disconect();//Cerramos la conexion con la base de datos
+
+					co.disconect();// Cerramos la conexion con la base de datos
 
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
-
-				/*
-				 * try { Statement st = conn.createStatement();
-				 * 
-				 * String
-				 * sql="INSERT INTO personal (idTrabajador, Nombre, Apellido1, Apellido2, NIFNIE, FechaAlta, CuentaBancaria, Puesto, contraseña, usuario) VALUES(0, 'javier', 'alvarez', 'De la Mancha', '21345675C', '2019-10-25', 'ewrftyr657uyi', 'medico', '12345', 'root1')"
-				 * ;
-				 * 
-				 * st.executeUpdate(sql); System.out.println("se ha introducido una persona");
-				 * //co.desconectar(); } catch (SQLException e) { // TODO Auto-generated catch
-				 * block e.printStackTrace(); }
-				 */
 
 			}
 		}

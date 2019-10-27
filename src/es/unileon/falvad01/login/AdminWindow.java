@@ -4,26 +4,31 @@ import java.awt.Color;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Properties;
 
 import javax.swing.JFrame;
 import javax.swing.JButton;
 
 import javax.swing.JPanel;
 
-import com.sun.corba.se.spi.orbutil.fsm.State;
-
-import es.unileon.falvad01.login.LoginWindow.listener;
-
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.swing.DefaultComboBoxModel;
 
 public class AdminWindow extends JFrame {
@@ -42,7 +47,8 @@ public class AdminWindow extends JFrame {
 	private JTextField textFieldEmail;
 
 	private JLabel lblUsuario;
-	
+	private JLabel lblContrasea;
+
 	JComboBox comboBoxPuesto;
 
 	public AdminWindow(ResultSet rs) {
@@ -151,7 +157,7 @@ public class AdminWindow extends JFrame {
 		lblUsuario.setBounds(377, 159, 93, 23);
 		RegisterPanel.add(lblUsuario);
 
-		JLabel lblContrasea = new JLabel("Contraseña");
+		lblContrasea = new JLabel("Contraseña");
 		lblContrasea.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblContrasea.setBounds(480, 159, 90, 23);
 		RegisterPanel.add(lblContrasea);
@@ -168,6 +174,75 @@ public class AdminWindow extends JFrame {
 
 	}
 
+	
+	/**
+	 * Metodo para generar una contraseña aleatoria
+	 * @return
+	 */
+	private String randomPassword() {
+
+		String alphabet = "abcdefghijklmnopqrstuvwxyz1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+		StringBuilder password = new StringBuilder();
+
+		int i = 0;
+		while (i < 7) {
+			int rand = (int) ((Math.random() * ((61 - 0) + 1)));
+
+			password.append(alphabet.charAt(rand));
+
+			i++;
+		}
+
+		return password.toString();
+	}
+
+	/**
+	 * Metodo para enviar un correo a los empleados dados de alta
+	 * @param destinatario A quien le enviamos el correo
+	 * @param asunto       //Ausinto del correo
+	 * @param cuerpo       //Mensaje del correo
+	 * @throws IOException
+	 */
+	private void sendMail(String destinatario, String asunto, String cuerpo) throws IOException {
+		// Esto es lo que va delante de @gmail.com en tu cuenta de correo. Es el
+		// remitente también.
+		String remitente = "hospitalxijoja"; // Para la dirección nomcuenta@gmail.com
+
+		String cadena;
+		FileReader f = new FileReader("documents/password");// Leemos el archivo donde esta la contraseña del correo
+															// emisor
+		BufferedReader b = new BufferedReader(f);
+		while ((cadena = b.readLine()) != null) {
+			System.out.println(cadena);
+		}
+		b.close();
+		System.out.println(cadena);
+
+		Properties props = System.getProperties();
+		props.put("mail.smtp.host", "smtp.gmail.com"); // El servidor SMTP de Google
+		props.put("mail.smtp.user", remitente);
+		props.put("mail.smtp.clave", "patata24"); // La clave de la cuenta
+		props.put("mail.smtp.auth", "true"); // Usar autenticación mediante usuario y clave
+		props.put("mail.smtp.starttls.enable", "true"); // Para conectar de manera segura al servidor SMTP
+		props.put("mail.smtp.port", "587"); // El puerto SMTP seguro de Google
+
+		Session session = Session.getDefaultInstance(props);
+		MimeMessage message = new MimeMessage(session);
+
+		try {
+			message.setFrom(new InternetAddress(remitente));
+			message.addRecipients(Message.RecipientType.TO, destinatario);
+			message.setSubject(asunto);
+			message.setText(cuerpo);
+			Transport transport = session.getTransport("smtp");
+			transport.connect("smtp.gmail.com", remitente, "patata24");// Cambiar y pedir la contraseña del archivo
+			transport.sendMessage(message, message.getAllRecipients());
+			transport.close();
+		} catch (MessagingException me) {
+			me.printStackTrace();
+		}
+	}
+
 	public class listener implements ActionListener {
 
 		@Override
@@ -175,30 +250,25 @@ public class AdminWindow extends JFrame {
 
 			if (arg0.getActionCommand().equals("Generar usuario y contraseña")) {
 
-				StringBuilder sb = new StringBuilder();
-				System.out.println("1");
+				StringBuilder sb = new StringBuilder();//Formamos el nombre de usuario
 
-				sb.append(textFieldNombre.getText().charAt(0));
+				sb.append(textFieldNombre.getText().charAt(0));//Primera letra del nombre
 
 				String[] parts = textFieldApellidos.getText().split(" ");
 
-				System.out.println(parts[0]);
-				System.out.println(parts[1]);
-
 				for (int i = 0; i < 3; i++) {
-
-					sb.append(parts[0].charAt(i));
+					sb.append(parts[0].charAt(i));//Primeras 3 letras del primer apellido
 				}
-				for (int i = 0; i < 3; i++) {
 
-					sb.append(parts[1].charAt(i));
+				for (int i = 0; i < 3; i++) {
+					sb.append(parts[1].charAt(i));//Primeras 3 letras del segundo apellido
 				}
 
 				// TODO aniadir numeros al final de que nombre de usuario en caso de que se
 				// encuentre repetido
 
-				System.out.println("2");
 				lblUsuario.setText(sb.toString().toLowerCase());
+				lblContrasea.setText(randomPassword());//Creamos la contraseña aleatoriamente
 
 			} else if (arg0.getActionCommand().equals("Registrar")) {
 				System.out.println("se ha introducido una persona");
@@ -209,12 +279,25 @@ public class AdminWindow extends JFrame {
 
 				try {
 					Statement st = conn.createStatement();
-					//TODO para el id, hay que contar el numero de empleados y sumarle uno
-					String sql = "INSERT INTO personal (idTrabajador, Nombre, Apellido1, Apellido2, NIFNIE, FechaAlta, CuentaBancaria, Puesto, contrasenia, usuario, Email) VALUES(1, '" + textFieldNombre.getText()+"', '" + parts[0]+ "', '" + parts[1]+"', '" +textFieldNIFNIE.getText() +"', '2019-10-25', '" + textFieldCBancaria.getText()+"', '" +comboBoxPuesto.getSelectedItem() +"', '12345', '" + lblUsuario.getText() +"', '" +textFieldEmail.getText() + "')";
+					// TODO para el id, hay que contar el numero de empleados y sumarle uno
+					String sql = "INSERT INTO personal (idTrabajador, Nombre, Apellido1, Apellido2, NIFNIE, FechaAlta, CuentaBancaria, Puesto, contrasenia, usuario, Email) VALUES(1, '"
+							+ textFieldNombre.getText() + "', '" + parts[0] + "', '" + parts[1] + "', '"
+							+ textFieldNIFNIE.getText() + "', '2019-10-25', '" + textFieldCBancaria.getText() + "', '"
+							+ comboBoxPuesto.getSelectedItem() + "', '12345', '" + lblUsuario.getText() + "', '"
+							+ textFieldEmail.getText() + "')";
 
 					st.executeUpdate(sql);
 					System.out.println("se ha introducido una persona");
 					co.disconect();
+					// Mensaje a enviar por correo
+					String msn = "Saludos, ha entrado a formar parte de la plantilla del hospital Xijoja, de ladjuntamos el usuario y contraseña\n\n"
+							+ "Usuario: " + lblUsuario.getText() + "\n" + "Contraseña: " + lblContrasea.getText();
+					try {
+						sendMail(textFieldEmail.getText(), "Alta en hospital Xijoja", msn);
+					} catch (IOException e) {
+
+						e.printStackTrace();
+					}
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
