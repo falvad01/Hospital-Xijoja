@@ -5,8 +5,12 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -207,7 +211,8 @@ public class AdminWindow extends JFrame {
 		// Esto es lo que va delante de @gmail.com en tu cuenta de correo. Es el
 		// remitente también.
 		String remitente = "hospitalxijoja"; // Para la dirección nomcuenta@gmail.com
-
+		
+		/*
 		String cadena;
 		FileReader f = new FileReader("documents/password");// Leemos el archivo donde esta la contraseña del correo
 															// emisor
@@ -217,8 +222,20 @@ public class AdminWindow extends JFrame {
 		}
 		b.close();
 		System.out.println(cadena);
+*/		
 
+		
+		InputStream is = getClass().getResourceAsStream("/documents/password.txt"); //lee el fichero txt de contraseñas
+		BufferedReader br = new BufferedReader(new InputStreamReader(is));
+		String linea;
+		while ((linea = br.readLine()) != null) {
+			System.out.println(linea);
+		}
+		
+		
+		
 		Properties props = System.getProperties();
+		
 		props.put("mail.smtp.host", "smtp.gmail.com"); // El servidor SMTP de Google
 		props.put("mail.smtp.user", remitente);
 		props.put("mail.smtp.clave", "patata24"); // La clave de la cuenta
