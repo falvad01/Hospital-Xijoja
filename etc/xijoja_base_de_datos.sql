@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.1
+-- version 4.8.5
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 26-10-2019 a las 18:36:23
--- Versión del servidor: 10.4.8-MariaDB
--- Versión de PHP: 7.3.10
+-- Tiempo de generación: 30-10-2019 a las 11:38:14
+-- Versión del servidor: 10.1.38-MariaDB
+-- Versión de PHP: 7.3.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -29,7 +29,10 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `almacen` (
-  `idProducto` int(50) NOT NULL
+  `idProducto` int(50) NOT NULL,
+  `Cantidad` int(50) NOT NULL,
+  `Nombre` varchar(50) CHARACTER SET utf16 COLLATE utf16_spanish_ci NOT NULL,
+  `IteracionesSemana` int(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -39,7 +42,15 @@ CREATE TABLE `almacen` (
 --
 
 CREATE TABLE `pacientes` (
-  `idPaciente` int(50) NOT NULL
+  `idPaciente` int(50) NOT NULL,
+  `Nombre` varchar(50) CHARACTER SET ucs2 COLLATE ucs2_spanish_ci NOT NULL,
+  `Apellido1` varchar(50) CHARACTER SET ucs2 COLLATE ucs2_spanish_ci NOT NULL,
+  `Apellido2` varchar(50) CHARACTER SET ucs2 COLLATE ucs2_spanish_ci NOT NULL,
+  `NIFNIE` varchar(50) CHARACTER SET ucs2 COLLATE ucs2_spanish_ci NOT NULL,
+  `FechaBaja` date NOT NULL,
+  `Habitacion` int(50) NOT NULL,
+  `Enfermedad` int(50) NOT NULL,
+  `Medicamentos` int(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
