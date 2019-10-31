@@ -1,4 +1,4 @@
-package es.unileon.falvad01.login;
+package es.unileon.xijoja.hospital;
 
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;

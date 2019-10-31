@@ -1,39 +1,21 @@
-package es.unileon.falvad01.login;
+package es.unileon.xijoja.hospital;
 
 import java.awt.Color;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Properties;
-
 import javax.swing.JFrame;
 import javax.swing.JButton;
-
 import javax.swing.JPanel;
-
 import javax.swing.JLabel;
-
 import java.awt.Font;
 import javax.swing.JTextField;
-import javax.swing.plaf.synth.SynthSpinnerUI;
 import javax.swing.JComboBox;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
 import javax.swing.DefaultComboBoxModel;
 
 public class AdminWindow extends JFrame {
@@ -201,52 +183,6 @@ public class AdminWindow extends JFrame {
 		return password.toString();
 	}
 
-	/**
-	 * Metodo para enviar un correo a los empleados dados de alta
-	 * 
-	 * @param destinatario A quien le enviamos el correo
-	 * @param asunto       //Ausinto del correo
-	 * @param cuerpo       //Mensaje del correo
-	 * @throws IOException
-	 */
-	private void sendMail(String destinatario, String asunto, String cuerpo) throws IOException {
-		// Esto es lo que va delante de @gmail.com en tu cuenta de correo. Es el
-		// remitente también.
-		String remitente = "hospitalxijoja"; // Para la dirección nomcuenta@gmail.com
-/*
-		InputStream is = getClass().getResourceAsStream("/documents/password.txt"); // lee el fichero txt de contraseñas
-		BufferedReader br = new BufferedReader(new InputStreamReader(is));
-		String linea;
-		while ((linea = br.readLine()) != null) {
-			System.out.println(linea);
-		}
-	*/
-		Properties props = System.getProperties();
-
-		props.put("mail.smtp.host", "smtp.gmail.com"); // El servidor SMTP de Google
-		props.put("mail.smtp.user", remitente);
-		props.put("mail.smtp.clave", "patata24"); // La clave de la cuenta
-		props.put("mail.smtp.auth", "true"); // Usar autenticación mediante usuario y clave
-		props.put("mail.smtp.starttls.enable", "true"); // Para conectar de manera segura al servidor SMTP
-		props.put("mail.smtp.port", "587"); // El puerto SMTP seguro de Google
-
-		Session session = Session.getDefaultInstance(props);
-		MimeMessage message = new MimeMessage(session);
-
-		try {
-			message.setFrom(new InternetAddress(remitente));
-			message.addRecipients(Message.RecipientType.TO, destinatario);
-			message.setSubject(asunto);
-			message.setText(cuerpo);
-			Transport transport = session.getTransport("smtp");
-			transport.connect("smtp.gmail.com", remitente, "patata24");// Cambiar y pedir la contraseña del archivo
-			transport.sendMessage(message, message.getAllRecipients());
-			transport.close();
-		} catch (MessagingException me) {
-			me.printStackTrace();
-		}
-	}
-
 	public class listener implements ActionListener {
 
 		@Override
@@ -275,11 +211,8 @@ public class AdminWindow extends JFrame {
 				lblContrasea.setText(randomPassword());// Creamos la contraseña aleatoriamente
 
 			} else if (arg0.getActionCommand().equals("Registrar")) {
-				
-				
-				
-				
-				String[] parts = textFieldApellidos.getText().split(" ");//TODO poner apellidos en campos diferentes
+
+				String[] parts = textFieldApellidos.getText().split(" ");// TODO poner apellidos en campos diferentes
 				System.out.println(comboBoxPuesto.getSelectedItem());
 
 				/**
@@ -288,47 +221,52 @@ public class AdminWindow extends JFrame {
 				Conexion co = Conexion.getInstance();
 				Connection conn = co.getConnection();
 				try {
-					Statement st= conn.createStatement();
+					Statement st = conn.createStatement();
 					ResultSet rs = st.executeQuery("Select idTrabajador from personal");
-					
-				     int id = 0;   
-				     if(rs.last()){//Nos posicionamos al final
-				          id = rs.getRow();//sacamos la cantidad de filas/registros
-				     
-				     }   
 
-				     while (rs.next()) {
-				     //VOLCAR LOS DATOS
-				     }
-				     
-				     System.out.println("ID: " + id);
+					int id = 0;
+					if (rs.last()) {// Nos posicionamos al final
+						id = rs.getRow();// sacamos la cantidad de filas/registros
+
+					}
+
+					while (rs.next()) {
+						// VOLCAR LOS DATOS
+					}
+
+					System.out.println("ID: " + id);
 					/**
 					 * CONEXION PARA METER DATOS
 					 */
-				     co.disconect();
-				     
+					co.disconect();
+
 					Conexion co2 = Conexion.getInstance();
 					Connection conn2 = co2.getConnection();
-					Statement st2= conn2.createStatement();//TODO arreglar fecha
+					Statement st2 = conn2.createStatement();// TODO arreglar fecha
 					String sql = "INSERT INTO personal (idTrabajador, Nombre, Apellido1, Apellido2, NIFNIE, FechaAlta, CuentaBancaria, Puesto, contrasenia, usuario, Email) VALUES('"
 							+ id + "', '" + textFieldNombre.getText() + "', '" + parts[0] + "', '" + parts[1] + "', '"
 							+ textFieldNIFNIE.getText() + "', '2019-10-25', '" + textFieldCBancaria.getText() + "', '"
-							+ comboBoxPuesto.getSelectedItem() + "', '"+lblContrasea.getText()+"', '" + lblUsuario.getText() + "', '"
-							+ textFieldEmail.getText() + "')";
+							+ comboBoxPuesto.getSelectedItem() + "', '" + lblContrasea.getText() + "', '"
+							+ lblUsuario.getText() + "', '" + textFieldEmail.getText() + "')";
 
 					st2.executeUpdate(sql);
 					System.out.println("se ha introducido una persona");
-					co2.disconect();//Desconectamos la base de datos
-					
+					co2.disconect();// Desconectamos la base de datos
+
 					// Mensaje a enviar por correo
-					String msn = "Saludos " +textFieldNombre.getText() +" " +textFieldApellidos.getText() +", ha entrado a formar parte de la plantilla del hospital Xijoja, de ladjuntamos el usuario y contraseña\n\n"
+					String msn = "Saludos " + textFieldNombre.getText() + " " + textFieldApellidos.getText()
+							+ ", ha entrado a formar parte de la plantilla del hospital Xijoja, de ladjuntamos el usuario y contraseña\n\n"
 							+ "Usuario: " + lblUsuario.getText() + "\n" + "Contraseña: " + lblContrasea.getText();
+
+					Email mail = new Email(textFieldEmail.getText(),
+							"NO CONTESTAR A ESTE CORREO\\n\"+\"ALTA HOSPITAL XIJOJA", msn);
 					try {
-						sendMail(textFieldEmail.getText(), "NO CONTESTAR A ESTE CORREO\n"+"ALTA HOSPITAL XIJOJA", msn);
+						mail.send();// Enviamos el email
 					} catch (IOException e) {
 
 						e.printStackTrace();
 					}
+
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
