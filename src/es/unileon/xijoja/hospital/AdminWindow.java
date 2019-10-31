@@ -255,7 +255,7 @@ public class AdminWindow extends JFrame {
 
 					// Mensaje a enviar por correo
 					String msn = "Saludos " + textFieldNombre.getText() + " " + textFieldApellidos.getText()
-							+ ", ha entrado a formar parte de la plantilla del hospital Xijoja, de ladjuntamos el usuario y contraseña\n\n"
+							+ ", ha entrado a formar parte de la plantilla del hospital Xijoja, le adjuntamos el usuario y contraseña\n\n"
 							+ "Usuario: " + lblUsuario.getText() + "\n" + "Contraseña: " + lblContrasea.getText();
 
 					Email mail = new Email(textFieldEmail.getText(),
