@@ -26,6 +26,7 @@ import javax.swing.JLabel;
 
 import java.awt.Font;
 import javax.swing.JTextField;
+import javax.swing.plaf.synth.SynthSpinnerUI;
 import javax.swing.JComboBox;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -178,9 +179,9 @@ public class AdminWindow extends JFrame {
 
 	}
 
-	
 	/**
 	 * Metodo para generar una contraseña aleatoria
+	 * 
 	 * @return
 	 */
 	private String randomPassword() {
@@ -202,6 +203,7 @@ public class AdminWindow extends JFrame {
 
 	/**
 	 * Metodo para enviar un correo a los empleados dados de alta
+	 * 
 	 * @param destinatario A quien le enviamos el correo
 	 * @param asunto       //Ausinto del correo
 	 * @param cuerpo       //Mensaje del correo
@@ -211,31 +213,16 @@ public class AdminWindow extends JFrame {
 		// Esto es lo que va delante de @gmail.com en tu cuenta de correo. Es el
 		// remitente también.
 		String remitente = "hospitalxijoja"; // Para la dirección nomcuenta@gmail.com
-		
-		/*
-		String cadena;
-		FileReader f = new FileReader("documents/password");// Leemos el archivo donde esta la contraseña del correo
-															// emisor
-		BufferedReader b = new BufferedReader(f);
-		while ((cadena = b.readLine()) != null) {
-			System.out.println(cadena);
-		}
-		b.close();
-		System.out.println(cadena);
-*/		
-
-		
-		InputStream is = getClass().getResourceAsStream("/documents/password.txt"); //lee el fichero txt de contraseñas
+/*
+		InputStream is = getClass().getResourceAsStream("/documents/password.txt"); // lee el fichero txt de contraseñas
 		BufferedReader br = new BufferedReader(new InputStreamReader(is));
 		String linea;
 		while ((linea = br.readLine()) != null) {
 			System.out.println(linea);
 		}
-		
-		
-		
+	*/
 		Properties props = System.getProperties();
-		
+
 		props.put("mail.smtp.host", "smtp.gmail.com"); // El servidor SMTP de Google
 		props.put("mail.smtp.user", remitente);
 		props.put("mail.smtp.clave", "patata24"); // La clave de la cuenta
@@ -267,50 +254,77 @@ public class AdminWindow extends JFrame {
 
 			if (arg0.getActionCommand().equals("Generar usuario y contraseña")) {
 
-				StringBuilder sb = new StringBuilder();//Formamos el nombre de usuario
+				StringBuilder sb = new StringBuilder();// Formamos el nombre de usuario
 
-				sb.append(textFieldNombre.getText().charAt(0));//Primera letra del nombre
+				sb.append(textFieldNombre.getText().charAt(0));// Primera letra del nombre
 
 				String[] parts = textFieldApellidos.getText().split(" ");
 
 				for (int i = 0; i < 3; i++) {
-					sb.append(parts[0].charAt(i));//Primeras 3 letras del primer apellido
+					sb.append(parts[0].charAt(i));// Primeras 3 letras del primer apellido
 				}
 
 				for (int i = 0; i < 3; i++) {
-					sb.append(parts[1].charAt(i));//Primeras 3 letras del segundo apellido
+					sb.append(parts[1].charAt(i));// Primeras 3 letras del segundo apellido
 				}
 
 				// TODO aniadir numeros al final de que nombre de usuario en caso de que se
 				// encuentre repetido
 
 				lblUsuario.setText(sb.toString().toLowerCase());
-				lblContrasea.setText(randomPassword());//Creamos la contraseña aleatoriamente
+				lblContrasea.setText(randomPassword());// Creamos la contraseña aleatoriamente
 
 			} else if (arg0.getActionCommand().equals("Registrar")) {
-				System.out.println("se ha introducido una persona");
-				Conexion co = Conexion.getInstance();
-				Connection conn = co.getConnection();
-				String[] parts = textFieldApellidos.getText().split(" ");
+				
+				
+				
+				
+				String[] parts = textFieldApellidos.getText().split(" ");//TODO poner apellidos en campos diferentes
 				System.out.println(comboBoxPuesto.getSelectedItem());
 
+				/**
+				 * CONEXION PARA CONTAR DATOS
+				 */
+				Conexion co = Conexion.getInstance();
+				Connection conn = co.getConnection();
 				try {
-					Statement st = conn.createStatement();
-					// TODO para el id, hay que contar el numero de empleados y sumarle uno
-					String sql = "INSERT INTO personal (idTrabajador, Nombre, Apellido1, Apellido2, NIFNIE, FechaAlta, CuentaBancaria, Puesto, contrasenia, usuario, Email) VALUES(1, '"
-							+ textFieldNombre.getText() + "', '" + parts[0] + "', '" + parts[1] + "', '"
+					Statement st= conn.createStatement();
+					ResultSet rs = st.executeQuery("Select idTrabajador from personal");
+					
+				     int id = 0;   
+				     if(rs.last()){//Nos posicionamos al final
+				          id = rs.getRow();//sacamos la cantidad de filas/registros
+				     
+				     }   
+
+				     while (rs.next()) {
+				     //VOLCAR LOS DATOS
+				     }
+				     
+				     System.out.println("ID: " + id);
+					/**
+					 * CONEXION PARA METER DATOS
+					 */
+				     co.disconect();
+				     
+					Conexion co2 = Conexion.getInstance();
+					Connection conn2 = co2.getConnection();
+					Statement st2= conn2.createStatement();//TODO arreglar fecha
+					String sql = "INSERT INTO personal (idTrabajador, Nombre, Apellido1, Apellido2, NIFNIE, FechaAlta, CuentaBancaria, Puesto, contrasenia, usuario, Email) VALUES('"
+							+ id + "', '" + textFieldNombre.getText() + "', '" + parts[0] + "', '" + parts[1] + "', '"
 							+ textFieldNIFNIE.getText() + "', '2019-10-25', '" + textFieldCBancaria.getText() + "', '"
-							+ comboBoxPuesto.getSelectedItem() + "', '12345', '" + lblUsuario.getText() + "', '"
+							+ comboBoxPuesto.getSelectedItem() + "', '"+lblContrasea.getText()+"', '" + lblUsuario.getText() + "', '"
 							+ textFieldEmail.getText() + "')";
 
-					st.executeUpdate(sql);
+					st2.executeUpdate(sql);
 					System.out.println("se ha introducido una persona");
-					co.disconect();
+					co2.disconect();//Desconectamos la base de datos
+					
 					// Mensaje a enviar por correo
-					String msn = "Saludos, ha entrado a formar parte de la plantilla del hospital Xijoja, de ladjuntamos el usuario y contraseña\n\n"
+					String msn = "Saludos " +textFieldNombre.getText() +" " +textFieldApellidos.getText() +", ha entrado a formar parte de la plantilla del hospital Xijoja, de ladjuntamos el usuario y contraseña\n\n"
 							+ "Usuario: " + lblUsuario.getText() + "\n" + "Contraseña: " + lblContrasea.getText();
 					try {
-						sendMail(textFieldEmail.getText(), "Alta en hospital Xijoja", msn);
+						sendMail(textFieldEmail.getText(), "NO CONTESTAR A ESTE CORREO\n"+"ALTA HOSPITAL XIJOJA", msn);
 					} catch (IOException e) {
 
 						e.printStackTrace();

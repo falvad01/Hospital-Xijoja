@@ -152,7 +152,8 @@ public class LoginWindow extends JFrame {
 						String profession = rs.getString(8);// Obtenemos la profesion para abrir la ventana correcta
 						System.out.println(profession);
 
-						if (profession == "Medico") {
+						if (profession.equals("Medico")) {
+							JOptionPane.showMessageDialog(null, "SOY UN MEDICO.", "Login", JOptionPane.INFORMATION_MESSAGE);
 
 						} else if (profession.equals("Administrador")) {
 
@@ -160,9 +161,10 @@ public class LoginWindow extends JFrame {
 																		// el result set
 							window.setVisible(true);
 
-						} else if (profession == "Enfermero") {
-
-						} else if (profession == "Secreatario") {
+						} else if (profession.equals("Enfermero")) {
+							JOptionPane.showMessageDialog(null, "SOY UN ENFERMERO.", "Login", JOptionPane.INFORMATION_MESSAGE);
+						} else if (profession.equals("Secretario")) {
+							JOptionPane.showMessageDialog(null, "SOY UN SECRETARIO.", "Login", JOptionPane.INFORMATION_MESSAGE);
 
 						} else {
 							JOptionPane.showMessageDialog(null, "Profesion incorrecta.", "Conexion BBDD",
