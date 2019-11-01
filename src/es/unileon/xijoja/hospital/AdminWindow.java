@@ -6,9 +6,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Calendar;
 import javax.swing.JFrame;
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -52,7 +54,7 @@ public class AdminWindow extends JFrame {
 		try {
 			initComponents();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+
 			e.printStackTrace();
 		}
 	}
@@ -216,7 +218,7 @@ public class AdminWindow extends JFrame {
 				System.out.println(comboBoxPuesto.getSelectedItem());
 
 				/**
-				 * CONEXION PARA CONTAR DATOS
+				 * CONEXION BASE DE DATOS
 				 */
 				Conexion co = Conexion.getInstance();
 				Connection conn = co.getConnection();
@@ -234,24 +236,19 @@ public class AdminWindow extends JFrame {
 						// VOLCAR LOS DATOS
 					}
 
-					System.out.println("ID: " + id);
-					/**
-					 * CONEXION PARA METER DATOS
-					 */
-					co.disconect();
+					Date date = new Date(Calendar.getInstance().getTime().getTime());// Obtenemos la fecha actual en
+																						// formato para usarla en la
+																						// base de datos
 
-					Conexion co2 = Conexion.getInstance();
-					Connection conn2 = co2.getConnection();
-					Statement st2 = conn2.createStatement();// TODO arreglar fecha
 					String sql = "INSERT INTO personal (idTrabajador, Nombre, Apellido1, Apellido2, NIFNIE, FechaAlta, CuentaBancaria, Puesto, contrasenia, usuario, Email) VALUES('"
 							+ id + "', '" + textFieldNombre.getText() + "', '" + parts[0] + "', '" + parts[1] + "', '"
-							+ textFieldNIFNIE.getText() + "', '2019-10-25', '" + textFieldCBancaria.getText() + "', '"
+							+ textFieldNIFNIE.getText() + "', '" + date + "', '" + textFieldCBancaria.getText() + "', '"
 							+ comboBoxPuesto.getSelectedItem() + "', '" + lblContrasea.getText() + "', '"
 							+ lblUsuario.getText() + "', '" + textFieldEmail.getText() + "')";
 
-					st2.executeUpdate(sql);
+					st.executeUpdate(sql);
 					System.out.println("se ha introducido una persona");
-					co2.disconect();// Desconectamos la base de datos
+					co.disconect();// Desconectamos la base de datos
 
 					// Mensaje a enviar por correo
 					String msn = "Saludos " + textFieldNombre.getText() + " " + textFieldApellidos.getText()
@@ -259,7 +256,7 @@ public class AdminWindow extends JFrame {
 							+ "Usuario: " + lblUsuario.getText() + "\n" + "Contraseña: " + lblContrasea.getText();
 
 					Email mail = new Email(textFieldEmail.getText(),
-							"NO CONTESTAR A ESTE CORREO\\n\"+\"ALTA HOSPITAL XIJOJA", msn);
+							"NO CONTESTAR A ESTE CORREO\n" + "ALTA HOSPITAL XIJOJA", msn);
 					try {
 						mail.send();// Enviamos el email
 					} catch (IOException e) {
