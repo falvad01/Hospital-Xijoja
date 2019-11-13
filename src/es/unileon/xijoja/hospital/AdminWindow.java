@@ -20,14 +20,10 @@ import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 
+@SuppressWarnings("serial")
 public class AdminWindow extends JFrame {
 
 	Toolkit screen;
-
-	private static final int PWIDTH = 750;
-	private static final int PHEIGH = 348;
-
-	
 
 	private JTextField textFieldNombre;
 	private JTextField textFieldApellidos;
@@ -38,11 +34,13 @@ public class AdminWindow extends JFrame {
 	private JLabel lblUsuario;
 	private JLabel lblContrasea;
 
+	private PersonalDAO dao;
+
+	@SuppressWarnings("rawtypes")
 	JComboBox comboBoxPuesto;
 
 	public AdminWindow() {
 
-		
 		screen = Toolkit.getDefaultToolkit();
 
 		setBounds(1024 / 4, 768 / 6, 969, 809);
@@ -60,6 +58,8 @@ public class AdminWindow extends JFrame {
 	}
 
 	private void initComponents() throws SQLException {
+
+		dao = new PersonalDAO();
 
 		getContentPane().setBackground(Color.WHITE);
 		getContentPane().setLayout(null);
@@ -156,8 +156,6 @@ public class AdminWindow extends JFrame {
 		RegisterPanel.add(btnRegister);
 		btnRegister.addActionListener(list);
 
-		
-
 	}
 
 	/**
@@ -212,56 +210,20 @@ public class AdminWindow extends JFrame {
 			} else if (arg0.getActionCommand().equals("Registrar")) {
 
 				String[] parts = textFieldApellidos.getText().split(" ");// TODO poner apellidos en campos diferentes
-				System.out.println(comboBoxPuesto.getSelectedItem());
+				
 
-				/**
-				 * CONEXION BASE DE DATOS
-				 */
-				Conexion co = Conexion.getInstance();
-				Connection conn = co.getConnection();
+				
+
+				int id = dao.getLastID();
+
+				Date date = new Date(Calendar.getInstance().getTime().getTime());// Obtenemos la fecha actual en
+																					// formato para usarla en la
 				try {
-					Statement st = conn.createStatement();
-					ResultSet rs = st.executeQuery("Select idTrabajador from personal");
-
-					int id = 0;
-					if (rs.last()) {// Nos posicionamos al final
-						id = rs.getRow();// sacamos la cantidad de filas/registros
-
-					}
-
-					while (rs.next()) {
-						// VOLCAR LOS DATOS
-					}
-
-					Date date = new Date(Calendar.getInstance().getTime().getTime());// Obtenemos la fecha actual en
-																						// formato para usarla en la
-																						// base de datos
-
-					String sql = "INSERT INTO personal (idTrabajador, Nombre, Apellido1, Apellido2, NIFNIE, FechaAlta, CuentaBancaria, Puesto, contrasenia, usuario, Email) VALUES('"
-							+ id + "', '" + textFieldNombre.getText() + "', '" + parts[0] + "', '" + parts[1] + "', '"
-							+ textFieldNIFNIE.getText() + "', '" + date + "', '" + textFieldCBancaria.getText() + "', '"
-							+ comboBoxPuesto.getSelectedItem() + "', '" + lblContrasea.getText() + "', '"
-							+ lblUsuario.getText() + "', '" + textFieldEmail.getText() + "')";
-
-					st.executeUpdate(sql);
-					System.out.println("se ha introducido una persona");
-					co.disconect();// Desconectamos la base de datos
-
-					// Mensaje a enviar por correo
-					String msn = "Saludos " + textFieldNombre.getText() + " " + textFieldApellidos.getText()
-							+ ", ha entrado a formar parte de la plantilla del hospital Xijoja, le adjuntamos el usuario y contraseña\n\n"
-							+ "Usuario: " + lblUsuario.getText() + "\n" + "Contraseña: " + lblContrasea.getText();
-
-					Email mail = new Email(textFieldEmail.getText(),
-							"NO CONTESTAR A ESTE CORREO\n" + "ALTA HOSPITAL XIJOJA", msn);
-					try {
-						mail.send();// Enviamos el email
-					} catch (IOException e) {
-
-						e.printStackTrace();
-					}
-
+					dao.addUser(id, textFieldNombre.getText(), parts[0], parts[1], textFieldNIFNIE.getText(), date,
+							textFieldCBancaria.getText(), comboBoxPuesto.getSelectedItem(), lblContrasea.getText(),
+							lblUsuario.getText(), textFieldEmail.getText());
 				} catch (SQLException e) {
+
 					e.printStackTrace();
 				}
 
