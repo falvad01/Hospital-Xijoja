@@ -34,9 +34,7 @@ public class LoginWindow extends JFrame {
 	JPanel loginPanel;
 	private JTextField loginUser;
 	private JPasswordField loginPassword;
-
-	private Connection conn;
-	private Conexion co;
+	private PersonalDAO dao;
 
 	public LoginWindow() {
 		getContentPane().setBackground(Color.WHITE);
@@ -58,8 +56,9 @@ public class LoginWindow extends JFrame {
 	}
 
 	private void initComponents() throws IOException {
-		co = Conexion.getInstance();
-		conn = co.getConnection();
+
+		dao = new PersonalDAO();// LLamamos al patron
+
 		getContentPane().setLayout(null);
 		listener list = new listener();
 
@@ -137,48 +136,25 @@ public class LoginWindow extends JFrame {
 
 			if (arg0.getActionCommand().equals("Login")) {
 
-				
+				String profession = dao.getProfessionCorrectUser(loginUser.getText(),
+						loginPassword.getText().toString());
 
-				try {
+				if (profession.equals("Medico")) {
+					JOptionPane.showMessageDialog(null, "SOY UN MEDICO.", "Login", JOptionPane.INFORMATION_MESSAGE);
 
-					Statement st = conn.createStatement();
-					String sql = "Select * from personal where usuario='" + loginUser.getText() + "' and contrasenia= '"
-							+ loginPassword.getText().toString() + "'";//Sentencia para ller el usuario y contraseña de la base de datos
+				} else if (profession.equals("Administrador")) {
 
-					ResultSet rs = st.executeQuery(sql);
+					AdminWindow window = new AdminWindow();// Creamos la ventana del administrador 
+					window.setVisible(true);
 
-					if (rs.next()) {
+				} else if (profession.equals("Enfermero")) {
+					JOptionPane.showMessageDialog(null, "SOY UN ENFERMERO.", "Login", JOptionPane.INFORMATION_MESSAGE);
+				} else if (profession.equals("Secretario")) {
+					JOptionPane.showMessageDialog(null, "SOY UN SECRETARIO.", "Login", JOptionPane.INFORMATION_MESSAGE);
 
-						String profession = rs.getString(8);// Obtenemos la profesion para abrir la ventana correcta
-						System.out.println(profession);
-
-						if (profession.equals("Medico")) {
-							JOptionPane.showMessageDialog(null, "SOY UN MEDICO.", "Login", JOptionPane.INFORMATION_MESSAGE);
-
-						} else if (profession.equals("Administrador")) {
-
-							AdminWindow window = new AdminWindow(rs);// Creamos la ventana del administrador y pasamos
-																		// el result set
-							window.setVisible(true);
-
-						} else if (profession.equals("Enfermero")) {
-							JOptionPane.showMessageDialog(null, "SOY UN ENFERMERO.", "Login", JOptionPane.INFORMATION_MESSAGE);
-						} else if (profession.equals("Secretario")) {
-							JOptionPane.showMessageDialog(null, "SOY UN SECRETARIO.", "Login", JOptionPane.INFORMATION_MESSAGE);
-
-						} else {
-							JOptionPane.showMessageDialog(null, "Profesion incorrecta.", "Conexion BBDD",
-									JOptionPane.ERROR_MESSAGE);
-						}
-
-					} else {
-						JOptionPane.showMessageDialog(null, "Login incorrrecto.", "Login", JOptionPane.ERROR_MESSAGE);
-					}
-
-					co.disconect();// Cerramos la conexion con la base de datos
-
-				} catch (SQLException e) {
-					e.printStackTrace();
+				} else {
+					JOptionPane.showMessageDialog(null, "Profesion incorrecta.", "Conexion BBDD",
+							JOptionPane.ERROR_MESSAGE);
 				}
 
 			}

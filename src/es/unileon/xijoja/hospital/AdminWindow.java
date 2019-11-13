@@ -27,7 +27,7 @@ public class AdminWindow extends JFrame {
 	private static final int PWIDTH = 750;
 	private static final int PHEIGH = 348;
 
-	private ResultSet rs;
+	
 
 	private JTextField textFieldNombre;
 	private JTextField textFieldApellidos;
@@ -40,9 +40,9 @@ public class AdminWindow extends JFrame {
 
 	JComboBox comboBoxPuesto;
 
-	public AdminWindow(ResultSet rs) {
+	public AdminWindow() {
 
-		this.rs = rs;
+		
 		screen = Toolkit.getDefaultToolkit();
 
 		setBounds(1024 / 4, 768 / 6, 969, 809);
@@ -156,10 +156,7 @@ public class AdminWindow extends JFrame {
 		RegisterPanel.add(btnRegister);
 		btnRegister.addActionListener(list);
 
-		JLabel lbTitle = new JLabel("Administrador: " + this.rs.getString(2) + " " + this.rs.getString(3));
-		lbTitle.setBounds(272, 11, 671, 14);
-		getContentPane().add(lbTitle);
-		setBackground(Color.WHITE);
+		
 
 	}
 
