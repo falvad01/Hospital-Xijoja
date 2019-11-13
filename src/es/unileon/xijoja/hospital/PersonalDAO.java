@@ -53,7 +53,7 @@ public class PersonalDAO {
 					ret = "Secretario";
 
 				} else {// FAllo con la profesion
-					ret = null;
+					ret = "F";
 				}
 
 			} else {// Error en el login

@@ -212,8 +212,6 @@ public class AdminWindow extends JFrame {
 				String[] parts = textFieldApellidos.getText().split(" ");// TODO poner apellidos en campos diferentes
 				
 
-				
-
 				int id = dao.getLastID();
 
 				Date date = new Date(Calendar.getInstance().getTime().getTime());// Obtenemos la fecha actual en
