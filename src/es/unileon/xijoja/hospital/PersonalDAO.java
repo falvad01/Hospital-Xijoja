@@ -82,10 +82,13 @@ public class PersonalDAO {
 				ret = rs.getRow();// sacamos la cantidad de filas/registros
 
 			}
-
+			System.out.println("El id introducido es: " + id);
 			while (rs.next()) {
 				// VOLCAR LOS DATOS
 			}
+			
+			System.out.println("El id introducido es: " + id);
+
 
 		} catch (SQLException e) {
 
@@ -115,7 +118,7 @@ public class PersonalDAO {
 
 		co = Conexion.getInstance();
 		conn = co.getConnection();
-		System.out.println(bankAccount);
+
 		String sql = "INSERT INTO personal (idTrabajador, Nombre, Apellido1, Apellido2, NIFNIE, FechaAlta, CuentaBancaria, Puesto, contrasenia, usuario, Email) VALUES('"
 				+ id + "', '" + name + "', '" + surname1 + "', '" + surname2 + "', '" + NIE + "', '" + date + "', '"
 				+ bankAccount + "', '" + object + "', '" + password + "', '" + user + "', '" + email + "')";
@@ -140,6 +143,35 @@ public class PersonalDAO {
 
 		co.disconect();// Cerramos la conexion con la base de datos
 
+	}
+
+	public String[] getEmployee(int id) throws SQLException {
+
+		co = Conexion.getInstance();
+		conn = co.getConnection();
+
+		String sql = "SELECT * FROM personal WHERE IdTrabajador=" + id;
+		Statement st = conn.createStatement();
+		ResultSet rs = st.executeQuery(sql);
+		String[] ret = new String[12];
+		while (rs.next()) {
+			 ret[0] = rs.getString(1); // Si codigo es del tipo numérico en la BD debes usar getInt
+			 ret[1] = rs.getString(2);
+			 ret[2] = rs.getString(3);
+			 ret[3] = rs.getString(4);
+			 ret[4] = rs.getString(5);
+			 ret[5] = rs.getString(6);
+			 ret[6] = rs.getString(7);
+			 ret[7] = rs.getString(8);
+			 ret[8] = rs.getString(9);
+			 ret[9] = rs.getString(10);
+			 ret[10] = rs.getString(11);
+
+		}
+		for(int i = 0; i < ret.length; i++) {
+			System.out.println(ret[i]);
+		}
+		return ret;
 	}
 
 }

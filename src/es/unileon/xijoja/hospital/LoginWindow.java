@@ -110,6 +110,7 @@ public class LoginWindow extends JFrame {
 		lblPassword.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 11));
 		lblPassword.setBounds(23, 146, 90, 14);
 		loginPanel.add(lblPassword);
+		
 		JButton btnLogin = new JButton("Login");
 		btnLogin.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 11));
 		btnLogin.setBounds(125, 177, 73, 23);
@@ -129,7 +130,8 @@ public class LoginWindow extends JFrame {
 			if (arg0.getActionCommand().equals("Login")) {
 
 				String profession = dao.getProfessionCorrectUser(loginUser.getText(),
-						loginPassword.getText().toString());
+						loginPassword.getText().toString());// LLamamos al dao y en caso de que el login sea correcto
+															// recibimos la profesion, en caso contratio un null
 
 				if (profession == null) {
 					JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos.", "ERROR",
