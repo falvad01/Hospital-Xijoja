@@ -86,9 +86,8 @@ public class PersonalDAO {
 			while (rs.next()) {
 				// VOLCAR LOS DATOS
 			}
-			
-			System.out.println("El id introducido es: " + id);
 
+			System.out.println("El id introducido es: " + id);
 
 		} catch (SQLException e) {
 
@@ -132,19 +131,23 @@ public class PersonalDAO {
 		String msn = "Saludos " + name + " " + surname1 + surname2
 				+ ", ha entrado a formar parte de la plantilla del hospital Xijoja, le adjuntamos el usuario y contraseña\n\n"
 				+ "Usuario: " + user + "\n" + "Contraseña: " + password;
-
-		Email mail = new Email(email, "NO CONTESTAR A ESTE CORREO\n" + "ALTA HOSPITAL XIJOJA", msn);
-		try {
-			mail.send();// Enviamos el email
-		} catch (IOException e) {
-
-			e.printStackTrace();
-		}
-
+		/*
+		 * Email mail = new Email(email, "NO CONTESTAR A ESTE CORREO\n" +
+		 * "ALTA HOSPITAL XIJOJA", msn); try { mail.send();// Enviamos el email } catch
+		 * (IOException e) {
+		 * 
+		 * e.printStackTrace(); }
+		 */
 		co.disconect();// Cerramos la conexion con la base de datos
 
 	}
 
+	/**
+	 * 
+	 * @param id
+	 * @return
+	 * @throws SQLException
+	 */
 	public String[] getEmployee(int id) throws SQLException {
 
 		co = Conexion.getInstance();
@@ -153,24 +156,26 @@ public class PersonalDAO {
 		String sql = "SELECT * FROM personal WHERE IdTrabajador=" + id;
 		Statement st = conn.createStatement();
 		ResultSet rs = st.executeQuery(sql);
-		String[] ret = new String[12];
+		String[] ret = new String[11];
 		while (rs.next()) {
-			 ret[0] = rs.getString(1); // Si codigo es del tipo numérico en la BD debes usar getInt
-			 ret[1] = rs.getString(2);
-			 ret[2] = rs.getString(3);
-			 ret[3] = rs.getString(4);
-			 ret[4] = rs.getString(5);
-			 ret[5] = rs.getString(6);
-			 ret[6] = rs.getString(7);
-			 ret[7] = rs.getString(8);
-			 ret[8] = rs.getString(9);
-			 ret[9] = rs.getString(10);
-			 ret[10] = rs.getString(11);
+			ret[0] = rs.getString(1); // ID
+			ret[1] = rs.getString(2); // Nombre
+			ret[2] = rs.getString(3); // Apelllido1
+			ret[3] = rs.getString(4); // Apellido2
+			ret[4] = rs.getString(5); // NIE
+			ret[5] = rs.getString(6); // Fecha
+			ret[6] = rs.getString(7); // Cuenta bancaria
+			ret[7] = rs.getString(8); // Puesto
+			ret[8] = rs.getString(9); // Contrasenia
+			ret[9] = rs.getString(10); // Usuario
+			ret[10] = rs.getString(11);
 
 		}
-		for(int i = 0; i < ret.length; i++) {
+		for (int i = 0; i < ret.length; i++) {
 			System.out.println(ret[i]);
 		}
+
+		System.out.println("FIN");
 		return ret;
 	}
 

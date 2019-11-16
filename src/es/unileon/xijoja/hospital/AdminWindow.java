@@ -22,6 +22,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
+import javax.swing.JTable;
 
 @SuppressWarnings("serial")
 public class AdminWindow extends JFrame {
@@ -43,6 +44,7 @@ public class AdminWindow extends JFrame {
 	@SuppressWarnings("rawtypes")
 	JComboBox comboBoxPuesto;
 	private JTextField textField;
+	private JTable table;
 
 	public AdminWindow() {
 
@@ -88,18 +90,18 @@ public class AdminWindow extends JFrame {
 		btnNewButton.setBackground(new Color(255, 255, 255));
 		btnNewButton.setBounds(28, 33, 234, 57);
 		getContentPane().add(btnNewButton);
-		
-				JButton minButton = new JButton(new ImageIcon(LoginWindow.class.getResource("/resources/min.png")));
-				minButton.setBounds(918, 11, 15, 15);
-				getContentPane().add(minButton);
-				minButton.setBorder(null);
-				minButton.setBackground(null);
-				minButton.setOpaque(false);
-				minButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						setExtendedState(JFrame.CROSSHAIR_CURSOR);
-					}
-				});
+
+		JButton minButton = new JButton(new ImageIcon(LoginWindow.class.getResource("/resources/min.png")));
+		minButton.setBounds(918, 11, 15, 15);
+		getContentPane().add(minButton);
+		minButton.setBorder(null);
+		minButton.setBackground(null);
+		minButton.setOpaque(false);
+		minButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				setExtendedState(JFrame.CROSSHAIR_CURSOR);
+			}
+		});
 
 		JButton btnVerPlantilla = new JButton("Ver plantilla");
 		btnVerPlantilla.setBackground(Color.WHITE);
@@ -205,34 +207,44 @@ public class AdminWindow extends JFrame {
 		btnRegister.setOpaque(false);
 		btnRegister.setBounds(428, 264, 212, 47);
 		RegisterPanel.add(btnRegister);
-		
+
 		JLabel lblApellido = new JLabel("2º Apellido");
 		lblApellido.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblApellido.setBounds(10, 123, 80, 23);
 		RegisterPanel.add(lblApellido);
-		
+
 		textField = new JTextField();
 		textField.setColumns(10);
 		textField.setBounds(100, 126, 143, 20);
 		RegisterPanel.add(textField);
-		
+
+		String[] columnNames = { "Nombre", "Apellido" };
+		Object[][] data = { { " id", "", }, { " Nombre", "", }, { " Apellidos", "" }, { " NIE", "" }, { " Fecha", "" },
+				{ " Fecha", "" }, { " Cuanta Bancaria", "" }, { " Puesto", "" }, { " Contraseña", "" },
+				{ " Usuario", "" }, { " Mail", "" } };
+
+		table = new JTable(data, columnNames);
+		table.setRowSelectionAllowed(false);
+		table.setBounds(31, 266, 212, 194);
+		RegisterPanel.add(table);
+
 		JSeparator separator = new JSeparator();
 		separator.setForeground(Color.BLACK);
 		separator.setOrientation(SwingConstants.VERTICAL);
 		separator.setBounds(274, 11, 117, 474);
 		getContentPane().add(separator);
-		
+
 		JLabel iconLabel = new JLabel("New label");
 		iconLabel.setIcon(new ImageIcon(AdminWindow.class.getResource("/resources/iconAdmin.png")));
 		iconLabel.setBounds(10, 273, 252, 194);
 		getContentPane().add(iconLabel);
-		
+
 		JSeparator separator_1 = new JSeparator();
 		separator_1.setOrientation(SwingConstants.VERTICAL);
 		separator_1.setForeground(Color.BLACK);
 		separator_1.setBounds(10, 21, 61, 41);
 		getContentPane().add(separator_1);
-		
+
 		JSeparator separator_2 = new JSeparator();
 		separator_2.setForeground(Color.BLACK);
 		separator_2.setBounds(20, 11, 117, 41);
@@ -297,12 +309,30 @@ public class AdminWindow extends JFrame {
 				int id = dao.getLastID();
 
 				Date date = new Date(Calendar.getInstance().getTime().getTime());// Obtenemos la fecha actual en
-																					// formato para usarla en la
-				
+				String[] data;															// formato para usarla en la
 				try {
-					dao.getEmployee(dao.getLastID()-1);
-				} catch (SQLException e1) {
+					data = dao.getEmployee(dao.getLastID());
+					System.out.println("last ID: "+dao.getLastID());
+					table.setValueAt(data[0], 0, 1);
+					table.setValueAt(data[1], 1, 1);
+					table.setValueAt(data[2], 2, 1);
+					table.setValueAt(data[3], 3, 1);
+					table.setValueAt(data[4], 4, 1);
+					table.setValueAt(data[5], 5, 1);
+					table.setValueAt(data[6], 6, 1);
+					table.setValueAt(data[7], 7, 1);
+					table.setValueAt(data[8], 8, 1);
+					table.setValueAt(data[9], 9, 1);
+					table.setValueAt(data[10], 10, 1);
 					
+				} catch (SQLException e2) {
+					e2.printStackTrace();
+				}
+						
+				try {
+					dao.getEmployee(dao.getLastID() - 1);
+				} catch (SQLException e1) {
+
 					e1.printStackTrace();
 				}
 				try {
