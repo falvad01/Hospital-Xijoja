@@ -6,14 +6,23 @@ import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import javax.swing.JTextField;
 
+/**
+ * 
+ * @author Xijoja
+ *
+ */
 public class PersonalDAO {
 
 	private Connection conn;
 	private Conexion co;
-
+	
+	/**
+	 * 
+	 */
 	public PersonalDAO() {
 	}
 
@@ -67,7 +76,10 @@ public class PersonalDAO {
 		}
 		return ret;
 	}
-
+	/**
+	 * 
+	 * @return
+	 */
 	public int getLastID() {
 
 		co = Conexion.getInstance();
@@ -171,11 +183,29 @@ public class PersonalDAO {
 			ret[10] = rs.getString(11);
 
 		}
-		for (int i = 0; i < ret.length; i++) {
-			System.out.println(ret[i]);
-		}
 
-		System.out.println("FIN");
+		return ret;
+	}
+
+	/**
+	 * 
+	 * @return
+	 * @throws SQLException
+	 */
+	public String[] getNamesEmployees() throws SQLException {
+
+		co = Conexion.getInstance();
+		conn = co.getConnection();
+
+		String sql = "SELECT * FROM personal";
+		Statement st = conn.createStatement();
+		ResultSet rs = st.executeQuery(sql);
+		ArrayList<String> names = new ArrayList<String>();
+		while (rs.next()) {
+			names.add(rs.getString(2));
+			System.out.println("Name: " + rs.getString(2));
+		}
+		String[] ret = names.toArray(new String[names.size()]);
 		return ret;
 	}
 

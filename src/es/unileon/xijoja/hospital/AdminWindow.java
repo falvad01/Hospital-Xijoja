@@ -30,20 +30,20 @@ public class AdminWindow extends JFrame {
 	Toolkit screen;
 	private static final int PWIDTH = 969;
 	private static final int PHEIGH = 809;
-	private JTextField textFieldNombre;
-	private JTextField textFieldApellidos;
+	private JTextField textFieldName;
+	private JTextField textFieldSurname1;
 	private JTextField textFieldNIFNIE;
-	private JTextField textFieldCBancaria;
+	private JTextField textFieldBankAccount;
 	private JTextField textFieldEmail;
 
-	private JLabel lblUsuario;
-	private JLabel lblContrasea;
+	private JLabel lblUser;
+	private JLabel lblPassword;
 
 	private PersonalDAO dao;
 
 	@SuppressWarnings("rawtypes")
-	JComboBox comboBoxPuesto;
-	private JTextField textField;
+	JComboBox comboBoxJob;
+	private JTextField textFieldSurname2;
 	private JTable table;
 
 	public AdminWindow() {
@@ -132,15 +132,15 @@ public class AdminWindow extends JFrame {
 		lblApellidos.setBounds(10, 78, 80, 23);
 		RegisterPanel.add(lblApellidos);
 
-		textFieldNombre = new JTextField();
-		textFieldNombre.setBounds(100, 30, 143, 20);
-		RegisterPanel.add(textFieldNombre);
-		textFieldNombre.setColumns(10);
+		textFieldName = new JTextField();
+		textFieldName.setBounds(100, 30, 143, 20);
+		RegisterPanel.add(textFieldName);
+		textFieldName.setColumns(10);
 
-		textFieldApellidos = new JTextField();
-		textFieldApellidos.setBounds(100, 81, 143, 20);
-		RegisterPanel.add(textFieldApellidos);
-		textFieldApellidos.setColumns(10);
+		textFieldSurname1 = new JTextField();
+		textFieldSurname1.setBounds(100, 81, 143, 20);
+		RegisterPanel.add(textFieldSurname1);
+		textFieldSurname1.setColumns(10);
 
 		JLabel lblNifnie = new JLabel("NIF/NIE");
 		lblNifnie.setFont(new Font("Tahoma", Font.PLAIN, 15));
@@ -157,23 +157,23 @@ public class AdminWindow extends JFrame {
 		lblCuentaBancaria.setBounds(10, 215, 120, 23);
 		RegisterPanel.add(lblCuentaBancaria);
 
-		textFieldCBancaria = new JTextField();
-		textFieldCBancaria.setColumns(10);
-		textFieldCBancaria.setBounds(132, 218, 143, 20);
-		RegisterPanel.add(textFieldCBancaria);
+		textFieldBankAccount = new JTextField();
+		textFieldBankAccount.setColumns(10);
+		textFieldBankAccount.setBounds(132, 218, 143, 20);
+		RegisterPanel.add(textFieldBankAccount);
 
 		JLabel lblPuesto = new JLabel("Puesto");
 		lblPuesto.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblPuesto.setBounds(390, 27, 63, 23);
 		RegisterPanel.add(lblPuesto);
 
-		comboBoxPuesto = new JComboBox();
-		comboBoxPuesto.setBackground(Color.WHITE);
-		comboBoxPuesto.setModel(
+		comboBoxJob = new JComboBox();
+		comboBoxJob.setBackground(Color.WHITE);
+		comboBoxJob.setModel(
 				new DefaultComboBoxModel(new String[] { "Administrador\t", "Medico", "Enfermero", "Secretario" }));
-		comboBoxPuesto.setOpaque(false);
-		comboBoxPuesto.setBounds(450, 29, 133, 23);
-		RegisterPanel.add(comboBoxPuesto);
+		comboBoxJob.setOpaque(false);
+		comboBoxJob.setBounds(450, 29, 133, 23);
+		RegisterPanel.add(comboBoxJob);
 
 		JLabel lblEmail = new JLabel("Email");
 		lblEmail.setFont(new Font("Tahoma", Font.PLAIN, 15));
@@ -192,15 +192,15 @@ public class AdminWindow extends JFrame {
 		RegisterPanel.add(btnGenerate);
 		btnGenerate.addActionListener(list);
 
-		lblUsuario = new JLabel("Usuario");
-		lblUsuario.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblUsuario.setBounds(400, 159, 93, 23);
-		RegisterPanel.add(lblUsuario);
+		lblUser = new JLabel("Usuario");
+		lblUser.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblUser.setBounds(400, 159, 93, 23);
+		RegisterPanel.add(lblUser);
 
-		lblContrasea = new JLabel("Contraseña");
-		lblContrasea.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblContrasea.setBounds(503, 159, 90, 23);
-		RegisterPanel.add(lblContrasea);
+		lblPassword = new JLabel("Contraseña");
+		lblPassword.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblPassword.setBounds(503, 159, 90, 23);
+		RegisterPanel.add(lblPassword);
 
 		JButton btnRegister = new JButton("Registrar");
 		btnRegister.setBackground(Color.WHITE);
@@ -213,10 +213,10 @@ public class AdminWindow extends JFrame {
 		lblApellido.setBounds(10, 123, 80, 23);
 		RegisterPanel.add(lblApellido);
 
-		textField = new JTextField();
-		textField.setColumns(10);
-		textField.setBounds(100, 126, 143, 20);
-		RegisterPanel.add(textField);
+		textFieldSurname2 = new JTextField();
+		textFieldSurname2.setColumns(10);
+		textFieldSurname2.setBounds(100, 126, 143, 20);
+		RegisterPanel.add(textFieldSurname2);
 
 		String[] columnNames = { "Nombre", "Apellido" };
 		Object[][] data = { { " id", "", }, { " Nombre", "", }, { " Apellidos", "" }, { " NIE", "" }, { " Fecha", "" },
@@ -275,6 +275,11 @@ public class AdminWindow extends JFrame {
 		return password.toString();
 	}
 
+	/**
+	 * 
+	 * @author xijoja
+	 *
+	 */
 	public class listener implements ActionListener {
 
 		@Override
@@ -284,35 +289,56 @@ public class AdminWindow extends JFrame {
 
 				StringBuilder sb = new StringBuilder();// Formamos el nombre de usuario
 
-				sb.append(textFieldNombre.getText().charAt(0));// Primera letra del nombre
+				sb.append(textFieldName.getText().charAt(0));// Primera letra del nombre
 
-				String[] parts = textFieldApellidos.getText().split(" ");
-
-				for (int i = 0; i < 3; i++) {
-					sb.append(parts[0].charAt(i));// Primeras 3 letras del primer apellido
-				}
-
-				for (int i = 0; i < 3; i++) {
-					sb.append(parts[1].charAt(i));// Primeras 3 letras del segundo apellido
-				}
+				sb.append(textFieldSurname1.getText().charAt(0));
+				sb.append(textFieldSurname1.getText().charAt(1));// Dos primeras letras del primer apellido
+				sb.append(textFieldSurname2.getText().charAt(0));
+				sb.append(textFieldSurname2.getText().charAt(1));// Dos primeras letras del segundo apellido
 
 				// TODO aniadir numeros al final de que nombre de usuario en caso de que se
 				// encuentre repetido
 
-				lblUsuario.setText(sb.toString().toLowerCase());
-				lblContrasea.setText(randomPassword());// Creamos la contraseña aleatoriamente
+				String[] names = null;
+
+				try {
+					names = dao.getNamesEmployees();
+				} catch (SQLException e) {
+
+					e.printStackTrace();
+				}
+
+				sb.append("00");
+				String userName = sb.toString();
+//				//TODO NO FUNCIONA UNA PUTA MIERDA
+//				String[] u = userName.split("");
+//				System.out.println(u[0] + " asdasdasd  " + u[0]);
+//				
+//				for (int i = 0; i < names.length; i++) {
+//					
+//					if (sb.toString().equals(names[i])) {
+//
+//						//String[] u = userName.split("0");
+//
+//						//System.out.println(u[0] + " asdasdasd  " + u[1]);
+//
+//					}
+//				}
+
+				lblUser.setText(userName.toLowerCase());
+				lblPassword.setText(randomPassword());// Generamos la contraseña aleatoriamente
 
 			} else if (arg0.getActionCommand().equals("Registrar")) {
 
-				String[] parts = textFieldApellidos.getText().split(" ");// TODO poner apellidos en campos diferentes
+				String[] parts = textFieldSurname1.getText().split(" ");// TODO poner apellidos en campos diferentes
 
 				int id = dao.getLastID();
 
-				Date date = new Date(Calendar.getInstance().getTime().getTime());// Obtenemos la fecha actual en
-				String[] data;															// formato para usarla en la
+				Date date = new Date(Calendar.getInstance().getTime().getTime());// Obtenemos la fecha actual
+				String[] data; // formato para usarla en la
 				try {
 					data = dao.getEmployee(dao.getLastID());
-					System.out.println("last ID: "+dao.getLastID());
+					System.out.println("last ID: " + dao.getLastID());
 					table.setValueAt(data[0], 0, 1);
 					table.setValueAt(data[1], 1, 1);
 					table.setValueAt(data[2], 2, 1);
@@ -324,11 +350,11 @@ public class AdminWindow extends JFrame {
 					table.setValueAt(data[8], 8, 1);
 					table.setValueAt(data[9], 9, 1);
 					table.setValueAt(data[10], 10, 1);
-					
+
 				} catch (SQLException e2) {
 					e2.printStackTrace();
 				}
-						
+
 				try {
 					dao.getEmployee(dao.getLastID() - 1);
 				} catch (SQLException e1) {
@@ -336,9 +362,10 @@ public class AdminWindow extends JFrame {
 					e1.printStackTrace();
 				}
 				try {
-					dao.addUser(id, textFieldNombre.getText(), parts[0], parts[1], textFieldNIFNIE.getText(), date,
-							textFieldCBancaria.getText(), comboBoxPuesto.getSelectedItem(), lblContrasea.getText(),
-							lblUsuario.getText(), textFieldEmail.getText());
+					dao.addUser(id, textFieldName.getText(), textFieldSurname1.getText(), textFieldSurname2.getText(),
+							textFieldNIFNIE.getText(), date, textFieldBankAccount.getText(),
+							comboBoxJob.getSelectedItem(), lblPassword.getText(), lblUser.getText(),
+							textFieldEmail.getText());
 				} catch (SQLException e) {
 
 					e.printStackTrace();
