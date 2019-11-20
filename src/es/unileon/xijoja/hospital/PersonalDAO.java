@@ -202,11 +202,13 @@ public class PersonalDAO {
 		ResultSet rs = st.executeQuery(sql);
 		ArrayList<String> names = new ArrayList<String>();
 		while (rs.next()) {
-			names.add(rs.getString(2));
-			System.out.println("Name: " + rs.getString(2));
+			names.add(rs.getString(10));
+			System.out.println("Name: " + rs.getString(10));
 		}
 		String[] ret = names.toArray(new String[names.size()]);
+		co.disconect();
 		return ret;
 	}
+	
 
 }

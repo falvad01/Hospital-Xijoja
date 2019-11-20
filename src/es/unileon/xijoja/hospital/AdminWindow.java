@@ -24,6 +24,8 @@ import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
 import javax.swing.JTable;
 
+//TODO lanzar excepcion cuando algun cmapo este vacio
+//TODO xian calvo
 @SuppressWarnings("serial")
 public class AdminWindow extends JFrame {
 
@@ -287,17 +289,14 @@ public class AdminWindow extends JFrame {
 
 			if (arg0.getActionCommand().equals("Generar usuario y contraseña")) {
 
-				StringBuilder sb = new StringBuilder();// Formamos el nombre de usuario
+				StringBuilder sbName = new StringBuilder();// Formamos el nombre de usuario
 
-				sb.append(textFieldName.getText().charAt(0));// Primera letra del nombre
+				sbName.append(textFieldName.getText().charAt(0));// Primera letra del nombre
 
-				sb.append(textFieldSurname1.getText().charAt(0));
-				sb.append(textFieldSurname1.getText().charAt(1));// Dos primeras letras del primer apellido
-				sb.append(textFieldSurname2.getText().charAt(0));
-				sb.append(textFieldSurname2.getText().charAt(1));// Dos primeras letras del segundo apellido
-
-				// TODO aniadir numeros al final de que nombre de usuario en caso de que se
-				// encuentre repetido
+				sbName.append(textFieldSurname1.getText().charAt(0));
+				sbName.append(textFieldSurname1.getText().charAt(1));// Dos primeras letras del primer apellido
+				sbName.append(textFieldSurname2.getText().charAt(0));
+				sbName.append(textFieldSurname2.getText().charAt(1));// Dos primeras letras del segundo apellido
 
 				String[] names = null;
 
@@ -307,30 +306,32 @@ public class AdminWindow extends JFrame {
 
 					e.printStackTrace();
 				}
+				int numberOfUser = 0;
+				for (int i = 1; i < names.length; i++) {
 
-				sb.append("00");
-				String userName = sb.toString();
-//				//TODO NO FUNCIONA UNA PUTA MIERDA
-//				String[] u = userName.split("");
-//				System.out.println(u[0] + " asdasdasd  " + u[0]);
-//				
-//				for (int i = 0; i < names.length; i++) {
-//					
-//					if (sb.toString().equals(names[i])) {
-//
-//						//String[] u = userName.split("0");
-//
-//						//System.out.println(u[0] + " asdasdasd  " + u[1]);
-//
-//					}
-//				}
+					char[] nameBUffer = names[i].toCharArray();
+					char[] secondBuffer = new char[5];
 
-				lblUser.setText(userName.toLowerCase());
+					for (int j = 0; j < 5; j++) {
+						secondBuffer[j] = nameBUffer[j];// Quitamos los numero del nombre de usuario
+					}
+
+					if (String.valueOf(secondBuffer).equals(sbName.toString().toLowerCase())) {
+
+						numberOfUser++;// Contamos los ususarios con el mismo nombre y aniadimos un numero para que no
+										// se repita
+
+					}
+				}
+
+				sbName.append(numberOfUser);// Aniadimos el numero
+
+				
+
+				lblUser.setText(sbName.toString().toLowerCase());
 				lblPassword.setText(randomPassword());// Generamos la contraseña aleatoriamente
 
 			} else if (arg0.getActionCommand().equals("Registrar")) {
-
-				String[] parts = textFieldSurname1.getText().split(" ");// TODO poner apellidos en campos diferentes
 
 				int id = dao.getLastID();
 
