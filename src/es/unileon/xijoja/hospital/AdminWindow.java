@@ -26,8 +26,11 @@ import javax.swing.JTable;
 
 //TODO lanzar excepcion cuando algun cmapo este vacio
 //TODO xian calvo
+
 @SuppressWarnings("serial")
 public class AdminWindow extends JFrame {
+	
+	Logs archivo = new Logs(); //Instancia de la clase para utilizar sus metodos.
 
 	Toolkit screen;
 	private static final int PWIDTH = 969;
