@@ -30,7 +30,7 @@ import javax.swing.JTable;
 @SuppressWarnings("serial")
 public class AdminWindow extends JFrame {
 	
-	Logs archivo = new Logs(); //Instancia de la clase para utilizar sus metodos.
+	Logs archivo = new Logs(); //Instancia de la clase para utilizar sus metodos
 
 	Toolkit screen;
 	private static final int PWIDTH = 969;

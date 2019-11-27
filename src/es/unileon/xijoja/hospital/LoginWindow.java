@@ -27,7 +27,7 @@ public class LoginWindow extends JFrame {
 	private JTextField loginUser;
 	private JPasswordField loginPassword;
 	private PersonalDAO dao;
-	Logs archivo = new Logs(); //Instancia de la clase para utilizar sus metodos.
+	Logs archivo = new Logs(); //Instancia de la clase para utilizar sus metodos
 
 	public LoginWindow() {
 		getContentPane().setBackground(Color.WHITE);

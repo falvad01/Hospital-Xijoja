@@ -15,7 +15,7 @@ import javax.mail.internet.MimeMessage;
 
 public class Email {
 	
-	Logs archivo = new Logs(); //Instancia de la clase para utilizar sus metodos.
+	Logs archivo = new Logs(); //Instancia de la clase para utilizar sus metodos
 
 	private String addressee;
 	private String subject;

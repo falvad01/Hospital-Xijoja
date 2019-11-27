@@ -28,5 +28,6 @@ import java.util.Calendar;
 			archivo.close(); //Se cierra el archivo
 		}
 		
+		
 	}
 		//Fin del metodo InfoLog
