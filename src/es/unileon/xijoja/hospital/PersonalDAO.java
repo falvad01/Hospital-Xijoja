@@ -19,7 +19,7 @@ public class PersonalDAO {
 
 	private Connection conn;
 	private Conexion co;
-	
+
 	/**
 	 * 
 	 */
@@ -61,7 +61,7 @@ public class PersonalDAO {
 				} else if (profession.equals("Secretario")) {
 					ret = "Secretario";
 
-				} else {// FAllo con la profesion
+				} else {// Fallo con la profesion
 					ret = "F";
 				}
 
@@ -76,6 +76,7 @@ public class PersonalDAO {
 		}
 		return ret;
 	}
+
 	/**
 	 * 
 	 * @return
@@ -94,12 +95,10 @@ public class PersonalDAO {
 				ret = rs.getRow();// sacamos la cantidad de filas/registros
 
 			}
-			System.out.println("El id introducido es: " + id);
+
 			while (rs.next()) {
 				// VOLCAR LOS DATOS
 			}
-
-			System.out.println("El id introducido es: " + id);
 
 		} catch (SQLException e) {
 
@@ -118,21 +117,21 @@ public class PersonalDAO {
 	 * @param NIE
 	 * @param date
 	 * @param textFieldCBancaria
-	 * @param object
+	 * @param job
 	 * @param password
 	 * @param user
 	 * @param Email
 	 * @throws SQLException
 	 */
 	public void addUser(int id, String name, String surname1, String surname2, String NIE, Date date,
-			String bankAccount, Object object, String password, String user, String email) throws SQLException {
+			String bankAccount, String job, String password, String user, String email) throws SQLException {
 
 		co = Conexion.getInstance();
 		conn = co.getConnection();
 
 		String sql = "INSERT INTO personal (idTrabajador, Nombre, Apellido1, Apellido2, NIFNIE, FechaAlta, CuentaBancaria, Puesto, contrasenia, usuario, Email) VALUES('"
 				+ id + "', '" + name + "', '" + surname1 + "', '" + surname2 + "', '" + NIE + "', '" + date + "', '"
-				+ bankAccount + "', '" + object + "', '" + password + "', '" + user + "', '" + email + "')";
+				+ bankAccount + "', '" + job + "', '" + password + "', '" + user + "', '" + email + "')";
 
 		Statement st = conn.createStatement();
 		st.executeUpdate(sql);
@@ -164,7 +163,7 @@ public class PersonalDAO {
 
 		co = Conexion.getInstance();
 		conn = co.getConnection();
-
+		System.out.println("ID" + id);
 		String sql = "SELECT * FROM personal WHERE IdTrabajador=" + id;
 		Statement st = conn.createStatement();
 		ResultSet rs = st.executeQuery(sql);
@@ -183,7 +182,7 @@ public class PersonalDAO {
 			ret[10] = rs.getString(11);
 
 		}
-
+		co.disconect();// Cerramos la conexion con la base de datos
 		return ret;
 	}
 
@@ -203,12 +202,26 @@ public class PersonalDAO {
 		ArrayList<String> names = new ArrayList<String>();
 		while (rs.next()) {
 			names.add(rs.getString(10));
-			System.out.println("Name: " + rs.getString(10));
+
 		}
 		String[] ret = names.toArray(new String[names.size()]);
 		co.disconect();
 		return ret;
 	}
-	
+
+	public ArrayList<String[]> getAllEmployees() throws SQLException {
+
+		ArrayList<String[]> ret = new ArrayList<String[]>();
+
+		int lastId = this.getLastID();
+
+		for (int i = -1; i < lastId; i++) { //TODO no entiendo porque aqui es -1
+
+			ret.add(getEmployee(i));
+
+		}
+		
+		return ret;
+	}
 
 }

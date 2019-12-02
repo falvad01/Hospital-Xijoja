@@ -1,15 +1,13 @@
 package es.unileon.xijoja.hospital;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
-import java.sql.Connection;
 import java.sql.Date;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Calendar;
 import javax.swing.JFrame;
 import javax.swing.JButton;
@@ -23,18 +21,22 @@ import javax.swing.ImageIcon;
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
 import javax.swing.JTable;
+import javax.swing.border.BevelBorder;
 
 //TODO lanzar excepcion cuando algun cmapo este vacio
-//TODO xian calvo
+//TODO mostrar en tabla todos los empleados
+//TODO establecer limites de empleados y pacientes
 
 @SuppressWarnings("serial")
 public class AdminWindow extends JFrame {
-	
-	Logs archivo = new Logs(); //Instancia de la clase para utilizar sus metodos
+
+	Logs archivo = new Logs(); // Instancia de la clase para utilizar sus metodos
+
+	private JPanel seeEmployeesPanel;
+	private JPanel addEmployeePane;
 
 	Toolkit screen;
-	private static final int PWIDTH = 969;
-	private static final int PHEIGH = 809;
+	
 	private JTextField textFieldName;
 	private JTextField textFieldSurname1;
 	private JTextField textFieldNIFNIE;
@@ -46,10 +48,10 @@ public class AdminWindow extends JFrame {
 
 	private PersonalDAO dao;
 
-	@SuppressWarnings("rawtypes")
-	JComboBox comboBoxJob;
+	
+	JComboBox<Object> comboBoxJob;
 	private JTextField textFieldSurname2;
-	private JTable table;
+	
 
 	public AdminWindow() {
 
@@ -63,15 +65,15 @@ public class AdminWindow extends JFrame {
 
 		try {
 			initComponents();
+			initComponentsAddEmployeePanel();
 		} catch (SQLException e) {
 
 			e.printStackTrace();
 		}
+		dao = new PersonalDAO();
 	}
 
-	private void initComponents() throws SQLException {
-
-		dao = new PersonalDAO();
+	private void initComponents() {
 
 		getContentPane().setBackground(Color.WHITE);
 		getContentPane().setLayout(null);
@@ -90,12 +92,6 @@ public class AdminWindow extends JFrame {
 			}
 		});
 
-		JButton btnNewButton = new JButton("Añadir trabajador");
-		btnNewButton.setOpaque(false);
-		btnNewButton.setBackground(new Color(255, 255, 255));
-		btnNewButton.setBounds(28, 33, 234, 57);
-		getContentPane().add(btnNewButton);
-
 		JButton minButton = new JButton(new ImageIcon(LoginWindow.class.getResource("/resources/min.png")));
 		minButton.setBounds(918, 11, 15, 15);
 		getContentPane().add(minButton);
@@ -103,135 +99,32 @@ public class AdminWindow extends JFrame {
 		minButton.setBackground(null);
 		minButton.setOpaque(false);
 		minButton.addActionListener(new ActionListener() {
+			@SuppressWarnings("deprecation")
 			public void actionPerformed(ActionEvent e) {
 				setExtendedState(JFrame.CROSSHAIR_CURSOR);
 			}
 		});
+
+		JButton btnNewButton = new JButton("Añadir trabajador");
+		btnNewButton.setOpaque(false);
+		btnNewButton.setBackground(new Color(255, 255, 255));
+		btnNewButton.setBounds(28, 33, 234, 57);
+		getContentPane().add(btnNewButton);
+		btnNewButton.addActionListener(list);
 
 		JButton btnVerPlantilla = new JButton("Ver plantilla");
 		btnVerPlantilla.setBackground(Color.WHITE);
 		btnVerPlantilla.setOpaque(false);
 		btnVerPlantilla.setBounds(28, 113, 234, 57);
 		getContentPane().add(btnVerPlantilla);
+		btnVerPlantilla.addActionListener(list);
 
-		JButton btnDespedirUsuario = new JButton("Despedir usuario");
-		btnDespedirUsuario.setBackground(Color.WHITE);
-		btnDespedirUsuario.setOpaque(false);
-		btnDespedirUsuario.setBounds(28, 191, 234, 57);
-		getContentPane().add(btnDespedirUsuario);
-
-		JPanel RegisterPanel = new JPanel();
-		RegisterPanel.setForeground(Color.WHITE);
-		RegisterPanel.setBackground(Color.WHITE);
-		RegisterPanel.setBounds(284, 11, 650, 706);
-		getContentPane().add(RegisterPanel);
-		RegisterPanel.setLayout(null);
-
-		JLabel lblNombre = new JLabel("Nombre");
-		lblNombre.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblNombre.setBounds(10, 27, 63, 23);
-		RegisterPanel.add(lblNombre);
-
-		JLabel lblApellidos = new JLabel("1º Apellido");
-		lblApellidos.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblApellidos.setBounds(10, 78, 80, 23);
-		RegisterPanel.add(lblApellidos);
-
-		textFieldName = new JTextField();
-		textFieldName.setBounds(100, 30, 143, 20);
-		RegisterPanel.add(textFieldName);
-		textFieldName.setColumns(10);
-
-		textFieldSurname1 = new JTextField();
-		textFieldSurname1.setBounds(100, 81, 143, 20);
-		RegisterPanel.add(textFieldSurname1);
-		textFieldSurname1.setColumns(10);
-
-		JLabel lblNifnie = new JLabel("NIF/NIE");
-		lblNifnie.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblNifnie.setBounds(10, 170, 63, 23);
-		RegisterPanel.add(lblNifnie);
-
-		textFieldNIFNIE = new JTextField();
-		textFieldNIFNIE.setColumns(10);
-		textFieldNIFNIE.setBounds(100, 173, 143, 20);
-		RegisterPanel.add(textFieldNIFNIE);
-
-		JLabel lblCuentaBancaria = new JLabel("Cuenta bancaria");
-		lblCuentaBancaria.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblCuentaBancaria.setBounds(10, 215, 120, 23);
-		RegisterPanel.add(lblCuentaBancaria);
-
-		textFieldBankAccount = new JTextField();
-		textFieldBankAccount.setColumns(10);
-		textFieldBankAccount.setBounds(132, 218, 143, 20);
-		RegisterPanel.add(textFieldBankAccount);
-
-		JLabel lblPuesto = new JLabel("Puesto");
-		lblPuesto.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblPuesto.setBounds(390, 27, 63, 23);
-		RegisterPanel.add(lblPuesto);
-
-		comboBoxJob = new JComboBox();
-		comboBoxJob.setBackground(Color.WHITE);
-		comboBoxJob.setModel(
-				new DefaultComboBoxModel(new String[] { "Administrador\t", "Medico", "Enfermero", "Secretario" }));
-		comboBoxJob.setOpaque(false);
-		comboBoxJob.setBounds(450, 29, 133, 23);
-		RegisterPanel.add(comboBoxJob);
-
-		JLabel lblEmail = new JLabel("Email");
-		lblEmail.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblEmail.setBounds(390, 78, 63, 23);
-		RegisterPanel.add(lblEmail);
-
-		textFieldEmail = new JTextField();
-		textFieldEmail.setColumns(10);
-		textFieldEmail.setBounds(450, 81, 143, 20);
-		RegisterPanel.add(textFieldEmail);
-
-		JButton btnGenerate = new JButton("Generar usuario y contraseña");
-		btnGenerate.setBackground(Color.WHITE);
-		btnGenerate.setOpaque(false);
-		btnGenerate.setBounds(400, 125, 193, 23);
-		RegisterPanel.add(btnGenerate);
-		btnGenerate.addActionListener(list);
-
-		lblUser = new JLabel("Usuario");
-		lblUser.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblUser.setBounds(400, 159, 93, 23);
-		RegisterPanel.add(lblUser);
-
-		lblPassword = new JLabel("Contraseña");
-		lblPassword.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblPassword.setBounds(503, 159, 90, 23);
-		RegisterPanel.add(lblPassword);
-
-		JButton btnRegister = new JButton("Registrar");
-		btnRegister.setBackground(Color.WHITE);
-		btnRegister.setOpaque(false);
-		btnRegister.setBounds(428, 264, 212, 47);
-		RegisterPanel.add(btnRegister);
-
-		JLabel lblApellido = new JLabel("2º Apellido");
-		lblApellido.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblApellido.setBounds(10, 123, 80, 23);
-		RegisterPanel.add(lblApellido);
-
-		textFieldSurname2 = new JTextField();
-		textFieldSurname2.setColumns(10);
-		textFieldSurname2.setBounds(100, 126, 143, 20);
-		RegisterPanel.add(textFieldSurname2);
-
-		String[] columnNames = { "Nombre", "Apellido" };
-		Object[][] data = { { " id", "", }, { " Nombre", "", }, { " Apellidos", "" }, { " NIE", "" }, { " Fecha", "" },
-				{ " Fecha", "" }, { " Cuanta Bancaria", "" }, { " Puesto", "" }, { " Contraseña", "" },
-				{ " Usuario", "" }, { " Mail", "" } };
-
-		table = new JTable(data, columnNames);
-		table.setRowSelectionAllowed(false);
-		table.setBounds(31, 266, 212, 194);
-		RegisterPanel.add(table);
+		JButton btnFireEmployee = new JButton("Despedir trabajador");
+		btnFireEmployee.setBackground(Color.WHITE);
+		btnFireEmployee.setOpaque(false);
+		btnFireEmployee.setBounds(28, 191, 234, 57);
+		getContentPane().add(btnFireEmployee);
+		btnFireEmployee.addActionListener(list);
 
 		JSeparator separator = new JSeparator();
 		separator.setForeground(Color.BLACK);
@@ -254,9 +147,129 @@ public class AdminWindow extends JFrame {
 		separator_2.setForeground(Color.BLACK);
 		separator_2.setBounds(20, 11, 117, 41);
 		getContentPane().add(separator_2);
-		btnRegister.addActionListener(list);
 
 	}
+
+	private void initComponentsAddEmployeePanel() throws SQLException {
+
+		listener list = new listener();
+
+		seeEmployeesPanel = new JPanel();
+
+		seeEmployeesPanel.setLayout(null);
+		seeEmployeesPanel.setForeground(Color.WHITE);
+		seeEmployeesPanel.setBackground(Color.WHITE);
+		seeEmployeesPanel.setBounds(284, 11, 624, 450);
+		seeEmployeesPanel.setPreferredSize(new Dimension(630, 700));
+		seeEmployeesPanel.setVisible(false);
+		getContentPane().add(seeEmployeesPanel);
+
+		addEmployeePane = new JPanel();
+		addEmployeePane.setForeground(Color.WHITE);
+		addEmployeePane.setBackground(Color.WHITE);
+		addEmployeePane.setBounds(284, 11, 630, 450);
+		getContentPane().add(addEmployeePane);
+		addEmployeePane.setLayout(null);
+
+		JLabel lblNombre = new JLabel("Nombre");
+		lblNombre.setBounds(10, 27, 63, 23);
+		lblNombre.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		addEmployeePane.add(lblNombre);
+
+		JLabel lblApellidos = new JLabel("1º Apellido");
+		lblApellidos.setBounds(10, 78, 80, 23);
+		lblApellidos.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		addEmployeePane.add(lblApellidos);
+
+		textFieldName = new JTextField();
+		textFieldName.setBounds(100, 30, 143, 20);
+		addEmployeePane.add(textFieldName);
+		textFieldName.setColumns(10);
+
+		textFieldSurname1 = new JTextField();
+		textFieldSurname1.setBounds(100, 81, 143, 20);
+		addEmployeePane.add(textFieldSurname1);
+		textFieldSurname1.setColumns(10);
+
+		JLabel lblNifnie = new JLabel("NIF/NIE");
+		lblNifnie.setBounds(10, 170, 63, 23);
+		lblNifnie.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		addEmployeePane.add(lblNifnie);
+
+		textFieldNIFNIE = new JTextField();
+		textFieldNIFNIE.setBounds(100, 173, 143, 20);
+		textFieldNIFNIE.setColumns(10);
+		addEmployeePane.add(textFieldNIFNIE);
+
+		JLabel lblCuentaBancaria = new JLabel("Cuenta bancaria");
+		lblCuentaBancaria.setBounds(10, 215, 120, 23);
+		lblCuentaBancaria.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		addEmployeePane.add(lblCuentaBancaria);
+
+		textFieldBankAccount = new JTextField();
+		textFieldBankAccount.setBounds(132, 218, 143, 20);
+		textFieldBankAccount.setColumns(10);
+		addEmployeePane.add(textFieldBankAccount);
+
+		JLabel lblPuesto = new JLabel("Puesto");
+		lblPuesto.setBounds(390, 27, 63, 23);
+		lblPuesto.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		addEmployeePane.add(lblPuesto);
+
+		comboBoxJob = new JComboBox<Object>();
+		comboBoxJob.setBounds(450, 29, 133, 23);
+		comboBoxJob.setBackground(Color.WHITE);
+		comboBoxJob.setModel(
+				new DefaultComboBoxModel<Object>(new String[] { "Administrador\t", "Medico", "Enfermero", "Secretario" }));
+		comboBoxJob.setOpaque(false);
+		addEmployeePane.add(comboBoxJob);
+
+		JLabel lblEmail = new JLabel("Email");
+		lblEmail.setBounds(390, 78, 63, 23);
+		lblEmail.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		addEmployeePane.add(lblEmail);
+
+		textFieldEmail = new JTextField();
+		textFieldEmail.setBounds(450, 81, 143, 20);
+		textFieldEmail.setColumns(10);
+		addEmployeePane.add(textFieldEmail);
+
+		JButton btnGenerate = new JButton("Generar usuario y contraseña");
+		btnGenerate.setBounds(400, 125, 193, 23);
+		btnGenerate.setBackground(Color.WHITE);
+		btnGenerate.setOpaque(false);
+		addEmployeePane.add(btnGenerate);
+		btnGenerate.addActionListener(list);
+
+		lblUser = new JLabel("Usuario");
+		lblUser.setBounds(400, 159, 93, 23);
+		lblUser.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		addEmployeePane.add(lblUser);
+
+		lblPassword = new JLabel("Contraseña");
+		lblPassword.setBounds(503, 159, 90, 23);
+		lblPassword.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		addEmployeePane.add(lblPassword);
+
+		JButton btnRegister = new JButton("Registrar");
+		btnRegister.setBounds(390, 256, 212, 47);
+		btnRegister.setBackground(Color.WHITE);
+		btnRegister.setOpaque(false);
+		addEmployeePane.add(btnRegister);
+		btnRegister.addActionListener(list);
+
+		JLabel lblApellido = new JLabel("2º Apellido");
+		lblApellido.setBounds(10, 123, 80, 23);
+		lblApellido.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		addEmployeePane.add(lblApellido);
+
+		textFieldSurname2 = new JTextField();
+		textFieldSurname2.setBounds(100, 126, 143, 20);
+		textFieldSurname2.setColumns(10);
+		addEmployeePane.add(textFieldSurname2);
+
+	}
+
 
 	/**
 	 * Metodo para generar una contraseña aleatoria
@@ -329,8 +342,6 @@ public class AdminWindow extends JFrame {
 
 				sbName.append(numberOfUser);// Aniadimos el numero
 
-				
-
 				lblUser.setText(sbName.toString().toLowerCase());
 				lblPassword.setText(randomPassword());// Generamos la contraseña aleatoriamente
 
@@ -339,25 +350,6 @@ public class AdminWindow extends JFrame {
 				int id = dao.getLastID();
 
 				Date date = new Date(Calendar.getInstance().getTime().getTime());// Obtenemos la fecha actual
-				String[] data; // formato para usarla en la
-				try {
-					data = dao.getEmployee(dao.getLastID());
-					System.out.println("last ID: " + dao.getLastID());
-					table.setValueAt(data[0], 0, 1);
-					table.setValueAt(data[1], 1, 1);
-					table.setValueAt(data[2], 2, 1);
-					table.setValueAt(data[3], 3, 1);
-					table.setValueAt(data[4], 4, 1);
-					table.setValueAt(data[5], 5, 1);
-					table.setValueAt(data[6], 6, 1);
-					table.setValueAt(data[7], 7, 1);
-					table.setValueAt(data[8], 8, 1);
-					table.setValueAt(data[9], 9, 1);
-					table.setValueAt(data[10], 10, 1);
-
-				} catch (SQLException e2) {
-					e2.printStackTrace();
-				}
 
 				try {
 					dao.getEmployee(dao.getLastID() - 1);
@@ -368,12 +360,64 @@ public class AdminWindow extends JFrame {
 				try {
 					dao.addUser(id, textFieldName.getText(), textFieldSurname1.getText(), textFieldSurname2.getText(),
 							textFieldNIFNIE.getText(), date, textFieldBankAccount.getText(),
-							comboBoxJob.getSelectedItem(), lblPassword.getText(), lblUser.getText(),
+							comboBoxJob.getSelectedItem().toString(), lblPassword.getText(), lblUser.getText(),
 							textFieldEmail.getText());
 				} catch (SQLException e) {
 
 					e.printStackTrace();
 				}
+
+			} else if (arg0.getActionCommand().equals("Añadir trabajador")) {
+
+				seeEmployeesPanel.setVisible(false);
+				addEmployeePane.setVisible(true);
+
+			} else if (arg0.getActionCommand().equals("Ver plantilla")) {
+				seeEmployeesPanel.setVisible(true);
+				addEmployeePane.setVisible(false);
+
+				ArrayList<String[]> insert = null;
+
+				try {
+					String[] titles = new String[] { "  Id", "Nombre", "Apellido 1", "Apellido 2", "NIF", "Fecha",
+							"Cuenta Bancaria", "Puesto", "Contraseña", "Usuario", "Email" }; //Titulos de la tabla de los empreados
+					insert = dao.getAllEmployees();//ArrayList de Arrays
+					System.out.println("Size " + insert.size());
+					String[][] matrixToInsert = new String[insert.size() + 1][11];
+
+					for (int i = 0; i < insert.size(); i++) { //rellenamos la matriz que meteremos en la tabla a partir del ArrayList de arrays devuelto del DAO
+						for (int j = 0; j < 11; j++) {
+							if (i == 0) {
+
+								matrixToInsert[i][j] = titles[j];
+								System.out.println(matrixToInsert[0][j]);
+
+							} else {
+								matrixToInsert[i][j] = insert.get(i)[j];
+							}
+						}
+					}
+
+					for (int i = 0; i < matrixToInsert.length; i++) {
+						for (int j = 0; j < matrixToInsert[i].length; j++) {
+							System.out.print(matrixToInsert[i][j] + " "); // Imprime elemento
+						}
+						System.out.println(); // Imprime salto de línea
+					}
+
+					JTable employeesTable = new JTable(matrixToInsert, titles);
+					employeesTable.setCellSelectionEnabled(true);
+					employeesTable.setBounds(20, 20, 600, 456);
+					employeesTable.getColumnModel().getColumn(6).setPreferredWidth(110);
+					employeesTable.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(0, 0, 0), Color.BLACK, Color.BLACK, Color.BLACK));
+					employeesTable.setEnabled(false);
+					seeEmployeesPanel.add(employeesTable);
+
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+
+			} else if (arg0.getActionCommand().equals("Despedir trabajador")) {
 
 			}
 		}
