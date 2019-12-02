@@ -22,10 +22,13 @@ import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
 import javax.swing.JTable;
 import javax.swing.border.BevelBorder;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableModel;
 
 //TODO lanzar excepcion cuando algun cmapo este vacio
 //TODO mostrar en tabla todos los empleados
 //TODO establecer limites de empleados y pacientes
+//TODO saltar excepcion cuando se intente meter un nombre de usuario repetido
 
 @SuppressWarnings("serial")
 public class AdminWindow extends JFrame {
@@ -36,9 +39,10 @@ public class AdminWindow extends JFrame {
 	private JPanel addEmployeePane;
 
 	Toolkit screen;
-	
+
 	private JTextField textFieldName;
 	private JTextField textFieldSurname1;
+	private JTextField textFieldSurname2;
 	private JTextField textFieldNIFNIE;
 	private JTextField textFieldBankAccount;
 	private JTextField textFieldEmail;
@@ -48,10 +52,7 @@ public class AdminWindow extends JFrame {
 
 	private PersonalDAO dao;
 
-	
 	JComboBox<Object> comboBoxJob;
-	private JTextField textFieldSurname2;
-	
 
 	public AdminWindow() {
 
@@ -219,8 +220,8 @@ public class AdminWindow extends JFrame {
 		comboBoxJob = new JComboBox<Object>();
 		comboBoxJob.setBounds(450, 29, 133, 23);
 		comboBoxJob.setBackground(Color.WHITE);
-		comboBoxJob.setModel(
-				new DefaultComboBoxModel<Object>(new String[] { "Administrador\t", "Medico", "Enfermero", "Secretario" }));
+		comboBoxJob.setModel(new DefaultComboBoxModel<Object>(
+				new String[] { "Administrador\t", "Medico", "Enfermero", "Secretario" }));
 		comboBoxJob.setOpaque(false);
 		addEmployeePane.add(comboBoxJob);
 
@@ -269,7 +270,6 @@ public class AdminWindow extends JFrame {
 		addEmployeePane.add(textFieldSurname2);
 
 	}
-
 
 	/**
 	 * Metodo para generar una contraseña aleatoria
@@ -338,6 +338,7 @@ public class AdminWindow extends JFrame {
 										// se repita
 
 					}
+					System.out.println("NUMBER: " + numberOfUser);
 				}
 
 				sbName.append(numberOfUser);// Aniadimos el numero
@@ -378,19 +379,24 @@ public class AdminWindow extends JFrame {
 
 				ArrayList<String[]> insert = null;
 
-				try {
-					String[] titles = new String[] { "  Id", "Nombre", "Apellido 1", "Apellido 2", "NIF", "Fecha",
-							"Cuenta Bancaria", "Puesto", "Contraseña", "Usuario", "Email" }; //Titulos de la tabla de los empreados
-					insert = dao.getAllEmployees();//ArrayList de Arrays
-					System.out.println("Size " + insert.size());
-					String[][] matrixToInsert = new String[insert.size() + 1][11];
+				String[] titles = null;
 
-					for (int i = 0; i < insert.size(); i++) { //rellenamos la matriz que meteremos en la tabla a partir del ArrayList de arrays devuelto del DAO
+				String[][] matrixToInsert = null;
+
+				try {
+					titles = new String[] { "  Id", "Nombre", "Apellido 1", "Apellido 2", "NIF", "Fecha",
+							"Cuenta Bancaria", "Puesto", "Contraseña", "Usuario", "Email" }; // Titulos de la tabla de
+																								// los empreados
+					insert = dao.getAllEmployees();// ArrayList de Arrays
+					System.out.println("Size " + insert.size());
+					matrixToInsert = new String[insert.size() + 1][11];
+
+					for (int i = 0; i < insert.size(); i++) { // rellenamos la matriz que meteremos en la tabla a partir
+																// del ArrayList de arrays devuelto del DAO
 						for (int j = 0; j < 11; j++) {
 							if (i == 0) {
 
 								matrixToInsert[i][j] = titles[j];
-								System.out.println(matrixToInsert[0][j]);
 
 							} else {
 								matrixToInsert[i][j] = insert.get(i)[j];
@@ -405,18 +411,16 @@ public class AdminWindow extends JFrame {
 						System.out.println(); // Imprime salto de línea
 					}
 
-					JTable employeesTable = new JTable(matrixToInsert, titles);
-					employeesTable.setCellSelectionEnabled(true);
-					employeesTable.setBounds(20, 20, 600, 456);
-					employeesTable.getColumnModel().getColumn(6).setPreferredWidth(110);
-					employeesTable.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(0, 0, 0), Color.BLACK, Color.BLACK, Color.BLACK));
-					employeesTable.setEnabled(false);
-					seeEmployeesPanel.add(employeesTable);
-
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
 
+				//TODO hacer la tabla por el otro metodo
+				JTable employeesTable = new JTable(matrixToInsert, titles);
+				employeesTable.setBounds(20, 20, 600, 456);
+				seeEmployeesPanel.add(employeesTable);
+				
+				
 			} else if (arg0.getActionCommand().equals("Despedir trabajador")) {
 
 			}
