@@ -53,6 +53,8 @@ public class AdminWindow extends JFrame {
 	private PersonalDAO dao;
 
 	JComboBox<Object> comboBoxJob;
+	
+	private JButton btnVerPlantilla;
 
 	public AdminWindow() {
 
@@ -62,7 +64,7 @@ public class AdminWindow extends JFrame {
 
 		setUndecorated(true);
 
-		setTitle("Login");
+		setTitle("Administrador");
 
 		try {
 			initComponents();
@@ -113,7 +115,7 @@ public class AdminWindow extends JFrame {
 		getContentPane().add(btnNewButton);
 		btnNewButton.addActionListener(list);
 
-		JButton btnVerPlantilla = new JButton("Ver plantilla");
+		 btnVerPlantilla = new JButton("Ver plantilla");
 		btnVerPlantilla.setBackground(Color.WHITE);
 		btnVerPlantilla.setOpaque(false);
 		btnVerPlantilla.setBounds(28, 113, 234, 57);
@@ -372,11 +374,13 @@ public class AdminWindow extends JFrame {
 
 				seeEmployeesPanel.setVisible(false);
 				addEmployeePane.setVisible(true);
+				btnVerPlantilla.setText("Ver plantilla");
 
 			} else if (arg0.getActionCommand().equals("Ver plantilla")) {
 				seeEmployeesPanel.setVisible(true);
 				addEmployeePane.setVisible(false);
-
+				btnVerPlantilla.setText("Recargar");
+				
 				ArrayList<String[]> insert = null;
 
 				String[] titles = null;
@@ -386,7 +390,7 @@ public class AdminWindow extends JFrame {
 				try {
 					titles = new String[] { "  Id", "Nombre", "Apellido 1", "Apellido 2", "NIF", "Fecha",
 							"Cuenta Bancaria", "Puesto", "Contraseña", "Usuario", "Email" }; // Titulos de la tabla de
-																								// los empreados
+																								// los empleados
 					insert = dao.getAllEmployees();// ArrayList de Arrays
 					System.out.println("Size " + insert.size());
 					matrixToInsert = new String[insert.size() + 1][11];
@@ -404,23 +408,22 @@ public class AdminWindow extends JFrame {
 						}
 					}
 
-					for (int i = 0; i < matrixToInsert.length; i++) {
-						for (int j = 0; j < matrixToInsert[i].length; j++) {
-							System.out.print(matrixToInsert[i][j] + " "); // Imprime elemento
-						}
-						System.out.println(); // Imprime salto de línea
-					}
+					
 
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
 
-				//TODO hacer la tabla por el otro metodo
-				JTable employeesTable = new JTable(matrixToInsert, titles);
+				
+				JTable employeesTable = new JTable();
 				employeesTable.setBounds(20, 20, 600, 456);
 				seeEmployeesPanel.add(employeesTable);
 				
 				
+				DefaultTableModel tableModel = new DefaultTableModel(matrixToInsert,titles);
+				
+				employeesTable.setModel(tableModel);
+
 			} else if (arg0.getActionCommand().equals("Despedir trabajador")) {
 
 			}

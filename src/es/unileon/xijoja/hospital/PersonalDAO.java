@@ -163,7 +163,7 @@ public class PersonalDAO {
 
 		co = Conexion.getInstance();
 		conn = co.getConnection();
-		System.out.println("ID" + id);
+		
 		String sql = "SELECT * FROM personal WHERE IdTrabajador=" + id;
 		Statement st = conn.createStatement();
 		ResultSet rs = st.executeQuery(sql);
