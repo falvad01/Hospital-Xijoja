@@ -14,6 +14,8 @@ import javax.swing.JPasswordField;
 import javax.swing.ImageIcon;
 import java.awt.Color;
 import java.awt.Font;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class LoginWindow extends JFrame {
 
@@ -51,6 +53,8 @@ public class LoginWindow extends JFrame {
 	private void initComponents() throws IOException {
 
 		dao = new PersonalDAO();// LLamamos al patron
+		
+		archivo.InfoLog("log prueba");
 
 		getContentPane().setLayout(null);
 		listener list = new listener();
