@@ -79,7 +79,7 @@ public class PersonalDAO {
 
 	/**
 	 * 
-	 * @return
+	 * @return devuelve el ultimo id de la tabla
 	 */
 	public int getLastID() {
 
@@ -123,7 +123,7 @@ public class PersonalDAO {
 	 * @param Email
 	 * @throws SQLException
 	 */
-	public void addUser(int id, String name, String surname1, String surname2, String NIE, Date date,
+	public void addEmployee(int id, String name, String surname1, String surname2, String NIE, Date date,
 			String bankAccount, String job, String password, String user, String email) throws SQLException {
 
 		co = Conexion.getInstance();
@@ -202,6 +202,24 @@ public class PersonalDAO {
 		ArrayList<String> names = new ArrayList<String>();
 		while (rs.next()) {
 			names.add(rs.getString(10));
+
+		}
+		String[] ret = names.toArray(new String[names.size()]);
+		co.disconect();
+		return ret;
+	}
+	
+	public String[] getJobsEmployees() throws SQLException {
+
+		co = Conexion.getInstance();
+		conn = co.getConnection();
+
+		String sql = "SELECT * FROM personal";
+		Statement st = conn.createStatement();
+		ResultSet rs = st.executeQuery(sql);
+		ArrayList<String> names = new ArrayList<String>();
+		while (rs.next()) {
+			names.add(rs.getString(8));
 
 		}
 		String[] ret = names.toArray(new String[names.size()]);

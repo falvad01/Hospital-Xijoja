@@ -16,19 +16,17 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
+import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
+import javax.swing.border.TitledBorder;
 import javax.swing.JTable;
-import javax.swing.border.BevelBorder;
-import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.JProgressBar;
 
-//TODO lanzar excepcion cuando algun cmapo este vacio
-//TODO mostrar en tabla todos los empleados
 //TODO establecer limites de empleados y pacientes
-//TODO saltar excepcion cuando se intente meter un nombre de usuario repetido
 
 @SuppressWarnings("serial")
 public class AdminWindow extends JFrame {
@@ -49,12 +47,24 @@ public class AdminWindow extends JFrame {
 
 	private JLabel lblUser;
 	private JLabel lblPassword;
+	private JLabel lblError;
 
 	private PersonalDAO dao;
 
 	JComboBox<Object> comboBoxJob;
-	
+
 	private JButton btnVerPlantilla;
+
+	private JProgressBar totalProgressBar;
+	private JProgressBar nursePogressBar;
+	private JProgressBar SecreProgressBar;
+	private JProgressBar mediProgressBar;
+	private JProgressBar AdminprogressBar;
+	
+	private int numAdmin;
+	private int numDoc;
+	private int numNurse;
+	private int numSecre;
 
 	public AdminWindow() {
 
@@ -67,13 +77,15 @@ public class AdminWindow extends JFrame {
 		setTitle("Administrador");
 
 		try {
+			dao = new PersonalDAO();
 			initComponents();
 			initComponentsAddEmployeePanel();
+
 		} catch (SQLException e) {
 
 			e.printStackTrace();
 		}
-		dao = new PersonalDAO();
+
 	}
 
 	private void initComponents() {
@@ -115,7 +127,7 @@ public class AdminWindow extends JFrame {
 		getContentPane().add(btnNewButton);
 		btnNewButton.addActionListener(list);
 
-		 btnVerPlantilla = new JButton("Ver plantilla");
+		btnVerPlantilla = new JButton("Ver plantilla");
 		btnVerPlantilla.setBackground(Color.WHITE);
 		btnVerPlantilla.setOpaque(false);
 		btnVerPlantilla.setBounds(28, 113, 234, 57);
@@ -132,13 +144,8 @@ public class AdminWindow extends JFrame {
 		JSeparator separator = new JSeparator();
 		separator.setForeground(Color.BLACK);
 		separator.setOrientation(SwingConstants.VERTICAL);
-		separator.setBounds(274, 11, 117, 474);
+		separator.setBounds(274, 11, 24, 474);
 		getContentPane().add(separator);
-
-		JLabel iconLabel = new JLabel("New label");
-		iconLabel.setIcon(new ImageIcon(AdminWindow.class.getResource("/resources/iconAdmin.png")));
-		iconLabel.setBounds(10, 273, 252, 194);
-		getContentPane().add(iconLabel);
 
 		JSeparator separator_1 = new JSeparator();
 		separator_1.setOrientation(SwingConstants.VERTICAL);
@@ -150,6 +157,17 @@ public class AdminWindow extends JFrame {
 		separator_2.setForeground(Color.BLACK);
 		separator_2.setBounds(20, 11, 117, 41);
 		getContentPane().add(separator_2);
+
+		totalProgressBar = new JProgressBar();
+		totalProgressBar.setForeground(Color.GREEN);
+		totalProgressBar.setMaximum(30);
+		totalProgressBar.setBounds(116, 376, 146, 14);
+		getContentPane().add(totalProgressBar);
+		totalProgressBar.setValue(dao.getLastID());
+
+		JLabel lblTotal = new JLabel("TOTAL");
+		lblTotal.setBounds(28, 376, 46, 14);
+		getContentPane().add(lblTotal);
 
 	}
 
@@ -165,7 +183,6 @@ public class AdminWindow extends JFrame {
 		seeEmployeesPanel.setBounds(284, 11, 624, 450);
 		seeEmployeesPanel.setPreferredSize(new Dimension(630, 700));
 		seeEmployeesPanel.setVisible(false);
-		getContentPane().add(seeEmployeesPanel);
 
 		addEmployeePane = new JPanel();
 		addEmployeePane.setForeground(Color.WHITE);
@@ -233,29 +250,24 @@ public class AdminWindow extends JFrame {
 		addEmployeePane.add(lblEmail);
 
 		textFieldEmail = new JTextField();
-		textFieldEmail.setBounds(450, 81, 143, 20);
+		textFieldEmail.setBounds(450, 81, 133, 20);
 		textFieldEmail.setColumns(10);
 		addEmployeePane.add(textFieldEmail);
 
-		JButton btnGenerate = new JButton("Generar usuario y contraseña");
-		btnGenerate.setBounds(400, 125, 193, 23);
-		btnGenerate.setBackground(Color.WHITE);
-		btnGenerate.setOpaque(false);
-		addEmployeePane.add(btnGenerate);
-		btnGenerate.addActionListener(list);
-
-		lblUser = new JLabel("Usuario");
-		lblUser.setBounds(400, 159, 93, 23);
+		lblUser = new JLabel("");
+		lblUser.setBorder(new TitledBorder("Usuario"));
+		lblUser.setBounds(390, 123, 193, 41);
 		lblUser.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		addEmployeePane.add(lblUser);
 
-		lblPassword = new JLabel("Contraseña");
-		lblPassword.setBounds(503, 159, 90, 23);
+		lblPassword = new JLabel("");
+		lblPassword.setBorder(new TitledBorder("Constraseña"));
+		lblPassword.setBounds(390, 178, 193, 41);
 		lblPassword.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		addEmployeePane.add(lblPassword);
 
 		JButton btnRegister = new JButton("Registrar");
-		btnRegister.setBounds(390, 256, 212, 47);
+		btnRegister.setBounds(390, 260, 212, 47);
 		btnRegister.setBackground(Color.WHITE);
 		btnRegister.setOpaque(false);
 		addEmployeePane.add(btnRegister);
@@ -270,6 +282,61 @@ public class AdminWindow extends JFrame {
 		textFieldSurname2.setBounds(100, 126, 143, 20);
 		textFieldSurname2.setColumns(10);
 		addEmployeePane.add(textFieldSurname2);
+
+		lblError = new JLabel("");
+		lblError.setForeground(Color.RED);
+		lblError.setBounds(390, 241, 212, 14);
+		addEmployeePane.add(lblError);
+
+		JLabel iconLabel = new JLabel("New label");
+		iconLabel.setBounds(43, 245, 252, 194);
+		addEmployeePane.add(iconLabel);
+		iconLabel.setIcon(new ImageIcon(AdminWindow.class.getResource("/resources/iconAdmin.png")));
+		getContentPane().add(seeEmployeesPanel);
+
+		SecreProgressBar = new JProgressBar();
+		SecreProgressBar.setForeground(Color.GREEN);
+		SecreProgressBar.setValue(1);
+		SecreProgressBar.setMaximum(5);
+		SecreProgressBar.setBounds(116, 342, 146, 14);
+		getContentPane().add(SecreProgressBar);
+
+		nursePogressBar = new JProgressBar();
+		nursePogressBar.setForeground(Color.GREEN);
+		nursePogressBar.setValue(1);
+		nursePogressBar.setMaximum(13);
+		nursePogressBar.setBounds(116, 321, 146, 14);
+		getContentPane().add(nursePogressBar);
+
+		mediProgressBar = new JProgressBar();
+		mediProgressBar.setForeground(Color.GREEN);
+		mediProgressBar.setValue(1);
+		mediProgressBar.setMaximum(10);
+		mediProgressBar.setBounds(116, 299, 146, 14);
+		getContentPane().add(mediProgressBar);
+
+		AdminprogressBar = new JProgressBar();
+		AdminprogressBar.setForeground(Color.GREEN);
+		AdminprogressBar.setValue(1);
+		AdminprogressBar.setMaximum(2);
+		AdminprogressBar.setBounds(116, 276, 146, 14);
+		getContentPane().add(AdminprogressBar);
+
+		JLabel lblAdministrador = new JLabel("Administrador");
+		lblAdministrador.setBounds(28, 276, 78, 14);
+		getContentPane().add(lblAdministrador);
+
+		JLabel lblMedico = new JLabel("Medico");
+		lblMedico.setBounds(28, 299, 46, 14);
+		getContentPane().add(lblMedico);
+
+		JLabel lblEnfermero = new JLabel("Enfermero");
+		lblEnfermero.setBounds(28, 321, 61, 14);
+		getContentPane().add(lblEnfermero);
+
+		JLabel lblSecretario = new JLabel("Secretario");
+		lblSecretario.setBounds(28, 342, 61, 14);
+		getContentPane().add(lblSecretario);
 
 	}
 
@@ -294,6 +361,73 @@ public class AdminWindow extends JFrame {
 
 		return password.toString();
 	}
+	
+	private void setNumberEmployees() throws SQLException {
+		
+		String [] jobs = dao.getJobsEmployees();
+		
+		for (int i = 0; i < jobs.length; i++) {
+			
+			if(jobs[i].equals("Admnistrador")) {
+				numAdmin++;
+			}else if(jobs[i].equals("Medico")) {
+				numDoc++;
+			}else if(jobs[i].equals("Enfermero")){
+				numNurse++;
+			}else if(jobs[i].equals("Secretario")){
+				numSecre++;
+			}//TODO programando por aqui
+			
+			
+		}
+		
+		
+		
+	}
+
+	private void genUserAndPass() {
+
+		StringBuilder sbName = new StringBuilder();// Formamos el nombre de usuario
+
+		sbName.append(textFieldName.getText().charAt(0));// Primera letra del nombre
+
+		sbName.append(textFieldSurname1.getText().charAt(0));
+		sbName.append(textFieldSurname1.getText().charAt(1));// Dos primeras letras del primer apellido
+		sbName.append(textFieldSurname2.getText().charAt(0));
+		sbName.append(textFieldSurname2.getText().charAt(1));// Dos primeras letras del segundo apellido
+
+		String[] names = null;
+
+		try {
+			names = dao.getNamesEmployees();
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}
+		int numberOfUser = 0;
+		for (int i = 1; i < names.length; i++) {
+
+			char[] nameBUffer = names[i].toCharArray();
+			char[] secondBuffer = new char[5];
+
+			for (int j = 0; j < 5; j++) {
+				secondBuffer[j] = nameBUffer[j];// Quitamos los numero del nombre de usuario
+			}
+
+			if (String.valueOf(secondBuffer).equals(sbName.toString().toLowerCase())) {
+
+				numberOfUser++;// Contamos los ususarios con el mismo nombre y aniadimos un numero para que no
+								// se repita
+
+			}
+
+		}
+
+		sbName.append(numberOfUser);// Aniadimos el numero
+
+		lblUser.setText(sbName.toString().toLowerCase());
+		lblPassword.setText(randomPassword());// Generamos la contraseña aleatoriamente
+	}
 
 	/**
 	 * 
@@ -305,82 +439,60 @@ public class AdminWindow extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 
-			if (arg0.getActionCommand().equals("Generar usuario y contraseña")) {
+			if (arg0.getActionCommand().equals("Registrar")) {////////////////////////////////// REGISTRAR
 
-				StringBuilder sbName = new StringBuilder();// Formamos el nombre de usuario
+				boolean add = true;
 
-				sbName.append(textFieldName.getText().charAt(0));// Primera letra del nombre
+				if ((textFieldName.getText().equals("")) || (textFieldSurname1.getText().equals(""))
+						|| (textFieldSurname2.getText().equals("")) || (textFieldNIFNIE.getText().equals(""))
+						|| (textFieldBankAccount.getText().equals("")) || (textFieldEmail.getText().equals(""))) {// Comprobamos
+					// si algum
+					// campo esta
+					// vacio
 
-				sbName.append(textFieldSurname1.getText().charAt(0));
-				sbName.append(textFieldSurname1.getText().charAt(1));// Dos primeras letras del primer apellido
-				sbName.append(textFieldSurname2.getText().charAt(0));
-				sbName.append(textFieldSurname2.getText().charAt(1));// Dos primeras letras del segundo apellido
-
-				String[] names = null;
-
-				try {
-					names = dao.getNamesEmployees();
-				} catch (SQLException e) {
-
-					e.printStackTrace();
+					add = false;
+					lblError.setText("Hay campos vacios");
+				} else {
+					lblError.setText("");
 				}
-				int numberOfUser = 0;
-				for (int i = 1; i < names.length; i++) {
 
-					char[] nameBUffer = names[i].toCharArray();
-					char[] secondBuffer = new char[5];
+				if (add) {// Si da error no se añade el empleado
+					System.out.println("Correcto");
+					genUserAndPass();
+					int id = dao.getLastID();
 
-					for (int j = 0; j < 5; j++) {
-						secondBuffer[j] = nameBUffer[j];// Quitamos los numero del nombre de usuario
+					Date date = new Date(Calendar.getInstance().getTime().getTime());// Obtenemos la fecha actual
+
+					try {
+
+						dao.addEmployee(id, textFieldName.getText(), textFieldSurname1.getText(),
+								textFieldSurname2.getText(), textFieldNIFNIE.getText(), date,
+								textFieldBankAccount.getText(), comboBoxJob.getSelectedItem().toString(),
+								lblPassword.getText(), lblUser.getText(), textFieldEmail.getText());// LLamamos a la
+																									// funcion del DAO
+																									// que inserta el
+																									// empleado
+					} catch (SQLException e1) {
+
+						e1.printStackTrace();
 					}
 
-					if (String.valueOf(secondBuffer).equals(sbName.toString().toLowerCase())) {
-
-						numberOfUser++;// Contamos los ususarios con el mismo nombre y aniadimos un numero para que no
-										// se repita
-
-					}
-					System.out.println("NUMBER: " + numberOfUser);
+					totalProgressBar.setValue(dao.getLastID());
 				}
 
-				sbName.append(numberOfUser);// Aniadimos el numero
-
-				lblUser.setText(sbName.toString().toLowerCase());
-				lblPassword.setText(randomPassword());// Generamos la contraseña aleatoriamente
-
-			} else if (arg0.getActionCommand().equals("Registrar")) {
-
-				int id = dao.getLastID();
-
-				Date date = new Date(Calendar.getInstance().getTime().getTime());// Obtenemos la fecha actual
-
-				try {
-					dao.getEmployee(dao.getLastID() - 1);
-				} catch (SQLException e1) {
-
-					e1.printStackTrace();
-				}
-				try {
-					dao.addUser(id, textFieldName.getText(), textFieldSurname1.getText(), textFieldSurname2.getText(),
-							textFieldNIFNIE.getText(), date, textFieldBankAccount.getText(),
-							comboBoxJob.getSelectedItem().toString(), lblPassword.getText(), lblUser.getText(),
-							textFieldEmail.getText());
-				} catch (SQLException e) {
-
-					e.printStackTrace();
-				}
-
-			} else if (arg0.getActionCommand().equals("Añadir trabajador")) {
+			} else if (arg0.getActionCommand().equals("Añadir trabajador")) {///////////////////////////////// ADD
 
 				seeEmployeesPanel.setVisible(false);
 				addEmployeePane.setVisible(true);
 				btnVerPlantilla.setText("Ver plantilla");
 
-			} else if (arg0.getActionCommand().equals("Ver plantilla")) {
+			} else if ((arg0.getActionCommand().equals("Ver plantilla"))
+					|| (arg0.getActionCommand().equals("Recargar"))) {
+
 				seeEmployeesPanel.setVisible(true);
 				addEmployeePane.setVisible(false);
 				btnVerPlantilla.setText("Recargar");
-				
+
 				ArrayList<String[]> insert = null;
 
 				String[] titles = null;
@@ -408,20 +520,15 @@ public class AdminWindow extends JFrame {
 						}
 					}
 
-					
-
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
 
-				
 				JTable employeesTable = new JTable();
 				employeesTable.setBounds(20, 20, 600, 456);
 				seeEmployeesPanel.add(employeesTable);
-				
-				
-				DefaultTableModel tableModel = new DefaultTableModel(matrixToInsert,titles);
-				
+				System.out.println("VIVA DROTIUM");
+				DefaultTableModel tableModel = new DefaultTableModel(matrixToInsert, titles);
 				employeesTable.setModel(tableModel);
 
 			} else if (arg0.getActionCommand().equals("Despedir trabajador")) {
