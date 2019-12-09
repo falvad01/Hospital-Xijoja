@@ -25,6 +25,7 @@ import javax.swing.border.TitledBorder;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JProgressBar;
+import javax.swing.JScrollPane;
 
 //TODO establecer limites de empleados y pacientes
 
@@ -35,6 +36,7 @@ public class AdminWindow extends JFrame {
 
 	private JPanel seeEmployeesPanel;
 	private JPanel addEmployeePane;
+	private JScrollPane panelquebaja;
 
 	Toolkit screen;
 
@@ -177,12 +179,14 @@ public class AdminWindow extends JFrame {
 
 		seeEmployeesPanel = new JPanel();
 
+
 		seeEmployeesPanel.setLayout(null);
 		seeEmployeesPanel.setForeground(Color.WHITE);
 		seeEmployeesPanel.setBackground(Color.WHITE);
 		seeEmployeesPanel.setBounds(284, 11, 624, 450);
 		seeEmployeesPanel.setPreferredSize(new Dimension(630, 700));
 		seeEmployeesPanel.setVisible(false);
+		
 
 		addEmployeePane = new JPanel();
 		addEmployeePane.setForeground(Color.WHITE);
@@ -292,6 +296,7 @@ public class AdminWindow extends JFrame {
 		iconLabel.setBounds(43, 245, 252, 194);
 		addEmployeePane.add(iconLabel);
 		iconLabel.setIcon(new ImageIcon(AdminWindow.class.getResource("/resources/iconAdmin.png")));
+		
 		getContentPane().add(seeEmployeesPanel);
 
 		SecreProgressBar = new JProgressBar();
@@ -506,6 +511,8 @@ public class AdminWindow extends JFrame {
 					insert = dao.getAllEmployees();// ArrayList de Arrays
 					System.out.println("Size " + insert.size());
 					matrixToInsert = new String[insert.size() + 1][11];
+					seeEmployeesPanel.setPreferredSize(new Dimension( 624, 20+20*insert.size()));
+					seeEmployeesPanel.setBounds(284, 11, 624,  20+20*insert.size());
 
 					for (int i = 0; i < insert.size(); i++) { // rellenamos la matriz que meteremos en la tabla a partir
 																// del ArrayList de arrays devuelto del DAO
@@ -525,8 +532,20 @@ public class AdminWindow extends JFrame {
 				}
 
 				JTable employeesTable = new JTable();
-				employeesTable.setBounds(20, 20, 600, 456);
+				employeesTable.setBounds(20, 20, 600,  20+20*insert.size());
+			
+				employeesTable.setVisible(true);
 				seeEmployeesPanel.add(employeesTable);
+				
+				panelquebaja = new JScrollPane(seeEmployeesPanel);
+				
+				panelquebaja.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+				panelquebaja.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+				panelquebaja.setBounds(seeEmployeesPanel.getBounds());
+				System.out.println(panelquebaja.getBounds());
+				getContentPane().add(panelquebaja);
+				panelquebaja.setVisible(true);
+				
 				System.out.println("VIVA DROTIUM");
 				DefaultTableModel tableModel = new DefaultTableModel(matrixToInsert, titles);
 				employeesTable.setModel(tableModel);

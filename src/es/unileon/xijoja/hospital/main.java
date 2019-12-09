@@ -7,8 +7,8 @@ public class main {
 	public static void main(String[] args) {
 
 		// llamada al login
-		 LoginWindow window = new LoginWindow();
-		//AdminWindow window = new AdminWindow();// Creamos la ventana del administrador
+		 //LoginWindow window = new LoginWindow();
+		AdminWindow window = new AdminWindow();// Creamos la ventana del administrador
 
 		window.setVisible(true);
 
