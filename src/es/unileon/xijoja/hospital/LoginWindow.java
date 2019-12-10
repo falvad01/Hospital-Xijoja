@@ -156,7 +156,9 @@ public class LoginWindow extends JFrame {
 								JOptionPane.INFORMATION_MESSAGE);
 					} else if (profession.equals("Secretario")) {
 						JOptionPane.showMessageDialog(null, "SOY UN SECRETARIO.", "Login",
-								JOptionPane.INFORMATION_MESSAGE);
+						JOptionPane.INFORMATION_MESSAGE);
+						SecretarioWindow windowSecretario = new SecretarioWindow();// Creamos la ventana del administrador
+						windowSecretario.setVisible(true);
 
 					} else {
 						JOptionPane.showMessageDialog(null, "Profesion incorrecta.", "ERROR",
