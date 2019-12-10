@@ -95,6 +95,13 @@ public class SecretarioWindow extends JFrame {
  
     }
  
+    
+    /*
+     * TODO comprobar que se lanza desde loginwindow
+     * 
+     * 
+     * 
+     */
     private void initComponents() throws SQLException {
  
         getContentPane().setBackground(Color.WHITE);
@@ -343,7 +350,6 @@ public class SecretarioWindow extends JFrame {
         addEmployeePane.add(lblFecha);
  
         
-        //TODO cambiar text field, aqui y abajo
         
         textFieldHabitacion = new JTextField();
         textFieldHabitacion.setBounds(470, 30, 103, 20);
