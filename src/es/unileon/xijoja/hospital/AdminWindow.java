@@ -85,7 +85,6 @@ public class AdminWindow extends JFrame {
 	private JLabel label_5;
 	private JTextField textFieldEmailEdit;
 	private JLabel labelUserNameEdit;
-	private JLabel labelPasswordEdit;
 	private JButton button;
 	private JLabel lblApellido_2;
 	private JTextField textFieldSurname2Edit;
@@ -225,7 +224,7 @@ public class AdminWindow extends JFrame {
 		seeEmployeesPanel.setBounds(284, 11, 624, 450);
 		seeEmployeesPanel.setPreferredSize(new Dimension(630, 700));
 		seeEmployeesPanel.setVisible(false);
-		//-----------------------------------------------PANEL EDITAR EMPLEADOS-----------------------------------------//
+// -----------------------------------------------PANEL EDITAR EMPLEADOS-------------------------------------//
 		editEmployeesPanel = new JPanel();
 		editEmployeesPanel.setBounds(278, 11, 630, 450);
 		getContentPane().add(editEmployeesPanel);
@@ -286,6 +285,8 @@ public class AdminWindow extends JFrame {
 		comboBoxJobEdit = new JComboBox<Object>();
 		comboBoxJobEdit.setEnabled(false);
 		comboBoxJobEdit.setOpaque(false);
+		comboBoxJobEdit.setModel(new DefaultComboBoxModel<Object>(
+				new String[] { "Administrador", "Medico", "Enfermero", "Secretario" }));
 		comboBoxJobEdit.setBackground(Color.WHITE);
 		comboBoxJobEdit.setBounds(450, 76, 133, 23);
 		editEmployeesPanel.add(comboBoxJobEdit);
@@ -304,20 +305,14 @@ public class AdminWindow extends JFrame {
 		labelUserNameEdit = new JLabel("");
 		labelUserNameEdit.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		labelUserNameEdit.setBorder(new TitledBorder("Usuario"));
-		labelUserNameEdit.setBounds(390, 170, 193, 41);
+		labelUserNameEdit.setBounds(390, 173, 193, 41);
 		editEmployeesPanel.add(labelUserNameEdit);
-
-		labelPasswordEdit = new JLabel("");
-		labelPasswordEdit.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		labelPasswordEdit.setBorder(new TitledBorder("Constraseña"));
-		labelPasswordEdit.setBounds(390, 225, 193, 41);
-		editEmployeesPanel.add(labelPasswordEdit);
 
 		button = new JButton("Registrar");
 		button.setEnabled(false);
 		button.setOpaque(false);
 		button.setBackground(Color.WHITE);
-		button.setBounds(390, 307, 212, 47);
+		button.setBounds(390, 252, 212, 47);
 		editEmployeesPanel.add(button);
 
 		lblApellido_2 = new JLabel("2º Apellido");
@@ -361,7 +356,7 @@ public class AdminWindow extends JFrame {
 		btnNewButton_1.setBounds(362, 11, 89, 23);
 		editEmployeesPanel.add(btnNewButton_1);
 
-		//-----------------------------------------------PANEL AÑADIR EMPLEADOS-----------------------------------------//
+// -----------------------------------------------PANEL AÑADIR EMPLEADOS-----------------------------------------//
 
 		addEmployeePane = new JPanel();
 		addEmployeePane.setForeground(Color.WHITE);
@@ -504,7 +499,7 @@ public class AdminWindow extends JFrame {
 			} else if (jobs[i].equals("Secretario")) {
 				numSecre++;
 				System.out.println(jobs[i]);
-			} 
+			}
 
 		}
 
@@ -764,8 +759,9 @@ public class AdminWindow extends JFrame {
 					textFieldSurname2Edit.setText(employee[3]);
 					textFieldDNIEdit.setText(employee[4]);
 					textFieldBankEdit.setText(employee[6]);
-					//TODO poner aqui el puesto a editar
+					comboBoxJobEdit.setSelectedItem(employee[7]);
 					textFieldEmailEdit.setText(employee[10]);
+					labelUserNameEdit.setText(employee[9]);
 
 				} else {
 
