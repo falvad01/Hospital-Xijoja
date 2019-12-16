@@ -19,7 +19,7 @@ import java.awt.Font;
 public class LoginWindow extends JFrame {
 
 	Toolkit screen;
-
+	
 	private static final int PWIDTH = 750;
 	private static final int PHEIGH = 348;
 
@@ -28,9 +28,11 @@ public class LoginWindow extends JFrame {
 	private JTextField loginUser;
 	private JPasswordField loginPassword;
 	private PersonalDAO dao;
-	Logs archivo = new Logs(); //Instancia de la clase para utilizar sus metodos
+	private Logs log = new Logs(); 
 
-	public LoginWindow() {
+	public LoginWindow() throws IOException {
+		
+		log.InfoLog("SE INICIA LA PANTALLA DE LOGIN");
 		getContentPane().setBackground(Color.WHITE);
 		setBackground(Color.WHITE);
 
@@ -53,7 +55,7 @@ public class LoginWindow extends JFrame {
 
 		dao = new PersonalDAO();// LLamamos al patron
 		
-		archivo.InfoLog("log prueba");
+		
 
 		getContentPane().setLayout(null);
 		listener list = new listener();
@@ -135,33 +137,38 @@ public class LoginWindow extends JFrame {
 
 			if (arg0.getActionCommand().equals("Login")) {
 
-				String profession = dao.getProfessionCorrectUser(loginUser.getText(),
+				String job = dao.getProfessionCorrectUser(loginUser.getText(),
 						loginPassword.getText().toString());// LLamamos al dao y en caso de que el login sea correcto
 															// recibimos la profesion, en caso contratio un null
 
-				if (profession == null) {
+				if (job == null) {
 					JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos.", "ERROR",
 							JOptionPane.ERROR_MESSAGE);
 				} else {
 
-					if (profession.equals("Medico")) {
+					if (job.equals("Medico")) {
+						log.InfoLog("Se ha logeado como medico el usuario: " + loginUser);
 						JOptionPane.showMessageDialog(null, "SOY UN MEDICO.", "Login", JOptionPane.INFORMATION_MESSAGE);
 
-					} else if (profession.equals("Administrador")) {
-
+					} else if (job.equals("Administrador")) {
+						log.InfoLog("Se ha logeado como administrador el usuario: " + loginUser);
 						AdminWindow window = new AdminWindow(loginUser.toString(), loginPassword.getText().toString());// Creamos la ventana del administrador
 						window.setVisible(true);
+						
 
-					} else if (profession.equals("Enfermero")) {
+					} else if (job.equals("Enfermero")) {
+						log.InfoLog("Se ha logeado como enfermero el usuario: " + loginUser);
 						JOptionPane.showMessageDialog(null, "SOY UN ENFERMERO.", "Login",
 								JOptionPane.INFORMATION_MESSAGE);
-					} else if (profession.equals("Secretario")) {
+					} else if (job.equals("Secretario")) {
+						log.InfoLog("Se ha logeado como secretario el usuario: " + loginUser);
 						JOptionPane.showMessageDialog(null, "SOY UN SECRETARIO.", "Login",
 						JOptionPane.INFORMATION_MESSAGE);
 						SecretarioWindow windowSecretario = new SecretarioWindow();// Creamos la ventana del administrador
 						windowSecretario.setVisible(true);
 
 					} else {
+						log.InfoLog("No se ha podido encontrar la prfofesion: " + job);
 						JOptionPane.showMessageDialog(null, "Profesion incorrecta.", "ERROR",
 								JOptionPane.ERROR_MESSAGE);
 					}

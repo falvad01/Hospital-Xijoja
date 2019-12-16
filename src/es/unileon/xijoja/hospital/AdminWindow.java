@@ -33,6 +33,8 @@ import javax.swing.table.DefaultTableModel;
 @SuppressWarnings("serial")
 public class AdminWindow extends JFrame {
 
+	private Logs log = new Logs();
+	
 	private String user;
 	private String password;
 
@@ -93,7 +95,7 @@ public class AdminWindow extends JFrame {
 	private JTextField textFieldSearch;
 
 	public AdminWindow(String user, String password) {
-
+		log.InfoLog("Iniciada la sesion del administrador");
 		this.user = user;
 		this.password = password;
 
@@ -509,8 +511,13 @@ public class AdminWindow extends JFrame {
 	}
 
 	/**
-	 *
-	 * Generamos suario y contraseña
+	 * 
+	 * @param name
+	 * @param surname1
+	 * @param surname2
+	 * @return
+	 * 
+	 * 		Generamos un usuario con el nombre y apellidos pasados por parametro
 	 */
 	private String genUser(String name, String surname1, String surname2) {
 
@@ -532,16 +539,16 @@ public class AdminWindow extends JFrame {
 			e.printStackTrace();
 		}
 
-		for(int i = 0; i < names.length;i++) {
-			System.out.println(i + ": " +names[i]);
+		for (int i = 0; i < names.length; i++) {
+			System.out.println(i + ": " + names[i]);
 		}
-		
+
 		int numberOfUser = 0;
-		for (int i = 1; i < names.length; i++) {
+		for (int i = 1; i < names.length; i++) {// Vamos comprobando nombre por nombre
 
 			char[] nameBUffer = names[i].toCharArray();
 			char[] secondBuffer = new char[5];
-			
+
 			for (int j = 0; j < 5; j++) {
 				System.out.println(j);
 				secondBuffer[j] = nameBUffer[j];// Quitamos los numero del nombre de usuario
@@ -556,11 +563,17 @@ public class AdminWindow extends JFrame {
 
 		}
 		sbName.append(numberOfUser);// Aniadimos el numero
-
+		log.InfoLog("[ADMINWINDOW]:Usuario " + sbName.toString().toLowerCase() + " generado correctamente");
 		return sbName.toString().toLowerCase();
 
 	}
 
+	/**
+	 * 
+	 * @return
+	 * 
+	 * 		Generamos una contraseña aleatoria
+	 */
 	private String genPassword() {
 
 		String alphabet = "abcdefghijklmnopqrstuvwxyz1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -628,6 +641,9 @@ public class AdminWindow extends JFrame {
 
 			if (arg0.getActionCommand().equals("Registrar")) {////////////////////////////////// REGISTRAR
 
+				log.InfoLog("[ADMINWINDOW]: Se ha pulsado el boton de registrar");
+				
+				
 				boolean add = true;
 
 				if ((textFieldName.getText().equals("")) || (textFieldSurname1.getText().equals(""))
@@ -639,12 +655,13 @@ public class AdminWindow extends JFrame {
 
 					add = false;
 					lblError.setText("Hay campos vacios");
+					log.InfoLog("[ADMINWINDOW]: Hay campos vacios");
 				} else {
 					lblError.setText("");
 				}
 
-				if (add) {// Si da error no se a�ade el empleado
-					System.out.println("Correcto");
+				if (add) {// Si da error no se añade el empleado
+					
 					lblUser.setText(
 							genUser(textFieldName.getText(), textFieldSurname1.getText(), textFieldSurname1.getText()));
 					lblPassword.setText(genPassword());
@@ -678,6 +695,8 @@ public class AdminWindow extends JFrame {
 						e.printStackTrace();
 					}
 				}
+				
+				log.InfoLog("[ADMINWINDOW]: Usuario + " + lblUser.getText() + " añadido correctamente");
 
 			} else if (arg0.getActionCommand().equals("Añadir trabajador")) {///////////////////////////////// ADD
 
@@ -808,7 +827,8 @@ public class AdminWindow extends JFrame {
 							out = true;
 
 							labelUserNameEdit.setText(genUser(textFieldNameEdit.getText(),
-									textFieldSurname1Edit.getText(), textFieldSurname2Edit.getText()));//Generamos el nuevo usuario
+									textFieldSurname1Edit.getText(), textFieldSurname2Edit.getText()));// Generamos el
+																										// nuevo usuario
 
 							try {
 								dao.editEmployee(Integer.parseInt(employeeToEdit[0]), textFieldNameEdit.getText(),
