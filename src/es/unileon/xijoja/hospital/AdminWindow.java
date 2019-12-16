@@ -12,7 +12,10 @@ import java.util.Calendar;
 import javax.swing.JFrame;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
@@ -24,17 +27,14 @@ import javax.swing.border.TitledBorder;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import com.sun.corba.se.spi.ior.EncapsulationFactoryBase;
-
-import javax.swing.JProgressBar;
-import javax.swing.JScrollPane;
-import javax.swing.UIManager;
-
 //TODO panel despedir empleados
 //TODO problema con los ID al eliminar trabajadores
 
 @SuppressWarnings("serial")
 public class AdminWindow extends JFrame {
+
+	private String user;
+	private String password;
 
 	Logs archivo = new Logs(); // Instancia de la clase para utilizar sus metodos
 
@@ -85,14 +85,17 @@ public class AdminWindow extends JFrame {
 	private JLabel label_5;
 	private JTextField textFieldEmailEdit;
 	private JLabel labelUserNameEdit;
-	private JButton button;
+	private JButton btnSaveEdit;
 	private JLabel lblApellido_2;
 	private JTextField textFieldSurname2Edit;
 	private JLabel label_9;
 	private JLabel label_10;
 	private JTextField textFieldSearch;
 
-	public AdminWindow() {
+	public AdminWindow(String user, String password) {
+
+		this.user = user;
+		this.password = password;
 
 		screen = Toolkit.getDefaultToolkit();
 
@@ -308,12 +311,12 @@ public class AdminWindow extends JFrame {
 		labelUserNameEdit.setBounds(390, 173, 193, 41);
 		editEmployeesPanel.add(labelUserNameEdit);
 
-		button = new JButton("Registrar");
-		button.setEnabled(false);
-		button.setOpaque(false);
-		button.setBackground(Color.WHITE);
-		button.setBounds(390, 252, 212, 47);
-		editEmployeesPanel.add(button);
+		btnSaveEdit = new JButton("Guardar");
+		btnSaveEdit.addActionListener(list);
+		btnSaveEdit.setOpaque(false);
+		btnSaveEdit.setBackground(Color.WHITE);
+		btnSaveEdit.setBounds(390, 252, 212, 47);
+		editEmployeesPanel.add(btnSaveEdit);
 
 		lblApellido_2 = new JLabel("2º Apellido");
 		lblApellido_2.setFont(new Font("Tahoma", Font.PLAIN, 15));
@@ -509,16 +512,16 @@ public class AdminWindow extends JFrame {
 	 *
 	 * Generamos suario y contraseña
 	 */
-	private void genUserAndPass() {
+	private String genUser(String name, String surname1, String surname2) {
 
 		StringBuilder sbName = new StringBuilder();// Formamos el nombre de usuario
 
-		sbName.append(textFieldName.getText().charAt(0));// Primera letra del nombre
+		sbName.append(name.charAt(0));// Primera letra del nombre
 
-		sbName.append(textFieldSurname1.getText().charAt(0));
-		sbName.append(textFieldSurname1.getText().charAt(1));// Dos primeras letras del primer apellido
-		sbName.append(textFieldSurname2.getText().charAt(0));
-		sbName.append(textFieldSurname2.getText().charAt(1));// Dos primeras letras del segundo apellido
+		sbName.append(surname1.charAt(0));
+		sbName.append(surname1.charAt(1));// Dos primeras letras del primer apellido
+		sbName.append(surname2.charAt(0));
+		sbName.append(surname2.charAt(1));// Dos primeras letras del segundo apellido
 
 		String[] names = null;
 
@@ -528,13 +531,19 @@ public class AdminWindow extends JFrame {
 
 			e.printStackTrace();
 		}
+
+		for(int i = 0; i < names.length;i++) {
+			System.out.println(i + ": " +names[i]);
+		}
+		
 		int numberOfUser = 0;
 		for (int i = 1; i < names.length; i++) {
 
 			char[] nameBUffer = names[i].toCharArray();
 			char[] secondBuffer = new char[5];
-
+			
 			for (int j = 0; j < 5; j++) {
+				System.out.println(j);
 				secondBuffer[j] = nameBUffer[j];// Quitamos los numero del nombre de usuario
 			}
 
@@ -546,6 +555,13 @@ public class AdminWindow extends JFrame {
 			}
 
 		}
+		sbName.append(numberOfUser);// Aniadimos el numero
+
+		return sbName.toString().toLowerCase();
+
+	}
+
+	private String genPassword() {
 
 		String alphabet = "abcdefghijklmnopqrstuvwxyz1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 		StringBuilder password = new StringBuilder();
@@ -560,10 +576,7 @@ public class AdminWindow extends JFrame {
 			i++;
 		}
 
-		sbName.append(numberOfUser);// Aniadimos el numero
-
-		lblUser.setText(sbName.toString().toLowerCase());
-		lblPassword.setText(password.toString());
+		return password.toString();
 	}
 
 	/**
@@ -584,6 +597,7 @@ public class AdminWindow extends JFrame {
 		textFieldBankEdit.enable(state);
 		textFieldEmailEdit.enable(state);
 		comboBoxJobEdit.enable(state);
+		btnSaveEdit.enable(state);
 
 		if (!state) {// Si es falso borramos las string que habian anteriormente
 
@@ -606,6 +620,9 @@ public class AdminWindow extends JFrame {
 	 */
 	public class listener implements ActionListener {
 
+		String[] employeeToEdit = null;
+
+		@SuppressWarnings("deprecation")
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 
@@ -628,7 +645,10 @@ public class AdminWindow extends JFrame {
 
 				if (add) {// Si da error no se a�ade el empleado
 					System.out.println("Correcto");
-					genUserAndPass();
+					lblUser.setText(
+							genUser(textFieldName.getText(), textFieldSurname1.getText(), textFieldSurname1.getText()));
+					lblPassword.setText(genPassword());
+
 					int id = dao.getLastID();
 
 					Date date = new Date(Calendar.getInstance().getTime().getTime());// Obtenemos la fecha actual
@@ -745,27 +765,68 @@ public class AdminWindow extends JFrame {
 				if (Character.isDigit(textFieldSearch.getText().charAt(0))) {
 					enableAllEdit(true);
 					System.out.println("Busqueda por DNI");
-					String[] employee = null;
+
 					try {
-						employee = dao.getEmployee(textFieldSearch.getText().toString());
+						employeeToEdit = dao.getEmployee(textFieldSearch.getText().toString());
 
 					} catch (SQLException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 
-					textFieldNameEdit.setText(employee[1]);
-					textFieldSurname1Edit.setText(employee[2]);
-					textFieldSurname2Edit.setText(employee[3]);
-					textFieldDNIEdit.setText(employee[4]);
-					textFieldBankEdit.setText(employee[6]);
-					comboBoxJobEdit.setSelectedItem(employee[7]);
-					textFieldEmailEdit.setText(employee[10]);
-					labelUserNameEdit.setText(employee[9]);
+					textFieldNameEdit.setText(employeeToEdit[1]);
+					textFieldSurname1Edit.setText(employeeToEdit[2]);
+					textFieldSurname2Edit.setText(employeeToEdit[3]);
+					textFieldDNIEdit.setText(employeeToEdit[4]);
+					textFieldBankEdit.setText(employeeToEdit[6]);
+					comboBoxJobEdit.setSelectedItem(employeeToEdit[7]);
+					textFieldEmailEdit.setText(employeeToEdit[10]);
+					labelUserNameEdit.setText(employeeToEdit[9]);
 
 				} else {
 
 					System.out.println("Busqueda por nombre y apellidos");
+				}
+
+			} else if (arg0.getActionCommand().equals("Guardar")) {
+
+				System.out.println("Comenzamos a editar el trabajador");
+				boolean out = false;
+
+				while (!out) {// Repetimos hasta que se cancela o se introduce la contraseña correcta
+					JPasswordField pf = new JPasswordField();
+					int option = JOptionPane.showConfirmDialog(null, pf, "Enter Password", JOptionPane.OK_CANCEL_OPTION,
+							JOptionPane.PLAIN_MESSAGE);
+					System.out.println(pf.getText());
+
+					if (option == JOptionPane.CANCEL_OPTION) {// si se pulsa cancelar
+						out = true;
+						System.out.println("Se ha cancelado");
+					} else {
+
+						if (pf.getText().equals(password)) {// Si se acierta la contraseña
+							out = true;
+
+							labelUserNameEdit.setText(genUser(textFieldNameEdit.getText(),
+									textFieldSurname1Edit.getText(), textFieldSurname2Edit.getText()));//Generamos el nuevo usuario
+
+							try {
+								dao.editEmployee(Integer.parseInt(employeeToEdit[0]), textFieldNameEdit.getText(),
+										textFieldSurname1Edit.getText(), textFieldSurname2Edit.getText(),
+										textFieldDNIEdit.getText(), textFieldBankEdit.getText(),
+										comboBoxJobEdit.getSelectedItem().toString(), labelUserNameEdit.getText(),
+										textFieldEmailEdit.getText());// Llamamos a editar del DAO
+							} catch (NumberFormatException | SQLException e) {
+
+								e.printStackTrace();
+							}
+
+						} else {// Si se falla la contraseña
+							JOptionPane.showMessageDialog(null, "Contraseña incorrecta", "ERROR",
+									JOptionPane.ERROR_MESSAGE);
+						}
+					}
+
 				}
 
 			}

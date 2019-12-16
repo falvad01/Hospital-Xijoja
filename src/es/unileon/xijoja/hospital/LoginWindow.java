@@ -14,9 +14,8 @@ import javax.swing.JPasswordField;
 import javax.swing.ImageIcon;
 import java.awt.Color;
 import java.awt.Font;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
+@SuppressWarnings("serial")
 public class LoginWindow extends JFrame {
 
 	Toolkit screen;
@@ -78,6 +77,7 @@ public class LoginWindow extends JFrame {
 		minButton.setOpaque(false);
 		getContentPane().add(minButton);
 		minButton.addActionListener(new ActionListener() {
+			@SuppressWarnings("deprecation")
 			public void actionPerformed(ActionEvent e) {
 				setExtendedState(JFrame.CROSSHAIR_CURSOR);
 			}
@@ -129,6 +129,7 @@ public class LoginWindow extends JFrame {
 
 	public class listener implements ActionListener {
 
+		@SuppressWarnings("deprecation")
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 
@@ -148,7 +149,7 @@ public class LoginWindow extends JFrame {
 
 					} else if (profession.equals("Administrador")) {
 
-						AdminWindow window = new AdminWindow();// Creamos la ventana del administrador
+						AdminWindow window = new AdminWindow(loginUser.toString(), loginPassword.getText().toString());// Creamos la ventana del administrador
 						window.setVisible(true);
 
 					} else if (profession.equals("Enfermero")) {

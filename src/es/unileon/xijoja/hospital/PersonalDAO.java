@@ -276,4 +276,20 @@ public class PersonalDAO {
 		return ret;
 	}
 
+	public void editEmployee(int id, String name, String surname1, String surname2, String NIE, String bankAccount,
+			String job, String user, String email) throws SQLException {
+
+		co = Conexion.getInstance();
+		conn = co.getConnection();
+
+		String sql = "UPDATE personal SET Nombre='" + name + "',Apellido1='" + surname1 + "',Apellido2='" + surname2
+				+ "',NIFNIE='" + NIE + "',CuentaBancaria='" + bankAccount + "',Puesto='" + job + "',usuario='" + user
+				+ "',Email='" + email + "' WHERE idTrabajador = " + id;
+		Statement st = conn.createStatement();
+		st.executeUpdate(sql);
+		System.out.println("se ha editado a una " + user);
+		co.disconect();// Desconectamos la base de datos
+
+	}
+
 }
