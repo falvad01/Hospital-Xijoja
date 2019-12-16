@@ -641,7 +641,7 @@ public class AdminWindow extends JFrame {
 
 			if (arg0.getActionCommand().equals("Registrar")) {////////////////////////////////// REGISTRAR
 
-				log.InfoLog("[ADMINWINDOW]: Se ha pulsado el boton de registrar");
+				log.InfoLog("Se ha pulsado el boton de registrar");
 				
 				
 				boolean add = true;
@@ -655,7 +655,7 @@ public class AdminWindow extends JFrame {
 
 					add = false;
 					lblError.setText("Hay campos vacios");
-					log.InfoLog("[ADMINWINDOW]: Hay campos vacios");
+					log.InfoLog("Hay campos vacios");
 				} else {
 					lblError.setText("");
 				}
@@ -696,7 +696,7 @@ public class AdminWindow extends JFrame {
 					}
 				}
 				
-				log.InfoLog("[ADMINWINDOW]: Usuario + " + lblUser.getText() + " añadido correctamente");
+				log.InfoLog("Usuario + " + lblUser.getText() + " añadido correctamente");
 
 			} else if (arg0.getActionCommand().equals("Añadir trabajador")) {///////////////////////////////// ADD
 
