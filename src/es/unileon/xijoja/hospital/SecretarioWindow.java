@@ -24,7 +24,6 @@ import javax.swing.border.TitledBorder;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import es.unileon.xijoja.hospital.AdminWindow.listener;
 
 
 
@@ -134,7 +133,7 @@ public class SecretarioWindow extends JFrame {
             }
         });
  
-        JButton btnNewButton = new JButton("Añadir Paciente");
+        JButton btnNewButton = new JButton("Aï¿½adir Paciente");
         btnNewButton.setOpaque(false);
         btnNewButton.setBackground(new Color(255, 255, 255));
         btnNewButton.setBounds(28, 33, 234, 41);
@@ -142,7 +141,7 @@ public class SecretarioWindow extends JFrame {
         btnNewButton.addActionListener(list);
  
      
-        JButton btnEditEmployee = new JButton("Ver habitación");
+        JButton btnEditEmployee = new JButton("Ver habitaciï¿½n");
         btnEditEmployee.setBackground(Color.WHITE);
         btnEditEmployee.setOpaque(false);
         btnEditEmployee.setBounds(28, 85, 234, 41);
@@ -196,7 +195,7 @@ public class SecretarioWindow extends JFrame {
         label.setBounds(10, 74, 63, 23);
         editEmployeesPanel.add(label);
  
-        label_1 = new JLabel("1º Apellido");
+        label_1 = new JLabel("1ï¿½ Apellido");
         label_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
         label_1.setBounds(10, 125, 80, 23);
         editEmployeesPanel.add(label_1);
@@ -260,7 +259,7 @@ public class SecretarioWindow extends JFrame {
  
         labelPasswordEdit = new JLabel("");
         labelPasswordEdit.setFont(new Font("Tahoma", Font.PLAIN, 15));
-        labelPasswordEdit.setBorder(new TitledBorder("Constraseña"));
+        labelPasswordEdit.setBorder(new TitledBorder("Constraseï¿½a"));
         labelPasswordEdit.setBounds(390, 225, 193, 41);
         editEmployeesPanel.add(labelPasswordEdit);
  
@@ -270,7 +269,7 @@ public class SecretarioWindow extends JFrame {
         button.setBounds(390, 307, 212, 47);
         editEmployeesPanel.add(button);
  
-        label_8 = new JLabel("2º Apellido");
+        label_8 = new JLabel("2ï¿½ Apellido");
         label_8.setFont(new Font("Tahoma", Font.PLAIN, 15));
         label_8.setBounds(10, 170, 80, 23);
         editEmployeesPanel.add(label_8);
@@ -319,7 +318,7 @@ public class SecretarioWindow extends JFrame {
         lblNombre.setFont(new Font("Tahoma", Font.PLAIN, 15));
         addEmployeePane.add(lblNombre);
  
-        JLabel lblApellidos = new JLabel("1º Apellido");
+        JLabel lblApellidos = new JLabel("1ï¿½ Apellido");
         lblApellidos.setBounds(10, 78, 80, 23);
         lblApellidos.setFont(new Font("Tahoma", Font.PLAIN, 15));
         addEmployeePane.add(lblApellidos);
@@ -358,14 +357,14 @@ public class SecretarioWindow extends JFrame {
         
     
  
-        JButton btnRegister = new JButton("Añadir");
+        JButton btnRegister = new JButton("Aï¿½adir");
         btnRegister.setBounds(390, 260, 212, 47);
         btnRegister.setBackground(Color.WHITE);
         btnRegister.setOpaque(false);
         addEmployeePane.add(btnRegister);
         btnRegister.addActionListener(list);
   
-        JLabel lblApellido = new JLabel("2º Apellido");
+        JLabel lblApellido = new JLabel("2ï¿½ Apellido");
         lblApellido.setBounds(10, 123, 80, 23);
         lblApellido.setFont(new Font("Tahoma", Font.PLAIN, 15));
         addEmployeePane.add(lblApellido);
@@ -393,7 +392,7 @@ public class SecretarioWindow extends JFrame {
         @Override
         public void actionPerformed(ActionEvent arg0) {
  
-            if (arg0.getActionCommand().equals("Añadir")) {////////////////////////////////// Añadir
+            if (arg0.getActionCommand().equals("Aï¿½adir")) {////////////////////////////////// Aï¿½adir
  
                 boolean add = true;
  
@@ -410,10 +409,10 @@ public class SecretarioWindow extends JFrame {
                     lblError.setText("");
                 }
  
-                if (add) {// Si da error no se añade el empleado
+                if (add) {// Si da error no se aï¿½ade el empleado
                     System.out.println("Correcto");
                     
-                  //TODO getlast id?¿ para que¿?
+                  //TODO getlast id?ï¿½ para queï¿½?
                     
                     int id = dao.getLastID();
  

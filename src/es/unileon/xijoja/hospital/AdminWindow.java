@@ -34,7 +34,7 @@ import javax.swing.table.DefaultTableModel;
 public class AdminWindow extends JFrame {
 
 	private Logs log = new Logs();
-	
+
 	private String user;
 	private String password;
 
@@ -46,20 +46,14 @@ public class AdminWindow extends JFrame {
 
 	Toolkit screen;
 
-	private JTextField textFieldName;
-	private JTextField textFieldSurname1;
-	private JTextField textFieldSurname2;
-	private JTextField textFieldNIFNIE;
-	private JTextField textFieldBankAccount;
-	private JTextField textFieldEmail;
+	private int numAdmin;
+	private int numDoc;
+	private int numNurse;
+	private int numSecre;
 
 	private JLabel lblUser;
 	private JLabel lblPassword;
 	private JLabel lblError;
-
-	private PersonalDAO dao;
-
-	JComboBox<Object> comboBoxJob;
 
 	private JButton btnVerPlantilla;
 
@@ -69,10 +63,6 @@ public class AdminWindow extends JFrame {
 	private JLabel lblSecretario;
 	private JLabel lblTotal;
 
-	private int numAdmin;
-	private int numDoc;
-	private int numNurse;
-	private int numSecre;
 	private JPanel editEmployeesPanel;
 	private JLabel label;
 	private JLabel lblApellido_1;
@@ -94,11 +84,13 @@ public class AdminWindow extends JFrame {
 	private JLabel label_10;
 	private JTextField textFieldSearch;
 
+	private ControlerAdmin list;
+
 	public AdminWindow(String user, String password) {
 		log.InfoLog("Iniciada la sesion del administrador");
 		this.user = user;
 		this.password = password;
-
+		list = new ControlerAdmin();
 		screen = Toolkit.getDefaultToolkit();
 
 		setBounds(1024 / 4, 768 / 10, 969, 496);
@@ -108,7 +100,7 @@ public class AdminWindow extends JFrame {
 		setTitle("Administrador");
 
 		try {
-			dao = new PersonalDAO();
+
 			initComponents();
 			initComponentsPanels();
 
@@ -123,8 +115,8 @@ public class AdminWindow extends JFrame {
 
 		getContentPane().setBackground(Color.WHITE);
 		getContentPane().setLayout(null);
-		setNumberEmployees();
-		listener list = new listener();
+		list.setNumberEmployees();
+		ControlerAdmin list = new ControlerAdmin();
 
 		JButton crossButton = new JButton(new ImageIcon(LoginWindow.class.getResource("/resources/cross.png")));
 		crossButton.setBounds(944, 11, 15, 15);
@@ -220,7 +212,6 @@ public class AdminWindow extends JFrame {
 
 	private void initComponentsPanels() throws SQLException {
 
-		listener list = new listener();
 //-----------------------------------------------PANEL VER EMPLEADOS-----------------------------------------//
 		seeEmployeesPanel = new JPanel();
 		seeEmployeesPanel.setLayout(null);
@@ -380,12 +371,12 @@ public class AdminWindow extends JFrame {
 		lblApellidos.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		addEmployeePane.add(lblApellidos);
 
-		textFieldName = new JTextField();
+		JTextField textFieldName = new JTextField();
 		textFieldName.setBounds(100, 30, 143, 20);
 		addEmployeePane.add(textFieldName);
 		textFieldName.setColumns(10);
 
-		textFieldSurname1 = new JTextField();
+		JTextField textFieldSurname1 = new JTextField();
 		textFieldSurname1.setBounds(100, 81, 143, 20);
 		addEmployeePane.add(textFieldSurname1);
 		textFieldSurname1.setColumns(10);
@@ -395,7 +386,7 @@ public class AdminWindow extends JFrame {
 		lblNifnie.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		addEmployeePane.add(lblNifnie);
 
-		textFieldNIFNIE = new JTextField();
+		JTextField textFieldNIFNIE = new JTextField();
 		textFieldNIFNIE.setBounds(100, 173, 143, 20);
 		textFieldNIFNIE.setColumns(10);
 		addEmployeePane.add(textFieldNIFNIE);
@@ -405,7 +396,7 @@ public class AdminWindow extends JFrame {
 		lblCuentaBancaria.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		addEmployeePane.add(lblCuentaBancaria);
 
-		textFieldBankAccount = new JTextField();
+		JTextField textFieldBankAccount = new JTextField();
 		textFieldBankAccount.setBounds(132, 218, 143, 20);
 		textFieldBankAccount.setColumns(10);
 		addEmployeePane.add(textFieldBankAccount);
@@ -415,7 +406,7 @@ public class AdminWindow extends JFrame {
 		lblPuesto.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		addEmployeePane.add(lblPuesto);
 
-		comboBoxJob = new JComboBox<Object>();
+		JComboBox<Object> comboBoxJob = new JComboBox<Object>();
 		comboBoxJob.setBounds(450, 29, 133, 23);
 		comboBoxJob.setBackground(Color.WHITE);
 		comboBoxJob.setModel(new DefaultComboBoxModel<Object>(
@@ -428,7 +419,7 @@ public class AdminWindow extends JFrame {
 		lblEmail.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		addEmployeePane.add(lblEmail);
 
-		textFieldEmail = new JTextField();
+		JTextField textFieldEmail = new JTextField();
 		textFieldEmail.setBounds(450, 81, 133, 20);
 		textFieldEmail.setColumns(10);
 		addEmployeePane.add(textFieldEmail);
@@ -458,7 +449,7 @@ public class AdminWindow extends JFrame {
 		lblApellido.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		addEmployeePane.add(lblApellido);
 
-		textFieldSurname2 = new JTextField();
+		JTextField textFieldSurname2 = new JTextField();
 		textFieldSurname2.setBounds(100, 126, 143, 20);
 		textFieldSurname2.setColumns(10);
 		addEmployeePane.add(textFieldSurname2);
@@ -476,122 +467,7 @@ public class AdminWindow extends JFrame {
 
 	}
 
-	/**
-	 *
-	 * @throws SQLException
-	 * 
-	 *                      Obtenemos el numero de empleados en cada profesion
-	 */
-	private void setNumberEmployees() throws SQLException {
-
-		numAdmin = 0;
-		numDoc = 0;
-		numNurse = 0;
-		numSecre = 0;
-		String[] jobs = dao.getJobsEmployees();
-		System.out.println("JOBS " + jobs.length);
-		for (int i = 0; i < jobs.length; i++) {
-			System.out.print(jobs[i] + "->");
-			if (jobs[i].equals("Medico")) {
-				numDoc++;
-				System.out.println(jobs[i]);
-			} else if (jobs[i].equals("Administrador")) {
-				numAdmin++;
-				System.out.println(jobs[i]);
-			} else if (jobs[i].equals("Enfermero")) {
-				numNurse++;
-				System.out.println(jobs[i]);
-			} else if (jobs[i].equals("Secretario")) {
-				numSecre++;
-				System.out.println(jobs[i]);
-			}
-
-		}
-
-	}
-
-	/**
-	 * 
-	 * @param name
-	 * @param surname1
-	 * @param surname2
-	 * @return
-	 * 
-	 * 		Generamos un usuario con el nombre y apellidos pasados por parametro
-	 */
-	private String genUser(String name, String surname1, String surname2) {
-
-		StringBuilder sbName = new StringBuilder();// Formamos el nombre de usuario
-
-		sbName.append(name.charAt(0));// Primera letra del nombre
-
-		sbName.append(surname1.charAt(0));
-		sbName.append(surname1.charAt(1));// Dos primeras letras del primer apellido
-		sbName.append(surname2.charAt(0));
-		sbName.append(surname2.charAt(1));// Dos primeras letras del segundo apellido
-
-		String[] names = null;
-
-		try {
-			names = dao.getNamesEmployees();
-		} catch (SQLException e) {
-
-			e.printStackTrace();
-		}
-
-		for (int i = 0; i < names.length; i++) {
-			System.out.println(i + ": " + names[i]);
-		}
-
-		int numberOfUser = 0;
-		for (int i = 1; i < names.length; i++) {// Vamos comprobando nombre por nombre
-
-			char[] nameBUffer = names[i].toCharArray();
-			char[] secondBuffer = new char[5];
-
-			for (int j = 0; j < 5; j++) {
-				System.out.println(j);
-				secondBuffer[j] = nameBUffer[j];// Quitamos los numero del nombre de usuario
-			}
-
-			if (String.valueOf(secondBuffer).equals(sbName.toString().toLowerCase())) {
-
-				numberOfUser++;// Contamos los ususarios con el mismo nombre y aniadimos un numero para que no
-								// se repita
-
-			}
-
-		}
-		sbName.append(numberOfUser);// Aniadimos el numero
-		log.InfoLog("[ADMINWINDOW]:Usuario " + sbName.toString().toLowerCase() + " generado correctamente");
-		return sbName.toString().toLowerCase();
-
-	}
-
-	/**
-	 * 
-	 * @return
-	 * 
-	 * 		Generamos una contraseña aleatoria
-	 */
-	private String genPassword() {
-
-		String alphabet = "abcdefghijklmnopqrstuvwxyz1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-		StringBuilder password = new StringBuilder();
-
-		int i = 0;
-		while (i < 7) {
-			int rand = (int) ((Math.random() * ((61 - 0) + 1)));// Con el random generamos la contraseña sacando los
-																// careacteres del array alphabet
-
-			password.append(alphabet.charAt(rand));
-
-			i++;
-		}
-
-		return password.toString();
-	}
-
+	
 	/**
 	 * 
 	 * @param state
@@ -625,231 +501,10 @@ public class AdminWindow extends JFrame {
 		}
 
 	}
-
-	/**
-	 *
-	 * @author xijoja
-	 *
-	 */
-	public class listener implements ActionListener {
-
-		String[] employeeToEdit = null;
-
-		@SuppressWarnings("deprecation")
-		@Override
-		public void actionPerformed(ActionEvent arg0) {
-
-			if (arg0.getActionCommand().equals("Registrar")) {////////////////////////////////// REGISTRAR
-
-				log.InfoLog("Se ha pulsado el boton de registrar");
-				
-				
-				boolean add = true;
-
-				if ((textFieldName.getText().equals("")) || (textFieldSurname1.getText().equals(""))
-						|| (textFieldSurname2.getText().equals("")) || (textFieldNIFNIE.getText().equals(""))
-						|| (textFieldBankAccount.getText().equals("")) || (textFieldEmail.getText().equals(""))) {// Comprobamos
-					// si algum
-					// campo esta
-					// vacio
-
-					add = false;
-					lblError.setText("Hay campos vacios");
-					log.InfoLog("Hay campos vacios");
-				} else {
-					lblError.setText("");
-				}
-
-				if (add) {// Si da error no se añade el empleado
-					
-					lblUser.setText(
-							genUser(textFieldName.getText(), textFieldSurname1.getText(), textFieldSurname1.getText()));
-					lblPassword.setText(genPassword());
-
-					int id = dao.getLastID();
-
-					Date date = new Date(Calendar.getInstance().getTime().getTime());// Obtenemos la fecha actual
-
-					try {
-
-						dao.addEmployee(id, textFieldName.getText(), textFieldSurname1.getText(),
-								textFieldSurname2.getText(), textFieldNIFNIE.getText(), date,
-								textFieldBankAccount.getText(), comboBoxJob.getSelectedItem().toString(),
-								lblPassword.getText(), lblUser.getText(), textFieldEmail.getText());// LLamamos a la
-																									// funcion del DAO
-																									// que inserta el
-																									// empleado
-					} catch (SQLException e1) {
-
-						e1.printStackTrace();
-					}
-					try {
-						setNumberEmployees();
-						lblAdministrador.setText(String.valueOf(numAdmin));
-						lblMedico.setText(String.valueOf(numDoc));
-						lblEnfermero.setText(String.valueOf(numNurse));
-						lblSecretario.setText(String.valueOf(numSecre));
-						lblTotal.setText(String.valueOf(numAdmin + numDoc + numNurse + numSecre));
-					} catch (SQLException e) {
-
-						e.printStackTrace();
-					}
-				}
-				
-				log.InfoLog("Usuario + " + lblUser.getText() + " añadido correctamente");
-
-			} else if (arg0.getActionCommand().equals("Añadir trabajador")) {///////////////////////////////// ADD
-
-				seeEmployeesPanel.setVisible(false);
-				addEmployeePane.setVisible(true);
-				editEmployeesPanel.setVisible(false);
-				btnVerPlantilla.setText("Ver plantilla");
-				enableAllEdit(false);
-
-			} else if ((arg0.getActionCommand().equals("Ver plantilla"))
-					|| (arg0.getActionCommand().equals("Recargar"))) {
-
-				seeEmployeesPanel.setVisible(true);
-				addEmployeePane.setVisible(false);
-				editEmployeesPanel.setVisible(false);
-				btnVerPlantilla.setText("Recargar");
-
-				ArrayList<String[]> insert = null;
-
-				String[] titles = null;
-
-				String[][] matrixToInsert = null;
-
-				try {
-					titles = new String[] { "  Id", "Nombre", "Apellido 1", "Apellido 2", "NIF", "Fecha",
-							"Cuenta Bancaria", "Puesto", "Contrase�a", "Usuario", "Email" }; // Titulos de la tabla de
-																								// los empleados
-					insert = dao.getAllEmployees();// ArrayList de Arrays
-					System.out.println("Size " + insert.size());
-					matrixToInsert = new String[insert.size() + 1][11];
-					seeEmployeesPanel.setPreferredSize(new Dimension(624, 20 + 20 * insert.size()));
-					seeEmployeesPanel.setBounds(284, 11, 624, 20 + 20 * insert.size());
-
-					for (int i = 0; i < insert.size(); i++) { // rellenamos la matriz que meteremos en la tabla a partir
-																// del ArrayList de arrays devuelto del DAO
-						for (int j = 0; j < 11; j++) {
-							if (i == 0) {
-
-								matrixToInsert[i][j] = titles[j];
-
-							} else {
-								matrixToInsert[i][j] = insert.get(i)[j];
-							}
-						}
-					}
-
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-
-				JTable employeesTable = new JTable();
-				employeesTable.setBounds(20, 20, 600, 20 + 20 * insert.size());
-
-				employeesTable.setVisible(true);
-				seeEmployeesPanel.add(employeesTable);
-				/*
-				 * //TODO lo que hizo xian es esto que esta comentado panelquebaja = new
-				 * JScrollPane(seeEmployeesPanel);
-				 *
-				 * panelquebaja.setHorizontalScrollBarPolicy(JScrollPane.
-				 * HORIZONTAL_SCROLLBAR_NEVER);
-				 * panelquebaja.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS
-				 * ); panelquebaja.setBounds(seeEmployeesPanel.getBounds());
-				 * System.out.println(panelquebaja.getBounds());
-				 * getContentPane().add(panelquebaja);
-				 *
-				 * panelquebaja.setVisible(true);
-				 */
-				employeesTable.setAutoscrolls(true);
-
-				System.out.println("VIVA DROTIUM");
-				DefaultTableModel tableModel = new DefaultTableModel(matrixToInsert, titles);
-				employeesTable.setModel(tableModel);
-
-			} else if (arg0.getActionCommand().equals("Editar trabajador")) {
-
-				seeEmployeesPanel.setVisible(false);
-				addEmployeePane.setVisible(false);
-				editEmployeesPanel.setVisible(true);
-				btnVerPlantilla.setText("Ver plantilla");
-				enableAllEdit(false);
-
-			} else if (arg0.getActionCommand().equals("Buscar")) {
-
-				if (Character.isDigit(textFieldSearch.getText().charAt(0))) {
-					enableAllEdit(true);
-					System.out.println("Busqueda por DNI");
-
-					try {
-						employeeToEdit = dao.getEmployee(textFieldSearch.getText().toString());
-
-					} catch (SQLException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-
-					textFieldNameEdit.setText(employeeToEdit[1]);
-					textFieldSurname1Edit.setText(employeeToEdit[2]);
-					textFieldSurname2Edit.setText(employeeToEdit[3]);
-					textFieldDNIEdit.setText(employeeToEdit[4]);
-					textFieldBankEdit.setText(employeeToEdit[6]);
-					comboBoxJobEdit.setSelectedItem(employeeToEdit[7]);
-					textFieldEmailEdit.setText(employeeToEdit[10]);
-					labelUserNameEdit.setText(employeeToEdit[9]);
-
-				} else {
-
-					System.out.println("Busqueda por nombre y apellidos");
-				}
-
-			} else if (arg0.getActionCommand().equals("Guardar")) {
-
-				System.out.println("Comenzamos a editar el trabajador");
-				boolean out = false;
-
-				while (!out) {// Repetimos hasta que se cancela o se introduce la contraseña correcta
-					JPasswordField pf = new JPasswordField();
-					int option = JOptionPane.showConfirmDialog(null, pf, "Enter Password", JOptionPane.OK_CANCEL_OPTION,
-							JOptionPane.PLAIN_MESSAGE);
-					System.out.println(pf.getText());
-
-					if (option == JOptionPane.CANCEL_OPTION) {// si se pulsa cancelar
-						out = true;
-						System.out.println("Se ha cancelado");
-					} else {
-
-						if (pf.getText().equals(password)) {// Si se acierta la contraseña
-							out = true;
-
-							labelUserNameEdit.setText(genUser(textFieldNameEdit.getText(),
-									textFieldSurname1Edit.getText(), textFieldSurname2Edit.getText()));// Generamos el
-																										// nuevo usuario
-
-							try {
-								dao.editEmployee(Integer.parseInt(employeeToEdit[0]), textFieldNameEdit.getText(),
-										textFieldSurname1Edit.getText(), textFieldSurname2Edit.getText(),
-										textFieldDNIEdit.getText(), textFieldBankEdit.getText(),
-										comboBoxJobEdit.getSelectedItem().toString(), labelUserNameEdit.getText(),
-										textFieldEmailEdit.getText());// Llamamos a editar del DAO
-							} catch (NumberFormatException | SQLException e) {
-
-								e.printStackTrace();
-							}
-
-						} else {// Si se falla la contraseña
-							JOptionPane.showMessageDialog(null, "Contraseña incorrecta", "ERROR",
-									JOptionPane.ERROR_MESSAGE);
-						}
-					}
-
-				}
-
-			}
-		}
-	}
 }
+
+/**
+ *
+ * @author xijoja TODO añadir en otraclase coontrolador controlador que conozca
+ *         el ventana
+ */
