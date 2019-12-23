@@ -4,8 +4,14 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.sql.SQLException;
+
 import javax.swing.JFrame;
 import javax.swing.JTextField;
+
+import es.unileon.xijoja.hospital.admin.AdminWindow;
+import es.unileon.xijoja.hospital.admin.ControlerAdmin;
+
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -19,7 +25,7 @@ import java.awt.Font;
 public class LoginWindow extends JFrame {
 
 	Toolkit screen;
-	
+
 	private static final int PWIDTH = 750;
 	private static final int PHEIGH = 348;
 
@@ -28,10 +34,10 @@ public class LoginWindow extends JFrame {
 	private JTextField loginUser;
 	private JPasswordField loginPassword;
 	private PersonalDAO dao;
-	private Logs log = new Logs(); 
+	private Logs log = new Logs();
 
 	public LoginWindow() throws IOException {
-		
+
 		log.InfoLog("SE INICIA LA PANTALLA DE LOGIN");
 		getContentPane().setBackground(Color.WHITE);
 		setBackground(Color.WHITE);
@@ -54,8 +60,6 @@ public class LoginWindow extends JFrame {
 	private void initComponents() throws IOException {
 
 		dao = new PersonalDAO();// LLamamos al patron
-		
-		
 
 		getContentPane().setLayout(null);
 		listener list = new listener();
@@ -117,7 +121,7 @@ public class LoginWindow extends JFrame {
 		lblPassword.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 11));
 		lblPassword.setBounds(23, 146, 90, 14);
 		loginPanel.add(lblPassword);
-		
+
 		JButton btnLogin = new JButton("Login");
 		btnLogin.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 11));
 		btnLogin.setBounds(125, 177, 73, 23);
@@ -137,9 +141,8 @@ public class LoginWindow extends JFrame {
 
 			if (arg0.getActionCommand().equals("Login")) {
 
-				String job = dao.getProfessionCorrectUser(loginUser.getText(),
-						loginPassword.getText().toString());// LLamamos al dao y en caso de que el login sea correcto
-															// recibimos la profesion, en caso contratio un null
+				// LLamamos al dao y nos devuelve la profesion
+				String job = dao.getProfessionCorrectUser(loginUser.getText(), loginPassword.getText().toString());
 
 				if (job == null) {
 					JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos.", "ERROR",
@@ -151,20 +154,33 @@ public class LoginWindow extends JFrame {
 						JOptionPane.showMessageDialog(null, "SOY UN MEDICO.", "Login", JOptionPane.INFORMATION_MESSAGE);
 
 					} else if (job.equals("Administrador")) {
-						log.InfoLog("Se ha logeado como administrador el usuario: " + loginUser);
-						AdminWindow window = new AdminWindow(loginUser.toString(), loginPassword.getText().toString());// Creamos la ventana del administrador
-						window.setVisible(true);
-						
+						log.InfoLog("Se ha logeado como administrador el usuario: " + loginUser.getText());
+
+						AdminWindow adminWindow = new AdminWindow(loginUser.toString(),
+								loginPassword.getText().toString());// Creamos la ventana del administrador
+
+						ControlerAdmin controlerAdmin = new ControlerAdmin(adminWindow);// Creamos el controlador de
+																						// administrador
+
+						try {
+							adminWindow.setControler(controlerAdmin);// Le mandamos a la ventana su
+																		// controlador(Listener)
+						} catch (SQLException e) {
+
+							e.printStackTrace();
+						}
+						adminWindow.setVisible(true);
 
 					} else if (job.equals("Enfermero")) {
-						log.InfoLog("Se ha logeado como enfermero el usuario: " + loginUser);
+						log.InfoLog("Se ha logeado como enfermero el usuario: " + loginUser.getText());
 						JOptionPane.showMessageDialog(null, "SOY UN ENFERMERO.", "Login",
 								JOptionPane.INFORMATION_MESSAGE);
 					} else if (job.equals("Secretario")) {
-						log.InfoLog("Se ha logeado como secretario el usuario: " + loginUser);
+						log.InfoLog("Se ha logeado como secretario el usuario: " + loginUser.getText());
 						JOptionPane.showMessageDialog(null, "SOY UN SECRETARIO.", "Login",
-						JOptionPane.INFORMATION_MESSAGE);
-						SecretarioWindow windowSecretario = new SecretarioWindow();// Creamos la ventana del administrador
+								JOptionPane.INFORMATION_MESSAGE);
+						SecretarioWindow windowSecretario = new SecretarioWindow();// Creamos la ventana del
+																					// administrador
 						windowSecretario.setVisible(true);
 
 					} else {

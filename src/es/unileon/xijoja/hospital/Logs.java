@@ -18,15 +18,13 @@ public class Logs {
 
 			}
 
-			System.out.println(new File("etc/log.txt").getAbsolutePath());
-
 			archivo = new FileWriter(new File("etc/log.txt"), true);
 
 			Calendar fechaActual = Calendar.getInstance(); // Para poder utilizar el paquete calendar
-			
-			String clas = new Exception().getStackTrace()[1].getClassName();//Obtenemos la calse que llama al log
+
+			String clas = new Exception().getStackTrace()[1].getClassName();// Obtenemos la calse que llama al log
 			System.out.println(clas);
-			String[] parts = clas.split("hospital.");//nos uqedamos con la ultima parte
+			String[] parts = clas.split("hospital.");// nos uqedamos con la ultima parte
 
 			// Empieza a escribir en el archivo
 			archivo.write("["

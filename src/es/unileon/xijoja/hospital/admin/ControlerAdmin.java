@@ -1,4 +1,4 @@
-package es.unileon.xijoja.hospital;
+package es.unileon.xijoja.hospital.admin;
 
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -16,64 +16,24 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
+import es.unileon.xijoja.hospital.Logs;
+import es.unileon.xijoja.hospital.PersonalDAO;
+
 public class ControlerAdmin implements ActionListener {
 
 	private Logs log;
 	private PersonalDAO dao;
+	private AdminWindow adminWindow;
 
-	private JTextField textFieldName;
-	private JTextField textFieldSurname1;
-	private JTextField textFieldSurname2;
-	private JTextField textFieldNIFNIE;
-	private JTextField textFieldBankAccount;
-	private JTextField textFieldEmail;
-	private JComboBox<Object> comboBoxJob;
-	private JLabel lblUser;
-	private JLabel lblPassword;
-	private JLabel lblError;
+	protected int numAdmin;
+	protected int numDoc;
+	protected int numNurse;
+	protected int numSecre;
 
-	private int numAdmin;
-	private int numDoc;
-	private int numNurse;
-	private int numSecre;
-
-	private JLabel lblAdministrador;
-	private JLabel lblMedico;
-	private JLabel lblEnfermero;
-	private JLabel lblSecretario;
-	private JLabel lblTotal;
-
-	public ControlerAdmin() {
+	public ControlerAdmin(AdminWindow adminWindow) {
 		dao = new PersonalDAO();
 		log = new Logs();
-	}
-
-	public void setTextFiledsRegister(JTextField textFieldName, JTextField textFieldSurname1,
-			JTextField textFieldSurname2, JTextField textFieldNIFNIE, JTextField textFieldBankAccount,
-			JTextField textFieldEmail, JLabel lblUser, JLabel lblPassword, JLabel lblError,
-			JComboBox<Object> comboBoxJob) {
-
-		this.textFieldName = textFieldName;
-		this.textFieldSurname1 = textFieldSurname1;
-		this.textFieldSurname2 = textFieldSurname2;
-		this.textFieldNIFNIE = textFieldNIFNIE;
-		this.textFieldBankAccount = textFieldBankAccount;
-		this.textFieldEmail = textFieldEmail;
-		this.comboBoxJob = comboBoxJob;
-		this.lblError = lblError;
-		this.lblPassword = lblPassword;
-		this.lblUser = lblUser;
-
-	}
-
-	public void setlblCounts(JLabel lblAdministrador, JLabel lblMedico, JLabel lblEnfermero, JLabel lblSecretario,
-			JLabel lblTotal) {
-
-		this.lblAdministrador = lblAdministrador;
-		this.lblMedico = lblMedico;
-		this.lblEnfermero = lblEnfermero;
-		this.lblSecretario = lblSecretario;
-		this.lblTotal = lblTotal;
+		this.adminWindow = adminWindow;
 	}
 
 	/**
@@ -163,7 +123,7 @@ public class ControlerAdmin implements ActionListener {
 
 		}
 		sbName.append(numberOfUser);// Aniadimos el numero
-		log.InfoLog("[ADMINWINDOW]:Usuario " + sbName.toString().toLowerCase() + " generado correctamente");
+		log.InfoLog("Usuario " + sbName.toString().toLowerCase() + " generado correctamente");
 		return sbName.toString().toLowerCase();
 
 	}
@@ -192,6 +152,40 @@ public class ControlerAdmin implements ActionListener {
 		return password.toString();
 	}
 
+	/**
+	 * 
+	 * @param state
+	 * 
+	 *              Metodo que permite activar o desactivar los componentes de
+	 *              editar empleado, de esta forma ahorramos tiempo de ponerlo cada
+	 *              vez que lo necesitamos
+	 */
+	@SuppressWarnings("deprecation")
+	private void enableAllEdit(boolean state) {
+
+		adminWindow.textFieldNameEdit.enable(state);
+		adminWindow.textFieldSurname1Edit.enable(state);
+		adminWindow.textFieldSurname2Edit.enable(state);
+		adminWindow.textFieldDNIEdit.enable(state);
+		adminWindow.textFieldBankEdit.enable(state);
+		adminWindow.textFieldEmailEdit.enable(state);
+		adminWindow.comboBoxJobEdit.enable(state);
+		adminWindow.btnSaveEdit.enable(state);
+
+		if (!state) {// Si es falso borramos las string que habian anteriormente
+
+			adminWindow.textFieldSearch.setText("");
+			adminWindow.textFieldNameEdit.setText("");
+			adminWindow.textFieldSurname1Edit.setText("");
+			adminWindow.textFieldSurname2Edit.setText("");
+			adminWindow.textFieldDNIEdit.setText("");
+			adminWindow.textFieldBankEdit.setText("");
+			adminWindow.textFieldEmailEdit.setText("");
+
+		}
+
+	}
+
 	String[] employeeToEdit = null;
 
 	@SuppressWarnings("deprecation")
@@ -203,25 +197,27 @@ public class ControlerAdmin implements ActionListener {
 
 			boolean add = true;
 
-			if ((textFieldName.getText().equals("")) || (textFieldSurname1.getText().equals(""))
-					|| (textFieldSurname2.getText().equals("")) || (textFieldNIFNIE.getText().equals(""))
-					|| (textFieldBankAccount.getText().equals("")) || (textFieldEmail.getText().equals(""))) {// Comprobamos
+			if ((adminWindow.textFieldName.getText().equals("")) || (adminWindow.textFieldSurname1.getText().equals(""))
+					|| (adminWindow.textFieldSurname2.getText().equals(""))
+					|| (adminWindow.textFieldNIFNIE.getText().equals(""))
+					|| (adminWindow.textFieldBankAccount.getText().equals(""))
+					|| (adminWindow.textFieldEmail.getText().equals(""))) {// Comprobamos
 				// si algum
 				// campo esta
 				// vacio
 
 				add = false;
-				lblError.setText("Hay campos vacios");
+				adminWindow.lblError.setText("Hay campos vacios");
 				// log.InfoLog("Hay campos vacios");
 			} else {
-				lblError.setText("");
+				adminWindow.lblError.setText("");
 			}
 
 			if (add) {// Si da error no se añade el empleado
 
-				lblUser.setText(
-						genUser(textFieldName.getText(), textFieldSurname1.getText(), textFieldSurname1.getText()));
-				lblPassword.setText(genPassword());
+				adminWindow.lblUser.setText(genUser(adminWindow.textFieldName.getText(),
+						adminWindow.textFieldSurname1.getText(), adminWindow.textFieldSurname1.getText()));
+				adminWindow.lblPassword.setText(genPassword());
 
 				int id = dao.getLastID();
 
@@ -229,46 +225,47 @@ public class ControlerAdmin implements ActionListener {
 
 				try {
 
-					dao.addEmployee(id, textFieldName.getText(), textFieldSurname1.getText(),
-							textFieldSurname2.getText(), textFieldNIFNIE.getText(), date,
-							textFieldBankAccount.getText(), comboBoxJob.getSelectedItem().toString(),
-							lblPassword.getText(), lblUser.getText(), textFieldEmail.getText());// LLamamos a la
-																								// funcion del DAO
-																								// que inserta el
-																								// empleado
+					dao.addEmployee(id, adminWindow.textFieldName.getText(), adminWindow.textFieldSurname1.getText(),
+							adminWindow.textFieldSurname2.getText(), adminWindow.textFieldNIFNIE.getText(), date,
+							adminWindow.textFieldBankAccount.getText(),
+							adminWindow.comboBoxJob.getSelectedItem().toString(), adminWindow.lblPassword.getText(),
+							adminWindow.lblUser.getText(), adminWindow.textFieldEmail.getText());// LLamamos a la
+					// funcion del DAO
+					// que inserta el
+					// empleado
 				} catch (SQLException e1) {
 
 					e1.printStackTrace();
 				}
 				try {
 					setNumberEmployees();
-					lblAdministrador.setText(String.valueOf(numAdmin));
-					lblMedico.setText(String.valueOf(numDoc));
-					lblEnfermero.setText(String.valueOf(numNurse));
-					lblSecretario.setText(String.valueOf(numSecre));
-					lblTotal.setText(String.valueOf(numAdmin + numDoc + numNurse + numSecre));
+					adminWindow.lblAdministrador.setText(String.valueOf(numAdmin));
+					adminWindow.lblMedico.setText(String.valueOf(numDoc));
+					adminWindow.lblEnfermero.setText(String.valueOf(numNurse));
+					adminWindow.lblSecretario.setText(String.valueOf(numSecre));
+					adminWindow.lblTotal.setText(String.valueOf(numAdmin + numDoc + numNurse + numSecre));
 				} catch (SQLException e) {
 
 					e.printStackTrace();
 				}
 			}
 
-			log.InfoLog("Usuario + " + lblUser.getText() + " añadido correctamente");
+			log.InfoLog("Usuario + " + adminWindow.lblUser.getText() + " añadido correctamente");
 
-		}/* else if (arg0.getActionCommand().equals("Añadir trabajador")) {///////////////////////////////// ADD
+		} else if (arg0.getActionCommand().equals("Añadir trabajador")) {///////////////////////////////// ADD
 
-			seeEmployeesPanel.setVisible(false);
-			addEmployeePane.setVisible(true);
-			editEmployeesPanel.setVisible(false);
-			btnVerPlantilla.setText("Ver plantilla");
+			adminWindow.seeEmployeesPanel.setVisible(false);
+			adminWindow.addEmployeePane.setVisible(true);
+			adminWindow.editEmployeesPanel.setVisible(false);
+			adminWindow.btnVerPlantilla.setText("Ver plantilla");
 			enableAllEdit(false);
 
 		} else if ((arg0.getActionCommand().equals("Ver plantilla")) || (arg0.getActionCommand().equals("Recargar"))) {
 
-			seeEmployeesPanel.setVisible(true);
-			addEmployeePane.setVisible(false);
-			editEmployeesPanel.setVisible(false);
-			btnVerPlantilla.setText("Recargar");
+			adminWindow.seeEmployeesPanel.setVisible(true);
+			adminWindow.addEmployeePane.setVisible(false);
+			adminWindow.editEmployeesPanel.setVisible(false);
+			adminWindow.btnVerPlantilla.setText("Recargar");
 
 			ArrayList<String[]> insert = null;
 
@@ -283,8 +280,8 @@ public class ControlerAdmin implements ActionListener {
 				insert = dao.getAllEmployees();// ArrayList de Arrays
 				System.out.println("Size " + insert.size());
 				matrixToInsert = new String[insert.size() + 1][11];
-				seeEmployeesPanel.setPreferredSize(new Dimension(624, 20 + 20 * insert.size()));
-				seeEmployeesPanel.setBounds(284, 11, 624, 20 + 20 * insert.size());
+				adminWindow.seeEmployeesPanel.setPreferredSize(new Dimension(624, 20 + 20 * insert.size()));
+				adminWindow.seeEmployeesPanel.setBounds(284, 11, 624, 20 + 20 * insert.size());
 
 				for (int i = 0; i < insert.size(); i++) { // rellenamos la matriz que meteremos en la tabla a partir
 															// del ArrayList de arrays devuelto del DAO
@@ -307,7 +304,7 @@ public class ControlerAdmin implements ActionListener {
 			employeesTable.setBounds(20, 20, 600, 20 + 20 * insert.size());
 
 			employeesTable.setVisible(true);
-			seeEmployeesPanel.add(employeesTable);
+			adminWindow.seeEmployeesPanel.add(employeesTable);
 			/*
 			 * //TODO lo que hizo xian es esto que esta comentado panelquebaja = new
 			 * JScrollPane(seeEmployeesPanel);
@@ -321,43 +318,43 @@ public class ControlerAdmin implements ActionListener {
 			 *
 			 * panelquebaja.setVisible(true);
 			 */
-		/*
+
 			employeesTable.setAutoscrolls(true);
 
 			System.out.println("VIVA DROTIUM");
 			DefaultTableModel tableModel = new DefaultTableModel(matrixToInsert, titles);
 			employeesTable.setModel(tableModel);
-			
+
 		} else if (arg0.getActionCommand().equals("Editar trabajador")) {
 
-			seeEmployeesPanel.setVisible(false);
-			addEmployeePane.setVisible(false);
-			editEmployeesPanel.setVisible(true);
-			btnVerPlantilla.setText("Ver plantilla");
+			adminWindow.seeEmployeesPanel.setVisible(false);
+			adminWindow.addEmployeePane.setVisible(false);
+			adminWindow.editEmployeesPanel.setVisible(true);
+			adminWindow.btnVerPlantilla.setText("Ver plantilla");
 			enableAllEdit(false);
 
 		} else if (arg0.getActionCommand().equals("Buscar")) {
 			// TODO saltar fallo si el dni no existe o el campo esta vacio
-			if (Character.isDigit(textFieldSearch.getText().charAt(0))) {
+			if (Character.isDigit(adminWindow.textFieldSearch.getText().charAt(0))) {
 				enableAllEdit(true);
 				System.out.println("Busqueda por DNI");
 
 				try {
-					employeeToEdit = dao.getEmployee(textFieldSearch.getText().toString());
+					employeeToEdit = dao.getEmployee(adminWindow.textFieldSearch.getText().toString());
 
 				} catch (SQLException e) {
 
 					e.printStackTrace();
 				}
 
-				textFieldNameEdit.setText(employeeToEdit[1]);
-				textFieldSurname1Edit.setText(employeeToEdit[2]);
-				textFieldSurname2Edit.setText(employeeToEdit[3]);
-				textFieldDNIEdit.setText(employeeToEdit[4]);
-				textFieldBankEdit.setText(employeeToEdit[6]);
-				comboBoxJobEdit.setSelectedItem(employeeToEdit[7]);
-				textFieldEmailEdit.setText(employeeToEdit[10]);
-				labelUserNameEdit.setText(employeeToEdit[9]);
+				adminWindow.textFieldNameEdit.setText(employeeToEdit[1]);
+				adminWindow.textFieldSurname1Edit.setText(employeeToEdit[2]);
+				adminWindow.textFieldSurname2Edit.setText(employeeToEdit[3]);
+				adminWindow.textFieldDNIEdit.setText(employeeToEdit[4]);
+				adminWindow.textFieldBankEdit.setText(employeeToEdit[6]);
+				adminWindow.comboBoxJobEdit.setSelectedItem(employeeToEdit[7]);
+				adminWindow.textFieldEmailEdit.setText(employeeToEdit[10]);
+				adminWindow.labelUserNameEdit.setText(employeeToEdit[9]);
 
 			} else {
 				// TODO hacer esta busqueda
@@ -380,19 +377,26 @@ public class ControlerAdmin implements ActionListener {
 					System.out.println("Se ha cancelado");
 				} else {
 
-					if (pf.getText().equals(password)) {// Si se acierta la contraseña
+					if (pf.getText().equals(adminWindow.password)) {// Si se acierta la contraseña
 						out = true;
 
-						labelUserNameEdit.setText(genUser(textFieldNameEdit.getText(), textFieldSurname1Edit.getText(),
-								textFieldSurname2Edit.getText()));// Generamos el
-																	// nuevo usuario
+						adminWindow.labelUserNameEdit.setText(genUser(adminWindow.textFieldNameEdit.getText(),
+								adminWindow.textFieldSurname1Edit.getText(),
+								adminWindow.textFieldSurname2Edit.getText()));// Generamos el
+						// nuevo usuario
 
 						try {
-							dao.editEmployee(Integer.parseInt(employeeToEdit[0]), textFieldNameEdit.getText(),
-									textFieldSurname1Edit.getText(), textFieldSurname2Edit.getText(),
-									textFieldDNIEdit.getText(), textFieldBankEdit.getText(),
-									comboBoxJobEdit.getSelectedItem().toString(), labelUserNameEdit.getText(),
-									textFieldEmailEdit.getText());// Llamamos a editar del DAO
+							dao.editEmployee(Integer.parseInt(employeeToEdit[0]),
+									adminWindow.textFieldNameEdit.getText(),
+									adminWindow.textFieldSurname1Edit.getText(),
+									adminWindow.textFieldSurname2Edit.getText(), adminWindow.textFieldDNIEdit.getText(),
+									adminWindow.textFieldBankEdit.getText(),
+									adminWindow.comboBoxJobEdit.getSelectedItem().toString(),
+									adminWindow.labelUserNameEdit.getText(), adminWindow.textFieldEmailEdit.getText());// Llamamos
+																														// a
+																														// editar
+																														// del
+																														// DAO
 						} catch (NumberFormatException | SQLException e) {
 
 							e.printStackTrace();
@@ -403,9 +407,9 @@ public class ControlerAdmin implements ActionListener {
 								JOptionPane.ERROR_MESSAGE);
 					}
 				}
-*/
+
 			}
 
-		//}
+		}
 	}
-//}
+}

@@ -1,4 +1,4 @@
-package es.unileon.xijoja.hospital;
+package es.unileon.xijoja.hospital.admin;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -27,6 +27,10 @@ import javax.swing.border.TitledBorder;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import es.unileon.xijoja.hospital.LoginWindow;
+import es.unileon.xijoja.hospital.Logs;
+import es.unileon.xijoja.hospital.PersonalDAO;
+
 //TODO panel despedir empleados
 //TODO problema con los ID al eliminar trabajadores
 
@@ -36,61 +40,66 @@ public class AdminWindow extends JFrame {
 	private Logs log = new Logs();
 
 	private String user;
-	private String password;
+	protected String password;
 
 	Logs archivo = new Logs(); // Instancia de la clase para utilizar sus metodos
 
-	private JPanel seeEmployeesPanel;
-	private JPanel addEmployeePane;
+	protected JPanel seeEmployeesPanel;
+	protected JPanel addEmployeePane;
+
 	// private JScrollPane panelquebaja;
 
 	Toolkit screen;
 
-	private int numAdmin;
-	private int numDoc;
-	private int numNurse;
-	private int numSecre;
+	protected JTextField textFieldName;
+	protected JTextField textFieldSurname1;
+	protected JTextField textFieldSurname2;
+	protected JTextField textFieldNIFNIE;
+	protected JTextField textFieldBankAccount;
+	protected JTextField textFieldEmail;
 
-	private JLabel lblUser;
-	private JLabel lblPassword;
-	private JLabel lblError;
+	protected JLabel lblUser;
+	protected JLabel lblPassword;
+	protected JLabel lblError;
 
-	private JButton btnVerPlantilla;
+	protected JComboBox<Object> comboBoxJob;
 
-	private JLabel lblAdministrador;
-	private JLabel lblMedico;
-	private JLabel lblEnfermero;
-	private JLabel lblSecretario;
-	private JLabel lblTotal;
+	protected JButton btnVerPlantilla;
 
-	private JPanel editEmployeesPanel;
-	private JLabel label;
-	private JLabel lblApellido_1;
-	private JTextField textFieldNameEdit;
-	private JTextField textFieldSurname1Edit;
-	private JLabel label_2;
-	private JTextField textFieldDNIEdit;
-	private JLabel label_3;
-	private JTextField textFieldBankEdit;
-	private JLabel label_4;
-	private JComboBox<Object> comboBoxJobEdit;
-	private JLabel label_5;
-	private JTextField textFieldEmailEdit;
-	private JLabel labelUserNameEdit;
-	private JButton btnSaveEdit;
-	private JLabel lblApellido_2;
-	private JTextField textFieldSurname2Edit;
-	private JLabel label_9;
-	private JLabel label_10;
-	private JTextField textFieldSearch;
+	protected JLabel lblAdministrador;
+	protected JLabel lblMedico;
+	protected JLabel lblEnfermero;
+	protected JLabel lblSecretario;
+	protected JLabel lblTotal;
 
-	private ControlerAdmin list;
+	protected JPanel editEmployeesPanel;
+	protected JLabel label;
+	protected JLabel lblApellido_1;
+	protected JTextField textFieldNameEdit;
+	protected JTextField textFieldSurname1Edit;
+	protected JLabel label_2;
+	protected JTextField textFieldDNIEdit;
+	protected JLabel label_3;
+	protected JTextField textFieldBankEdit;
+	protected JLabel label_4;
+	protected JComboBox<Object> comboBoxJobEdit;
+	protected JLabel label_5;
+	protected JTextField textFieldEmailEdit;
+	protected JLabel labelUserNameEdit;
+	protected JButton btnSaveEdit;
+	protected JLabel lblApellido_2;
+	protected JTextField textFieldSurname2Edit;
+	protected JLabel label_9;
+	protected JLabel label_10;
+	protected JTextField textFieldSearch;
+
+	private ControlerAdmin listener;
 
 	public AdminWindow(String user, String password) {
 		log.InfoLog("Iniciada la sesion del administrador");
 		this.user = user;
 		this.password = password;
-		list = new ControlerAdmin();
+
 		screen = Toolkit.getDefaultToolkit();
 
 		setBounds(1024 / 4, 768 / 10, 969, 496);
@@ -99,15 +108,16 @@ public class AdminWindow extends JFrame {
 
 		setTitle("Administrador");
 
-		try {
+	}
 
-			initComponents();
-			initComponentsPanels();
+	public void setControler(ControlerAdmin controlerAdmin) throws SQLException {
+		log.InfoLog("Controlador del administrador establecido");
+		System.out.println("AQUIIIIII");
+		this.listener = controlerAdmin;
+		listener.setNumberEmployees();
 
-		} catch (SQLException e) {
-
-			e.printStackTrace();
-		}
+		initComponents();
+		initComponentsPanels();
 
 	}
 
@@ -115,8 +125,6 @@ public class AdminWindow extends JFrame {
 
 		getContentPane().setBackground(Color.WHITE);
 		getContentPane().setLayout(null);
-		list.setNumberEmployees();
-		ControlerAdmin list = new ControlerAdmin();
 
 		JButton crossButton = new JButton(new ImageIcon(LoginWindow.class.getResource("/resources/cross.png")));
 		crossButton.setBounds(944, 11, 15, 15);
@@ -148,21 +156,21 @@ public class AdminWindow extends JFrame {
 		btnNewButton.setBackground(new Color(255, 255, 255));
 		btnNewButton.setBounds(28, 33, 234, 41);
 		getContentPane().add(btnNewButton);
-		btnNewButton.addActionListener(list);
+		btnNewButton.addActionListener(listener);
 
 		btnVerPlantilla = new JButton("Ver plantilla");
 		btnVerPlantilla.setBackground(Color.WHITE);
 		btnVerPlantilla.setOpaque(false);
 		btnVerPlantilla.setBounds(28, 139, 234, 41);
 		getContentPane().add(btnVerPlantilla);
-		btnVerPlantilla.addActionListener(list);
+		btnVerPlantilla.addActionListener(listener);
 
 		JButton btnEditEmployee = new JButton("Editar trabajador");
 		btnEditEmployee.setBackground(Color.WHITE);
 		btnEditEmployee.setOpaque(false);
 		btnEditEmployee.setBounds(28, 85, 234, 41);
 		getContentPane().add(btnEditEmployee);
-		btnEditEmployee.addActionListener(list);
+		btnEditEmployee.addActionListener(listener);
 
 		JSeparator separator = new JSeparator();
 		separator.setForeground(Color.BLACK);
@@ -181,32 +189,34 @@ public class AdminWindow extends JFrame {
 		separator_2.setBounds(20, 11, 117, 8);
 		getContentPane().add(separator_2);
 
-		lblAdministrador = new JLabel(String.valueOf(numAdmin));
+		lblAdministrador = new JLabel(String.valueOf(listener.numAdmin));
 		lblAdministrador.setBorder(new TitledBorder("Administradores"));
 		lblAdministrador.setBounds(29, 315, 108, 35);
 		getContentPane().add(lblAdministrador);
 
-		lblMedico = new JLabel(String.valueOf(numDoc));
+		lblMedico = new JLabel(String.valueOf(listener.numDoc));
 		lblMedico.setBorder(new TitledBorder("Medicos"));
 		lblMedico.setBounds(29, 355, 108, 35);
 		getContentPane().add(lblMedico);
 
-		lblEnfermero = new JLabel(String.valueOf(numNurse));
+		lblEnfermero = new JLabel(String.valueOf(listener.numNurse));
 		lblEnfermero.setBorder(new TitledBorder("Enfermeros"));
 		lblEnfermero.setBounds(154, 355, 108, 35);
 		getContentPane().add(lblEnfermero);
 
-		lblSecretario = new JLabel(String.valueOf(numSecre));
+		lblSecretario = new JLabel(String.valueOf(listener.numSecre));
 		lblSecretario.setBorder(new TitledBorder("Secretarios"));
 		lblSecretario.setBounds(152, 315, 108, 35);
 		getContentPane().add(lblSecretario);
 
-		lblTotal = new JLabel(String.valueOf(numAdmin + numDoc + numNurse + numSecre));
+		lblTotal = new JLabel(
+				String.valueOf(listener.numAdmin + listener.numDoc + listener.numNurse + listener.numSecre));
 		lblTotal.setBorder(new TitledBorder("TOTAL"));
 		lblTotal.setBounds(78, 401, 124, 35);
 		getContentPane().add(lblTotal);
 
-		System.out.println("NUMEROS " + numAdmin + " " + numDoc + " " + numNurse + " " + numSecre);
+		System.out.println("NUMEROS " + listener.numAdmin + " " + listener.numDoc + " " + listener.numNurse + " "
+				+ listener.numSecre);
 
 	}
 
@@ -305,7 +315,7 @@ public class AdminWindow extends JFrame {
 		editEmployeesPanel.add(labelUserNameEdit);
 
 		btnSaveEdit = new JButton("Guardar");
-		btnSaveEdit.addActionListener(list);
+		btnSaveEdit.addActionListener(listener);
 		btnSaveEdit.setOpaque(false);
 		btnSaveEdit.setBackground(Color.WHITE);
 		btnSaveEdit.setBounds(390, 252, 212, 47);
@@ -347,7 +357,7 @@ public class AdminWindow extends JFrame {
 		JButton btnNewButton_1 = new JButton("Buscar");
 		btnNewButton_1.setForeground(Color.BLACK);
 		btnNewButton_1.setBackground(Color.WHITE);
-		btnNewButton_1.addActionListener(list);
+		btnNewButton_1.addActionListener(listener);
 
 		btnNewButton_1.setBounds(362, 11, 89, 23);
 		editEmployeesPanel.add(btnNewButton_1);
@@ -371,12 +381,12 @@ public class AdminWindow extends JFrame {
 		lblApellidos.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		addEmployeePane.add(lblApellidos);
 
-		JTextField textFieldName = new JTextField();
+		textFieldName = new JTextField();
 		textFieldName.setBounds(100, 30, 143, 20);
 		addEmployeePane.add(textFieldName);
 		textFieldName.setColumns(10);
 
-		JTextField textFieldSurname1 = new JTextField();
+		textFieldSurname1 = new JTextField();
 		textFieldSurname1.setBounds(100, 81, 143, 20);
 		addEmployeePane.add(textFieldSurname1);
 		textFieldSurname1.setColumns(10);
@@ -386,7 +396,7 @@ public class AdminWindow extends JFrame {
 		lblNifnie.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		addEmployeePane.add(lblNifnie);
 
-		JTextField textFieldNIFNIE = new JTextField();
+		textFieldNIFNIE = new JTextField();
 		textFieldNIFNIE.setBounds(100, 173, 143, 20);
 		textFieldNIFNIE.setColumns(10);
 		addEmployeePane.add(textFieldNIFNIE);
@@ -396,7 +406,7 @@ public class AdminWindow extends JFrame {
 		lblCuentaBancaria.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		addEmployeePane.add(lblCuentaBancaria);
 
-		JTextField textFieldBankAccount = new JTextField();
+		textFieldBankAccount = new JTextField();
 		textFieldBankAccount.setBounds(132, 218, 143, 20);
 		textFieldBankAccount.setColumns(10);
 		addEmployeePane.add(textFieldBankAccount);
@@ -406,7 +416,7 @@ public class AdminWindow extends JFrame {
 		lblPuesto.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		addEmployeePane.add(lblPuesto);
 
-		JComboBox<Object> comboBoxJob = new JComboBox<Object>();
+		comboBoxJob = new JComboBox<Object>();
 		comboBoxJob.setBounds(450, 29, 133, 23);
 		comboBoxJob.setBackground(Color.WHITE);
 		comboBoxJob.setModel(new DefaultComboBoxModel<Object>(
@@ -419,7 +429,7 @@ public class AdminWindow extends JFrame {
 		lblEmail.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		addEmployeePane.add(lblEmail);
 
-		JTextField textFieldEmail = new JTextField();
+		textFieldEmail = new JTextField();
 		textFieldEmail.setBounds(450, 81, 133, 20);
 		textFieldEmail.setColumns(10);
 		addEmployeePane.add(textFieldEmail);
@@ -442,14 +452,14 @@ public class AdminWindow extends JFrame {
 		btnRegister.setBackground(Color.WHITE);
 		btnRegister.setOpaque(false);
 		addEmployeePane.add(btnRegister);
-		btnRegister.addActionListener(list);
+		btnRegister.addActionListener(listener);
 
 		JLabel lblApellido = new JLabel("2º Apellido");
 		lblApellido.setBounds(10, 123, 80, 23);
 		lblApellido.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		addEmployeePane.add(lblApellido);
 
-		JTextField textFieldSurname2 = new JTextField();
+		textFieldSurname2 = new JTextField();
 		textFieldSurname2.setBounds(100, 126, 143, 20);
 		textFieldSurname2.setColumns(10);
 		addEmployeePane.add(textFieldSurname2);
@@ -467,44 +477,4 @@ public class AdminWindow extends JFrame {
 
 	}
 
-	
-	/**
-	 * 
-	 * @param state
-	 * 
-	 *              Metodo que permite activar o desactivar los componentes de
-	 *              editar empleado, de esta forma ahorramos tiempo de ponerlo cada
-	 *              vez que lo necesitamos
-	 */
-	@SuppressWarnings("deprecation")
-	private void enableAllEdit(boolean state) {
-
-		textFieldNameEdit.enable(state);
-		textFieldSurname1Edit.enable(state);
-		textFieldSurname2Edit.enable(state);
-		textFieldDNIEdit.enable(state);
-		textFieldBankEdit.enable(state);
-		textFieldEmailEdit.enable(state);
-		comboBoxJobEdit.enable(state);
-		btnSaveEdit.enable(state);
-
-		if (!state) {// Si es falso borramos las string que habian anteriormente
-
-			textFieldSearch.setText("");
-			textFieldNameEdit.setText("");
-			textFieldSurname1Edit.setText("");
-			textFieldSurname2Edit.setText("");
-			textFieldDNIEdit.setText("");
-			textFieldBankEdit.setText("");
-			textFieldEmailEdit.setText("");
-
-		}
-
-	}
 }
-
-/**
- *
- * @author xijoja TODO añadir en otraclase coontrolador controlador que conozca
- *         el ventana
- */
