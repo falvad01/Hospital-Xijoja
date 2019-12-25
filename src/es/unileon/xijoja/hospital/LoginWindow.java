@@ -20,6 +20,7 @@ import javax.swing.JPasswordField;
 import javax.swing.ImageIcon;
 import java.awt.Color;
 import java.awt.Font;
+import javax.swing.Icon;
 
 @SuppressWarnings("serial")
 public class LoginWindow extends JFrame {
@@ -129,7 +130,20 @@ public class LoginWindow extends JFrame {
 		btnLogin.setBackground(null);
 		// btnLogin.setBorder(null);
 		btnLogin.setOpaque(false);
+		
 		btnLogin.addActionListener(list);
+		JButton button = new JButton(new ImageIcon(LoginWindow.class.getResource("/resources/--ndice.png")));
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				InfoWindow info = new InfoWindow("general");
+				info.setVisible(true);
+			}
+		});
+		button.setOpaque(false);
+		button.setBorder(null);
+		button.setBackground((Color) null);
+		button.setBounds(10, 314, 23, 23);
+		loginPanel.add(button);
 
 	}
 
@@ -156,19 +170,15 @@ public class LoginWindow extends JFrame {
 					} else if (job.equals("Administrador")) {
 						log.InfoLog("Se ha logeado como administrador el usuario: " + loginUser.getText());
 
-						AdminWindow adminWindow = new AdminWindow(loginUser.toString(),
-								loginPassword.getText().toString());// Creamos la ventana del administrador
-
-						ControlerAdmin controlerAdmin = new ControlerAdmin(adminWindow);// Creamos el controlador de
-																						// administrador
-
+						AdminWindow adminWindow = null;
 						try {
-							adminWindow.setControler(controlerAdmin);// Le mandamos a la ventana su
-																		// controlador(Listener)
-						} catch (SQLException e) {
-
-							e.printStackTrace();
+							adminWindow = new AdminWindow(loginUser.toString(), loginPassword.getText().toString());
+						} catch (SQLException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
 						}
+						
+
 						adminWindow.setVisible(true);
 
 					} else if (job.equals("Enfermero")) {

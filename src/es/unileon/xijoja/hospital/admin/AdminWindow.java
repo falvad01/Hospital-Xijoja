@@ -27,9 +27,11 @@ import javax.swing.border.TitledBorder;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import es.unileon.xijoja.hospital.InfoWindow;
 import es.unileon.xijoja.hospital.LoginWindow;
 import es.unileon.xijoja.hospital.Logs;
 import es.unileon.xijoja.hospital.PersonalDAO;
+import java.awt.BorderLayout;
 
 //TODO panel despedir empleados
 //TODO problema con los ID al eliminar trabajadores
@@ -44,23 +46,23 @@ public class AdminWindow extends JFrame {
 
 	Logs archivo = new Logs(); // Instancia de la clase para utilizar sus metodos
 
-	protected JPanel seeEmployeesPanel;
-	protected JPanel addEmployeePane;
+	JPanel seeEmployeesPanel;
+	JPanel addEmployeePane;
 
 	// private JScrollPane panelquebaja;
 
 	Toolkit screen;
 
-	protected JTextField textFieldName;
-	protected JTextField textFieldSurname1;
-	protected JTextField textFieldSurname2;
-	protected JTextField textFieldNIFNIE;
-	protected JTextField textFieldBankAccount;
-	protected JTextField textFieldEmail;
+	JTextField textFieldName;
+	JTextField textFieldSurname1;
+	JTextField textFieldSurname2;
+	JTextField textFieldNIFNIE;
+	JTextField textFieldBankAccount;
+	JTextField textFieldEmail;
 
-	protected JLabel lblUser;
-	protected JLabel lblPassword;
-	protected JLabel lblError;
+	JLabel lblUser;
+	JLabel lblPassword;
+	JLabel lblError;
 
 	protected JComboBox<Object> comboBoxJob;
 
@@ -95,12 +97,10 @@ public class AdminWindow extends JFrame {
 
 	private ControlerAdmin listener;
 
-	public AdminWindow(String user, String password) {
+	public AdminWindow(String user, String password) throws SQLException {
 		log.InfoLog("Iniciada la sesion del administrador");
 		this.user = user;
 		this.password = password;
-
-		screen = Toolkit.getDefaultToolkit();
 
 		setBounds(1024 / 4, 768 / 10, 969, 496);
 
@@ -108,14 +108,8 @@ public class AdminWindow extends JFrame {
 
 		setTitle("Administrador");
 
-	}
-
-	public void setControler(ControlerAdmin controlerAdmin) throws SQLException {
-		log.InfoLog("Controlador del administrador establecido");
-		System.out.println("AQUIIIIII");
-		this.listener = controlerAdmin;
-		listener.setNumberEmployees();
-
+		this.listener = new ControlerAdmin(this);//Creamos la instancia del controlador
+		listener.setNumberEmployees();//OBtenemos los empleados al inicio del programa
 		initComponents();
 		initComponentsPanels();
 
@@ -217,6 +211,19 @@ public class AdminWindow extends JFrame {
 
 		System.out.println("NUMEROS " + listener.numAdmin + " " + listener.numDoc + " " + listener.numNurse + " "
 				+ listener.numSecre);
+
+		JButton button = new JButton(new ImageIcon(LoginWindow.class.getResource("/resources/--ndice.png")));
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				InfoWindow info = new InfoWindow("medic");
+				info.setVisible(true);
+			}
+		});
+		button.setOpaque(false);
+		button.setBorder(null);
+		button.setBackground((Color) null);
+		button.setBounds(10, 462, 23, 23);
+		getContentPane().add(button);
 
 	}
 
