@@ -10,7 +10,6 @@ import javax.swing.JFrame;
 import javax.swing.JTextField;
 
 import es.unileon.xijoja.hospital.admin.AdminWindow;
-import es.unileon.xijoja.hospital.admin.ControlerAdmin;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -20,7 +19,6 @@ import javax.swing.JPasswordField;
 import javax.swing.ImageIcon;
 import java.awt.Color;
 import java.awt.Font;
-import javax.swing.Icon;
 
 @SuppressWarnings("serial")
 public class LoginWindow extends JFrame {
@@ -130,7 +128,7 @@ public class LoginWindow extends JFrame {
 		btnLogin.setBackground(null);
 		// btnLogin.setBorder(null);
 		btnLogin.setOpaque(false);
-		
+
 		btnLogin.addActionListener(list);
 		JButton button = new JButton(new ImageIcon(LoginWindow.class.getResource("/resources/--ndice.png")));
 		button.addActionListener(new ActionListener() {
@@ -177,7 +175,6 @@ public class LoginWindow extends JFrame {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
 						}
-						
 
 						adminWindow.setVisible(true);
 

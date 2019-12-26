@@ -7,13 +7,9 @@ import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
-
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTable;
-import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 import es.unileon.xijoja.hospital.Logs;
@@ -42,7 +38,7 @@ public class ControlerAdmin implements ActionListener {
 	 * 
 	 *                      Obtenemos el numero de empleados en cada profesion
 	 */
-	public void setNumberEmployees() throws SQLException {
+	public void setNumberEmployees() {
 
 		numAdmin = 0;
 		numDoc = 0;
@@ -92,12 +88,7 @@ public class ControlerAdmin implements ActionListener {
 
 		String[] names = null;
 
-		try {
-			names = dao.getNamesEmployees();
-		} catch (SQLException e) {
-
-			e.printStackTrace();
-		}
+		names = dao.getNamesEmployees();
 
 		for (int i = 0; i < names.length; i++) {
 			System.out.println(i + ": " + names[i]);
@@ -174,7 +165,7 @@ public class ControlerAdmin implements ActionListener {
 
 		if (!state) {// Si es falso borramos las string que habian anteriormente
 
-			adminWindow.textFieldSearch.setText("");
+			adminWindow.textFieldSearchDNIEdit.setText("");
 			adminWindow.textFieldNameEdit.setText("");
 			adminWindow.textFieldSurname1Edit.setText("");
 			adminWindow.textFieldSurname2Edit.setText("");
@@ -223,31 +214,20 @@ public class ControlerAdmin implements ActionListener {
 
 				Date date = new Date(Calendar.getInstance().getTime().getTime());// Obtenemos la fecha actual
 
-				try {
+				dao.addEmployee(id, adminWindow.textFieldName.getText(), adminWindow.textFieldSurname1.getText(),
+						adminWindow.textFieldSurname2.getText(), adminWindow.textFieldNIFNIE.getText(), date,
+						adminWindow.textFieldBankAccount.getText(),
+						adminWindow.comboBoxJob.getSelectedItem().toString(), adminWindow.lblPassword.getText(),
+						adminWindow.lblUser.getText(), adminWindow.textFieldEmail.getText());// LLamamos a la
+				// funcion del DAO que inserta el empleado
 
-					dao.addEmployee(id, adminWindow.textFieldName.getText(), adminWindow.textFieldSurname1.getText(),
-							adminWindow.textFieldSurname2.getText(), adminWindow.textFieldNIFNIE.getText(), date,
-							adminWindow.textFieldBankAccount.getText(),
-							adminWindow.comboBoxJob.getSelectedItem().toString(), adminWindow.lblPassword.getText(),
-							adminWindow.lblUser.getText(), adminWindow.textFieldEmail.getText());// LLamamos a la
-					// funcion del DAO
-					// que inserta el
-					// empleado
-				} catch (SQLException e1) {
+				setNumberEmployees();
+				adminWindow.lblAdministrador.setText(String.valueOf(numAdmin));
+				adminWindow.lblMedico.setText(String.valueOf(numDoc));
+				adminWindow.lblEnfermero.setText(String.valueOf(numNurse));
+				adminWindow.lblSecretario.setText(String.valueOf(numSecre));
+				adminWindow.lblTotal.setText(String.valueOf(numAdmin + numDoc + numNurse + numSecre));
 
-					e1.printStackTrace();
-				}
-				try {
-					setNumberEmployees();
-					adminWindow.lblAdministrador.setText(String.valueOf(numAdmin));
-					adminWindow.lblMedico.setText(String.valueOf(numDoc));
-					adminWindow.lblEnfermero.setText(String.valueOf(numNurse));
-					adminWindow.lblSecretario.setText(String.valueOf(numSecre));
-					adminWindow.lblTotal.setText(String.valueOf(numAdmin + numDoc + numNurse + numSecre));
-				} catch (SQLException e) {
-
-					e.printStackTrace();
-				}
 			}
 
 			log.InfoLog("Usuario + " + adminWindow.lblUser.getText() + " añadido correctamente");
@@ -255,17 +235,19 @@ public class ControlerAdmin implements ActionListener {
 		} else if (arg0.getActionCommand().equals("Añadir trabajador")) {///////////////////////////////// ADD
 
 			adminWindow.seeEmployeesPanel.setVisible(false);
-			adminWindow.addEmployeePane.setVisible(true);
+			adminWindow.addEmployeePanel.setVisible(true);
 			adminWindow.editEmployeesPanel.setVisible(false);
 			adminWindow.btnVerPlantilla.setText("Ver plantilla");
+			adminWindow.deletePanel.setVisible(false);
 			enableAllEdit(false);
 
 		} else if ((arg0.getActionCommand().equals("Ver plantilla")) || (arg0.getActionCommand().equals("Recargar"))) {
 
 			adminWindow.seeEmployeesPanel.setVisible(true);
-			adminWindow.addEmployeePane.setVisible(false);
+			adminWindow.addEmployeePanel.setVisible(false);
 			adminWindow.editEmployeesPanel.setVisible(false);
 			adminWindow.btnVerPlantilla.setText("Recargar");
+			adminWindow.deletePanel.setVisible(false);
 
 			ArrayList<String[]> insert = null;
 
@@ -273,31 +255,26 @@ public class ControlerAdmin implements ActionListener {
 
 			String[][] matrixToInsert = null;
 
-			try {
-				titles = new String[] { "  Id", "Nombre", "Apellido 1", "Apellido 2", "NIF", "Fecha", "Cuenta Bancaria",
-						"Puesto", "Contrase�a", "Usuario", "Email" }; // Titulos de la tabla de
-																		// los empleados
-				insert = dao.getAllEmployees();// ArrayList de Arrays
-				System.out.println("Size " + insert.size());
-				matrixToInsert = new String[insert.size() + 1][11];
-				adminWindow.seeEmployeesPanel.setPreferredSize(new Dimension(624, 20 + 20 * insert.size()));
-				adminWindow.seeEmployeesPanel.setBounds(284, 11, 624, 20 + 20 * insert.size());
+			titles = new String[] { "  Id", "Nombre", "Apellido 1", "Apellido 2", "NIF", "Fecha", "Cuenta Bancaria",
+					"Puesto", "Contrase�a", "Usuario", "Email" }; // Titulos de la tabla de
+																	// los empleados
+			insert = dao.getAllEmployees();// ArrayList de Arrays
+			System.out.println("Size " + insert.size());
+			matrixToInsert = new String[insert.size() + 1][11];
+			adminWindow.seeEmployeesPanel.setPreferredSize(new Dimension(624, 20 + 20 * insert.size()));
+			adminWindow.seeEmployeesPanel.setBounds(284, 11, 624, 20 + 20 * insert.size());
 
-				for (int i = 0; i < insert.size(); i++) { // rellenamos la matriz que meteremos en la tabla a partir
-															// del ArrayList de arrays devuelto del DAO
-					for (int j = 0; j < 11; j++) {
-						if (i == 0) {
+			for (int i = 0; i < insert.size(); i++) { // rellenamos la matriz que meteremos en la tabla a partir
+														// del ArrayList de arrays devuelto del DAO
+				for (int j = 0; j < 11; j++) {
+					if (i == 0) {
 
-							matrixToInsert[i][j] = titles[j];
+						matrixToInsert[i][j] = titles[j];
 
-						} else {
-							matrixToInsert[i][j] = insert.get(i)[j];
-						}
+					} else {
+						matrixToInsert[i][j] = insert.get(i)[j];
 					}
 				}
-
-			} catch (SQLException e) {
-				e.printStackTrace();
 			}
 
 			JTable employeesTable = new JTable();
@@ -328,24 +305,23 @@ public class ControlerAdmin implements ActionListener {
 		} else if (arg0.getActionCommand().equals("Editar trabajador")) {
 
 			adminWindow.seeEmployeesPanel.setVisible(false);
-			adminWindow.addEmployeePane.setVisible(false);
+			adminWindow.addEmployeePanel.setVisible(false);
 			adminWindow.editEmployeesPanel.setVisible(true);
 			adminWindow.btnVerPlantilla.setText("Ver plantilla");
+			adminWindow.deletePanel.setVisible(false);
 			enableAllEdit(false);
 
 		} else if (arg0.getActionCommand().equals("Buscar")) {
 			// TODO saltar fallo si el dni no existe o el campo esta vacio
-			if (Character.isDigit(adminWindow.textFieldSearch.getText().charAt(0))) {
+
+			
+			System.out.println("a" + adminWindow.textFieldSearchDNIEdit.getText().toString() + "a");
+			if (adminWindow.textFieldSearchDNIEdit.getText().toString().equals("")) {
+				System.out.println("error");
+				adminWindow.lblErrorEdit.setText("Error en el formulario");
+			} else {
 				enableAllEdit(true);
-				System.out.println("Busqueda por DNI");
-
-				try {
-					employeeToEdit = dao.getEmployee(adminWindow.textFieldSearch.getText().toString());
-
-				} catch (SQLException e) {
-
-					e.printStackTrace();
-				}
+				employeeToEdit = dao.getEmployee(adminWindow.textFieldSearchDNIEdit.getText().toString());
 
 				adminWindow.textFieldNameEdit.setText(employeeToEdit[1]);
 				adminWindow.textFieldSurname1Edit.setText(employeeToEdit[2]);
@@ -355,10 +331,6 @@ public class ControlerAdmin implements ActionListener {
 				adminWindow.comboBoxJobEdit.setSelectedItem(employeeToEdit[7]);
 				adminWindow.textFieldEmailEdit.setText(employeeToEdit[10]);
 				adminWindow.labelUserNameEdit.setText(employeeToEdit[9]);
-
-			} else {
-				// TODO hacer esta busqueda
-				System.out.println("Busqueda por nombre y apellidos");
 			}
 
 		} else if (arg0.getActionCommand().equals("Guardar")) {
@@ -385,22 +357,13 @@ public class ControlerAdmin implements ActionListener {
 								adminWindow.textFieldSurname2Edit.getText()));// Generamos el
 						// nuevo usuario
 
-						try {
-							dao.editEmployee(Integer.parseInt(employeeToEdit[0]),
-									adminWindow.textFieldNameEdit.getText(),
-									adminWindow.textFieldSurname1Edit.getText(),
-									adminWindow.textFieldSurname2Edit.getText(), adminWindow.textFieldDNIEdit.getText(),
-									adminWindow.textFieldBankEdit.getText(),
-									adminWindow.comboBoxJobEdit.getSelectedItem().toString(),
-									adminWindow.labelUserNameEdit.getText(), adminWindow.textFieldEmailEdit.getText());// Llamamos
-																														// a
-																														// editar
-																														// del
-																														// DAO
-						} catch (NumberFormatException | SQLException e) {
-
-							e.printStackTrace();
-						}
+						// Llamamos a editar del DAO
+						dao.editEmployee(Integer.parseInt(employeeToEdit[0]), adminWindow.textFieldNameEdit.getText(),
+								adminWindow.textFieldSurname1Edit.getText(),
+								adminWindow.textFieldSurname2Edit.getText(), adminWindow.textFieldDNIEdit.getText(),
+								adminWindow.textFieldBankEdit.getText(),
+								adminWindow.comboBoxJobEdit.getSelectedItem().toString(),
+								adminWindow.labelUserNameEdit.getText(), adminWindow.textFieldEmailEdit.getText());
 
 					} else {// Si se falla la contraseña
 						JOptionPane.showMessageDialog(null, "Contraseña incorrecta", "ERROR",
@@ -410,6 +373,21 @@ public class ControlerAdmin implements ActionListener {
 
 			}
 
+		} else if (arg0.getActionCommand().equals("Borrar empleado")) {
+
+			adminWindow.seeEmployeesPanel.setVisible(false);
+			adminWindow.addEmployeePanel.setVisible(false);
+			adminWindow.editEmployeesPanel.setVisible(false);
+			adminWindow.btnVerPlantilla.setText("Ver plantilla");
+			adminWindow.deletePanel.setVisible(true);
+
+		} else if (arg0.getActionCommand().equals("Borrar")) {
+			// TODO no funciona, no se por que
+
+			System.out.println("Boton borrar pulsado");
+			dao.deleteEmployee(adminWindow.textFieldNameToDelete.toString(),
+					adminWindow.textFieldFirstDeleteToDelete.toString(),
+					adminWindow.textFieldSecondDeleteToDelete.toString(), adminWindow.textFieldDNIToDelete.toString());
 		}
 	}
 }

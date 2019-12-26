@@ -8,8 +8,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import javax.swing.JTextField;
-
 /**
  *
  * @author Xijoja
@@ -90,7 +88,6 @@ public class PersonalDAO {
 			Statement st = conn.createStatement();
 			ResultSet rs = st.executeQuery("Select idTrabajador from personal");
 
-			int id = 0;
 			if (rs.last()) {// Nos posicionamos al final
 				ret = rs.getRow();// sacamos la cantidad de filas/registros
 
@@ -124,7 +121,7 @@ public class PersonalDAO {
 	 * @throws SQLException
 	 */
 	public void addEmployee(int id, String name, String surname1, String surname2, String NIE, Date date,
-			String bankAccount, String job, String password, String user, String email) throws SQLException {
+			String bankAccount, String job, String password, String user, String email) {
 
 		co = Conexion.getInstance();
 		conn = co.getConnection();
@@ -133,21 +130,27 @@ public class PersonalDAO {
 				+ id + "', '" + name + "', '" + surname1 + "', '" + surname2 + "', '" + NIE + "', '" + date + "', '"
 				+ bankAccount + "', '" + job + "', '" + password + "', '" + user + "', '" + email + "')";
 
-		Statement st = conn.createStatement();
-		st.executeUpdate(sql);
+		Statement st;
+		try {
+			st = conn.createStatement();
+			st.executeUpdate(sql);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 		System.out.println("se ha introducido una persona");
 		co.disconect();// Desconectamos la base de datos
 
 		// Mensaje a enviar por correo
-		String msn = "Saludos " + name + " " + surname1 + surname2
-				+ ", ha entrado a formar parte de la plantilla del hospital Xijoja, le adjuntamos el usuario y contrase�a\n\n"
-				+ "Usuario: " + user + "\n" + "Contrase�a: " + password;
 		/*
+		 * String msn = "Saludos " + name + " " + surname1 + surname2 +
+		 * ", ha entrado a formar parte de la plantilla del hospital Xijoja, le adjuntamos el usuario y contrase�a\n\n"
+		 * + "Usuario: " + user + "\n" + "Contrase�a: " + password;
+		 * 
 		 * Email mail = new Email(email, "NO CONTESTAR A ESTE CORREO\n" +
 		 * "ALTA HOSPITAL XIJOJA", msn); try { mail.send();// Enviamos el email } catch
-		 * (IOException e) {
-		 *
-		 * e.printStackTrace(); }
+		 * (IOException e) { e.printStackTrace(); }
 		 */
 		co.disconect();// Cerramos la conexion con la base de datos
 
@@ -159,64 +162,75 @@ public class PersonalDAO {
 	 * @return
 	 * @throws SQLException
 	 */
-	public String[] getEmployee(int id) throws SQLException {
+	public String[] getEmployee(int id) {
 
 		co = Conexion.getInstance();
 		conn = co.getConnection();
 
 		String sql = "SELECT * FROM personal WHERE IdTrabajador=" + id;
-		Statement st = conn.createStatement();
-		ResultSet rs = st.executeQuery(sql);
-		String[] ret = new String[11];
-		while (rs.next()) {
-			ret[0] = rs.getString(1); // ID
-			ret[1] = rs.getString(2); // Nombre
-			ret[2] = rs.getString(3); // Apelllido1
-			ret[3] = rs.getString(4); // Apellido2
-			ret[4] = rs.getString(5); // NIE
-			ret[5] = rs.getString(6); // Fecha
-			ret[6] = rs.getString(7); // Cuenta bancaria
-			ret[7] = rs.getString(8); // Puesto
-			ret[8] = rs.getString(9); // Contrasenia
-			ret[9] = rs.getString(10); // Usuario
-			ret[10] = rs.getString(11);
+		Statement st;
+		String[] ret = null;
+		try {
+			st = conn.createStatement();
+			ResultSet rs = st.executeQuery(sql);
+			ret = new String[11];
+			while (rs.next()) {
+				ret[0] = rs.getString(1); // ID
+				ret[1] = rs.getString(2); // Nombre
+				ret[2] = rs.getString(3); // Apelllido1
+				ret[3] = rs.getString(4); // Apellido2
+				ret[4] = rs.getString(5); // NIE
+				ret[5] = rs.getString(6); // Fecha
+				ret[6] = rs.getString(7); // Cuenta bancaria
+				ret[7] = rs.getString(8); // Puesto
+				ret[8] = rs.getString(9); // Contrasenia
+				ret[9] = rs.getString(10); // Usuario
+				ret[10] = rs.getString(11);
 
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+
 		co.disconect();// Cerramos la conexion con la base de datos
 		return ret;
 	}
 
-	public String[] getEmployee(String DNI) throws SQLException {
+	public String[] getEmployee(String DNI) {
 
 		co = Conexion.getInstance();
 		DNI = DNI.replaceFirst("[\\s\\S]{0,1}$", "");// TODO no funciona, quitar la letra del DNI para que funcione
 		conn = co.getConnection();
 		System.out.println("DNI: " + DNI);
 		String sql = "SELECT * FROM personal WHERE NIFNIE=" + DNI;
-		Statement st = conn.createStatement();
-		ResultSet rs = st.executeQuery(sql);
-		String[] ret = new String[11];
-		while (rs.next()) {
-			ret[0] = rs.getString(1); // ID
-			ret[1] = rs.getString(2); // Nombre
-			ret[2] = rs.getString(3); // Apelllido1
-			ret[3] = rs.getString(4); // Apellido2
-			ret[4] = rs.getString(5); // NIE
-			ret[5] = rs.getString(6); // Fecha
-			ret[6] = rs.getString(7); // Cuenta bancaria
-			ret[7] = rs.getString(8); // Puesto
-			ret[8] = rs.getString(9); // Contrasenia
-			ret[9] = rs.getString(10); // Usuario
-			ret[10] = rs.getString(11);
+		Statement st;
+		String[] ret = null;
+		try {
+			st = conn.createStatement();
+			ResultSet rs = st.executeQuery(sql);
+			ret = new String[11];
+			while (rs.next()) {
+				ret[0] = rs.getString(1); // ID
+				ret[1] = rs.getString(2); // Nombre
+				ret[2] = rs.getString(3); // Apelllido1
+				ret[3] = rs.getString(4); // Apellido2
+				ret[4] = rs.getString(5); // NIE
+				ret[5] = rs.getString(6); // Fecha
+				ret[6] = rs.getString(7); // Cuenta bancaria
+				ret[7] = rs.getString(8); // Puesto
+				ret[8] = rs.getString(9); // Contrasenia
+				ret[9] = rs.getString(10); // Usuario
+				ret[10] = rs.getString(11);
 
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 
 		co.disconect();// Cerramos la conexion con la base de datos
 		return ret;
-
-	}
-
-	public void getEmployee(String name, String surname1, String surname2) {
 
 	}
 
@@ -225,43 +239,59 @@ public class PersonalDAO {
 	 * @return
 	 * @throws SQLException
 	 */
-	public String[] getNamesEmployees() throws SQLException {
+	public String[] getNamesEmployees() {
 
 		co = Conexion.getInstance();
 		conn = co.getConnection();
 
 		String sql = "SELECT * FROM personal";
-		Statement st = conn.createStatement();
-		ResultSet rs = st.executeQuery(sql);
-		ArrayList<String> names = new ArrayList<String>();
-		while (rs.next()) {
-			names.add(rs.getString(10));
+		Statement st;
+		ArrayList<String> names = null;
+		try {
+			st = conn.createStatement();
+			ResultSet rs = st.executeQuery(sql);
+			names = new ArrayList<String>();
+			while (rs.next()) {
+				names.add(rs.getString(10));
 
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+
 		String[] ret = names.toArray(new String[names.size()]);
 		co.disconect();
 		return ret;
 	}
 
-	public String[] getJobsEmployees() throws SQLException {
+	public String[] getJobsEmployees() {
 
 		co = Conexion.getInstance();
 		conn = co.getConnection();
 
 		String sql = "SELECT * FROM personal";
-		Statement st = conn.createStatement();
-		ResultSet rs = st.executeQuery(sql);
-		ArrayList<String> names = new ArrayList<String>();
-		while (rs.next()) {
-			names.add(rs.getString(8));
+		Statement st;
+		ArrayList<String> names = null;
+		try {
+			st = conn.createStatement();
+			ResultSet rs = st.executeQuery(sql);
+			names = new ArrayList<String>();
+			while (rs.next()) {
+				names.add(rs.getString(8));
 
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+
 		String[] ret = names.toArray(new String[names.size()]);
 		co.disconect();
 		return ret;
 	}
 
-	public ArrayList<String[]> getAllEmployees() throws SQLException {
+	public ArrayList<String[]> getAllEmployees() {
 
 		ArrayList<String[]> ret = new ArrayList<String[]>();
 
@@ -277,7 +307,7 @@ public class PersonalDAO {
 	}
 
 	public void editEmployee(int id, String name, String surname1, String surname2, String NIE, String bankAccount,
-			String job, String user, String email) throws SQLException {
+			String job, String user, String email) {
 
 		co = Conexion.getInstance();
 		conn = co.getConnection();
@@ -285,11 +315,39 @@ public class PersonalDAO {
 		String sql = "UPDATE personal SET Nombre='" + name + "',Apellido1='" + surname1 + "',Apellido2='" + surname2
 				+ "',NIFNIE='" + NIE + "',CuentaBancaria='" + bankAccount + "',Puesto='" + job + "',usuario='" + user
 				+ "',Email='" + email + "' WHERE idTrabajador = " + id;
-		Statement st = conn.createStatement();
-		st.executeUpdate(sql);
-		System.out.println("se ha editado a una " + user);
+		Statement st;
+		try {
+			st = conn.createStatement();
+			st.executeUpdate(sql);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 		co.disconect();// Desconectamos la base de datos
 
+	}
+
+	public void deleteEmployee(String name, String surname1, String surname2, String DNI) {
+
+		co = Conexion.getInstance();
+		conn = co.getConnection();
+
+		String sql = "DELETE FROM personal WHERE Nombre='" + name + "' && Apellido1='" + surname1 + "' && Apellido2='"
+				+ surname2 + "' && NIFNIE='" + DNI + "'";
+		Statement st;
+		try {
+			st = conn.createStatement();
+
+			st.executeQuery(sql);
+			System.out.println("PAN");
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println("AQUI");
+		co.disconect();// Desconectamos la base de datos
 	}
 
 }
