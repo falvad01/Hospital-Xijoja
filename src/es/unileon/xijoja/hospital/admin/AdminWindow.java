@@ -87,6 +87,7 @@ public class AdminWindow extends JFrame {
 	protected JTextField textFieldNameToDelete;
 	protected JTextField textFieldFirstDeleteToDelete;
 	protected JTextField textFieldSecondDeleteToDelete;
+	protected JLabel lblErrorDelete;
 
 	public AdminWindow(String user, String password) throws SQLException {
 		log.InfoLog("Iniciada la sesion del administrador");
@@ -235,6 +236,65 @@ public class AdminWindow extends JFrame {
 		seeEmployeesPanel.setBounds(284, 11, 624, 450);
 		seeEmployeesPanel.setPreferredSize(new Dimension(630, 700));
 		seeEmployeesPanel.setVisible(false);
+
+		// ---------------------------------------------PANEL BORRAR
+		// EMPLEADOS--------------------------------------//
+		deletePanel = new JPanel();
+		deletePanel.setBackground(Color.WHITE);
+		deletePanel.setBounds(274, 0, 649, 467);
+		getContentPane().add(deletePanel);
+		deletePanel.setLayout(null);
+		deletePanel.setVisible(false);
+
+		JLabel lblNewLabel_1 = new JLabel("DNI");
+		lblNewLabel_1.setBounds(39, 69, 46, 20);
+		deletePanel.add(lblNewLabel_1);
+
+		textFieldDNIToDelete = new JTextField();
+		textFieldDNIToDelete.setBounds(125, 69, 138, 20);
+		deletePanel.add(textFieldDNIToDelete);
+		textFieldDNIToDelete.setColumns(10);
+
+		JLabel lblNewLabel_2 = new JLabel("Nombre");
+		lblNewLabel_2.setBounds(39, 119, 46, 14);
+		deletePanel.add(lblNewLabel_2);
+
+		textFieldNameToDelete = new JTextField();
+		textFieldNameToDelete.setColumns(10);
+		textFieldNameToDelete.setBounds(125, 119, 138, 20);
+		deletePanel.add(textFieldNameToDelete);
+
+		textFieldFirstDeleteToDelete = new JTextField();
+		textFieldFirstDeleteToDelete.setColumns(10);
+		textFieldFirstDeleteToDelete.setBounds(125, 166, 138, 20);
+		deletePanel.add(textFieldFirstDeleteToDelete);
+
+		textFieldSecondDeleteToDelete = new JTextField();
+		textFieldSecondDeleteToDelete.setColumns(10);
+		textFieldSecondDeleteToDelete.setBounds(125, 215, 138, 20);
+		deletePanel.add(textFieldSecondDeleteToDelete);
+
+		JLabel lblApellido_3 = new JLabel("1º Apellido");
+		lblApellido_3.setBounds(39, 169, 60, 14);
+		deletePanel.add(lblApellido_3);
+
+		JLabel lblapellido = new JLabel("2ºApellido");
+		lblapellido.setBounds(39, 218, 60, 14);
+		deletePanel.add(lblapellido);
+
+		JLabel lblNewLabel_3 = new JLabel("Introducir los siguientes datos para borrar");
+		lblNewLabel_3.setBounds(39, 23, 275, 20);
+		deletePanel.add(lblNewLabel_3);
+
+		JButton btnDelete = new JButton("Borrar");
+		btnDelete.addActionListener(listener);
+		btnDelete.setBounds(285, 244, 138, 20);
+		deletePanel.add(btnDelete);
+
+		 lblErrorDelete = new JLabel("");
+		lblErrorDelete.setForeground(Color.RED);
+		lblErrorDelete.setBounds(433, 247, 165, 14);
+		deletePanel.add(lblErrorDelete);
 		// --------------------------------------------PANEL EDITAR
 		// EMPLEADOS-------------------------------------//
 		editEmployeesPanel = new JPanel();
@@ -372,59 +432,6 @@ public class AdminWindow extends JFrame {
 		lblErrorEdit.setForeground(Color.RED);
 		lblErrorEdit.setBounds(358, 15, 143, 14);
 		editEmployeesPanel.add(lblErrorEdit);
-
-// ---------------------------------------------PANEL BORRAR EMPLEADOS--------------------------------------//
-		deletePanel = new JPanel();
-		deletePanel.setBackground(Color.WHITE);
-		deletePanel.setBounds(274, 0, 649, 467);
-		getContentPane().add(deletePanel);
-		deletePanel.setLayout(null);
-		deletePanel.setVisible(false);
-
-		JLabel lblNewLabel_1 = new JLabel("DNI");
-		lblNewLabel_1.setBounds(39, 69, 46, 20);
-		deletePanel.add(lblNewLabel_1);
-
-		textFieldDNIToDelete = new JTextField();
-		textFieldDNIToDelete.setBounds(125, 69, 138, 20);
-		deletePanel.add(textFieldDNIToDelete);
-		textFieldDNIToDelete.setColumns(10);
-
-		JLabel lblNewLabel_2 = new JLabel("Nombre");
-		lblNewLabel_2.setBounds(39, 119, 46, 14);
-		deletePanel.add(lblNewLabel_2);
-
-		textFieldNameToDelete = new JTextField();
-		textFieldNameToDelete.setColumns(10);
-		textFieldNameToDelete.setBounds(125, 119, 138, 20);
-		deletePanel.add(textFieldNameToDelete);
-
-		textFieldFirstDeleteToDelete = new JTextField();
-		textFieldFirstDeleteToDelete.setColumns(10);
-		textFieldFirstDeleteToDelete.setBounds(125, 166, 138, 20);
-		deletePanel.add(textFieldFirstDeleteToDelete);
-
-		textFieldSecondDeleteToDelete = new JTextField();
-		textFieldSecondDeleteToDelete.setColumns(10);
-		textFieldSecondDeleteToDelete.setBounds(125, 215, 138, 20);
-		deletePanel.add(textFieldSecondDeleteToDelete);
-
-		JLabel lblApellido_3 = new JLabel("1º Apellido");
-		lblApellido_3.setBounds(39, 169, 60, 14);
-		deletePanel.add(lblApellido_3);
-
-		JLabel lblapellido = new JLabel("2ºApellido");
-		lblapellido.setBounds(39, 218, 60, 14);
-		deletePanel.add(lblapellido);
-
-		JLabel lblNewLabel_3 = new JLabel("Introducir los siguientes datos para borrar");
-		lblNewLabel_3.setBounds(39, 23, 275, 20);
-		deletePanel.add(lblNewLabel_3);
-
-		JButton btnDelete = new JButton("Borrar");
-		btnDelete.addActionListener(listener);
-		btnDelete.setBounds(285, 244, 138, 20);
-		deletePanel.add(btnDelete);
 
 // ------------------------------------------PANEL AÑADIR EMPLEADOS-----------------------------------------//
 

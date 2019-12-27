@@ -33,6 +33,7 @@ public class LoginWindow extends JFrame {
 	private JTextField loginUser;
 	private JPasswordField loginPassword;
 	private PersonalDAO dao;
+	private JLabel lblLoginError;
 	private Logs log = new Logs();
 
 	public LoginWindow() throws IOException {
@@ -143,6 +144,12 @@ public class LoginWindow extends JFrame {
 		button.setBounds(10, 314, 23, 23);
 		loginPanel.add(button);
 
+		lblLoginError = new JLabel("");
+		lblLoginError.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		lblLoginError.setForeground(Color.RED);
+		lblLoginError.setBounds(38, 211, 160, 14);
+		loginPanel.add(lblLoginError);
+
 	}
 
 	public class listener implements ActionListener {
@@ -157,8 +164,8 @@ public class LoginWindow extends JFrame {
 				String job = dao.getProfessionCorrectUser(loginUser.getText(), loginPassword.getText().toString());
 
 				if (job == null) {
-					JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos.", "ERROR",
-							JOptionPane.ERROR_MESSAGE);
+					lblLoginError.setText("Ususario o contraseña incorrectos");
+
 				} else {
 
 					if (job.equals("Medico")) {
@@ -192,8 +199,7 @@ public class LoginWindow extends JFrame {
 
 					} else {
 						log.InfoLog("No se ha podido encontrar la prfofesion: " + job);
-						JOptionPane.showMessageDialog(null, "Profesion incorrecta.", "ERROR",
-								JOptionPane.ERROR_MESSAGE);
+						lblLoginError.setText("Ususario o contraseña incorrectos");
 					}
 				}
 

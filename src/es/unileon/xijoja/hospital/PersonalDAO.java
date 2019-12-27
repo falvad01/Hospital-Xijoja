@@ -28,7 +28,9 @@ public class PersonalDAO {
 	 *
 	 * @param user
 	 * @param password
-	 * @return devuelve la profesion, si el login no es correcto o ha ocurrido algun
+	 * @return
+	 * 
+	 * 		Devuelve la profesion, si el login no es correcto o ha ocurrido algun
 	 *         fallo con la profesion devuelve un null
 	 */
 	public String getProfessionCorrectUser(String user, String password) {
@@ -119,6 +121,8 @@ public class PersonalDAO {
 	 * @param user
 	 * @param Email
 	 * @throws SQLException
+	 * 
+	 *                      Añadimos un empleado a la base de datos
 	 */
 	public void addEmployee(int id, String name, String surname1, String surname2, String NIE, Date date,
 			String bankAccount, String job, String password, String user, String email) {
@@ -161,6 +165,8 @@ public class PersonalDAO {
 	 * @param id
 	 * @return
 	 * @throws SQLException
+	 * 
+	 *                      Obtenemos un empleado introduciendo su ID
 	 */
 	public String[] getEmployee(int id) {
 
@@ -197,6 +203,13 @@ public class PersonalDAO {
 		return ret;
 	}
 
+	/**
+	 * 
+	 * @param DNI
+	 * @return
+	 * 
+	 * 		Obtenemos un empleado introduciendo su DNI
+	 */
 	public String[] getEmployee(String DNI) {
 
 		co = Conexion.getInstance();
@@ -238,6 +251,9 @@ public class PersonalDAO {
 	 *
 	 * @return
 	 * @throws SQLException
+	 * 
+	 *                      Obtnemos los nombres de ususario de los empeados para
+	 *                      comprobar que no se repitan
 	 */
 	public String[] getNamesEmployees() {
 
@@ -265,6 +281,12 @@ public class PersonalDAO {
 		return ret;
 	}
 
+	/**
+	 * 
+	 * @return
+	 * 
+	 * 		Obtenemos todos los puestos de trbajo para contarlos
+	 */
 	public String[] getJobsEmployees() {
 
 		co = Conexion.getInstance();
@@ -291,6 +313,12 @@ public class PersonalDAO {
 		return ret;
 	}
 
+	/**
+	 * 
+	 * @return
+	 * 
+	 * 		Metemos todos los empleados en un arraylist
+	 */
 	public ArrayList<String[]> getAllEmployees() {
 
 		ArrayList<String[]> ret = new ArrayList<String[]>();
@@ -306,6 +334,20 @@ public class PersonalDAO {
 		return ret;
 	}
 
+	/**
+	 * 
+	 * @param id
+	 * @param name
+	 * @param surname1
+	 * @param surname2
+	 * @param NIE
+	 * @param bankAccount
+	 * @param job
+	 * @param user
+	 * @param email
+	 * 
+	 *                    Metodo para editar un empleado
+	 */
 	public void editEmployee(int id, String name, String surname1, String surname2, String NIE, String bankAccount,
 			String job, String user, String email) {
 
@@ -328,6 +370,15 @@ public class PersonalDAO {
 
 	}
 
+	/**
+	 * 
+	 * @param name
+	 * @param surname1
+	 * @param surname2
+	 * @param DNI
+	 * 
+	 *                 Metodo para borrar un empleado
+	 */
 	public void deleteEmployee(String name, String surname1, String surname2, String DNI) {
 
 		co = Conexion.getInstance();
@@ -348,6 +399,49 @@ public class PersonalDAO {
 		}
 		System.out.println("AQUI");
 		co.disconect();// Desconectamos la base de datos
+	}
+
+	/**
+	 * 
+	 * @param DNI
+	 * @return
+	 * 
+	 * 		Metodo para comprobar que el DNI introducido pertenece a algun
+	 *         empleado
+	 */
+	public boolean checkEmployeeExist(String DNI) {
+		boolean ret = false;
+
+		co = Conexion.getInstance();
+		conn = co.getConnection();
+		System.out.println("Aqui ni entra");
+		String sql = "SELECT * FROM personal WHERE NIFNIE='" + DNI + "'";
+		Statement st;
+
+		try {
+			st = conn.createStatement();
+			ResultSet rs = st.executeQuery(sql);
+
+			while (rs.next()) {
+				rs.getString(1); // ID
+
+				if (rs.getString(1) == null) {
+
+					ret = false;
+				} else {
+					ret = true;
+				}
+
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		co.disconect();// Cerramos la conexion con la base de datos
+
+		return ret;
+
 	}
 
 }
