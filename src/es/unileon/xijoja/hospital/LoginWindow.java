@@ -23,13 +23,11 @@ import java.awt.Font;
 @SuppressWarnings("serial")
 public class LoginWindow extends JFrame {
 
-	Toolkit screen;
-
 	private static final int PWIDTH = 750;
 	private static final int PHEIGH = 348;
 
 	/* LOGIN */
-	JPanel loginPanel;
+	private JPanel loginPanel;
 	private JTextField loginUser;
 	private JPasswordField loginPassword;
 	private PersonalDAO dao;
@@ -42,7 +40,7 @@ public class LoginWindow extends JFrame {
 		getContentPane().setBackground(Color.WHITE);
 		setBackground(Color.WHITE);
 
-		screen = Toolkit.getDefaultToolkit();
+		
 
 		setBounds(1024 / 4, 768 / 6, PWIDTH, PHEIGH);
 
@@ -152,6 +150,7 @@ public class LoginWindow extends JFrame {
 
 	}
 
+	//TODO pasar estop a vista controlador
 	public class listener implements ActionListener {
 
 		@SuppressWarnings("deprecation")

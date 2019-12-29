@@ -113,7 +113,7 @@ public class PersonalDAO {
 	 * @param name
 	 * @param surname1
 	 * @param surname2
-	 * @param NIE
+	 * @param DNI
 	 * @param date
 	 * @param textFieldCBancaria
 	 * @param job
@@ -124,14 +124,14 @@ public class PersonalDAO {
 	 * 
 	 *                      Añadimos un empleado a la base de datos
 	 */
-	public void addEmployee(int id, String name, String surname1, String surname2, String NIE, Date date,
+	public void addEmployee(int id, String name, String surname1, String surname2, String DNI, Date date,
 			String bankAccount, String job, String password, String user, String email) {
 
 		co = Conexion.getInstance();
 		conn = co.getConnection();
 
 		String sql = "INSERT INTO personal (idTrabajador, Nombre, Apellido1, Apellido2, NIFNIE, FechaAlta, CuentaBancaria, Puesto, contrasenia, usuario, Email) VALUES('"
-				+ id + "', '" + name + "', '" + surname1 + "', '" + surname2 + "', '" + NIE + "', '" + date + "', '"
+				+ id + "', '" + name + "', '" + surname1 + "', '" + surname2 + "', '" + DNI + "', '" + date + "', '"
 				+ bankAccount + "', '" + job + "', '" + password + "', '" + user + "', '" + email + "')";
 
 		Statement st;
@@ -340,7 +340,7 @@ public class PersonalDAO {
 	 * @param name
 	 * @param surname1
 	 * @param surname2
-	 * @param NIE
+	 * @param DNI
 	 * @param bankAccount
 	 * @param job
 	 * @param user
@@ -348,14 +348,14 @@ public class PersonalDAO {
 	 * 
 	 *                    Metodo para editar un empleado
 	 */
-	public void editEmployee(int id, String name, String surname1, String surname2, String NIE, String bankAccount,
+	public void editEmployee(int id, String name, String surname1, String surname2, String DNI, String bankAccount,
 			String job, String user, String email) {
 
 		co = Conexion.getInstance();
 		conn = co.getConnection();
 
 		String sql = "UPDATE personal SET Nombre='" + name + "',Apellido1='" + surname1 + "',Apellido2='" + surname2
-				+ "',NIFNIE='" + NIE + "',CuentaBancaria='" + bankAccount + "',Puesto='" + job + "',usuario='" + user
+				+ "',NIFNIE='" + DNI + "',CuentaBancaria='" + bankAccount + "',Puesto='" + job + "',usuario='" + user
 				+ "',Email='" + email + "' WHERE idTrabajador = " + id;
 		Statement st;
 		try {

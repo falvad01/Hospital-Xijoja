@@ -25,6 +25,7 @@ public class ControlerAdmin implements ActionListener {
 	protected int numDoc;
 	protected int numNurse;
 	protected int numSecre;
+	String[] employeeToEdit = null;
 
 	public ControlerAdmin(AdminWindow adminWindow) {
 		dao = new PersonalDAO();
@@ -169,7 +170,7 @@ public class ControlerAdmin implements ActionListener {
 
 	}
 
-	String[] employeeToEdit = null;
+
 
 	@SuppressWarnings("deprecation")
 	public void actionPerformed(ActionEvent arg0) {
@@ -182,7 +183,7 @@ public class ControlerAdmin implements ActionListener {
 
 			if ((adminWindow.textFieldName.getText().equals("")) || (adminWindow.textFieldSurname1.getText().equals(""))
 					|| (adminWindow.textFieldSurname2.getText().equals(""))
-					|| (adminWindow.textFieldNIFNIE.getText().equals(""))
+					|| (adminWindow.textFieldDNI.getText().equals(""))
 					|| (adminWindow.textFieldBankAccount.getText().equals(""))
 					|| (adminWindow.textFieldEmail.getText().equals(""))) {// Comprobamos
 				// si algum
@@ -207,7 +208,7 @@ public class ControlerAdmin implements ActionListener {
 				Date date = new Date(Calendar.getInstance().getTime().getTime());// Obtenemos la fecha actual
 
 				dao.addEmployee(id, adminWindow.textFieldName.getText(), adminWindow.textFieldSurname1.getText(),
-						adminWindow.textFieldSurname2.getText(), adminWindow.textFieldNIFNIE.getText(), date,
+						adminWindow.textFieldSurname2.getText(), adminWindow.textFieldDNI.getText(), date,
 						adminWindow.textFieldBankAccount.getText(),
 						adminWindow.comboBoxJob.getSelectedItem().toString(), adminWindow.lblPassword.getText(),
 						adminWindow.lblUser.getText(), adminWindow.textFieldEmail.getText());// LLamamos a la

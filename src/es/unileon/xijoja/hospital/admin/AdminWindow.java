@@ -40,15 +40,15 @@ public class AdminWindow extends JFrame {
 
 	Logs archivo = new Logs(); // Instancia de la clase para utilizar sus metodos
 
-	JPanel seeEmployeesPanel;
-	JPanel addEmployeePanel;
+	protected JPanel seeEmployeesPanel;
+	protected JPanel addEmployeePanel;
 
 	// private JScrollPane panelquebaja;
 
 	protected JTextField textFieldName;
 	protected JTextField textFieldSurname1;
 	protected JTextField textFieldSurname2;
-	protected JTextField textFieldNIFNIE;
+	protected JTextField textFieldDNI;
 	protected JTextField textFieldBankAccount;
 	protected JTextField textFieldEmail;
 
@@ -467,10 +467,10 @@ public class AdminWindow extends JFrame {
 		lblNifnie.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		addEmployeePanel.add(lblNifnie);
 
-		textFieldNIFNIE = new JTextField();
-		textFieldNIFNIE.setBounds(100, 173, 143, 20);
-		textFieldNIFNIE.setColumns(10);
-		addEmployeePanel.add(textFieldNIFNIE);
+		textFieldDNI = new JTextField();
+		textFieldDNI.setBounds(100, 173, 143, 20);
+		textFieldDNI.setColumns(10);
+		addEmployeePanel.add(textFieldDNI);
 
 		JLabel lblCuentaBancaria = new JLabel("Cuenta bancaria");
 		lblCuentaBancaria.setBounds(10, 215, 120, 23);

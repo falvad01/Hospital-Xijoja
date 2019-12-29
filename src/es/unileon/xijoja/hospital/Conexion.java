@@ -5,34 +5,30 @@ import java.sql.*;
 import javax.swing.JOptionPane;
 
 public class Conexion {
-	private static Conexion instance;	// Singleton
+	private static Conexion instance; // Singleton
 	private Connection conn;
-	
+
 	/*
 	 * Datos de BBDD en local
 	 */
 	private final String urlServerLocal = "jdbc:mysql://localhost:3306/xijoja base de datos?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
-	private final String serverLocal = "localhost";
 	private final String userLocal = "root";
 	private final String passwordLocal = "";
-	
-	/**
-	 * Nombre de la base de datos
-	 */
-	private final String databaseName = "xijoja base de datos";
 
+	
 	/**
 	 * Constructor privado del singleton
 	 */
 	private Conexion() {
 		try {
 			// obtenemos el driver de para mysql
-			Class.forName("com.mysql.jdbc.Driver"); 
-			
+			Class.forName("com.mysql.jdbc.Driver");
+
 			conn = DriverManager.getConnection(urlServerLocal, userLocal, passwordLocal);
 
 			if (conn == null) {
-				JOptionPane.showMessageDialog(null, "No se ha podido conectar a la base de datos.","Conexion BBDD", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, "No se ha podido conectar a la base de datos.", "Conexion BBDD",
+						JOptionPane.ERROR_MESSAGE);
 			}
 
 		} catch (ClassNotFoundException e) {
@@ -41,14 +37,15 @@ public class Conexion {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
-	 * Obtenemos la instancia 
+	 * Obtenemos la instancia
+	 * 
 	 * @return
 	 */
 	public synchronized static Conexion getInstance() {
-		
-		if(instance == null) {
+
+		if (instance == null) {
 			instance = new Conexion();
 		}
 		return instance;
@@ -56,10 +53,11 @@ public class Conexion {
 
 	/**
 	 * Retornamos la conexion de la base de datos
+	 * 
 	 * @return
 	 */
 	public Connection getConnection() {
-		
+
 		return conn;
 	}
 
@@ -67,8 +65,7 @@ public class Conexion {
 	 * Metodo para desconectar la conexion con la base de datos
 	 */
 	public void disconect() {
-		
+
 		instance = null;
 	}
 }
-
