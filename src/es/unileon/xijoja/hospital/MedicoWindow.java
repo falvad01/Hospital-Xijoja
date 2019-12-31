@@ -35,6 +35,7 @@ import es.unileon.xijoja.hospital.admin.AdminWindow;
 		Logs archivo = new Logs(); // Instancia de la clase para utilizar sus metodos
 	
 		Toolkit screen;
+		private PacientesDAO dao;
 
 
      public MedicoWindow() {
@@ -48,7 +49,7 @@ import es.unileon.xijoja.hospital.admin.AdminWindow;
 	     setTitle("Medico");
 	     
 	     try {
-	            
+	    	    dao = new PacientesDAO();
 	            initComponents();
 	            initComponentsPanels();
 	 
@@ -67,6 +68,47 @@ import es.unileon.xijoja.hospital.admin.AdminWindow;
          getContentPane().setLayout(null);
    
          listener list = new listener();
+
+         JButton crossButton = new JButton(new ImageIcon(LoginWindow.class.getResource("/resources/cross.png")));
+         crossButton.setBounds(944, 11, 15, 15);
+         getContentPane().add(crossButton);
+         crossButton.setBackground(null);
+         crossButton.setBorder(null);
+         crossButton.setOpaque(false);
+         crossButton.addActionListener(new ActionListener() {
+             public void actionPerformed(ActionEvent arg0) {
+                 System.exit(0);
+             }
+         });
+
+         JButton minButton = new JButton(new ImageIcon(LoginWindow.class.getResource("/resources/min.png")));
+         minButton.setBounds(918, 11, 15, 15);
+         getContentPane().add(minButton);
+         minButton.setBorder(null);
+         minButton.setBackground(null);
+         minButton.setOpaque(false);
+         minButton.addActionListener(new ActionListener() {
+             @SuppressWarnings("deprecation")
+             public void actionPerformed(ActionEvent e) {
+                 setExtendedState(JFrame.CROSSHAIR_CURSOR);
+             }
+         });
+         JSeparator separator = new JSeparator();
+         separator.setForeground(Color.BLACK);
+         separator.setOrientation(SwingConstants.VERTICAL);
+         separator.setBounds(274, 11, 7, 474);
+         getContentPane().add(separator);
+  
+         JSeparator separator_1 = new JSeparator();
+         separator_1.setOrientation(SwingConstants.VERTICAL);
+         separator_1.setForeground(Color.BLACK);
+         separator_1.setBounds(10, 21, 7, 41);
+         getContentPane().add(separator_1);
+  
+         JSeparator separator_2 = new JSeparator();
+         separator_2.setForeground(Color.BLACK);
+         separator_2.setBounds(20, 11, 117, 8);
+         getContentPane().add(separator_2);
      }
      
      
