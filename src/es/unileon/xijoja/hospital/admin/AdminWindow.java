@@ -24,8 +24,8 @@ import javax.swing.SwingConstants;
 import javax.swing.border.TitledBorder;
 
 import es.unileon.xijoja.hospital.InfoWindow;
-import es.unileon.xijoja.hospital.LoginWindow;
 import es.unileon.xijoja.hospital.Logs;
+import es.unileon.xijoja.hospital.login.LoginWindow;
 
 //TODO panel despedir empleados
 //TODO problema con los ID al eliminar trabajadores

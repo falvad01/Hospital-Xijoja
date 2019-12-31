@@ -25,6 +25,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import es.unileon.xijoja.hospital.admin.AdminWindow;
+import es.unileon.xijoja.hospital.login.LoginWindow;
 
 
 
