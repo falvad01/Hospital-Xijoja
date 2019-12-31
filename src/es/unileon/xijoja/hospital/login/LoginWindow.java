@@ -14,8 +14,8 @@ import javax.swing.KeyStroke;
 import es.unileon.xijoja.hospital.InfoWindow;
 import es.unileon.xijoja.hospital.Logs;
 import es.unileon.xijoja.hospital.PersonalDAO;
-import es.unileon.xijoja.hospital.SecretarioWindow;
 import es.unileon.xijoja.hospital.admin.AdminWindow;
+import es.unileon.xijoja.hospital.secretary.SecretaryWindow;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;

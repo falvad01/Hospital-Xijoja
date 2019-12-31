@@ -1,41 +1,33 @@
-package es.unileon.xijoja.hospital;
+package es.unileon.xijoja.hospital.nurse;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Date;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Calendar;
-import javax.swing.JFrame;
-import javax.swing.JButton;
-import javax.swing.JPanel;
-import javax.swing.JLabel;
-import java.awt.Font;
-import javax.swing.JTextField;
-import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
+
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
-import javax.swing.border.TitledBorder;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
 
-import es.unileon.xijoja.hospital.SecretarioWindow.listener;
-import es.unileon.xijoja.hospital.admin.AdminWindow;
+import es.unileon.xijoja.hospital.Logs;
+import es.unileon.xijoja.hospital.PacientesDAO;
+import es.unileon.xijoja.hospital.medicWindow.ControlerMedicWindow;
+import es.unileon.xijoja.hospital.medicWindow.MedicWindow;
 
-@SuppressWarnings("serial")
-public class MedicoWindow extends JFrame {
-
+public class NurseWindow extends JFrame {
 	Logs archivo = new Logs(); // Instancia de la clase para utilizar sus metodos
 
 	Toolkit screen;
 	private PacientesDAO dao;
+	private ControlerNurseWindow listener;
 
-	public MedicoWindow() {
+	// TODO las variables que se quieran ser usadas en el controlador tienen que
+	// estar en protected NO en private
+
+	public NurseWindow() {
 
 		screen = Toolkit.getDefaultToolkit();
 
@@ -43,8 +35,8 @@ public class MedicoWindow extends JFrame {
 
 		setUndecorated(true);
 
-		setTitle("Medico");
-
+		setTitle("Enfermero");
+		listener = new ControlerNurseWindow(this);
 		try {
 			dao = new PacientesDAO();
 			initComponents();
@@ -62,9 +54,7 @@ public class MedicoWindow extends JFrame {
 		getContentPane().setBackground(Color.WHITE);
 		getContentPane().setLayout(null);
 
-		
-
-		JButton crossButton = new JButton(new ImageIcon(MedicoWindow.class.getResource("/resources/cross.png")));
+		JButton crossButton = new JButton(new ImageIcon(MedicWindow.class.getResource("/resources/cross.png")));
 		crossButton.setBounds(944, 11, 15, 15);
 		getContentPane().add(crossButton);
 		crossButton.setBackground(null);
@@ -76,7 +66,7 @@ public class MedicoWindow extends JFrame {
 			}
 		});
 
-		JButton minButton = new JButton(new ImageIcon(MedicoWindow.class.getResource("/resources/min.png")));
+		JButton minButton = new JButton(new ImageIcon(MedicWindow.class.getResource("/resources/min.png")));
 		minButton.setBounds(918, 11, 15, 15);
 		getContentPane().add(minButton);
 		minButton.setBorder(null);
@@ -107,7 +97,7 @@ public class MedicoWindow extends JFrame {
 	}
 
 	private void initComponentsPanels() throws SQLException {
-
+		// TODO el lister de los botones se llama listenner(YA ESTA DECLARADO E
+		// INICIALIZADO)
 	}
-
 }

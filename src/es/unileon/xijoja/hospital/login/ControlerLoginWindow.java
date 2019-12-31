@@ -11,8 +11,8 @@ import javax.swing.JOptionPane;
 
 import es.unileon.xijoja.hospital.Logs;
 import es.unileon.xijoja.hospital.PersonalDAO;
-import es.unileon.xijoja.hospital.SecretarioWindow;
 import es.unileon.xijoja.hospital.admin.AdminWindow;
+import es.unileon.xijoja.hospital.secretary.SecretaryWindow;
 
 public class ControlerLoginWindow implements ActionListener, KeyListener {
 
@@ -64,7 +64,7 @@ public class ControlerLoginWindow implements ActionListener, KeyListener {
 			} else if (job.equals("Secretario")) {
 				log.InfoLog("Se ha logeado como secretario el usuario: " + window.loginUser.getText());
 				JOptionPane.showMessageDialog(null, "SOY UN SECRETARIO.", "Login", JOptionPane.INFORMATION_MESSAGE);
-				SecretarioWindow windowSecretario = new SecretarioWindow();// Creamos la ventana del
+				SecretaryWindow windowSecretario = new SecretaryWindow();// Creamos la ventana del
 																			// administrador
 				windowSecretario.setVisible(true);
 
