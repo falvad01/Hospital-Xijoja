@@ -4,6 +4,8 @@ import java.io.IOException;
 
 import javax.swing.JFrame;
 
+import es.unileon.xijoja.hospital.login.LoginWindow;
+
 public class main {
 
 	public static void main(String[] args) throws IOException {
