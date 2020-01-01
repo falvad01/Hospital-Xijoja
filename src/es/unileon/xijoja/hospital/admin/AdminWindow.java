@@ -236,6 +236,8 @@ public class AdminWindow extends JFrame {
 		seeEmployeesPanel.setBounds(284, 11, 624, 450);
 		seeEmployeesPanel.setPreferredSize(new Dimension(630, 700));
 		seeEmployeesPanel.setVisible(false);
+		getContentPane().add(seeEmployeesPanel);
+
 
 		// ---------------------------------------------PANEL BORRAR
 		// EMPLEADOS--------------------------------------//
@@ -544,7 +546,6 @@ public class AdminWindow extends JFrame {
 		iconLabel.setBounds(43, 245, 252, 194);
 		addEmployeePanel.add(iconLabel);
 		iconLabel.setIcon(new ImageIcon(AdminWindow.class.getResource("/resources/iconAdmin.png")));
-		getContentPane().add(seeEmployeesPanel);
 		
 		JButton btnNewButton_2 = new JButton("Cerrar sesion");
 		btnNewButton_2.setBounds(842, 473, 117, 23);

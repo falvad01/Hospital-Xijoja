@@ -26,7 +26,7 @@ public class ControlerSecretaryWindow implements ActionListener {
 
 			if ((window.textFieldName.getText().equals("")) || (window.textFieldSurname1.getText().equals(""))
 					|| (window.textFieldSurname2.getText().equals("")) || (window.textFieldNIFNIE.getText().equals(""))
-					|| (window.textFieldHabitacion.getText().equals(""))) {// Comprobamos
+					|| (window.textFieldRoom.getText().equals(""))) {// Comprobamos
 				// si algum
 				// campo esta
 				// vacio
@@ -40,7 +40,6 @@ public class ControlerSecretaryWindow implements ActionListener {
 			if (add) {// Si da error no se a�ade el empleado
 				System.out.println("Correcto");
 
-				// TODO getlast id?� para que�?
 
 				int id = dao.getLastID();
 
@@ -50,7 +49,7 @@ public class ControlerSecretaryWindow implements ActionListener {
 
 					dao.addPaciente(id, window.textFieldName.getText(), window.textFieldSurname1.getText(),
 							window.textFieldSurname2.getText(), window.textFieldNIFNIE.getText(), date,
-							Integer.parseInt(window.textFieldHabitacion.getText()));// LLamamos a la
+							Integer.parseInt(window.textFieldRoom.getText()));// LLamamos a la
 																				// funcion del DAO
 																				// que inserta el
 																				// paciente
@@ -72,22 +71,29 @@ public class ControlerSecretaryWindow implements ActionListener {
 
 			} else if (arg0.getActionCommand().equals("Buscar")) {
 
-				/*
-				 * TODO busqueda por nombre y por habitacion if
-				 * (Character.isDigit(textFieldSearch.getText().charAt(0))) {
-				 * 
-				 * System.out.println("Busqueda por DNI"); try { String[] employee =
-				 * dao.getPaciente(textFieldSearch.getText().toString());
-				 * textFieldNameEdit.setText(employee[0]);
-				 * textFieldSurname1Edit.setText(employee[1]);
-				 * 
-				 * } catch (SQLException e) { // TODO Auto-generated catch block
-				 * e.printStackTrace(); }
-				 * 
-				 * } else {
-				 * 
-				 * System.out.println("Busqueda por nombre y apellidos"); }
-				 */
+				
+				 // TODO busqueda por nombre y por habitacion 
+			/*
+				
+				
+				
+				if ((SecretaryWindow.textFieldSearchDNIEdit.getText().toString().equals(""))
+					|| (!dao.checkEmployeeExist(adminWindow.textFieldSearchDNIEdit.getText().toString()))) {
+				adminWindow.lblErrorEdit.setText("Error en el formulario");
+			} else {
+				enableAllEdit(true);
+				employeeToEdit = dao.getEmployee(adminWindow.textFieldSearchDNIEdit.getText().toString());
+
+				adminWindow.textFieldNameEdit.setText(employeeToEdit[1]);
+				adminWindow.textFieldSurname1Edit.setText(employeeToEdit[2]);
+				adminWindow.textFieldSurname2Edit.setText(employeeToEdit[3]);
+				adminWindow.textFieldDNIEdit.setText(employeeToEdit[4]);
+				adminWindow.textFieldBankEdit.setText(employeeToEdit[6]);
+				adminWindow.comboBoxJobEdit.setSelectedItem(employeeToEdit[7]);
+				adminWindow.textFieldEmailEdit.setText(employeeToEdit[10]);
+				adminWindow.labelUserNameEdit.setText(employeeToEdit[9]);
+			}
+			*/
 
 			}
 		}
