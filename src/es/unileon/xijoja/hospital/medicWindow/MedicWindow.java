@@ -39,6 +39,102 @@ public class MedicWindow extends JFrame {
 
 	// TODO las variables que se quieran ser usadas en el controlador tienen que
 	// estar en protected NO en private
+	// TODO las variables que se quieran ser usadas en el controlador tienen que
+	// estar en protected NO en private
+	// TODO las variables que se quieran ser usadas en el controlador tienen que
+	// estar en protected NO en private
+	// TODO las variables que se quieran ser usadas en el controlador tienen que
+	// estar en protected NO en private
+	// TODO las variables que se quieran ser usadas en el controlador tienen que
+	// estar en protected NO en private
+	// TODO las variables que se quieran ser usadas en el controlador tienen que
+	// estar en protected NO en private
+	// TODO las variables que se quieran ser usadas en el controlador tienen que
+	// estar en protected NO en private
+	// TODO las variables que se quieran ser usadas en el controlador tienen que
+	// estar en protected NO en private
+	// TODO las variables que se quieran ser usadas en el controlador tienen que
+	// estar en protected NO en private
+	// TODO las variables que se quieran ser usadas en el controlador tienen que
+	// estar en protected NO en private
+	// TODO las variables que se quieran ser usadas en el controlador tienen que
+	// estar en protected NO en private
+	// TODO las variables que se quieran ser usadas en el controlador tienen que
+	// estar en protected NO en private
+	// TODO las variables que se quieran ser usadas en el controlador tienen que
+	// estar en protected NO en private
+	// TODO las variables que se quieran ser usadas en el controlador tienen que
+	// estar en protected NO en private
+	// TODO las variables que se quieran ser usadas en el controlador tienen que
+	// estar en protected NO en private
+	// TODO las variables que se quieran ser usadas en el controlador tienen que
+	// estar en protected NO en private
+	// TODO las variables que se quieran ser usadas en el controlador tienen que
+	// estar en protected NO en private
+	// TODO las variables que se quieran ser usadas en el controlador tienen que
+	// estar en protected NO en private
+	// TODO las variables que se quieran ser usadas en el controlador tienen que
+	// estar en protected NO en private
+	// TODO las variables que se quieran ser usadas en el controlador tienen que
+	// estar en protected NO en private
+	// TODO las variables que se quieran ser usadas en el controlador tienen que
+	// estar en protected NO en private
+	// TODO las variables que se quieran ser usadas en el controlador tienen que
+	// estar en protected NO en private
+	// TODO las variables que se quieran ser usadas en el controlador tienen que
+	// estar en protected NO en private
+	// TODO las variables que se quieran ser usadas en el controlador tienen que
+	// estar en protected NO en private
+	// TODO las variables que se quieran ser usadas en el controlador tienen que
+	// estar en protected NO en private
+	// TODO las variables que se quieran ser usadas en el controlador tienen que
+	// estar en protected NO en private
+	// TODO las variables que se quieran ser usadas en el controlador tienen que
+	// estar en protected NO en private
+	// TODO las variables que se quieran ser usadas en el controlador tienen que
+	// estar en protected NO en private
+	// TODO las variables que se quieran ser usadas en el controlador tienen que
+	// estar en protected NO en private
+	// TODO las variables que se quieran ser usadas en el controlador tienen que
+	// estar en protected NO en private
+	// TODO las variables que se quieran ser usadas en el controlador tienen que
+	// estar en protected NO en private
+	// TODO las variables que se quieran ser usadas en el controlador tienen que
+	// estar en protected NO en private
+	// TODO las variables que se quieran ser usadas en el controlador tienen que
+	// estar en protected NO en private
+	// TODO las variables que se quieran ser usadas en el controlador tienen que
+	// estar en protected NO en private
+	// TODO las variables que se quieran ser usadas en el controlador tienen que
+	// estar en protected NO en private
+	// TODO las variables que se quieran ser usadas en el controlador tienen que
+	// estar en protected NO en private
+	// TODO las variables que se quieran ser usadas en el controlador tienen que
+	// estar en protected NO en private
+	// TODO las variables que se quieran ser usadas en el controlador tienen que
+	// estar en protected NO en private
+	// TODO las variables que se quieran ser usadas en el controlador tienen que
+	// estar en protected NO en private
+	// TODO las variables que se quieran ser usadas en el controlador tienen que
+	// estar en protected NO en private
+	// TODO las variables que se quieran ser usadas en el controlador tienen que
+	// estar en protected NO en private
+	// TODO las variables que se quieran ser usadas en el controlador tienen que
+	// estar en protected NO en private
+	// TODO las variables que se quieran ser usadas en el controlador tienen que
+	// estar en protected NO en private
+	// TODO las variables que se quieran ser usadas en el controlador tienen que
+	// estar en protected NO en private
+	// TODO las variables que se quieran ser usadas en el controlador tienen que
+	// estar en protected NO en private
+	// TODO las variables que se quieran ser usadas en el controlador tienen que
+	// estar en protected NO en private
+	// TODO las variables que se quieran ser usadas en el controlador tienen que
+	// estar en protected NO en private
+	// TODO las variables que se quieran ser usadas en el controlador tienen que
+	// estar en protected NO en private
+	// TODO las variables que se quieran ser usadas en el controlador tienen que
+	// estar en protected NO en private
 
 	public MedicWindow() {
 
