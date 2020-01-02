@@ -45,17 +45,17 @@ public class ControlerMedicWindow implements ActionListener {
 			String[][] matrixToInsert = null;
 
 			titles = new String[] { "  Id", "Nombre", "Apellido 1", "Apellido 2", "NIF", "Fecha", "Habitación",
-					"Enfermedad", "Producto", "Medico", "Unidades medicamento " }; // Titulos de la tabla de
+					"Enfermedad", "Producto", "Medico", "Unidades medicamento, Enfermero " }; // Titulos de la tabla de
 																	// los empleados
 			insert = dao.getAllPatients();// ArrayList de Arrays
 		
-			matrixToInsert = new String[insert.size() + 1][11];
+			matrixToInsert = new String[insert.size() + 1][12];
 			window.seePacientsPanel.setPreferredSize(new Dimension(624, 20 + 20 * insert.size()));
 			window.seePacientsPanel.setBounds(284, 11, 624, 20 + 20 * insert.size());
 			
 			for (int i = 0; i < insert.size(); i++) { // rellenamos la matriz que meteremos en la tabla a partir
 				// del ArrayList de arrays devuelto del DAO
-				for (int j = 0; j < 11; j++) {
+				for (int j = 0; j < 12; j++) {
 					if (i == 0) {
 						
 
@@ -80,7 +80,7 @@ public class ControlerMedicWindow implements ActionListener {
 			PatientsTable.setModel(tableModel);
 			
 			
-			
+		
 
 
 	} else if (arg0.getActionCommand().equals("Ingresar Paciente")) {
