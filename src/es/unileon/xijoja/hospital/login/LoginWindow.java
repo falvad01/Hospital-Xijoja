@@ -4,6 +4,8 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.sql.SQLException;
 
@@ -18,16 +20,21 @@ import es.unileon.xijoja.hospital.admin.AdminWindow;
 import es.unileon.xijoja.hospital.secretary.SecretaryWindow;
 
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JButton;
 import javax.swing.JPasswordField;
+import javax.swing.JPopupMenu;
 import javax.swing.ActionMap;
 import javax.swing.ImageIcon;
 import javax.swing.InputMap;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Image;
 
 @SuppressWarnings("serial")
 public class LoginWindow extends JFrame {
@@ -156,6 +163,43 @@ public class LoginWindow extends JFrame {
 		buttonInfo.setBackground((Color) null);
 		buttonInfo.setBounds(10, 314, 23, 23);
 		loginPanel.add(buttonInfo);
+		
+		
+		ImageIcon icon = new ImageIcon(LoginWindow.class.getResource("/resources/settings.png"));
+		Image scaleImage = icon.getImage().getScaledInstance(23, 23,Image.SCALE_DEFAULT);
+		JButton buttonSettings = new JButton(new ImageIcon(scaleImage));
+	
+		buttonSettings.setOpaque(false);
+		buttonSettings.setBorder(null);
+		buttonSettings.setBackground((Color) null);
+		buttonSettings.setBounds(40, 314, 23, 23);
+		loginPanel.add(buttonSettings);
+		  
+		
+		  JPopupMenu popupMenu = new JPopupMenu("Configuracion");
+
+		    JMenuItem resetMenuItem = new JMenuItem("Resetear la base de datos");
+		    resetMenuItem.addActionListener(listener);
+
+		    popupMenu.add(resetMenuItem);
+
+		    popupMenu.addSeparator();
+		    
+		    JMenuItem exportMenuItem = new JMenuItem("Exportar la base de datos");
+		    exportMenuItem.addActionListener(listener);
+		    popupMenu.add(exportMenuItem);
+		   
+		   
+		    buttonSettings.addActionListener( new ActionListener() {
+                public void actionPerformed(ActionEvent ae) {
+                    popupMenu.show(buttonSettings, buttonSettings.getWidth()/2, buttonSettings.getHeight()/2);
+                }
+            } );
+        
+ 
+           
+		
+			//	buttonSettings.addActionListener(listener);
 
 		lblLoginError = new JLabel("");
 		lblLoginError.setFont(new Font("Tahoma", Font.PLAIN, 10));

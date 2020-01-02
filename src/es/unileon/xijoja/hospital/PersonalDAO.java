@@ -1,12 +1,18 @@
 package es.unileon.xijoja.hospital;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.Date;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+
+import es.unileon.xijoja.hospital.login.LoginWindow;
 
 /**
  *
@@ -442,6 +448,53 @@ public class PersonalDAO {
 
 		return ret;
 
+	}
+	public void reset() throws IOException  {
+
+		co = Conexion.getInstance();
+		conn = co.getConnection();
+
+		String sql = "DROP TABLE `pacientes`, `personal`, `almacen`";
+		Statement st;
+		try {
+			st = conn.createStatement();
+
+			st.execute(sql);
+			System.out.println("Eliminadas las tablas");
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
+		
+		BufferedReader in = new BufferedReader(new FileReader("etc/xijoja_base_de_datos.sql"));
+		String str;
+		StringBuffer sb = new StringBuffer();
+		
+		try {
+			st = conn.createStatement();
+	        String line = null;
+			// read script line by line
+			while ((line = in.readLine()) != null) {
+				// execute query
+				st.execute(line);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			// close file reader
+			if (in != null) {
+				in.close();
+			}
+			
+		}
+	
+		
+		System.out.println("reseteada la base de datos");
+		
+		co.disconect();// Desconectamos la base de datos
 	}
 
 }

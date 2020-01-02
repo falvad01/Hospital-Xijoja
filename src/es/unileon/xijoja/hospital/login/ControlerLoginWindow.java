@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.IOException;
 import java.sql.SQLException;
 
 import javax.swing.JButton;
@@ -86,6 +87,17 @@ public class ControlerLoginWindow implements ActionListener, KeyListener {
 
 			enterAction();// LLamamos a la accion
 
+		}else if(arg0.getActionCommand().equals("Resetear la base de datos")){
+			System.out.println("resetamos la base de datos");
+			try {
+				dao.reset();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}else if(arg0.getActionCommand().equals("Exportar la base de datos")){
+			
 		}
 	}
 
@@ -104,5 +116,9 @@ public class ControlerLoginWindow implements ActionListener, KeyListener {
 
 	@Override
 	public void keyReleased(KeyEvent e) {
+	}
+	public void resetJField() {
+		window.loginPassword.setText("");
+		window.loginUser.setText("");
 	}
 }

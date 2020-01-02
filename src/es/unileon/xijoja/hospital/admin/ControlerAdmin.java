@@ -3,6 +3,7 @@ package es.unileon.xijoja.hospital.admin;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -14,6 +15,8 @@ import javax.swing.table.DefaultTableModel;
 
 import es.unileon.xijoja.hospital.Logs;
 import es.unileon.xijoja.hospital.PersonalDAO;
+import es.unileon.xijoja.hospital.login.ControlerLoginWindow;
+import es.unileon.xijoja.hospital.login.LoginWindow;
 
 public class ControlerAdmin implements ActionListener {
 
@@ -382,6 +385,18 @@ public class ControlerAdmin implements ActionListener {
 			adminWindow.lblError.setText("");
 			adminWindow.lblErrorDelete.setText("");
 			adminWindow.lblErrorEdit.setText("");
+		} else if (arg0.getActionCommand().equals("Cerrar sesion")) {
+
+			adminWindow.setVisible(false);
+			//TODO arreglar que se borren los campos al cerrar sesion
+			try {
+				LoginWindow newlogin = new LoginWindow();
+				ControlerLoginWindow controlerLogin = new ControlerLoginWindow(newlogin);
+				controlerLogin.resetJField();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 
 		} else if (arg0.getActionCommand().equals("Borrar")) {
 			// TODO no funciona, no se por que

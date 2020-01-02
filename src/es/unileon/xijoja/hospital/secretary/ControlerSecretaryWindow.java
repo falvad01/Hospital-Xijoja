@@ -45,13 +45,13 @@ public class ControlerSecretaryWindow implements ActionListener {
 
 				//TODO get last id funciona regular, me puso un -1
 				int id = dao.getLastID();
-
+				
 				Date date = new Date(Calendar.getInstance().getTime().getTime());// Obtenemos la fecha actual
 
 				try {
 					//TODO: añadir medico
 
-					dao.addPatient(id, secretarywindow.textFieldName.getText(), secretarywindow.textFieldSurname1.getText(),
+					dao.addPatient(id+1, secretarywindow.textFieldName.getText(), secretarywindow.textFieldSurname1.getText(),
 							secretarywindow.textFieldSurname2.getText(), secretarywindow.textFieldNIFNIE.getText(), date,
 							Integer.parseInt(secretarywindow.textFieldRoom.getText()));// LLamamos a la
 																				// funcion del DAO

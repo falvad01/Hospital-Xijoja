@@ -547,9 +547,10 @@ public class AdminWindow extends JFrame {
 		addEmployeePanel.add(iconLabel);
 		iconLabel.setIcon(new ImageIcon(AdminWindow.class.getResource("/resources/iconAdmin.png")));
 		
-		JButton btnNewButton_2 = new JButton("Cerrar sesion");
-		btnNewButton_2.setBounds(842, 473, 117, 23);
-		getContentPane().add(btnNewButton_2);
+		JButton btnCloseSesion = new JButton("Cerrar sesion");
+		btnCloseSesion.setBounds(842, 473, 117, 23);
+		getContentPane().add(btnCloseSesion);
+		btnCloseSesion.addActionListener(listener);
 
 	}
 }
