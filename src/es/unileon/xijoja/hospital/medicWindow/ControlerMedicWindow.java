@@ -81,11 +81,14 @@ public class ControlerMedicWindow implements ActionListener {
 			
 			
 		
-
+	} else if (arg0.getActionCommand().equals("Registrar")) {
+		
+		
 
 	} else if (arg0.getActionCommand().equals("Ingresar Paciente")) {
 		
-		
+		window.seePacientsPanel.setVisible(false);
+		window.icon.setVisible(true);
 		
 		
 		

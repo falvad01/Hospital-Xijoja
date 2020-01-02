@@ -29,9 +29,6 @@ public class MedicWindow extends JFrame {
 	protected JPanel seePacientsPanel;
 	private PacientesDAO dao;
 	private ControlerMedicWindow listener;
-	protected JTextField textField;
-	protected JTextField textField_1;
-	protected JTextField textField_2;
 	protected JTextField textField_3;
 	protected JTextField textField_4;
 	protected JTextField textField_5;
@@ -115,52 +112,37 @@ public class MedicWindow extends JFrame {
 		JButton btnAsignarMedicamentoPaciente = new JButton("Asignar Medicamento Paciente");
 		btnAsignarMedicamentoPaciente.setOpaque(false);
 		btnAsignarMedicamentoPaciente.setBackground(new Color(255, 255, 255));
-		btnAsignarMedicamentoPaciente.setBounds(10, 179, 229, 41);
+		btnAsignarMedicamentoPaciente.setBounds(10, 144, 229, 52);
 		getContentPane().add(btnAsignarMedicamentoPaciente);
-		
-		textField_2 = new JTextField();
-		textField_2.setColumns(10);
-		textField_2.setBounds(123, 286, 116, 22);
-		getContentPane().add(textField_2);
-		
-		JLabel lblNifniePaciente = new JLabel("NIFNIE paciente");
-		lblNifniePaciente.setBounds(10, 248, 101, 16);
-		getContentPane().add(lblNifniePaciente);
-		
-		textField = new JTextField();
-		textField.setBounds(123, 110, 116, 22);
-		getContentPane().add(textField);
-		textField.setColumns(10);
-		
-		JLabel label = new JLabel("NIFNIE paciente");
-		label.setBounds(10, 113, 101, 16);
-		getContentPane().add(label);
-		
-		textField_1 = new JTextField();
-		textField_1.setBounds(123, 245, 116, 22);
-		getContentPane().add(textField_1);
-		textField_1.setColumns(10);
 		
 		JButton btnVerPacientes = new JButton("Ver Pacientes");
 		btnVerPacientes.setOpaque(false);
 		btnVerPacientes.setBackground(new Color(255, 255, 255));
-		btnVerPacientes.setBounds(10, 334, 229, 41);
+		btnVerPacientes.setBounds(10, 209, 229, 41);
 		getContentPane().add(btnVerPacientes);
 		btnVerPacientes.addActionListener(listener);
 		
 		JButton btnInformeDeLa = new JButton("Informe de la semana");
 		btnInformeDeLa.setOpaque(false);
 		btnInformeDeLa.setBackground(new Color(255, 255, 255));
-		btnInformeDeLa.setBounds(10, 410, 229, 41);
+		btnInformeDeLa.setBounds(10, 263, 229, 41);
 		getContentPane().add(btnInformeDeLa);
 		btnInformeDeLa.addActionListener(listener);
 		
 		JButton btnDarAltaPaciente = new JButton("Dar alta Paciente");
 		btnDarAltaPaciente.setOpaque(false);
 		btnDarAltaPaciente.setBackground(new Color(255, 255, 255));
-		btnDarAltaPaciente.setBounds(10, 32, 229, 45);
+		btnDarAltaPaciente.setBounds(10, 86, 229, 45);
 		getContentPane().add(btnDarAltaPaciente);
 		btnAsignarMedicamentoPaciente.addActionListener(listener);
+		
+		JButton btnIngresarPaciente = new JButton("Ingresar Paciente");
+		btnIngresarPaciente.setBounds(10, 21, 229, 52);
+		btnIngresarPaciente.setOpaque(false);
+		btnIngresarPaciente.setBackground(new Color(255, 255, 255));
+		getContentPane().add(btnIngresarPaciente);
+		btnIngresarPaciente.addActionListener(listener);
+
 	}
 
 	
@@ -193,7 +175,7 @@ public class MedicWindow extends JFrame {
 		iconLabel.setIcon(new ImageIcon(AdminWindow.class.getResource("/resources/iconAdmin.png")));
 		getContentPane().add(icon);
 		
-		JButton btnModificarEstadoPaciente = new JButton("Ingresar Paciente");
+		JButton btnModificarEstadoPaciente = new JButton("Registrar");
 		btnModificarEstadoPaciente.setOpaque(false);
 		btnModificarEstadoPaciente.setBackground(new Color(255, 255, 255));
 		btnModificarEstadoPaciente.setBounds(407, 381, 198, 41);
@@ -261,6 +243,8 @@ public class MedicWindow extends JFrame {
 		textField_9.setBounds(145, 295, 116, 22);
 		icon.add(textField_9);
 		textField_9.setColumns(10);
+		
+		
 		//
 		
 		
