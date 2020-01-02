@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Types;
 import java.util.ArrayList;
 
 import es.unileon.xijoja.hospital.login.LoginWindow;
@@ -136,14 +137,22 @@ public class PersonalDAO {
 		co = Conexion.getInstance();
 		conn = co.getConnection();
 
-		String sql = "INSERT INTO personal (idTrabajador, Nombre, Apellido1, Apellido2, NIFNIE, FechaAlta, CuentaBancaria, Puesto, contrasenia, usuario, Email) VALUES('"
-				+ id + "', '" + name + "', '" + surname1 + "', '" + surname2 + "', '" + DNI + "', '" + date + "', '"
-				+ bankAccount + "', '" + job + "', '" + password + "', '" + user + "', '" + email + "')";
+		String sql = "INSERT INTO personal (idTrabajador, Nombre, Apellido1, Apellido2, NIFNIE, FechaAlta, CuentaBancaria, Puesto, contrasenia, usuario, Email) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
 
-		Statement st;
 		try {
-			st = conn.createStatement();
-			st.executeUpdate(sql);
+	        PreparedStatement st = conn.prepareStatement(sql);
+	        st.setInt(1, id);
+	        st.setString(2, name);
+	        st.setString(3, surname1);
+	        st.setString(4, surname2); 
+	        st.setString(5, DNI);
+	        st.setDate(6, date);
+	        st.setString(7,bankAccount );
+	        st.setString(8, job);
+	        st.setString(9,password);
+	        st.setString(10, user);
+	        st.setString(11, email);
+			st.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -360,13 +369,23 @@ public class PersonalDAO {
 		co = Conexion.getInstance();
 		conn = co.getConnection();
 
-		String sql = "UPDATE personal SET Nombre='" + name + "',Apellido1='" + surname1 + "',Apellido2='" + surname2
-				+ "',NIFNIE='" + DNI + "',CuentaBancaria='" + bankAccount + "',Puesto='" + job + "',usuario='" + user
-				+ "',Email='" + email + "' WHERE idTrabajador = " + id;
-		Statement st;
+		String sql = "UPDATE personal SET Nombre='?',Apellido1='?',Apellido2='?',NIFNIE='?',CuentaBancaria='?',Puesto='?',usuario='?',Email='?' WHERE idTrabajador = ?";
+		
+
 		try {
-			st = conn.createStatement();
-			st.executeUpdate(sql);
+	        PreparedStatement st = conn.prepareStatement(sql);
+	        st.setString(1, name);
+	        st.setString(2, surname1);
+	        st.setString(3, surname2); 
+	        st.setString(4, DNI);
+	        st.setString(5,bankAccount );
+	        st.setString(6, job);
+	        st.setString(7, user);
+	        st.setString(8, email);
+	        st.setInt(9, id);
+
+			st.executeUpdate();
+	
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -390,13 +409,16 @@ public class PersonalDAO {
 		co = Conexion.getInstance();
 		conn = co.getConnection();
 
-		String sql = "DELETE FROM personal WHERE Nombre='" + name + "' && Apellido1='" + surname1 + "' && Apellido2='"
-				+ surname2 + "' && NIFNIE='" + DNI + "'";
-		Statement st;
-		try {
-			st = conn.createStatement();
+		String sql = "DELETE FROM personal WHERE Nombre='?' && Apellido1='?' && Apellido2='?' && NIFNIE='?'";
 
-			st.executeQuery(sql);
+		try {
+	        PreparedStatement st = conn.prepareStatement(sql);
+	        
+	        st.setString(1, name);
+	        st.setString(2, surname1);
+	        st.setString(3, surname2); 
+	        st.setString(4, DNI);
+			st.executeUpdate();
 			System.out.println("PAN");
 
 		} catch (SQLException e) {
