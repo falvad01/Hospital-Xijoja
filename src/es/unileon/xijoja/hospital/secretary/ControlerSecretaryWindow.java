@@ -10,46 +10,50 @@ import es.unileon.xijoja.hospital.PacientesDAO;
 
 public class ControlerSecretaryWindow implements ActionListener {
 	
-	private SecretaryWindow window;
+	private SecretaryWindow secretarywindow;
 	private PacientesDAO dao;
+	String[] getPatientData = null;
+	
 	public ControlerSecretaryWindow(SecretaryWindow window) {
 		this.dao = new PacientesDAO();
-		this.window = window;
+		this.secretarywindow = window;
 	}
 	
 	
+
 	public void actionPerformed(ActionEvent arg0) {
 
-		if (arg0.getActionCommand().equals("Aï¿½adir")) {////////////////////////////////// Aï¿½adir
+		if (arg0.getActionCommand().equals("Añadir")) {////////////////////////////////// Aï¿½adir
 
 			boolean add = true;
 
-			if ((window.textFieldName.getText().equals("")) || (window.textFieldSurname1.getText().equals(""))
-					|| (window.textFieldSurname2.getText().equals("")) || (window.textFieldNIFNIE.getText().equals(""))
-					|| (window.textFieldRoom.getText().equals(""))) {// Comprobamos
+			if ((secretarywindow.textFieldName.getText().equals("")) || (secretarywindow.textFieldSurname1.getText().equals(""))
+					|| (secretarywindow.textFieldSurname2.getText().equals("")) || (secretarywindow.textFieldNIFNIE.getText().equals(""))
+					|| (secretarywindow.textFieldRoom.getText().equals(""))) {// Comprobamos
 				// si algum
 				// campo esta
 				// vacio
 
 				add = false;
-				window.lblError.setText("Hay campos vacios");
+				secretarywindow.lblError.setText("Hay campos vacios");
 			} else {
-				window.lblError.setText("");
+				secretarywindow.lblError.setText("");
 			}
 
 			if (add) {// Si da error no se aï¿½ade el empleado
 				System.out.println("Correcto");
 
-
+				//TODO get last id funciona regular, me puso un -1
 				int id = dao.getLastID();
 
 				Date date = new Date(Calendar.getInstance().getTime().getTime());// Obtenemos la fecha actual
 
 				try {
+					//TODO: añadir medico
 
-					dao.addPaciente(id, window.textFieldName.getText(), window.textFieldSurname1.getText(),
-							window.textFieldSurname2.getText(), window.textFieldNIFNIE.getText(), date,
-							Integer.parseInt(window.textFieldRoom.getText()));// LLamamos a la
+					dao.addPaciente(id, secretarywindow.textFieldName.getText(), secretarywindow.textFieldSurname1.getText(),
+							secretarywindow.textFieldSurname2.getText(), secretarywindow.textFieldNIFNIE.getText(), date,
+							Integer.parseInt(secretarywindow.textFieldRoom.getText()));// LLamamos a la
 																				// funcion del DAO
 																				// que inserta el
 																				// paciente
@@ -68,35 +72,60 @@ public class ControlerSecretaryWindow implements ActionListener {
 //                    e.printStackTrace();
 //                }
 //            }
-
+			}
+			} else if (arg0.getActionCommand().equals("Buscar Paciente")) {
+				System.out.println("1111111");
+				secretarywindow.addPatientPane.setVisible(false);
+				secretarywindow.getPatientPane.setVisible(true);
+				
+			} else if (arg0.getActionCommand().equals("Añadir Paciente")) {
+				System.out.println("2");
+				secretarywindow.getPatientPane.setVisible(false);
+				secretarywindow.addPatientPane.setVisible(true);
+				
+				
 			} else if (arg0.getActionCommand().equals("Buscar")) {
 
 				
 				 // TODO busqueda por nombre y por habitacion 
-			/*
+			
 				
+			if ((secretarywindow.textFieldSearchDNIGetPatient.getText().toString().equals(""))){
+				secretarywindow.lblErrorGetPatient.setText("Error en el formulario");
+			}else {
+				//comprueba si se introduce un dni o numero de habitacion;
+				boolean isDniOrRoom = isDni(secretarywindow.textFieldSearchDNIGetPatient.getText().toString());
 				
-				
-				if ((SecretaryWindow.textFieldSearchDNIEdit.getText().toString().equals(""))
-					|| (!dao.checkEmployeeExist(adminWindow.textFieldSearchDNIEdit.getText().toString()))) {
-				adminWindow.lblErrorEdit.setText("Error en el formulario");
-			} else {
-				enableAllEdit(true);
-				employeeToEdit = dao.getEmployee(adminWindow.textFieldSearchDNIEdit.getText().toString());
+					if (!dao.checkPatientExist(secretarywindow.textFieldSearchDNIGetPatient.getText().toString(),isDniOrRoom)) {
+						secretarywindow.lblErrorGetPatient.setText("Error en el formulario");
+					}else {
+					
+						getPatientData = dao.getPatient(secretarywindow.textFieldSearchDNIGetPatient.getText().toString(),isDniOrRoom);
 
-				adminWindow.textFieldNameEdit.setText(employeeToEdit[1]);
-				adminWindow.textFieldSurname1Edit.setText(employeeToEdit[2]);
-				adminWindow.textFieldSurname2Edit.setText(employeeToEdit[3]);
-				adminWindow.textFieldDNIEdit.setText(employeeToEdit[4]);
-				adminWindow.textFieldBankEdit.setText(employeeToEdit[6]);
-				adminWindow.comboBoxJobEdit.setSelectedItem(employeeToEdit[7]);
-				adminWindow.textFieldEmailEdit.setText(employeeToEdit[10]);
-				adminWindow.labelUserNameEdit.setText(employeeToEdit[9]);
-			}
-			*/
+				secretarywindow.textFieldNameGetPatient.setText(getPatientData[1]);
+				secretarywindow.textFieldSurname1GetPatient.setText(getPatientData[2]);
+				secretarywindow.textFieldSurname2GetPatient.setText(getPatientData[3]);
+				secretarywindow.textFieldDNIGetPatient.setText(getPatientData[4]);
+				secretarywindow.textFieldRoomGetPatient.setText(getPatientData[6]);
 
-			}
+			
+					}	
+			
+
+			
 		}
+	}
+	}
+	public boolean isDni (String dniOrRoom) {
+		// return true si es dni
+	
+		char lastChar = dniOrRoom.charAt(dniOrRoom.length()-1);
+		if (Character.isLetter(lastChar)) {
+			return true;
+		}else {
+			return false;
+		}
+		
 	}
 
 }

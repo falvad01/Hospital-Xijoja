@@ -19,7 +19,7 @@ import javax.swing.JTextField;
  */
 public class PacientesDAO {
  
-    private Connection conn;
+	private Connection conn;
     private Conexion co;
  
     /**
@@ -102,11 +102,11 @@ public class PacientesDAO {
         conn = co.getConnection();
         
       
-       
+       //errores
  
-        String sql = "INSERT INTO pacientes (idPaciente, Nombre, Apellido1, Apellido2, NIFNIE, FechaBaja, Habitacion, Enfermedad, Medicamentos) VALUES('"
+        String sql = "INSERT INTO pacientes (idPaciente, Nombre, Apellido1, Apellido2, NIFNIE, FechaBaja, Habitacion, Enfermedad, fk_idProducto, fk_idMedico, UMedicamento) VALUES('"
                 + id + "', '" + name + "', '" + surname1 + "', '" + surname2 + "', '" + NIE + "', '" + date + "', '"
-                + habitacion + "', '" + 0 + "', '" + 0 + "')";
+                + habitacion + "', '" + 0 +"', '" + "null" +"', '" + 0 + "', '" + 0 + "')";
  
         Statement st = conn.createStatement();
         st.executeUpdate(sql);
@@ -144,6 +144,91 @@ public class PacientesDAO {
  
         return ret;
     }
+    public boolean checkPatientExist(String search, boolean isdni) {
+		boolean ret = false;
+
+		co = Conexion.getInstance();
+		conn = co.getConnection();
+		System.out.println("Aqui parece que si entra");
+		String sql ;
+		if (isdni) {
+			sql = "SELECT * FROM pacientes WHERE NIFNIE='" + search + "'";
+		}else {
+			sql = "SELECT * FROM pacientes WHERE Habitacion='" + search + "'";
+		}
+		
+		Statement st;
+
+		try {
+			st = conn.createStatement();
+			ResultSet rs = st.executeQuery(sql);
+
+			while (rs.next()) {
+				rs.getString(1); // ID
+
+				if (rs.getString(1) == null) {
+
+					ret = false;
+				} else {
+					ret = true;
+				}
+
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		co.disconect();// Cerramos la conexion con la base de datos
+
+		return ret;
+
+	}
+    public String[] getPatient(String search, boolean isdni) {
+
+		co = Conexion.getInstance();
+		conn = co.getConnection();
+		System.out.println("DNI: " + search);
+		
+		String sql;
+
+		if (isdni) {
+			search = search.replaceFirst("[\\s\\S]{0,1}$", "");// TODO no funciona, quitar la letra del DNI para que funcione
+
+			 sql = "SELECT * FROM pacientes WHERE NIFNIE=" + search;
+		}else {
+			 sql = "SELECT * FROM pacientes WHERE Habitacion=" + search;
+		}
+		Statement st;
+		String[] ret = null;
+		try {
+			st = conn.createStatement();
+			ResultSet rs = st.executeQuery(sql);
+			ret = new String[11];
+			while (rs.next()) {
+				ret[0] = rs.getString(1); // ID
+				ret[1] = rs.getString(2); // Nombre
+				ret[2] = rs.getString(3); // Apelllido1
+				ret[3] = rs.getString(4); // Apellido2
+				ret[4] = rs.getString(5); // NIE
+				ret[5] = rs.getString(6); // Fecha
+				ret[6] = rs.getString(7); // Habitacion
+				ret[7] = rs.getString(8); // Enfermedad
+				ret[8] = rs.getString(9); // medicinas
+				ret[9] = rs.getString(10); // idmedico
+				ret[10] = rs.getString(11);	//cantidad de medicamento
+
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		co.disconect();// Cerramos la conexion con la base de datos
+		return ret;
+
+	}
+
  
     /**
      *
