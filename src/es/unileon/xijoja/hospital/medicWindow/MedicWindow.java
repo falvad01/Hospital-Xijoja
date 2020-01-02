@@ -1,6 +1,7 @@
 package es.unileon.xijoja.hospital.medicWindow;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -23,121 +24,28 @@ public class MedicWindow extends JFrame {
 	Logs archivo = new Logs(); // Instancia de la clase para utilizar sus metodos
 
 	Toolkit screen;
+	private Logs log = new Logs();
 	protected JPanel icon;
+	protected JPanel seePacientsPanel;
 	private PacientesDAO dao;
 	private ControlerMedicWindow listener;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
-	private JTextField textField_5;
-	private JTextField textField_6;
-	private JTextField textField_7;
-	private JTextField textField_8;
-	private JTextField textField_9;
+	protected JTextField textField;
+	protected JTextField textField_1;
+	protected JTextField textField_2;
+	protected JTextField textField_3;
+	protected JTextField textField_4;
+	protected JTextField textField_5;
+	protected JTextField textField_6;
+	protected JTextField textField_7;
+	protected JTextField textField_8;
+	protected JTextField textField_9;
 
-	// TODO las variables que se quieran ser usadas en el controlador tienen que
-	// estar en protected NO en private
-	// TODO las variables que se quieran ser usadas en el controlador tienen que
-	// estar en protected NO en private
-	// TODO las variables que se quieran ser usadas en el controlador tienen que
-	// estar en protected NO en private
-	// TODO las variables que se quieran ser usadas en el controlador tienen que
-	// estar en protected NO en private
-	// TODO las variables que se quieran ser usadas en el controlador tienen que
-	// estar en protected NO en private
-	// TODO las variables que se quieran ser usadas en el controlador tienen que
-	// estar en protected NO en private
-	// TODO las variables que se quieran ser usadas en el controlador tienen que
-	// estar en protected NO en private
-	// TODO las variables que se quieran ser usadas en el controlador tienen que
-	// estar en protected NO en private
-	// TODO las variables que se quieran ser usadas en el controlador tienen que
-	// estar en protected NO en private
-	// TODO las variables que se quieran ser usadas en el controlador tienen que
-	// estar en protected NO en private
-	// TODO las variables que se quieran ser usadas en el controlador tienen que
-	// estar en protected NO en private
-	// TODO las variables que se quieran ser usadas en el controlador tienen que
-	// estar en protected NO en private
-	// TODO las variables que se quieran ser usadas en el controlador tienen que
-	// estar en protected NO en private
-	// TODO las variables que se quieran ser usadas en el controlador tienen que
-	// estar en protected NO en private
-	// TODO las variables que se quieran ser usadas en el controlador tienen que
-	// estar en protected NO en private
-	// TODO las variables que se quieran ser usadas en el controlador tienen que
-	// estar en protected NO en private
-	// TODO las variables que se quieran ser usadas en el controlador tienen que
-	// estar en protected NO en private
-	// TODO las variables que se quieran ser usadas en el controlador tienen que
-	// estar en protected NO en private
-	// TODO las variables que se quieran ser usadas en el controlador tienen que
-	// estar en protected NO en private
-	// TODO las variables que se quieran ser usadas en el controlador tienen que
-	// estar en protected NO en private
-	// TODO las variables que se quieran ser usadas en el controlador tienen que
-	// estar en protected NO en private
-	// TODO las variables que se quieran ser usadas en el controlador tienen que
-	// estar en protected NO en private
-	// TODO las variables que se quieran ser usadas en el controlador tienen que
-	// estar en protected NO en private
-	// TODO las variables que se quieran ser usadas en el controlador tienen que
-	// estar en protected NO en private
-	// TODO las variables que se quieran ser usadas en el controlador tienen que
-	// estar en protected NO en private
-	// TODO las variables que se quieran ser usadas en el controlador tienen que
-	// estar en protected NO en private
-	// TODO las variables que se quieran ser usadas en el controlador tienen que
-	// estar en protected NO en private
-	// TODO las variables que se quieran ser usadas en el controlador tienen que
-	// estar en protected NO en private
-	// TODO las variables que se quieran ser usadas en el controlador tienen que
-	// estar en protected NO en private
-	// TODO las variables que se quieran ser usadas en el controlador tienen que
-	// estar en protected NO en private
-	// TODO las variables que se quieran ser usadas en el controlador tienen que
-	// estar en protected NO en private
-	// TODO las variables que se quieran ser usadas en el controlador tienen que
-	// estar en protected NO en private
-	// TODO las variables que se quieran ser usadas en el controlador tienen que
-	// estar en protected NO en private
-	// TODO las variables que se quieran ser usadas en el controlador tienen que
-	// estar en protected NO en private
-	// TODO las variables que se quieran ser usadas en el controlador tienen que
-	// estar en protected NO en private
-	// TODO las variables que se quieran ser usadas en el controlador tienen que
-	// estar en protected NO en private
-	// TODO las variables que se quieran ser usadas en el controlador tienen que
-	// estar en protected NO en private
-	// TODO las variables que se quieran ser usadas en el controlador tienen que
-	// estar en protected NO en private
-	// TODO las variables que se quieran ser usadas en el controlador tienen que
-	// estar en protected NO en private
-	// TODO las variables que se quieran ser usadas en el controlador tienen que
-	// estar en protected NO en private
-	// TODO las variables que se quieran ser usadas en el controlador tienen que
-	// estar en protected NO en private
-	// TODO las variables que se quieran ser usadas en el controlador tienen que
-	// estar en protected NO en private
-	// TODO las variables que se quieran ser usadas en el controlador tienen que
-	// estar en protected NO en private
-	// TODO las variables que se quieran ser usadas en el controlador tienen que
-	// estar en protected NO en private
-	// TODO las variables que se quieran ser usadas en el controlador tienen que
-	// estar en protected NO en private
-	// TODO las variables que se quieran ser usadas en el controlador tienen que
-	// estar en protected NO en private
-	// TODO las variables que se quieran ser usadas en el controlador tienen que
-	// estar en protected NO en private
-	// TODO las variables que se quieran ser usadas en el controlador tienen que
-	// estar en protected NO en private
 	// TODO las variables que se quieran ser usadas en el controlador tienen que
 	// estar en protected NO en private
 
 	public MedicWindow() {
 
+		log.InfoLog("Iniciada la sesion del medico");
 		screen = Toolkit.getDefaultToolkit();
 
 		setBounds(1024 / 4, 768 / 10, 969, 496);
@@ -210,13 +118,46 @@ public class MedicWindow extends JFrame {
 		btnAsignarMedicamentoPaciente.setBounds(10, 179, 229, 41);
 		getContentPane().add(btnAsignarMedicamentoPaciente);
 		
+		textField_2 = new JTextField();
+		textField_2.setColumns(10);
+		textField_2.setBounds(123, 286, 116, 22);
+		getContentPane().add(textField_2);
+		
+		JLabel lblNifniePaciente = new JLabel("NIFNIE paciente");
+		lblNifniePaciente.setBounds(10, 248, 101, 16);
+		getContentPane().add(lblNifniePaciente);
+		
+		textField = new JTextField();
+		textField.setBounds(123, 110, 116, 22);
+		getContentPane().add(textField);
+		textField.setColumns(10);
+		
+		JLabel label = new JLabel("NIFNIE paciente");
+		label.setBounds(10, 113, 101, 16);
+		getContentPane().add(label);
+		
+		textField_1 = new JTextField();
+		textField_1.setBounds(123, 245, 116, 22);
+		getContentPane().add(textField_1);
+		textField_1.setColumns(10);
+		
+		JButton btnVerPacientes = new JButton("Ver Pacientes");
+		btnVerPacientes.setOpaque(false);
+		btnVerPacientes.setBackground(new Color(255, 255, 255));
+		btnVerPacientes.setBounds(10, 334, 229, 41);
+		getContentPane().add(btnVerPacientes);
+		btnVerPacientes.addActionListener(listener);
+		
+		JButton btnInformeDeLa = new JButton("Informe de la semana");
+		btnInformeDeLa.setOpaque(false);
+		btnInformeDeLa.setBackground(new Color(255, 255, 255));
+		btnInformeDeLa.setBounds(10, 410, 229, 41);
+		getContentPane().add(btnInformeDeLa);
+		btnInformeDeLa.addActionListener(listener);
+		
 		JButton btnDarAltaPaciente = new JButton("Dar alta Paciente");
 		btnDarAltaPaciente.setOpaque(false);
 		btnDarAltaPaciente.setBackground(new Color(255, 255, 255));
-		btnDarAltaPaciente.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
 		btnDarAltaPaciente.setBounds(10, 32, 229, 45);
 		getContentPane().add(btnDarAltaPaciente);
 		btnAsignarMedicamentoPaciente.addActionListener(listener);
@@ -225,6 +166,16 @@ public class MedicWindow extends JFrame {
 	private void initComponentsPanels() throws SQLException {
 		// TODO el lister de los botones se llama listenner(YA ESTA DECLARADO E
 		// INICIALIZADO)
+		
+		//panel ver pacientes
+		seePacientsPanel = new JPanel();
+		seePacientsPanel.setLayout(null);
+		seePacientsPanel.setForeground(Color.WHITE);
+		seePacientsPanel.setBackground(Color.WHITE);
+		seePacientsPanel.setBounds(284, 11, 624, 450);
+		seePacientsPanel.setPreferredSize(new Dimension(630, 700));
+		seePacientsPanel.setVisible(false);
+		//panel ingresar paciente
 		
 		icon = new JPanel();
 		icon.setBounds(278, 11, 630, 450);
@@ -308,45 +259,9 @@ public class MedicWindow extends JFrame {
 		textField_9.setBounds(145, 295, 116, 22);
 		icon.add(textField_9);
 		textField_9.setColumns(10);
+		//
 		
-		textField = new JTextField();
-		textField.setBounds(123, 110, 116, 22);
-		getContentPane().add(textField);
-		textField.setColumns(10);
 		
-		textField_1 = new JTextField();
-		textField_1.setBounds(123, 245, 116, 22);
-		getContentPane().add(textField_1);
-		textField_1.setColumns(10);
 		
-		JLabel lblMedicamento = new JLabel("Medicamento");
-		lblMedicamento.setBounds(10, 289, 101, 16);
-		getContentPane().add(lblMedicamento);
-		
-		textField_2 = new JTextField();
-		textField_2.setColumns(10);
-		textField_2.setBounds(123, 286, 116, 22);
-		getContentPane().add(textField_2);
-		
-		JLabel lblNifniePaciente = new JLabel("NIFNIE paciente");
-		lblNifniePaciente.setBounds(10, 248, 101, 16);
-		getContentPane().add(lblNifniePaciente);
-		
-		JLabel label = new JLabel("NIFNIE paciente");
-		label.setBounds(10, 113, 101, 16);
-		getContentPane().add(label);
-		
-		JButton btnVerPacientes = new JButton("Ver Pacientes");
-		btnVerPacientes.setOpaque(false);
-		btnVerPacientes.setBackground(new Color(255, 255, 255));
-		btnVerPacientes.setBounds(10, 334, 229, 41);
-		getContentPane().add(btnVerPacientes);
-		
-		JButton btnInformeDeLa = new JButton("Informe de la semana");
-		btnInformeDeLa.setOpaque(false);
-		btnInformeDeLa.setBackground(new Color(255, 255, 255));
-		btnInformeDeLa.setBounds(10, 410, 229, 41);
-		getContentPane().add(btnInformeDeLa);
-		btnModificarEstadoPaciente.addActionListener(listener);
 	}
 }
