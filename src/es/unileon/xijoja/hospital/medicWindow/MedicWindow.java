@@ -163,6 +163,7 @@ public class MedicWindow extends JFrame {
 		btnAsignarMedicamentoPaciente.addActionListener(listener);
 	}
 
+	
 	private void initComponentsPanels() throws SQLException {
 		// TODO el lister de los botones se llama listenner(YA ESTA DECLARADO E
 		// INICIALIZADO)
