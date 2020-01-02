@@ -199,7 +199,7 @@ public class PacientesDAO {
 		co = Conexion.getInstance();
 		conn = co.getConnection();
 
-		String sql = "SELECT * FROM pacientes WHERE IdPaciente=" + id;
+		String sql = "SELECT * FROM pacientes WHERE idPaciente=" + id;
 		Statement st;
 		String[] ret = null;
 		try {
