@@ -99,13 +99,13 @@ public class PacientesDAO {
      * @param Email
      * @throws SQLException
      */
-    public void addPaciente(int id, String name, String surname1, String surname2, String NIE,Date date, int room) throws SQLException {
+    public void addPatient(int id, String name, String surname1, String surname2, String NIE,Date date, int room) throws SQLException {
  
         co = Conexion.getInstance();
         conn = co.getConnection();
         
 
-        String sql = "INSERT INTO pacientes (idPaciente, Nombre, Apellido1, Apellido2, NIFNIE, FechaBaja, Habitacion, Enfermedad, fk_idProducto, fk_idMedico, UMedicamento) VALUES(?,?,?,?,?,?,?,?,?,?,?) "; 
+        String sql = "INSERT INTO pacientes (idPaciente, Nombre, Apellido1, Apellido2, NIFNIE, FechaBaja, Habitacion, Enfermedad, fk_idProducto, fk_idMedico, UMedicamento, fk_idEnfermero) VALUES(?,?,?,?,?,?,?,?,?,?,?,?) "; 
         PreparedStatement st = conn.prepareStatement(sql);
         st.setInt(1, id);
         st.setString(2, name);
@@ -118,6 +118,7 @@ public class PacientesDAO {
         st.setNull(9, Types.INTEGER);
         st.setInt(10, 1);
         st.setNull(11, Types.INTEGER);
+        st.setInt(12, 2);
         
 
         st.executeUpdate();
@@ -205,7 +206,7 @@ public class PacientesDAO {
 		try {
 			st = conn.createStatement();
 			ResultSet rs = st.executeQuery(sql);
-			ret = new String[11];
+			ret = new String[12];
 			while (rs.next()) {
 				
 				ret[0] = rs.getString(1); // ID
@@ -219,6 +220,7 @@ public class PacientesDAO {
 				ret[8] = rs.getString(9); // medicinas
 				ret[9] = rs.getString(10); // idmedico
 				ret[10] = rs.getString(11);	//cantidad de medicamento
+				ret[10] = rs.getString(12);	//idenfermero
 
 
 			}
