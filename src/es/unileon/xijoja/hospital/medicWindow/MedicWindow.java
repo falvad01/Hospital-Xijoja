@@ -176,6 +176,7 @@ public class MedicWindow extends JFrame {
 		seePacientsPanel.setBounds(284, 11, 624, 450);
 		seePacientsPanel.setPreferredSize(new Dimension(630, 700));
 		seePacientsPanel.setVisible(false);
+		getContentPane().add(seePacientsPanel);
 		//panel ingresar paciente
 		
 		icon = new JPanel();

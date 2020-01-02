@@ -46,7 +46,7 @@ public class PacientesDAO {
         try {
  
             Statement st = conn.createStatement();
-            // Comprobamos si el usuario y contraseña coinciden
+            // Comprobamos si el usuario y contraseï¿½a coinciden
             String sql = "Select * from personal where usuario='" + user + "' and contrasenia= '" + password + "'";
             ResultSet rs = st.executeQuery(sql);
  
@@ -138,7 +138,6 @@ public class PacientesDAO {
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery("Select idPaciente from pacientes");
  
-            int id = 0;
             if (rs.last()) {// Nos posicionamos al final
                 ret = rs.getRow();// sacamos la cantidad de filas/registros
  
@@ -195,6 +194,43 @@ public class PacientesDAO {
 		return ret;
 
 	}
+    public String[] getPatient(int id) {
+
+		co = Conexion.getInstance();
+		conn = co.getConnection();
+
+		String sql = "SELECT * FROM pacientes WHERE IdPaciente=" + id;
+		Statement st;
+		String[] ret = null;
+		try {
+			st = conn.createStatement();
+			ResultSet rs = st.executeQuery(sql);
+			ret = new String[11];
+			while (rs.next()) {
+				
+				ret[0] = rs.getString(1); // ID
+				ret[1] = rs.getString(2); // Nombre
+				ret[2] = rs.getString(3); // Apelllido1
+				ret[3] = rs.getString(4); // Apellido2
+				ret[4] = rs.getString(5); // NIE
+				ret[5] = rs.getString(6); // Fecha
+				ret[6] = rs.getString(7); // Habitacion
+				ret[7] = rs.getString(8); // Enfermedad
+				ret[8] = rs.getString(9); // medicinas
+				ret[9] = rs.getString(10); // idmedico
+				ret[10] = rs.getString(11);	//cantidad de medicamento
+
+
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		co.disconect();// Cerramos la conexion con la base de datos
+		return ret;
+	}
+    
     public String[] getPatient(String search, boolean isdni) {
 
 		co = Conexion.getInstance();
@@ -238,6 +274,19 @@ public class PacientesDAO {
 		co.disconect();// Cerramos la conexion con la base de datos
 		return ret;
 
+	}
+    public ArrayList<String[]> getAllPatients() {
+
+		ArrayList<String[]> ret = new ArrayList<String[]>();
+
+		int lastId = this.getLastID();
+		for (int i = -1; i < lastId; i++) { 
+
+			ret.add(getPatient(i));
+
+		}
+
+		return ret;
 	}
 
    
