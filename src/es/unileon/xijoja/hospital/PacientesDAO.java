@@ -220,7 +220,7 @@ public class PacientesDAO {
 				ret[8] = rs.getString(9); // medicinas
 				ret[9] = rs.getString(10); // idmedico
 				ret[10] = rs.getString(11);	//cantidad de medicamento
-				ret[10] = rs.getString(12);	//idenfermero
+				ret[11] = rs.getString(12);	//idenfermero
 
 
 			}
@@ -253,7 +253,7 @@ public class PacientesDAO {
 		try {
 			st = conn.createStatement();
 			ResultSet rs = st.executeQuery(sql);
-			ret = new String[11];
+			ret = new String[12];
 			while (rs.next()) {
 				ret[0] = rs.getString(1); // ID
 				ret[1] = rs.getString(2); // Nombre
@@ -266,6 +266,7 @@ public class PacientesDAO {
 				ret[8] = rs.getString(9); // medicinas
 				ret[9] = rs.getString(10); // idmedico
 				ret[10] = rs.getString(11);	//cantidad de medicamento
+				ret[11] = rs.getString(12);	//idenfermero
 
 			}
 		} catch (SQLException e) {

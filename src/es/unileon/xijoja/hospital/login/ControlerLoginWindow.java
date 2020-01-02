@@ -12,6 +12,7 @@ import javax.swing.JOptionPane;
 import es.unileon.xijoja.hospital.Logs;
 import es.unileon.xijoja.hospital.PersonalDAO;
 import es.unileon.xijoja.hospital.admin.AdminWindow;
+import es.unileon.xijoja.hospital.medicWindow.MedicWindow;
 import es.unileon.xijoja.hospital.secretary.SecretaryWindow;
 
 public class ControlerLoginWindow implements ActionListener, KeyListener {
@@ -43,6 +44,10 @@ public class ControlerLoginWindow implements ActionListener, KeyListener {
 			if (job.equals("Medico")) {
 				log.InfoLog("Se ha logeado como medico el usuario: " + window.loginUser);
 				JOptionPane.showMessageDialog(null, "SOY UN MEDICO.", "Login", JOptionPane.INFORMATION_MESSAGE);
+				MedicWindow windowMedic = new MedicWindow();// Creamos la ventana del
+				// administrador
+				windowMedic.setVisible(true);
+				
 
 			} else if (job.equals("Administrador")) {
 				log.InfoLog("Se ha logeado como administrador el usuario: " + window.loginUser.getText());
