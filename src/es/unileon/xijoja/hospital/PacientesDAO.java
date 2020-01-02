@@ -110,7 +110,7 @@ public class PacientesDAO {
         st.setInt(1, id);
         st.setString(2, name);
         st.setString(3, surname1);
-        st.setString(4, surname2);
+        st.setString(4, surname2); 
         st.setString(5, NIE);
         st.setDate(6, date);
         st.setInt(7,room );
@@ -240,131 +240,6 @@ public class PacientesDAO {
 
 	}
 
- 
-    /**
-     *
-     * @param id
-     * @return
-     * @throws SQLException
-     */
-//    public String[] getEmployee(int id) throws SQLException {
-// 
-//        co = Conexion.getInstance();
-//        conn = co.getConnection();
-// 
-//        String sql = "SELECT * FROM personal WHERE IdTrabajador=" + id;
-//        Statement st = conn.createStatement();
-//        ResultSet rs = st.executeQuery(sql);
-//        String[] ret = new String[11];
-//        while (rs.next()) {
-//            ret[0] = rs.getString(1); // ID
-//            ret[1] = rs.getString(2); // Nombre
-//            ret[2] = rs.getString(3); // Apelllido1
-//            ret[3] = rs.getString(4); // Apellido2
-//            ret[4] = rs.getString(5); // NIE
-//            ret[5] = rs.getString(6); // Fecha
-//            ret[6] = rs.getString(7); // Cuenta bancaria
-//            ret[7] = rs.getString(8); // Puesto
-//            ret[8] = rs.getString(9); // Contrasenia
-//            ret[9] = rs.getString(10); // Usuario
-//            ret[10] = rs.getString(11);
-// 
-//        }
-//        co.disconect();// Cerramos la conexion con la base de datos
-//        return ret;
-//    }
-//   
-//    public String[] getEmployee(String DNI) throws SQLException {
-// 
-//        co = Conexion.getInstance();
-//        DNI.replaceFirst("[\\s\\S]{0,1}$", "");//TODO no funciona, quitar la letra del DNI para que funcione
-//        conn = co.getConnection();
-//        System.out.println("DNI: " + DNI);
-//        String sql = "SELECT * FROM personal WHERE NIFNIE=" + DNI;
-//        Statement st = conn.createStatement();
-//        ResultSet rs = st.executeQuery(sql);
-//        String[] ret = new String[11];
-//        while (rs.next()) {
-//            ret[0] = rs.getString(1); // ID
-//            ret[1] = rs.getString(2); // Nombre
-//            ret[2] = rs.getString(3); // Apelllido1
-//            ret[3] = rs.getString(4); // Apellido2
-//            ret[4] = rs.getString(5); // NIE
-//            ret[5] = rs.getString(6); // Fecha
-//            ret[6] = rs.getString(7); // Cuenta bancaria
-//            ret[7] = rs.getString(8); // Puesto
-//            ret[8] = rs.getString(9); // Contrasenia
-//            ret[9] = rs.getString(10); // Usuario
-//            ret[10] = rs.getString(11);
-// 
-//        }
-//       
-//        co.disconect();// Cerramos la conexion con la base de datos
-//        return ret;
-//       
-//       
-//    }
-// 
-//    public void getEmployee(String name, String surname1, String surname2) {
-// 
-//    }
-// 
-//    /**
-//     *
-//     * @return
-//     * @throws SQLException
-//     */
-//    public String[] getNamesEmployees() throws SQLException {
-// 
-//        co = Conexion.getInstance();
-//        conn = co.getConnection();
-// 
-//        String sql = "SELECT * FROM personal";
-//        Statement st = conn.createStatement();
-//        ResultSet rs = st.executeQuery(sql);
-//        ArrayList<String> names = new ArrayList<String>();
-//        while (rs.next()) {
-//            names.add(rs.getString(10));
-// 
-//        }
-//        String[] ret = names.toArray(new String[names.size()]);
-//        co.disconect();
-//        return ret;
-//    }
-// 
-//    public String[] getJobsEmployees() throws SQLException {
-// 
-//        co = Conexion.getInstance();
-//        conn = co.getConnection();
-// 
-//        String sql = "SELECT * FROM personal";
-//        Statement st = conn.createStatement();
-//        ResultSet rs = st.executeQuery(sql);
-//        ArrayList<String> names = new ArrayList<String>();
-//        while (rs.next()) {
-//            names.add(rs.getString(8));
-// 
-//        }
-//        String[] ret = names.toArray(new String[names.size()]);
-//        co.disconect();
-//        return ret;
-//    }
-// 
-//    public ArrayList<String[]> getAllEmployees() throws SQLException {
-// 
-//        ArrayList<String[]> ret = new ArrayList<String[]>();
-// 
-//        int lastId = this.getLastID();
-// 
-//        for (int i = -1; i < lastId; i++) { // TODO no entiendo porque aqui es -1
-// 
-//            ret.add(getEmployee(i));
-// 
-//        }
-// 
-//        return ret;
-//    }
- 
    
  
 }
