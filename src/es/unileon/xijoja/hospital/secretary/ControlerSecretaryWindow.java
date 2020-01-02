@@ -2,11 +2,14 @@ package es.unileon.xijoja.hospital.secretary;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.Calendar;
 
 import es.unileon.xijoja.hospital.PacientesDAO;
+import es.unileon.xijoja.hospital.login.ControlerLoginWindow;
+import es.unileon.xijoja.hospital.login.LoginWindow;
 
 public class ControlerSecretaryWindow implements ActionListener {
 	
@@ -73,7 +76,21 @@ public class ControlerSecretaryWindow implements ActionListener {
 //                }
 //            }
 			}
-			} else if (arg0.getActionCommand().equals("Buscar Paciente")) {
+			
+			} 
+		 else if (arg0.getActionCommand().equals("Cerrar sesion")) {
+
+				secretarywindow.setVisible(false);
+				//TODO arreglar que se borren los campos al cerrar sesion
+				try {
+					LoginWindow newlogin = new LoginWindow();
+					ControlerLoginWindow controlerLogin = new ControlerLoginWindow(newlogin);
+					controlerLogin.resetJField();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+		 }else if (arg0.getActionCommand().equals("Buscar Paciente")) {
 				System.out.println("1111111");
 				secretarywindow.addPatientPane.setVisible(false);
 				secretarywindow.getPatientPane.setVisible(true);

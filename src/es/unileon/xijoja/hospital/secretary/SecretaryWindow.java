@@ -150,6 +150,11 @@ public class SecretaryWindow extends JFrame {
 		separator_2.setForeground(Color.BLACK);
 		separator_2.setBounds(20, 11, 117, 8);
 		getContentPane().add(separator_2);
+		
+		JButton btnCloseSesion = new JButton("Cerrar sesion");
+		btnCloseSesion.setBounds(842, 473, 117, 23);
+		getContentPane().add(btnCloseSesion);
+		btnCloseSesion.addActionListener(listener);
 
 		
 	}
