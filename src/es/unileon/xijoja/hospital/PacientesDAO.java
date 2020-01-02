@@ -5,12 +5,15 @@ import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Types;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 
 import javax.swing.JTextField;
+
+import java.sql.PreparedStatement;
  
 /**
  *
@@ -96,21 +99,29 @@ public class PacientesDAO {
      * @param Email
      * @throws SQLException
      */
-    public void addPaciente(int id, String name, String surname1, String surname2, String NIE,Date date, int habitacion) throws SQLException {
+    public void addPaciente(int id, String name, String surname1, String surname2, String NIE,Date date, int room) throws SQLException {
  
         co = Conexion.getInstance();
         conn = co.getConnection();
         
-      
-       //errores
- 
-        String sql = "INSERT INTO pacientes (idPaciente, Nombre, Apellido1, Apellido2, NIFNIE, FechaBaja, Habitacion, Enfermedad, fk_idProducto, fk_idMedico, UMedicamento) VALUES('"
-                + id + "', '" + name + "', '" + surname1 + "', '" + surname2 + "', '" + NIE + "', '" + date + "', '"
-                + habitacion + "', '" + 0 +"', '" + "null" +"', '" + 0 + "', '" + 0 + "')";
- 
-        Statement st = conn.createStatement();
-        st.executeUpdate(sql);
-        System.out.println("se ha introducido una persona");
+
+        String sql = "INSERT INTO pacientes (idPaciente, Nombre, Apellido1, Apellido2, NIFNIE, FechaBaja, Habitacion, Enfermedad, fk_idProducto, fk_idMedico, UMedicamento) VALUES(?,?,?,?,?,?,?,?,?,?,?) "; 
+        PreparedStatement st = conn.prepareStatement(sql);
+        st.setInt(1, id);
+        st.setString(2, name);
+        st.setString(3, surname1);
+        st.setString(4, surname2);
+        st.setString(5, NIE);
+        st.setDate(6, date);
+        st.setInt(7,room );
+        st.setNull(8, Types.INTEGER);
+        st.setNull(9, Types.INTEGER);
+        st.setInt(10, 1);
+        st.setNull(11, Types.INTEGER);
+        
+
+        st.executeUpdate();
+        System.out.println("se ha introducido un paciente");
         co.disconect();// Desconectamos la base de datos
  
        
