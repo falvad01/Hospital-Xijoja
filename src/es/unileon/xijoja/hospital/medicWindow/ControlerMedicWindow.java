@@ -45,7 +45,7 @@ public class ControlerMedicWindow implements ActionListener {
 			String[][] matrixToInsert = null;
 
 			titles = new String[] { "  Id", "Nombre", "Apellido 1", "Apellido 2", "NIF", "Fecha", "Habitación",
-					"Enfermedad", "Producto", "Medico", "Unidades medicamento, Enfermero " }; // Titulos de la tabla de
+					"Enfermedad", "Producto", "Medico", "Unidades medicamento", "Enfermero " }; // Titulos de la tabla de
 																	// los empleados
 			insert = dao.getAllPatients();// ArrayList de Arrays
 		
