@@ -42,6 +42,8 @@ public class SecretaryWindow extends JFrame {
 	protected JPanel getPatientPane;
 	private ControlerSecretaryWindow listener;
 
+	protected JComboBox jcbNurse;
+	protected JComboBox jcbMedic;
 	protected JTextField textFieldName;
 	protected JTextField textFieldSurname1;
 	protected JTextField textFieldSurname2;
@@ -238,7 +240,8 @@ public class SecretaryWindow extends JFrame {
 				textFieldRoomGetPatient.setColumns(10);
 				textFieldRoomGetPatient.setBounds(470, 77, 143, 20);
 				getPatientPane.add(textFieldRoomGetPatient);
-
+				
+				
 				JLabel label_9 = new JLabel("");
 				label_9.setForeground(Color.RED);
 				label_9.setBounds(390, 241, 212, 14);
@@ -312,17 +315,17 @@ public class SecretaryWindow extends JFrame {
 		addPatientPane.add(textFieldNIFNIE);
 
 		JLabel lblFecha = new JLabel("Habitacion");
-		lblFecha.setBounds(390, 27, 93, 23);
+		lblFecha.setBounds(350, 27, 93, 23);
 		lblFecha.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		addPatientPane.add(lblFecha);
 
 		textFieldRoom = new JTextField();
-		textFieldRoom.setBounds(470, 30, 103, 20);
+		textFieldRoom.setBounds(430, 30, 103, 20);
 		textFieldRoom.setColumns(10);
 		addPatientPane.add(textFieldRoom);
 
 		JButton btnRegister = new JButton("Añadir");
-		btnRegister.setBounds(390, 260, 212, 47);
+		btnRegister.setBounds(350, 260, 212, 47);
 		btnRegister.setBackground(Color.WHITE);
 		btnRegister.setOpaque(false);
 		addPatientPane.add(btnRegister);
@@ -337,10 +340,30 @@ public class SecretaryWindow extends JFrame {
 		textFieldSurname2.setBounds(100, 126, 143, 20);
 		textFieldSurname2.setColumns(10);
 		addPatientPane.add(textFieldSurname2);
+		
+		JLabel lblnurse = new JLabel("Enfermero");
+		lblnurse.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblnurse.setBounds(350, 78, 80, 23);
+		addPatientPane.add(lblnurse);
+
+		jcbNurse = new JComboBox();
+		listener.filJComboBox(jcbNurse,false);
+		jcbNurse.setBounds(430, 81, 183, 20);
+		addPatientPane.add(jcbNurse);
+		
+		JLabel lblMedic = new JLabel("Médico");
+		lblMedic.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblMedic.setBounds(350, 125, 80, 23);
+		addPatientPane.add(lblMedic);
+
+		jcbMedic = new JComboBox();
+		listener.filJComboBox(jcbMedic,true);
+		jcbMedic.setBounds(430, 128, 183, 20);
+		addPatientPane.add(jcbMedic);
 
 		lblError = new JLabel("");
 		lblError.setForeground(Color.RED);
-		lblError.setBounds(390, 241, 212, 14);
+		lblError.setBounds(350, 241, 212, 14);
 		addPatientPane.add(lblError);
 
 		JLabel iconLabel = new JLabel("New label");

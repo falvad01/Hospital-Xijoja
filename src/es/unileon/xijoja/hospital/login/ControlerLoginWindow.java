@@ -44,7 +44,6 @@ public class ControlerLoginWindow implements ActionListener, KeyListener {
 
 			if (job.equals("Medico")) {
 				log.InfoLog("Se ha logeado como medico el usuario: " + window.loginUser);
-				JOptionPane.showMessageDialog(null, "SOY UN MEDICO.", "Login", JOptionPane.INFORMATION_MESSAGE);
 				MedicWindow windowMedic = new MedicWindow();// Creamos la ventana del
 				// administrador
 				windowMedic.setVisible(true);
@@ -66,10 +65,8 @@ public class ControlerLoginWindow implements ActionListener, KeyListener {
 
 			} else if (job.equals("Enfermero")) {
 				log.InfoLog("Se ha logeado como enfermero el usuario: " + window.loginUser.getText());
-				JOptionPane.showMessageDialog(null, "SOY UN ENFERMERO.", "Login", JOptionPane.INFORMATION_MESSAGE);
 			} else if (job.equals("Secretario")) {
 				log.InfoLog("Se ha logeado como secretario el usuario: " + window.loginUser.getText());
-				JOptionPane.showMessageDialog(null, "SOY UN SECRETARIO.", "Login", JOptionPane.INFORMATION_MESSAGE);
 				SecretaryWindow windowSecretario = new SecretaryWindow();// Creamos la ventana del
 																			// administrador
 				windowSecretario.setVisible(true);

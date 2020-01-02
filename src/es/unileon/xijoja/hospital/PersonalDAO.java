@@ -131,6 +131,43 @@ public class PersonalDAO {
 	 * 
 	 *                      Añadimos un empleado a la base de datos
 	 */
+	public ArrayList<String[]> getNuseAndMedic(boolean medic) {
+
+  		co = Conexion.getInstance();
+  		conn = co.getConnection();
+  		ArrayList<String[]> ret = new ArrayList<String[]>();
+
+  		String sql = "SELECT * FROM personal WHERE Puesto=?" ;
+  		
+  		try {
+  			PreparedStatement st = conn.prepareStatement(sql);
+  	  		if (medic) {
+  	  			 System.out.println("busco medicos");
+  	 	        st.setString(1, "Medico");
+  	 	     
+  			}else {
+  					System.out.println("busco enfermeros");
+  				 st.setString(1, "Enfermero");
+  			}
+  			
+  			ResultSet rs = st.executeQuery();
+  			String[] ret2 = new String[2];
+  			while (rs.next()) {
+  				
+  				ret2[0] = rs.getString(1); // ID
+  				ret2[1] = "Dr. "+ rs.getString(2) + " "+ rs.getString(3)+" "+ rs.getString(4); //nombre y apellidos
+  				ret.add(ret2);
+
+  			}
+  		} catch (SQLException e) {
+  			// TODO Auto-generated catch block
+  			e.printStackTrace();
+  		}
+
+  		co.disconect();// Cerramos la conexion con la base de datos
+  		return ret;
+  	}
+    
 	public void addEmployee(int id, String name, String surname1, String surname2, String DNI, Date date,
 			String bankAccount, String job, String password, String user, String email) {
 
@@ -348,6 +385,22 @@ public class PersonalDAO {
 
 		return ret;
 	}
+	// esto es inutil de momento
+//	public ArrayList<String[]> getAllMedicOrNurse(boolean medic) {
+//		System.out.println("ghfghf");
+//
+//		ArrayList<String[]> ret = new ArrayList<String[]>();
+//
+//		int lastId = this.getLastID();
+//
+//		for (int i = -1; i < lastId; i++) { // TODO no entiendo porque aqui es -1
+//
+//			ret.add(getNuseAndMedic(medic));
+//
+//		}
+//
+//		return ret;
+//	}
 
 	/**
 	 * 

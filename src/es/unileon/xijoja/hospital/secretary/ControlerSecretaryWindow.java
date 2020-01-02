@@ -5,9 +5,13 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Calendar;
 
+import javax.swing.JComboBox;
+
 import es.unileon.xijoja.hospital.PacientesDAO;
+import es.unileon.xijoja.hospital.PersonalDAO;
 import es.unileon.xijoja.hospital.login.ControlerLoginWindow;
 import es.unileon.xijoja.hospital.login.LoginWindow;
 
@@ -15,10 +19,12 @@ public class ControlerSecretaryWindow implements ActionListener {
 	
 	private SecretaryWindow secretarywindow;
 	private PacientesDAO dao;
+	private PersonalDAO daoPersonal;
 	String[] getPatientData = null;
 	
 	public ControlerSecretaryWindow(SecretaryWindow window) {
 		this.dao = new PacientesDAO();
+		this.daoPersonal= new PersonalDAO();
 		this.secretarywindow = window;
 	}
 	
@@ -132,6 +138,23 @@ public class ControlerSecretaryWindow implements ActionListener {
 			
 		}
 	}
+	}
+	public void filJComboBox(JComboBox edit, boolean ismedic) {
+		
+		ArrayList<String[]> list =  daoPersonal.getNuseAndMedic(ismedic);
+		String[] data = new String[2];
+		if (list==null) {
+			
+		}else {
+			for (int i = 0; i < list.size(); i++) {
+				data= list.get(i);
+				edit.addItem(data[1]);
+				
+				
+			}
+		}
+		
+		
 	}
 	public boolean isDni (String dniOrRoom) {
 		// return true si es dni

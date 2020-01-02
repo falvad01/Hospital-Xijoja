@@ -195,6 +195,7 @@ public class PacientesDAO {
 		return ret;
 
 	}
+    
     public String[] getPatient(int id) {
 
 		co = Conexion.getInstance();
