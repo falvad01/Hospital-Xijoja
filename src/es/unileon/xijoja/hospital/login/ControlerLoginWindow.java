@@ -14,6 +14,7 @@ import es.unileon.xijoja.hospital.Logs;
 import es.unileon.xijoja.hospital.PersonalDAO;
 import es.unileon.xijoja.hospital.admin.AdminWindow;
 import es.unileon.xijoja.hospital.medicWindow.MedicWindow;
+import es.unileon.xijoja.hospital.nurse.NurseWindow;
 import es.unileon.xijoja.hospital.secretary.SecretaryWindow;
 
 public class ControlerLoginWindow implements ActionListener, KeyListener {
@@ -64,10 +65,12 @@ public class ControlerLoginWindow implements ActionListener, KeyListener {
 
 			} else if (job.equals("Enfermero")) {
 				log.InfoLog("Se ha logeado como enfermero el usuario: " + window.loginUser.getText());
+				NurseWindow windowNurse= new NurseWindow();
+				windowNurse.setVisible(true);
+
 			} else if (job.equals("Secretario")) {
 				log.InfoLog("Se ha logeado como secretario el usuario: " + window.loginUser.getText());
-				SecretaryWindow windowSecretario = new SecretaryWindow();// Creamos la ventana del
-																			// administrador
+				SecretaryWindow windowSecretario = new SecretaryWindow();
 				windowSecretario.setVisible(true);
 
 			} else {
@@ -84,7 +87,6 @@ public class ControlerLoginWindow implements ActionListener, KeyListener {
 			enterAction();// LLamamos a la accion
 
 		}else if(arg0.getActionCommand().equals("Resetear la base de datos")){
-			System.out.println("resetamos la base de datos");
 			try {
 				dao.reset();
 			} catch (IOException e) {

@@ -24,11 +24,13 @@ public class PersonalDAO {
 
 	private Connection conn;
 	private Conexion co;
+	private Logs log;
 
 	/**
 	 *
 	 */
 	public PersonalDAO() {
+		log= new Logs();
 	}
 
 	/**
@@ -526,7 +528,8 @@ public class PersonalDAO {
 			st = conn.createStatement();
 
 			st.execute(sql);
-			System.out.println("Eliminadas las tablas");
+			log.InfoLog("Borrada correctamente la base de datos");
+
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -555,8 +558,8 @@ public class PersonalDAO {
 			
 		}
 	
-		
-		System.out.println("reseteada la base de datos");
+		System.out.println("---------------------BASE DE DATOS RESETEADA----------------------");
+		log.InfoLog("Base de datos reseteada completamente");
 		
 		co.disconect();// Desconectamos la base de datos
 	}
