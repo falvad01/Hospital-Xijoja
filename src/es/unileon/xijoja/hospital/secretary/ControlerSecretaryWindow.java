@@ -10,6 +10,7 @@ import java.util.Calendar;
 
 import javax.swing.JComboBox;
 
+import es.unileon.xijoja.hospital.Logs;
 import es.unileon.xijoja.hospital.PacientesDAO;
 import es.unileon.xijoja.hospital.PersonalDAO;
 import es.unileon.xijoja.hospital.login.ControlerLoginWindow;
@@ -18,6 +19,7 @@ import es.unileon.xijoja.hospital.login.LoginWindow;
 public class ControlerSecretaryWindow implements ActionListener {
 	
 	private SecretaryWindow secretarywindow;
+	private Logs log;
 	private PacientesDAO dao;
 	private PersonalDAO daoPersonal;
 	private ArrayList<String[]> arrayNurse, arrayMedic;
@@ -27,84 +29,76 @@ public class ControlerSecretaryWindow implements ActionListener {
 		this.dao = new PacientesDAO();
 		this.daoPersonal= new PersonalDAO();
 		this.secretarywindow = window;
+		log = new Logs();
+
 	}
 	
 	
 
 	public void actionPerformed(ActionEvent arg0) {
 
-		if (arg0.getActionCommand().equals("Añadir")) {////////////////////////////////// Aï¿½adir
+		if (arg0.getActionCommand().equals("Añadir")) {
 
 			boolean add = true;
-
 			if ((secretarywindow.textFieldName.getText().equals("")) || (secretarywindow.textFieldSurname1.getText().equals(""))
 					|| (secretarywindow.textFieldSurname2.getText().equals("")) || (secretarywindow.textFieldNIFNIE.getText().equals(""))
-					|| (secretarywindow.textFieldRoom.getText().equals(""))) {// Comprobamos
-				// si algum
-				// campo esta
-				// vacio
+					|| (secretarywindow.textFieldRoom.getText().equals(""))) {
 
 				add = false;
 				secretarywindow.lblError.setText("Hay campos vacios");
+				log.InfoLog("Error, no se pudo introducir el paciente, hay campos vacios");
+
 			} else if(secretarywindow.jcbMedic.getSelectedItem()==null||secretarywindow.jcbNurse.getSelectedItem()==null) {
 				add = false;
 				secretarywindow.lblError.setText("No hay medicos/enfermeros disponibles");
+				log.InfoLog("Error, no se pudo introducir el paciente, no hay medicos/enfermeros disponibles");
+
 				
 			}else if (dao.checkIfRoomIsBusy(Integer.parseInt(secretarywindow.textFieldRoom.getText()))) {
 				add = false;
 				secretarywindow.lblError.setText("Esa habitacion no está disponible, proxima: "+ dao.firstRoomFree());
+				log.InfoLog("Error, no se pudo introducir el paciente, habitación ocupada");
+
 			}else{
 				secretarywindow.lblError.setText("");
 			}
-//TOOD: comprobar haitacion unica 
-			if (add) {// Si da error no se aï¿½ade el empleado
-				System.out.println("Correcto");
-
-				int id = dao.getLastID()+1;//siguiente id
-				
-				Date date = new Date(Calendar.getInstance().getTime().getTime());// Obtenemos la fecha actual
-				int idMedic=0,idNurse=0;
-				try {
-					secretarywindow.jcbMedic.getSelectedIndex();
+				if (add) {// Si da error no se aï¿½ade el empleado
+					System.out.println("Correcto");
+	
+					int id = dao.getLastID()+1;//siguiente id
 					
-					for (int i = 0; i < arrayMedic.size(); i++) {
-						if (secretarywindow.jcbMedic.getSelectedItem().toString().equals(arrayMedic.get(i)[1])) {
-							idMedic=Integer.parseInt(arrayMedic.get(i)[0]);;
+					Date date = new Date(Calendar.getInstance().getTime().getTime());// Obtenemos la fecha actual
+					int idMedic=0,idNurse=0;
+					try {
+						secretarywindow.jcbMedic.getSelectedIndex();
+						
+						for (int i = 0; i < arrayMedic.size(); i++) {
+							if (secretarywindow.jcbMedic.getSelectedItem().toString().equals(arrayMedic.get(i)[1])) {
+								idMedic=Integer.parseInt(arrayMedic.get(i)[0]);;
+							}
 						}
-					}
-					for (int i = 0; i < arrayNurse.size(); i++) {
-						if (secretarywindow.jcbNurse.getSelectedItem().toString().equals(arrayNurse.get(i)[1])) {
-							idNurse=Integer.parseInt(arrayNurse.get(i)[0]);
+						for (int i = 0; i < arrayNurse.size(); i++) {
+							if (secretarywindow.jcbNurse.getSelectedItem().toString().equals(arrayNurse.get(i)[1])) {
+								idNurse=Integer.parseInt(arrayNurse.get(i)[0]);
+							}
 						}
+						
+	
+						dao.addPatient(id, secretarywindow.textFieldName.getText(), secretarywindow.textFieldSurname1.getText(),
+								secretarywindow.textFieldSurname2.getText(), secretarywindow.textFieldNIFNIE.getText(), date,
+								Integer.parseInt(secretarywindow.textFieldRoom.getText()),idMedic,idNurse);// LLamamos a la
+																					// funcion del DAO
+																					// que inserta el
+																					// paciente
+						log.InfoLog("Añadido el paciente con id: "+id);
+
+					} catch (SQLException e1) {
+	
+						e1.printStackTrace();
 					}
-					System.out.println("id medico: "+ idMedic+" id Enfermero: "+idNurse);
-					
-
-					dao.addPatient(id, secretarywindow.textFieldName.getText(), secretarywindow.textFieldSurname1.getText(),
-							secretarywindow.textFieldSurname2.getText(), secretarywindow.textFieldNIFNIE.getText(), date,
-							Integer.parseInt(secretarywindow.textFieldRoom.getText()),idMedic,idNurse);// LLamamos a la
-																				// funcion del DAO
-																				// que inserta el
-																				// paciente
-				} catch (SQLException e1) {
-
-					e1.printStackTrace();
 				}
-//                try {
-//                    lblAdministrador.setText(String.valueOf(numAdmin));
-//                    lblMedico.setText(String.valueOf(numDoc));
-//                    lblEnfermero.setText(String.valueOf(numNurse));
-//                    lblSecretario.setText(String.valueOf(numSecre));
-//                    lblTotal.setText(String.valueOf(numAdmin + numDoc + numNurse + numSecre));
-//                } catch (SQLException e) {
-//
-//                    e.printStackTrace();
-//                }
-//            }
-			}
 			
-			} 
-		 else if (arg0.getActionCommand().equals("Cerrar sesion")) {
+		} else if (arg0.getActionCommand().equals("Cerrar sesion")) {
 
 				secretarywindow.setVisible(false);
 				//TODO arreglar que se borren los campos al cerrar sesion
@@ -115,47 +109,45 @@ public class ControlerSecretaryWindow implements ActionListener {
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-		 }else if (arg0.getActionCommand().equals("Buscar Paciente")) {
-				System.out.println("1111111");
+				
+		} else if (arg0.getActionCommand().equals("Buscar Paciente")) {
 				secretarywindow.addPatientPane.setVisible(false);
 				secretarywindow.getPatientPane.setVisible(true);
 				
-			} else if (arg0.getActionCommand().equals("Añadir Paciente")) {
+		} else if (arg0.getActionCommand().equals("Añadir Paciente")) {
 				System.out.println("2");
 				secretarywindow.getPatientPane.setVisible(false);
 				secretarywindow.addPatientPane.setVisible(true);
 				
 				
-			} else if (arg0.getActionCommand().equals("Buscar")) {
-
-				
-			
+		} else if (arg0.getActionCommand().equals("Buscar")) {
 				
 			if ((secretarywindow.textFieldSearchDNIGetPatient.getText().toString().equals(""))){
 				secretarywindow.lblErrorGetPatient.setText("Error en el formulario");
+				log.InfoLog("Error al buscar el paciente");
+
+				
 			}else {
 				//comprueba si se introduce un dni o numero de habitacion;
 				boolean isDniOrRoom = isDni(secretarywindow.textFieldSearchDNIGetPatient.getText().toString());
 				
-					if (!dao.checkPatientExist(secretarywindow.textFieldSearchDNIGetPatient.getText().toString(),isDniOrRoom)) {
-						secretarywindow.lblErrorGetPatient.setText("Error en el formulario");
-					}else {
+				if (!dao.checkPatientExist(secretarywindow.textFieldSearchDNIGetPatient.getText().toString(),isDniOrRoom)) {
+					secretarywindow.lblErrorGetPatient.setText("Error en el formulario");
+					log.InfoLog("Error, no se encuentra el paciente indicado");
+				}else {
 					
-						getPatientData = dao.getPatient(secretarywindow.textFieldSearchDNIGetPatient.getText().toString(),isDniOrRoom);
-
-				secretarywindow.textFieldNameGetPatient.setText(getPatientData[1]);
-				secretarywindow.textFieldSurname1GetPatient.setText(getPatientData[2]);
-				secretarywindow.textFieldSurname2GetPatient.setText(getPatientData[3]);
-				secretarywindow.textFieldDNIGetPatient.setText(getPatientData[4]);
-				secretarywindow.textFieldRoomGetPatient.setText(getPatientData[6]);
-
-			
-					}	
-			
+					getPatientData = dao.getPatient(secretarywindow.textFieldSearchDNIGetPatient.getText().toString(),isDniOrRoom);
+					secretarywindow.textFieldNameGetPatient.setText(getPatientData[1]);
+					secretarywindow.textFieldSurname1GetPatient.setText(getPatientData[2]);
+					secretarywindow.textFieldSurname2GetPatient.setText(getPatientData[3]);
+					secretarywindow.textFieldDNIGetPatient.setText(getPatientData[4]);
+					secretarywindow.textFieldRoomGetPatient.setText(getPatientData[6]);
+					log.InfoLog("Devuelto el paciente con id: "+getPatientData[0]);
 
 			
+				}	
+			}
 		}
-	}
 	}
 	public void filJComboBox(JComboBox edit, boolean ismedic) {
 
