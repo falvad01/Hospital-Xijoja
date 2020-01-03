@@ -65,6 +65,19 @@ public class ControlerMedicWindow implements ActionListener {
 		
 		
 	}
+	
+	public boolean isDni (String dniOrRoom) {
+		// return true si es dni
+	
+		char lastChar = dniOrRoom.charAt(dniOrRoom.length()-1);
+		if (Character.isLetter(lastChar)) {
+			return true;
+		}else {
+			return false;
+		}
+		
+	}
+
 
 	public void actionPerformed(ActionEvent arg0) {
 		// TODO aqui van las acciones al pulsar botones
@@ -192,22 +205,24 @@ public class ControlerMedicWindow implements ActionListener {
 		window.deletePatientsPanel.setVisible(true);
 		window.lberror.setText("");
 		window.lblErrorDelete.setText("");
-	/*	
+		
 	} else if (arg0.getActionCommand().equals("Borrar")) {
 		// TODO no funciona, no se por que
-
-		if((!dao.checkEmployeeExist(adminWindow.textFieldSearchDNIEdit.getText().toString()))) {
-			adminWindow.lblErrorDelete.setText("Empleado no encontrado");
-			//TODO comporbar que el DNI coincida con el nombre y los apellidos
-		}else {
-			System.out.println("Boton borrar pulsado");
-			dao.deleteEmployee(adminWindow.textFieldNameToDelete.toString(),
-					adminWindow.textFieldFirstDeleteToDelete.toString(),
-					adminWindow.textFieldSecondDeleteToDelete.toString(), adminWindow.textFieldDNIToDelete.toString());
+		
+		
+		//comprueba si se introduce un dni o numero de habitacion;
+		boolean isDniOrRoom = isDni(window.textFieldDNIToDelete.getText().toString());
+		
+			if (!dao.checkPatientExist(window.textFieldDNIToDelete.getText().toString(),isDniOrRoom)) {
+				System.out.println(window.textFieldDNIToDelete.getText().toString());
+				window.lblErrorGetPatient.setText("Error en el formulario");
+			}else {
+					dao.deletePatient(window.textFieldNameToDelete.getText().toString(),
+					window.textFieldFirstDeleteToDelete.getText().toString(),
+					window.textFieldSecondDeleteToDelete.getText().toString(), window.textFieldDNIToDelete.getText().toString());
 		}
 		
-	}
-	*/	
+	
 	}else if (arg0.getActionCommand().equals("Asignar Medicamento Paciente")) {
 		
 		

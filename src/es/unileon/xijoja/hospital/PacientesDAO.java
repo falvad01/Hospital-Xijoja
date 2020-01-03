@@ -130,6 +130,31 @@ public class PacientesDAO {
  
     }
     
+    public void deletePatient(String name, String surname1, String surname2, String DNI) {
+
+		co = Conexion.getInstance();
+		conn = co.getConnection();
+
+		String sql = "DELETE FROM pacientes WHERE Nombre=? && Apellido1=? && Apellido2=? && NIFNIE=?";
+
+		try {
+	        PreparedStatement st = conn.prepareStatement(sql);
+	        System.out.println(name+surname1+surname2+DNI);
+	        st.setString(1, name);
+	        st.setString(2, surname1);
+	        st.setString(3, surname2); 
+	        st.setString(4, DNI);
+			st.executeUpdate();
+			
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		co.disconect();// Desconectamos la base de datos
+	}
+
+    
     public int getLastID() {
     	 
         co = Conexion.getInstance();

@@ -58,6 +58,8 @@ public class MedicWindow extends JFrame {
 	protected JTextField textFieldFirstDeleteToDelete;
 	protected JTextField textFieldSecondDeleteToDelete;
 	protected JLabel lblErrorDelete;
+	protected JLabel lblErrorGetPatient;
+
 
 
 	// TODO las variables que se quieran ser usadas en el controlador tienen que
@@ -353,6 +355,11 @@ public class MedicWindow extends JFrame {
 		lblErrorDelete.setForeground(Color.RED);
 		lblErrorDelete.setBounds(433, 247, 165, 14);
 		deletePatientsPanel.add(lblErrorDelete);
+		
+		lblErrorGetPatient = new JLabel("");
+		lblErrorGetPatient.setForeground(Color.RED);
+		lblErrorGetPatient.setBounds(358, 15, 143, 14);
+		deletePatientsPanel.add(lblErrorGetPatient);
 		
 		
 		
