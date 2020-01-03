@@ -53,7 +53,7 @@ public class ControlerMedicWindow implements ActionListener {
 			window.seePacientsPanel.setPreferredSize(new Dimension(624, 20 + 20 * insert.size()));
 			window.seePacientsPanel.setBounds(284, 11, 624, 20 + 20 * insert.size());
 			
-			for (int i = 0; i < insert.size(); i++) { // rellenamos la matriz que meteremos en la tabla a partir
+			for (int i = 0; i < insert.size()+1; i++) { // rellenamos la matriz que meteremos en la tabla a partir
 				// del ArrayList de arrays devuelto del DAO
 				for (int j = 0; j < 12; j++) {
 					if (i == 0) {
@@ -62,13 +62,12 @@ public class ControlerMedicWindow implements ActionListener {
 						matrixToInsert[i][j] = titles[j];
 
 					} else {
-						matrixToInsert[i][j] = insert.get(i)[j];
-					}
+						matrixToInsert[i][j] = insert.get(i-1)[j];					}
 				}
 }
 			
 			JTable PatientsTable = new JTable();
-			PatientsTable.setBounds(20, 20, 600, 20 + 20 * insert.size());
+			PatientsTable.setBounds(5, 5, 600, 20 + 20 * insert.size());
 
 			PatientsTable.setVisible(true);
 			window.seePacientsPanel.add(PatientsTable);
