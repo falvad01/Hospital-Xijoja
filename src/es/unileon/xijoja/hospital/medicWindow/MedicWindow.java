@@ -38,6 +38,8 @@ public class MedicWindow extends JFrame {
 	private Logs log = new Logs();
 	protected JPanel seePacientsPanel;
 	protected JPanel addPatientsPanel;
+	protected JPanel deletePatientsPanel;
+
 	private PacientesDAO dao;
 	private ControlerMedicWindow listener;
 	protected JTextField NombreP;
@@ -49,6 +51,13 @@ public class MedicWindow extends JFrame {
 	protected JLabel lberror;
 	protected JComboBox jcbNurse;
 	protected JComboBox jcbMedic;
+
+	protected JPanel deletePanel;
+	protected JTextField textFieldDNIToDelete;
+	protected JTextField textFieldNameToDelete;
+	protected JTextField textFieldFirstDeleteToDelete;
+	protected JTextField textFieldSecondDeleteToDelete;
+	protected JLabel lblErrorDelete;
 
 
 	// TODO las variables que se quieran ser usadas en el controlador tienen que
@@ -148,7 +157,7 @@ public class MedicWindow extends JFrame {
 		btnDarAltaPaciente.setBackground(new Color(255, 255, 255));
 		btnDarAltaPaciente.setBounds(10, 86, 229, 45);
 		getContentPane().add(btnDarAltaPaciente);
-		btnAsignarMedicamentoPaciente.addActionListener(listener);
+		btnDarAltaPaciente.addActionListener(listener);
 		
 		JButton btnIngresarPaciente = new JButton("Ingresar Paciente");
 		btnIngresarPaciente.setOpaque(false);
@@ -156,6 +165,13 @@ public class MedicWindow extends JFrame {
 		btnIngresarPaciente.setBounds(10, 21, 229, 52);
 		getContentPane().add(btnIngresarPaciente);
 		btnIngresarPaciente.addActionListener(listener);
+		
+		JButton btnCerrarSesin = new JButton("Cerrar Sesión");
+		btnCerrarSesin.setBounds(10, 416, 229, 41);
+		btnCerrarSesin.setOpaque(false);
+		btnCerrarSesin.setBackground(new Color(255, 255, 255));
+		getContentPane().add(btnCerrarSesin);
+		btnCerrarSesin.addActionListener(listener);
 
 	}
 
@@ -277,7 +293,66 @@ public class MedicWindow extends JFrame {
 		*/
 		
 		
-		//
+		//dar de alta pacientes
+		
+		deletePatientsPanel = new JPanel();
+		deletePatientsPanel.setBackground(Color.WHITE);
+		deletePatientsPanel.setBounds(274, 0, 649, 467);
+		getContentPane().add(deletePatientsPanel);
+		deletePatientsPanel.setLayout(null);
+		deletePatientsPanel.setVisible(false);
+
+		JLabel lblNewLabel_1 = new JLabel("DNI");
+		lblNewLabel_1.setBounds(39, 69, 46, 20);
+		deletePatientsPanel.add(lblNewLabel_1);
+
+		textFieldDNIToDelete = new JTextField();
+		textFieldDNIToDelete.setBounds(125, 69, 138, 20);
+		deletePatientsPanel.add(textFieldDNIToDelete);
+		textFieldDNIToDelete.setColumns(10);
+
+		JLabel lblNewLabel_2 = new JLabel("Nombre");
+		lblNewLabel_2.setBounds(39, 119, 46, 14);
+		deletePatientsPanel.add(lblNewLabel_2);
+
+		textFieldNameToDelete = new JTextField();
+		textFieldNameToDelete.setColumns(10);
+		textFieldNameToDelete.setBounds(125, 119, 138, 20);
+		deletePatientsPanel.add(textFieldNameToDelete);
+
+		textFieldFirstDeleteToDelete = new JTextField();
+		textFieldFirstDeleteToDelete.setColumns(10);
+		textFieldFirstDeleteToDelete.setBounds(125, 166, 138, 20);
+		deletePatientsPanel.add(textFieldFirstDeleteToDelete);
+
+		textFieldSecondDeleteToDelete = new JTextField();
+		textFieldSecondDeleteToDelete.setColumns(10);
+		textFieldSecondDeleteToDelete.setBounds(125, 215, 138, 20);
+		deletePatientsPanel.add(textFieldSecondDeleteToDelete);
+
+		JLabel lblApellido_3 = new JLabel("1º Apellido");
+		lblApellido_3.setBounds(39, 169, 60, 14);
+		deletePatientsPanel.add(lblApellido_3);
+
+		JLabel lblapellido = new JLabel("2ºApellido");
+		lblapellido.setBounds(39, 218, 60, 14);
+		deletePatientsPanel.add(lblapellido);
+
+		JLabel lblNewLabel_3 = new JLabel("Introducir los siguientes datos para borrar");
+		lblNewLabel_3.setBounds(39, 23, 275, 20);
+		deletePatientsPanel.add(lblNewLabel_3);
+
+		JButton btnDelete = new JButton("Borrar");
+		btnDelete.addActionListener(listener);
+		btnDelete.setBounds(285, 244, 138, 20);
+		btnDelete.setOpaque(false);
+		btnDelete.setBackground(new Color(255, 255, 255));
+		deletePatientsPanel.add(btnDelete);
+
+		 lblErrorDelete = new JLabel("");
+		lblErrorDelete.setForeground(Color.RED);
+		lblErrorDelete.setBounds(433, 247, 165, 14);
+		deletePatientsPanel.add(lblErrorDelete);
 		
 		
 		

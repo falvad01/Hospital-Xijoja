@@ -3,6 +3,7 @@ package es.unileon.xijoja.hospital.medicWindow;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -15,6 +16,8 @@ import javax.swing.table.DefaultTableModel;
 import es.unileon.xijoja.hospital.Logs;
 import es.unileon.xijoja.hospital.PacientesDAO;
 import es.unileon.xijoja.hospital.PersonalDAO;
+import es.unileon.xijoja.hospital.login.ControlerLoginWindow;
+import es.unileon.xijoja.hospital.login.LoginWindow;
 
 
 public class ControlerMedicWindow implements ActionListener {
@@ -182,12 +185,28 @@ public class ControlerMedicWindow implements ActionListener {
 		
 		
 	} else if (arg0.getActionCommand().equals("Dar alta Paciente")) {
-		
+	
+		window.seePacientsPanel.setVisible(false);
+		window.addPatientsPanel.setVisible(false);
+		window.deletePatientsPanel.setVisible(true);
+		window.lberror.setText("");
+		window.lblErrorDelete.setText("");
+	/*	
+	} else if (arg0.getActionCommand().equals("Borrar")) {
+		// TODO no funciona, no se por que
 
+		if((!dao.checkEmployeeExist(adminWindow.textFieldSearchDNIEdit.getText().toString()))) {
+			adminWindow.lblErrorDelete.setText("Empleado no encontrado");
+			//TODO comporbar que el DNI coincida con el nombre y los apellidos
+		}else {
+			System.out.println("Boton borrar pulsado");
+			dao.deleteEmployee(adminWindow.textFieldNameToDelete.toString(),
+					adminWindow.textFieldFirstDeleteToDelete.toString(),
+					adminWindow.textFieldSecondDeleteToDelete.toString(), adminWindow.textFieldDNIToDelete.toString());
+		}
 		
-		
-		
-		
+	}
+	*/	
 	}else if (arg0.getActionCommand().equals("Asignar Medicamento Paciente")) {
 		
 		
@@ -203,10 +222,21 @@ public class ControlerMedicWindow implements ActionListener {
 		
 		
 		
-        	}
+    }else if (arg0.getActionCommand().equals("Cerrar Sesión")) {
+
+				window.setVisible(false);
+				//TODO arreglar que se borren los campos al cerrar sesion
+				try {
+					LoginWindow newlogin = new LoginWindow();
+					ControlerLoginWindow controlerLogin = new ControlerLoginWindow(newlogin);
+					controlerLogin.resetJField();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 		
 	
-}
+        	}
+	}
 
 }
 
