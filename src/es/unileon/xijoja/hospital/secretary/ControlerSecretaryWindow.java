@@ -53,17 +53,15 @@ public class ControlerSecretaryWindow implements ActionListener {
 			}else {
 				secretarywindow.lblError.setText("");
 			}
-
+//TOOD: comprobar haitacion unica 
 			if (add) {// Si da error no se aï¿½ade el empleado
 				System.out.println("Correcto");
 
-				//TODO get last id funciona regular, me puso un -1
-				int id = dao.getLastID();
+				int id = dao.getLastID()+1;//siguiente id
 				
 				Date date = new Date(Calendar.getInstance().getTime().getTime());// Obtenemos la fecha actual
 				int idMedic=0,idNurse=0;
 				try {
-					//TODO: añadir medico
 					secretarywindow.jcbMedic.getSelectedIndex();
 					
 					for (int i = 0; i < arrayMedic.size(); i++) {
@@ -79,7 +77,7 @@ public class ControlerSecretaryWindow implements ActionListener {
 					System.out.println("id medico: "+ idMedic+" id Enfermero: "+idNurse);
 					
 
-					dao.addPatient(id+1, secretarywindow.textFieldName.getText(), secretarywindow.textFieldSurname1.getText(),
+					dao.addPatient(id, secretarywindow.textFieldName.getText(), secretarywindow.textFieldSurname1.getText(),
 							secretarywindow.textFieldSurname2.getText(), secretarywindow.textFieldNIFNIE.getText(), date,
 							Integer.parseInt(secretarywindow.textFieldRoom.getText()),idMedic,idNurse);// LLamamos a la
 																				// funcion del DAO
@@ -112,7 +110,6 @@ public class ControlerSecretaryWindow implements ActionListener {
 					ControlerLoginWindow controlerLogin = new ControlerLoginWindow(newlogin);
 					controlerLogin.resetJField();
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 		 }else if (arg0.getActionCommand().equals("Buscar Paciente")) {
@@ -129,7 +126,6 @@ public class ControlerSecretaryWindow implements ActionListener {
 			} else if (arg0.getActionCommand().equals("Buscar")) {
 
 				
-				 // TODO busqueda por nombre y por habitacion 
 			
 				
 			if ((secretarywindow.textFieldSearchDNIGetPatient.getText().toString().equals(""))){

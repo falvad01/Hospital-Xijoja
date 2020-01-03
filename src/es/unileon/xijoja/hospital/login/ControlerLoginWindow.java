@@ -57,7 +57,6 @@ public class ControlerLoginWindow implements ActionListener, KeyListener {
 					adminWindow = new AdminWindow(window.loginUser.toString(),
 							window.loginPassword.getText().toString());
 				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 
@@ -89,7 +88,6 @@ public class ControlerLoginWindow implements ActionListener, KeyListener {
 			try {
 				dao.reset();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			

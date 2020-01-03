@@ -92,15 +92,15 @@ public class PersonalDAO {
 
 		co = Conexion.getInstance();
 		conn = co.getConnection();
-		int ret = -1;
+		int ret = 0;
 		try {
 			Statement st = conn.createStatement();
 			ResultSet rs = st.executeQuery("Select idTrabajador from personal");
 
 			if (rs.last()) {// Nos posicionamos al final
-				ret = rs.getRow();// sacamos la cantidad de filas/registros
-
+				ret = rs.getInt(1);// sacamos la cantidad de filas/registros SACAMOS EL ULTIMO ID, NO EL NUMERO DE COLUMNAS
 			}
+			System.out.println("el ultimo id es: "+ ret);
 
 			while (rs.next()) {
 				// VOLCAR LOS DATOS
@@ -161,7 +161,6 @@ public class PersonalDAO {
 
   			}
   		} catch (SQLException e) {
-  			// TODO Auto-generated catch block
   			e.printStackTrace();
   		}
 
@@ -192,7 +191,6 @@ public class PersonalDAO {
 	        st.setString(11, email);
 			st.executeUpdate();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -248,7 +246,6 @@ public class PersonalDAO {
 
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -291,7 +288,6 @@ public class PersonalDAO {
 
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -325,7 +321,6 @@ public class PersonalDAO {
 
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -357,7 +352,6 @@ public class PersonalDAO {
 
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -376,10 +370,9 @@ public class PersonalDAO {
 
 		ArrayList<String[]> ret = new ArrayList<String[]>();
 
-		int lastId = this.getLastID();
-
-		for (int i = -1; i < lastId; i++) { // TODO no entiendo porque aqui es -1
-
+		int lastId = this.getLastID();//
+		System.out.println(lastId);
+		for (int i = 0; i <= lastId; i++) { 
 			ret.add(getEmployee(i));
 
 		}
@@ -441,7 +434,6 @@ public class PersonalDAO {
 			st.executeUpdate();
 	
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -476,7 +468,6 @@ public class PersonalDAO {
 			System.out.println("PAN");
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		System.out.println("AQUI");
@@ -516,7 +507,6 @@ public class PersonalDAO {
 
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -539,7 +529,6 @@ public class PersonalDAO {
 			System.out.println("Eliminadas las tablas");
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	
@@ -557,7 +546,6 @@ public class PersonalDAO {
 				st.execute(line);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
 			// close file reader

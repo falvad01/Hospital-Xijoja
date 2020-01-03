@@ -140,7 +140,7 @@ public class PacientesDAO {
             ResultSet rs = st.executeQuery("Select idPaciente from pacientes");
  
             if (rs.last()) {// Nos posicionamos al final
-                ret = rs.getRow();// sacamos la cantidad de filas/registros
+                ret = rs.getInt(1);// sacamos la ultima id
  
             }
  
@@ -284,7 +284,7 @@ public class PacientesDAO {
 		ArrayList<String[]> ret = new ArrayList<String[]>();
 
 		int lastId = this.getLastID();
-		for (int i = -1; i < lastId; i++) { 
+		for (int i = 0; i <= lastId; i++) { 
 
 			ret.add(getPatient(i));
 

@@ -1,6 +1,7 @@
 package es.unileon.xijoja.hospital.admin;
 
 import java.awt.Dimension;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -206,7 +207,7 @@ public class ControlerAdmin implements ActionListener {
 						adminWindow.textFieldSurname1.getText(), adminWindow.textFieldSurname1.getText()));
 				adminWindow.lblPassword.setText(genPassword());
 
-				int id = dao.getLastID();
+				int id = dao.getLastID()+1;//siguiente id
 
 				Date date = new Date(Calendar.getInstance().getTime().getTime());// Obtenemos la fecha actual
 
@@ -261,20 +262,23 @@ public class ControlerAdmin implements ActionListener {
 					"Puesto", "Contraseï¿½a", "Usuario", "Email" }; // Titulos de la tabla de
 																	// los empleados
 			insert = dao.getAllEmployees();// ArrayList de Arrays
-		
+			System.out.println("inset vale" + insert.size());
+			for (int i = 0; i < insert.size(); i++) {
+				System.out.println(insert.get(i)[0]);
+			}
 			matrixToInsert = new String[insert.size() + 1][11];
 			adminWindow.seeEmployeesPanel.setPreferredSize(new Dimension(624, 20 + 20 * insert.size()));
 			adminWindow.seeEmployeesPanel.setBounds(284, 11, 624, 20 + 20 * insert.size());
 
-			for (int i = 0; i < insert.size(); i++) { // rellenamos la matriz que meteremos en la tabla a partir
-														// del ArrayList de arrays devuelto del DAO
+			for (int i = 0; i < insert.size()+1; i++) { // rellenamos la matriz que meteremos en la tabla a partir
+														// del ArrayList de arrays devuelto del DAO /// +1 PORQUE NO CONTABA QUE HACIA FALTA TAMBIEN LA FILA EN LA CUAL ESTÁN LOS TITULOS
 				for (int j = 0; j < 11; j++) {
 					if (i == 0) {
 
 						matrixToInsert[i][j] = titles[j];
 
 					} else {
-						matrixToInsert[i][j] = insert.get(i)[j];
+						matrixToInsert[i][j] = insert.get(i-1)[j];//añadi un -1, no se tenia en cuenta la fila que s euarda para los titulos, entonces empezaba en el id 1
 					}
 				}
 			}
@@ -394,7 +398,6 @@ public class ControlerAdmin implements ActionListener {
 				ControlerLoginWindow controlerLogin = new ControlerLoginWindow(newlogin);
 				controlerLogin.resetJField();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 
