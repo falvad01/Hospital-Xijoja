@@ -153,7 +153,8 @@ public class PersonalDAO {
   			ResultSet rs = st.executeQuery();
   			String[] ret2 = new String[2];
   			while (rs.next()) {
-  				
+  	  			ret2 = new String[2];
+
   				ret2[0] = rs.getString(1); // ID
   				ret2[1] = "Dr. "+ rs.getString(2) + " "+ rs.getString(3)+" "+ rs.getString(4); //nombre y apellidos
   				ret.add(ret2);

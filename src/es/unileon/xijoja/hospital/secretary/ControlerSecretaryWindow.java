@@ -20,6 +20,7 @@ public class ControlerSecretaryWindow implements ActionListener {
 	private SecretaryWindow secretarywindow;
 	private PacientesDAO dao;
 	private PersonalDAO daoPersonal;
+	private ArrayList<String[]> arrayNurse, arrayMedic;
 	String[] getPatientData = null;
 	
 	public ControlerSecretaryWindow(SecretaryWindow window) {
@@ -45,7 +46,11 @@ public class ControlerSecretaryWindow implements ActionListener {
 
 				add = false;
 				secretarywindow.lblError.setText("Hay campos vacios");
-			} else {
+			} else if(secretarywindow.jcbMedic.getSelectedItem()==null||secretarywindow.jcbNurse.getSelectedItem()==null) {
+				add = false;
+				secretarywindow.lblError.setText("No hay medicos/enfermeros disponibles");
+				
+			}else {
 				secretarywindow.lblError.setText("");
 			}
 
@@ -56,13 +61,27 @@ public class ControlerSecretaryWindow implements ActionListener {
 				int id = dao.getLastID();
 				
 				Date date = new Date(Calendar.getInstance().getTime().getTime());// Obtenemos la fecha actual
-
+				int idMedic=0,idNurse=0;
 				try {
 					//TODO: añadir medico
+					secretarywindow.jcbMedic.getSelectedIndex();
+					
+					for (int i = 0; i < arrayMedic.size(); i++) {
+						if (secretarywindow.jcbMedic.getSelectedItem().toString().equals(arrayMedic.get(i)[1])) {
+							idMedic=i;
+						}
+					}
+					for (int i = 0; i < arrayNurse.size(); i++) {
+						if (secretarywindow.jcbNurse.getSelectedItem().toString().equals(arrayNurse.get(i)[1])) {
+							idNurse=i;
+						}
+					}
+					System.out.println("id medico: "+ idMedic+" id Enfermero: "+idNurse);
+					
 
 					dao.addPatient(id+1, secretarywindow.textFieldName.getText(), secretarywindow.textFieldSurname1.getText(),
 							secretarywindow.textFieldSurname2.getText(), secretarywindow.textFieldNIFNIE.getText(), date,
-							Integer.parseInt(secretarywindow.textFieldRoom.getText()));// LLamamos a la
+							Integer.parseInt(secretarywindow.textFieldRoom.getText()),idMedic,idNurse);// LLamamos a la
 																				// funcion del DAO
 																				// que inserta el
 																				// paciente
@@ -140,8 +159,14 @@ public class ControlerSecretaryWindow implements ActionListener {
 	}
 	}
 	public void filJComboBox(JComboBox edit, boolean ismedic) {
-		
+
 		ArrayList<String[]> list =  daoPersonal.getNuseAndMedic(ismedic);
+		if (ismedic) {
+			arrayMedic=list;	
+		}else {
+			arrayNurse=list;
+		}
+		
 		String[] data = new String[2];
 		if (list==null) {
 			
