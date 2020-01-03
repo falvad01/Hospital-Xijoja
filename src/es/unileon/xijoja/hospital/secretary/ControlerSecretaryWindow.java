@@ -68,12 +68,12 @@ public class ControlerSecretaryWindow implements ActionListener {
 					
 					for (int i = 0; i < arrayMedic.size(); i++) {
 						if (secretarywindow.jcbMedic.getSelectedItem().toString().equals(arrayMedic.get(i)[1])) {
-							idMedic=i;
+							idMedic=Integer.parseInt(arrayMedic.get(i)[0]);;
 						}
 					}
 					for (int i = 0; i < arrayNurse.size(); i++) {
 						if (secretarywindow.jcbNurse.getSelectedItem().toString().equals(arrayNurse.get(i)[1])) {
-							idNurse=i;
+							idNurse=Integer.parseInt(arrayNurse.get(i)[0]);
 						}
 					}
 					System.out.println("id medico: "+ idMedic+" id Enfermero: "+idNurse);
