@@ -242,17 +242,17 @@ public class MedicWindow extends JFrame {
 		Habitacion.setColumns(10);
 		lberror = new JLabel("");
 		lberror.setForeground(Color.RED);
-		lberror.setBounds(390, 241, 212, 14);
+		lberror.setBounds(100, 241, 212, 14);
 		addPatientsPanel.add(lberror);
 		
 		jcbNurse = new JComboBox();
 		listener.filJComboBox(jcbNurse,false);
-		jcbNurse.setBounds(392, 45, 213, 20);
+		jcbNurse.setBounds(392, 86, 213, 20);
 		addPatientsPanel.add(jcbNurse);
 		
 		jcbMedic = new JComboBox();
 		listener.filJComboBox(jcbMedic,true);
-		jcbMedic.setBounds(392, 86, 213, 20);
+		jcbMedic.setBounds(392, 45, 213, 20);
 		addPatientsPanel.add(jcbMedic);
 		
 		JLabel lblMedico = new JLabel("Medico");
