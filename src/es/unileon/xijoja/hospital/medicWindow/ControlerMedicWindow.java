@@ -72,6 +72,7 @@ public class ControlerMedicWindow implements ActionListener {
 			
 			window.seePacientsPanel.setVisible(true);
 			window.addPatientsPanel.setVisible(false);
+			window.deletePatientsPanel.setVisible(false);
 			
 			ArrayList<String[]> insert = null;
 
@@ -180,7 +181,7 @@ public class ControlerMedicWindow implements ActionListener {
 	} else if (arg0.getActionCommand().equals("Ingresar Paciente")) {
 		window.seePacientsPanel.setVisible(false);
 		window.addPatientsPanel.setVisible(true);
-		
+		window.deletePatientsPanel.setVisible(false);
 		
 		
 		
