@@ -50,7 +50,10 @@ public class ControlerSecretaryWindow implements ActionListener {
 				add = false;
 				secretarywindow.lblError.setText("No hay medicos/enfermeros disponibles");
 				
-			}else {
+			}else if (dao.checkIfRoomIsBusy(Integer.parseInt(secretarywindow.textFieldRoom.getText()))) {
+				add = false;
+				secretarywindow.lblError.setText("Esa habitacion no está disponible, proxima: "+ dao.firstRoomFree());
+			}else{
 				secretarywindow.lblError.setText("");
 			}
 //TOOD: comprobar haitacion unica 
