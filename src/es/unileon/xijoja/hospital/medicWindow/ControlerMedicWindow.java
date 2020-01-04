@@ -28,6 +28,7 @@ public class ControlerMedicWindow implements ActionListener {
 	private PacientesDAO dao;
 	private PersonalDAO daoPersonal;
 	private ArrayList<String[]> arrayNurse, arrayMedic;
+	String[] getPatientData = null;
 
 	//TODO poner aqui el dao en privado
 	
@@ -228,7 +229,42 @@ public class ControlerMedicWindow implements ActionListener {
 		
 		
 		
+	} else if (arg0.getActionCommand().equals("Buscar Paciente")) {
+		window.seePacientsPanel.setVisible(false);
+		window.addPatientsPanel.setVisible(false);
+		window.deletePatientsPanel.setVisible(false);
+		window.getPatientPane.setVisible(true);
 		
+	} else if (arg0.getActionCommand().equals("Buscar")) {
+		
+		if ((window.textFieldSearchDNIGetPatient.getText().toString().equals(""))){
+			window.lblErrorGetPatient.setText("Error en el formulario");
+			log.InfoLog("Error al buscar el paciente");
+
+			
+		}else {
+			//comprueba si se introduce un dni o numero de habitacion;
+			boolean isDniOrRoom = isDni(window.textFieldSearchDNIGetPatient.getText().toString());
+			
+			if (!dao.checkPatientExist(window.textFieldSearchDNIGetPatient.getText().toString(),isDniOrRoom)) {
+				window.lblErrorGetPatient.setText("Error en el formulario");
+				log.InfoLog("Error, no se encuentra el paciente indicado");
+			}else {
+				
+				getPatientData = dao.getPatient(window.textFieldSearchDNIGetPatient.getText().toString(),isDniOrRoom);
+				window.textFieldNameGetPatient.setText(getPatientData[1]);
+				window.textFieldSurname1GetPatient.setText(getPatientData[2]);
+				window.textFieldSurname2GetPatient.setText(getPatientData[3]);
+				window.textFieldDNIGetPatient.setText(getPatientData[4]);
+				window.textFieldRoomGetPatient.setText(getPatientData[6]);
+				log.InfoLog("Devuelto el paciente con id: "+getPatientData[0]);
+
+		
+			}	
+		}
+	
+	
+
 		
 	}else if (arg0.getActionCommand().equals("Informe de la semana")) {
 		

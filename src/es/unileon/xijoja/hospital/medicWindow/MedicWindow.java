@@ -39,6 +39,9 @@ public class MedicWindow extends JFrame {
 	protected JPanel seePacientsPanel;
 	protected JPanel addPatientsPanel;
 	protected JPanel deletePatientsPanel;
+	protected JPanel addMedicine;
+	protected JPanel getPatientPane;
+	protected JPanel deletePanel;
 
 	private PacientesDAO dao;
 	private ControlerMedicWindow listener;
@@ -51,14 +54,20 @@ public class MedicWindow extends JFrame {
 	protected JLabel lberror;
 	protected JComboBox jcbNurse;
 	protected JComboBox jcbMedic;
-
-	protected JPanel deletePanel;
+	protected JTextField textFieldNameGetPatient;
+	protected JTextField textFieldSurname1GetPatient;
+	protected JTextField textFieldDNIGetPatient;
+	protected JTextField textFieldSearchDNIGetPatient;
+	protected JTextField textFieldRoomGetPatient;
 	protected JTextField textFieldDNIToDelete;
 	protected JTextField textFieldNameToDelete;
 	protected JTextField textFieldFirstDeleteToDelete;
 	protected JTextField textFieldSecondDeleteToDelete;
 	protected JLabel lblErrorDelete;
 	protected JLabel lblErrorGetPatient;
+	protected JTextField textFieldSurname2GetPatient;
+	protected JTextField textFieldSearch;
+
 
 
 
@@ -174,6 +183,13 @@ public class MedicWindow extends JFrame {
 		btnCerrarSesin.setBackground(new Color(255, 255, 255));
 		getContentPane().add(btnCerrarSesin);
 		btnCerrarSesin.addActionListener(listener);
+		
+		JButton btnNewButton = new JButton("Buscar Paciente");
+		btnNewButton.setBounds(10, 317, 229, 46);
+		btnNewButton.setOpaque(false);
+		btnNewButton.setBackground(new Color(255, 255, 255));
+		getContentPane().add(btnNewButton);
+		btnNewButton.addActionListener(listener);
 
 	}
 
@@ -362,6 +378,112 @@ public class MedicWindow extends JFrame {
 		deletePatientsPanel.add(lblErrorGetPatient);
 		
 		
+		//panel buscar
+		getPatientPane = new JPanel();
+		getPatientPane.setBounds(284, 11, 624, 450);
+		getContentPane().add(getPatientPane);
+		getPatientPane.setLayout(null);
+		getPatientPane.setForeground(Color.WHITE);
+		getPatientPane.setBackground(Color.WHITE);
+		getPatientPane.setVisible(false);
+
+		JLabel label = new JLabel("Nombre");
+		label.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		label.setBounds(10, 74, 63, 23);
+		getPatientPane.add(label);
+
+		JLabel lblApellido1 = new JLabel("1� Apellido");
+		lblApellido1.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblApellido1.setBounds(10, 125, 80, 23);
+		getPatientPane.add(lblApellido1);
+
+		textFieldNameGetPatient = new JTextField();
+		textFieldNameGetPatient.setEnabled(false);
+		textFieldNameGetPatient.setColumns(10);
+		textFieldNameGetPatient.setBounds(100, 77, 143, 20);
+		getPatientPane.add(textFieldNameGetPatient);
+
+		textFieldSurname1GetPatient = new JTextField();
+		textFieldSurname1GetPatient.setEnabled(false);
+		textFieldSurname1GetPatient.setColumns(10);
+		textFieldSurname1GetPatient.setBounds(100, 128, 143, 20);
+		getPatientPane.add(textFieldSurname1GetPatient);
+
+		JLabel label_2 = new JLabel("NIF/NIE");
+		label_2.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		label_2.setBounds(10, 217, 63, 23);
+		getPatientPane.add(label_2);
+
+		textFieldDNIGetPatient = new JTextField();
+		textFieldDNIGetPatient.setEnabled(false);
+		textFieldDNIGetPatient.setColumns(10);
+		textFieldDNIGetPatient.setBounds(100, 220, 143, 20);
+		getPatientPane.add(textFieldDNIGetPatient);
+
+	
+
+		JLabel lblApellido_2 = new JLabel("2� Apellido");
+		lblApellido_2.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblApellido_2.setBounds(10, 170, 80, 23);
+		getPatientPane.add(lblApellido_2);
+
+		textFieldSurname2GetPatient = new JTextField();
+		textFieldSurname2GetPatient.setEnabled(false);
+		textFieldSurname2GetPatient.setColumns(10);
+		textFieldSurname2GetPatient.setBounds(100, 173, 143, 20);
+		getPatientPane.add(textFieldSurname2GetPatient);
+		
+		
+		JLabel lblRoom = new JLabel("Habitacion");
+		lblRoom.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblRoom.setBounds(390, 74, 80, 23);
+		getPatientPane.add(lblRoom);
+
+		textFieldRoomGetPatient = new JTextField();
+		textFieldRoomGetPatient.setEnabled(false);
+		textFieldRoomGetPatient.setColumns(10);
+		textFieldRoomGetPatient.setBounds(470, 77, 143, 20);
+		getPatientPane.add(textFieldRoomGetPatient);
+		
+		
+		JLabel label_9 = new JLabel("");
+		label_9.setForeground(Color.RED);
+		label_9.setBounds(390, 241, 212, 14);
+		getPatientPane.add(label_9);
+
+		
+
+		JSeparator separator2 = new JSeparator();
+		separator2.setBounds(10, 52, 610, 33);
+		getPatientPane.add(separator2);
+
+		JLabel lblNewLabel = new JLabel("Introduce el DNI o habitaci�n: ");
+		lblNewLabel.setBounds(10, 11, 200, 23);
+		getPatientPane.add(lblNewLabel);
+
+		textFieldSearchDNIGetPatient = new JTextField();
+		textFieldSearchDNIGetPatient.setBounds(210, 12, 133, 20);
+		getPatientPane.add(textFieldSearchDNIGetPatient);
+		textFieldSearchDNIGetPatient.setColumns(10);
+
+		JButton btnNewButton_1 = new JButton("Buscar");
+		btnNewButton_1.setForeground(Color.BLACK);
+		btnNewButton_1.setBackground(Color.WHITE);
+		btnNewButton_1.addActionListener(listener);
+
+		btnNewButton_1.setBounds(353, 11, 89, 23);
+		getPatientPane.add(btnNewButton_1);
+
+		lblErrorGetPatient = new JLabel("");
+		lblErrorGetPatient.setForeground(Color.RED);
+		lblErrorGetPatient.setBounds(358, 15, 143, 14);
+		getPatientPane.add(lblErrorGetPatient);
+		
+	
+		//panel asignar medicamento
+		
+		addMedicine=new JPanel();
+				
 		
 	}
 }
