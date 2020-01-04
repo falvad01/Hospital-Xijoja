@@ -153,22 +153,16 @@ public class PacientesDAO {
 		co.disconect();// Desconectamos la base de datos
 	}
     
-    public void AsignMedicine(int Unidades, int Medicamento, String DNI) {
+    public void AsignMedicine(int unidades, int medicamento, String DNI) {
 
 		co = Conexion.getInstance();
 		conn = co.getConnection();
-
-		String sql = "UPDATE pacientes SET UMedicamento=? && fk_idProducto=? WHERE NIFNIE=?";
-
+	
 		
 		try {
-	        PreparedStatement st = conn.prepareStatement(sql);
-	       
-	        st.setInt(1, Unidades);
-	        st.setInt(2,Medicamento);
-	        st.setString(3,DNI);
-			st.executeUpdate();
-			
+			Statement st = conn.createStatement();
+			String sql = "UPDATE `pacientes` SET `fk_idProducto` = '"+medicamento+"', `UMedicamento` = '"+unidades+"' WHERE `pacientes`.`NIFNIE` = '"+DNI+"'";		  
+			st.executeUpdate(sql);
 
 		} catch (SQLException e) {
 			e.printStackTrace();
