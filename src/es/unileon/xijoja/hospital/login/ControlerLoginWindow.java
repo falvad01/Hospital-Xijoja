@@ -55,7 +55,7 @@ public class ControlerLoginWindow implements ActionListener, KeyListener {
 
 				AdminWindow adminWindow = null;
 				try {
-					adminWindow = new AdminWindow(window.loginUser.toString(),
+					adminWindow = new AdminWindow(window.loginUser.getText().toString(),
 							window.loginPassword.getText().toString());
 				} catch (SQLException e1) {
 					e1.printStackTrace();
