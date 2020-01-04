@@ -153,6 +153,30 @@ public class PacientesDAO {
 		
 		co.disconect();// Desconectamos la base de datos
 	}
+    
+    public void AsignMedicine(int Unidades, String Medicamento, String DNI) {
+
+		co = Conexion.getInstance();
+		conn = co.getConnection();
+
+		String sql = "UPDATE pacientes SET UMedicamento=? && fk_idProducto  WHERE NIFNIE=?";
+
+		try {
+	        PreparedStatement st = conn.prepareStatement(sql);
+	       
+	        st.setInt(1, Unidades);
+	        st.setString(2,Medicamento);
+	        //st.setString(3,DNI);
+			st.executeUpdate();
+			
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		co.disconect();// Desconectamos la base de datos
+	}
+
 
     
     public int getLastID() {

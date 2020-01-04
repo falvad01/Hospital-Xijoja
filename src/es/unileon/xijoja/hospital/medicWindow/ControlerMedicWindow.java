@@ -239,18 +239,18 @@ public class ControlerMedicWindow implements ActionListener {
 	
 	}else if (arg0.getActionCommand().equals("Asignar")) {//probablemente haya que hacer un comprobarmedicamento, pro pal final
 		
-		if ((window.textFieldDNI.getText().toString().equals(""))){
-			window.lblErrorGetPatient.setText("Error en el formulario");
+		if ((window.DNIM.getText().toString().equals(""))){
+			window.lblError2.setText("Error en el formulario");
 			log.InfoLog("Error al buscar el paciente");
 		}else {
 			//comprueba si se introduce un dni
-			boolean isDniOrRoom = isDni(window.textFieldDNI.getText().toString());
+			boolean isDniOrRoom = isDni(window.DNIM.getText().toString());
 			
-			if (!dao.checkPatientExist(window.textFieldDNI.getText().toString(),isDniOrRoom)) {
+			if (!dao.checkPatientExist(window.DNIM.getText().toString(),isDniOrRoom)) {
 				window.lblError2.setText("Error en el formulario");
 				log.InfoLog("Error, no se encuentra el paciente indicado");
 			}else {
-				
+				dao.AsignMedicine(Integer.parseInt(window.units.getText().toString()), window.Medicine.getText().toString(),window.DNIM.getText().toString());
 				//TODO falta por acabar esto y modificar el dao para que asigne medicamentos
 				
 			}

@@ -68,9 +68,15 @@ public class MedicWindow extends JFrame {
 	protected JTextField textFieldSurname2GetPatient;
 	protected JTextField textFieldSearch;
 	protected JTextField textFieldDNI;
-	private JTextField textField;
+	protected JTextField textField;
+    protected JTextField textField_1;
+    protected JTextField units;
+    protected JTextField Medicine;
+    protected JTextField DNIM;
 
 
+   
+   
 
 
 	// TODO las variables que se quieran ser usadas en el controlador tienen que
@@ -495,25 +501,25 @@ public class MedicWindow extends JFrame {
 		JLabel medicina = new JLabel("DNI");
 		medicina.setBounds(39, 69, 46, 20);
 		addMedicine.add(medicina);
-				
-		textFieldDNI = new JTextField();
-		textFieldDNI.setBounds(125, 69, 138, 20);
-		addMedicine.add(textFieldDNI);
-		textFieldDNI.setColumns(10);
-					
+		
+		DNIM = new JTextField();
+		DNIM.setBounds(125, 69, 138, 20);
+		addMedicine.add(DNIM);
+		DNIM.setColumns(10);
+		
 		JLabel lblNewLabel3 = new JLabel("Introducir el DNI del paciente y el medicamento que desea asignarle");
-		lblNewLabel3.setBounds(39, 23, 275, 20);
+		lblNewLabel3.setBounds(39, 23, 451, 20);
 		addMedicine.add(lblNewLabel3);
-				
+		
 		JLabel lblMedicamento = new JLabel("Medicamento");
 		lblMedicamento.setBounds(39, 127, 91, 16);
 		addMedicine.add(lblMedicamento);
-				
-		textField = new JTextField();
-		textField.setBounds(125, 124, 138, 22);
-		addMedicine.add(textField);
-		textField.setColumns(10);
-				
+		
+		Medicine = new JTextField();
+		Medicine.setBounds(125, 124, 138, 22);
+		addMedicine.add(Medicine);
+		Medicine.setColumns(10);
+		
 		lblError2 = new JLabel("");
 		lblError2.setForeground(Color.RED);
 		lblError2.setBounds(358, 15, 143, 14);
@@ -524,6 +530,15 @@ public class MedicWindow extends JFrame {
 		btnAsignar.setOpaque(false);
 		btnAsignar.setBackground(new Color(255, 255, 255));
 		addMedicine.add(btnAsignar);
+		
+		units = new JTextField();
+		units.setColumns(10);
+		units.setBounds(125, 182, 138, 22);
+		addMedicine.add(units);
+		
+		JLabel lblUnidades = new JLabel("Unidades");
+		lblUnidades.setBounds(39, 185, 56, 16);
+		addMedicine.add(lblUnidades);
 		btnAsignar.addActionListener(listener);
 
 		
