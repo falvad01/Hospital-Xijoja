@@ -112,31 +112,31 @@ System.out.println("id es: "+id+nurseWindow.user+nurseWindow.password);
 				
 		} else if (arg0.getActionCommand().equals("Buscar")) {
 				
-			if ((nurseWindow.textFieldSearchDNIGetPatient.getText().toString().equals(""))){
-				nurseWindow.lblErrorGetPatient.setText("Error en el formulario");
-				log.InfoLog("Error al buscar el paciente");
-
-				
-			}else {
-				//comprueba si se introduce un dni o numero de habitacion;
-				boolean isDniOrRoom = isDni(nurseWindow.textFieldSearchDNIGetPatient.getText().toString());
-				
-				if (!dao.checkPatientExist(nurseWindow.textFieldSearchDNIGetPatient.getText().toString(),isDniOrRoom)) {
-					nurseWindow.lblErrorGetPatient.setText("Error en el formulario");
-					log.InfoLog("Error, no se encuentra el paciente indicado");
-				}else {
-					
-					getPatientData = dao.getPatient(nurseWindow.textFieldSearchDNIGetPatient.getText().toString(),isDniOrRoom);
-					nurseWindow.textFieldNameGetPatient.setText(getPatientData[1]);
-					nurseWindow.textFieldSurname1GetPatient.setText(getPatientData[2]);
-					nurseWindow.textFieldSurname2GetPatient.setText(getPatientData[3]);
-					nurseWindow.textFieldDNIGetPatient.setText(getPatientData[4]);
-					nurseWindow.textFieldRoomGetPatient.setText(getPatientData[6]);
-					log.InfoLog("Devuelto el paciente con id: "+getPatientData[0]);
-
-			
-				}	
-			}
+//			if ((nurseWindow.textFieldSearchDNIGetPatient.getText().toString().equals(""))){
+//				nurseWindow.lblErrorGetPatient.setText("Error en el formulario");
+//				log.InfoLog("Error al buscar el paciente");
+//
+//				
+//			}else {
+//				//comprueba si se introduce un dni o numero de habitacion;
+//				boolean isDniOrRoom = isDni(nurseWindow.textFieldSearchDNIGetPatient.getText().toString());
+//				
+//				if (!dao.checkPatientExist(nurseWindow.textFieldSearchDNIGetPatient.getText().toString(),isDniOrRoom)) {
+//					nurseWindow.lblErrorGetPatient.setText("Error en el formulario");
+//					log.InfoLog("Error, no se encuentra el paciente indicado");
+//				}else {
+//					
+//					getPatientData = dao.getPatient(nurseWindow.textFieldSearchDNIGetPatient.getText().toString(),isDniOrRoom);
+//					nurseWindow.textFieldNameGetPatient.setText(getPatientData[1]);
+//					nurseWindow.textFieldSurname1GetPatient.setText(getPatientData[2]);
+//					nurseWindow.textFieldSurname2GetPatient.setText(getPatientData[3]);
+//					nurseWindow.textFieldDNIGetPatient.setText(getPatientData[4]);
+//					nurseWindow.textFieldRoomGetPatient.setText(getPatientData[6]);
+//					log.InfoLog("Devuelto el paciente con id: "+getPatientData[0]);
+//
+//			
+//				}	
+//			}
 		}
 	}
 	public void filJComboBox(JComboBox edit) {
@@ -157,6 +157,21 @@ System.out.println("id es: "+id+nurseWindow.user+nurseWindow.password);
 		
 		
 	}
+	public void filJComboBoxUnits() {
+//TODO que se llame a esto cuando se selecione un paciente
+		int units =dao.getMedicineUnits(id);// ArrayList de Arrays;
+
+			for (int i = 0; i <= units; i++) {
+				
+				nurseWindow.jcbNUtits.addItem(i);
+				
+				
+			}
+		
+		
+		
+	}
+	
 	public boolean isDni (String dniOrRoom) {
 		// return true si es dni
 	

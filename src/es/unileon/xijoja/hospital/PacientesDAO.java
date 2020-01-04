@@ -208,6 +208,35 @@ public class PacientesDAO {
   	}
     
 
+	public int getMedicineUnits (int id) {
+
+  		co = Conexion.getInstance();
+  		conn = co.getConnection();
+  		ArrayList<String[]> ret = new ArrayList<String[]>();
+
+  		
+  		
+  		try {
+  			String sql;
+  			Statement st = conn.createStatement();
+  	  
+  	  			sql = "SELECT UMedicamento FROM pacientes WHERE idPaciente='"+id+"'";  	 	 
+  			
+  	  		
+  	
+  	  	System.out.println(sql);
+  			ResultSet rs = st.executeQuery(sql);
+  			return rs.getInt(1);
+  			
+  		} catch (SQLException e) {
+  			e.printStackTrace();
+  		}
+
+  		co.disconect();// Cerramos la conexion con la base de datos
+  		return 0;
+  	}
+    
+
 
     
     public int getLastID() {
