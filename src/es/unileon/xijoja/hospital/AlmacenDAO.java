@@ -30,5 +30,38 @@ public class AlmacenDAO {
      */
     public AlmacenDAO() {
     }
+    public String getMedicineName (int id) {
+
+  		co = Conexion.getInstance();
+  		conn = co.getConnection();
+  		ArrayList<String[]> ret = new ArrayList<String[]>();
+
+  		
+  		
+  		try {
+  			String sql;
+  			Statement st = conn.createStatement();
+  	  
+  	  			sql = "SELECT * FROM almacen WHERE idProducto='"+id+"'";  	 	 
+  			
+  	  		
+  	
+  	  		System.out.println(sql);
+  			ResultSet rs = st.executeQuery(sql);
+  			while (rs.next()) {
+  	  		
+
+  				return rs.getString(3); // name
+  				
+
+  			}
+  		} catch (SQLException e) {
+  			e.printStackTrace();
+  		}
+
+  		co.disconect();// Cerramos la conexion con la base de datos
+  		return "";
+  	}
+    
 }
  

@@ -13,6 +13,9 @@ import javax.swing.JComboBox;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import com.sun.mail.handlers.text_html;
+
+import es.unileon.xijoja.hospital.AlmacenDAO;
 import es.unileon.xijoja.hospital.Logs;
 import es.unileon.xijoja.hospital.PacientesDAO;
 import es.unileon.xijoja.hospital.PersonalDAO;
@@ -27,6 +30,7 @@ public class ControlerNurseWindow implements ActionListener {
 	private Logs log;
 	private PacientesDAO dao;
 	private PersonalDAO daoPersonal;
+	private AlmacenDAO daoAlmacen;
 	private int id, idPatient;;
 	private ArrayList<String[]> listPatients;
 	String[] getPatientData = null;
@@ -34,6 +38,7 @@ public class ControlerNurseWindow implements ActionListener {
 	public ControlerNurseWindow(NurseWindow window) {
 		this.dao = new PacientesDAO();
 		this.daoPersonal= new PersonalDAO();
+		this.daoAlmacen= new AlmacenDAO();
 		this.nurseWindow = window;
 		log = new Logs();
 		this. id= daoPersonal.getIdByUserAndPass(nurseWindow.user,nurseWindow.password);
@@ -126,10 +131,13 @@ System.out.println("id es: "+id+nurseWindow.user+nurseWindow.password);
 						idPatient=Integer.parseInt(listPatients.get(i)[0]);
 					}
 				}
-			
+					nurseWindow.textFieldMedicine.setEnabled(true);
+					nurseWindow.textFieldUnits.setEnabled(true);
+
 					filJComboBoxUnits();
 					getPatientData = dao.getPatient(idPatient);
-					nurseWindow.textFieldMedicine.setText(getPatientData[8]);
+					nurseWindow.textFieldMedicine.setText(daoAlmacen.getMedicineName(Integer.parseInt(getPatientData[8])));
+					
 					nurseWindow.textFieldUnits.setText(getPatientData[10]);
 					log.InfoLog("Devuelto el paciente con id: "+getPatientData[0]);
 
@@ -157,7 +165,7 @@ System.out.println("id es: "+id+nurseWindow.user+nurseWindow.password);
 		
 	}
 	public void filJComboBoxUnits() {
-		nurseWindow.jcbNUtits.removeAll();
+		nurseWindow.jcbNUtits.removeAllItems();
 //TODO que se llame a esto cuando se selecione un paciente
 		int units =dao.getMedicineUnits(idPatient);// ArrayList de Arrays;
 
