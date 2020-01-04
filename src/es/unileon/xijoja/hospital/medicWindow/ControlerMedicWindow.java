@@ -87,6 +87,8 @@ public class ControlerMedicWindow implements ActionListener {
 			window.seePacientsPanel.setVisible(true);
 			window.addPatientsPanel.setVisible(false);
 			window.deletePatientsPanel.setVisible(false);
+			window.getPatientPane.setVisible(false);
+			window.addMedicine.setVisible(false);
 			
 			ArrayList<String[]> insert = null;
 
@@ -196,7 +198,8 @@ public class ControlerMedicWindow implements ActionListener {
 		window.seePacientsPanel.setVisible(false);
 		window.addPatientsPanel.setVisible(true);
 		window.deletePatientsPanel.setVisible(false);
-		
+		window.getPatientPane.setVisible(false);
+		window.addMedicine.setVisible(false);
 		
 		
 	} else if (arg0.getActionCommand().equals("Dar alta Paciente")) {
@@ -204,6 +207,8 @@ public class ControlerMedicWindow implements ActionListener {
 		window.seePacientsPanel.setVisible(false);
 		window.addPatientsPanel.setVisible(false);
 		window.deletePatientsPanel.setVisible(true);
+		window.getPatientPane.setVisible(false);
+		window.addMedicine.setVisible(false);
 		window.lberror.setText("");
 		window.lblErrorDelete.setText("");
 		
@@ -226,14 +231,38 @@ public class ControlerMedicWindow implements ActionListener {
 	
 	}else if (arg0.getActionCommand().equals("Asignar Medicamento Paciente")) {
 		
+		window.seePacientsPanel.setVisible(false);
+		window.addPatientsPanel.setVisible(false);
+		window.deletePatientsPanel.setVisible(false);
+		window.getPatientPane.setVisible(false);
+		window.addMedicine.setVisible(true);
+	
+	}else if (arg0.getActionCommand().equals("Asignar")) {
 		
+		if ((window.textFieldSearchDNIGetPatient.getText().toString().equals(""))){
+			window.lblErrorGetPatient.setText("Error en el formulario");
+			log.InfoLog("Error al buscar el paciente");
+		}else {
+			//comprueba si se introduce un dni o numero de habitacion;
+			boolean isDniOrRoom = isDni(window.textFieldSearchDNIGetPatient.getText().toString());
+			
+			if (!dao.checkPatientExist(window.textFieldSearchDNIGetPatient.getText().toString(),isDniOrRoom)) {
+				window.lblErrorGetPatient.setText("Error en el formulario");
+				log.InfoLog("Error, no se encuentra el paciente indicado");
+			}else {
+				
+				//TODO falta por acabar esto y modificar el dao para que asigne medicamentos
+				
+			}
 		
+		}
 		
 	} else if (arg0.getActionCommand().equals("Buscar Paciente")) {
 		window.seePacientsPanel.setVisible(false);
 		window.addPatientsPanel.setVisible(false);
 		window.deletePatientsPanel.setVisible(false);
 		window.getPatientPane.setVisible(true);
+		window.addMedicine.setVisible(false);
 		
 	} else if (arg0.getActionCommand().equals("Buscar")) {
 		

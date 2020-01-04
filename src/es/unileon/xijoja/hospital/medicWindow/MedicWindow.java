@@ -41,8 +41,7 @@ public class MedicWindow extends JFrame {
 	protected JPanel deletePatientsPanel;
 	protected JPanel addMedicine;
 	protected JPanel getPatientPane;
-	protected JPanel deletePanel;
-
+	
 	private PacientesDAO dao;
 	private ControlerMedicWindow listener;
 	protected JTextField NombreP;
@@ -67,6 +66,8 @@ public class MedicWindow extends JFrame {
 	protected JLabel lblErrorGetPatient;
 	protected JTextField textFieldSurname2GetPatient;
 	protected JTextField textFieldSearch;
+	protected JTextField textFieldDNI;
+	private JTextField textField;
 
 
 
@@ -148,6 +149,7 @@ public class MedicWindow extends JFrame {
 		btnAsignarMedicamentoPaciente.setBackground(new Color(255, 255, 255));
 		btnAsignarMedicamentoPaciente.setBounds(10, 144, 229, 52);
 		getContentPane().add(btnAsignarMedicamentoPaciente);
+		btnAsignarMedicamentoPaciente.addActionListener(listener);
 		
 		JButton btnVerPacientes = new JButton("Ver Pacientes");
 		btnVerPacientes.setOpaque(false);
@@ -483,6 +485,42 @@ public class MedicWindow extends JFrame {
 		//panel asignar medicamento
 		
 		addMedicine=new JPanel();
+		addMedicine.setBackground(Color.WHITE);
+		addMedicine.setBounds(274, 0, 649, 467);
+		getContentPane().add(addMedicine);
+		addMedicine.setLayout(null);
+		addMedicine.setVisible(false);
+		
+		JLabel lblNewLabel1 = new JLabel("DNI");
+		lblNewLabel1.setBounds(39, 69, 46, 20);
+		addMedicine.add(lblNewLabel1);
+				
+		textFieldDNI = new JTextField();
+		textFieldDNI.setBounds(125, 69, 138, 20);
+		addMedicine.add(textFieldDNI);
+		textFieldDNI.setColumns(10);
+					
+		JLabel lblNewLabel3 = new JLabel("Introducir el DNI del paciente y el medicamento que desea asignarle");
+		lblNewLabel3.setBounds(39, 23, 275, 20);
+		addMedicine.add(lblNewLabel3);
+				
+		JLabel lblMedicamento = new JLabel("Medicamento");
+		lblMedicamento.setBounds(39, 127, 91, 16);
+		addMedicine.add(lblMedicamento);
+				
+		textField = new JTextField();
+		textField.setBounds(125, 124, 138, 22);
+		addMedicine.add(textField);
+		textField.setColumns(10);
+				
+		JButton btnAsignar = new JButton("Asignar");
+		btnAsignar.setBounds(385, 341, 169, 59);
+		btnAsignar.setOpaque(false);
+		btnAsignar.setBackground(new Color(255, 255, 255));
+		addMedicine.add(btnAsignar);
+		btnAsignar.addActionListener(listener);
+
+		
 				
 		
 	}
