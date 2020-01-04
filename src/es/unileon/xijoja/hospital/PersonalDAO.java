@@ -458,6 +458,7 @@ public class PersonalDAO {
 		conn = co.getConnection();
 
 		String sql = "DELETE FROM personal WHERE Nombre='?' && Apellido1='?' && Apellido2='?' && NIFNIE='?'";
+		
 
 		try {
 	        PreparedStatement st = conn.prepareStatement(sql);
@@ -522,15 +523,14 @@ public class PersonalDAO {
 	  		co = Conexion.getInstance();
 	  		conn = co.getConnection();
 	  		
-	  		
-	  		String sql  = "SELECT * FROM personal WHERE usuario=? && contrasenia=?";
+	  		Statement st ;
+	  		String sql  = "SELECT * FROM personal WHERE usuario='"+user+"' && contrasenia='"+pass+"'";
 	  		
 	  		int ret = 0;
 	  		try {
-	  			 PreparedStatement st = conn.prepareStatement(sql);
-	 	        st.setString(1, user);
-	 	        st.setString(2, pass);
-	  		
+	 			 st = conn.createStatement();
+
+	 
 	  			ResultSet rs = st.executeQuery(sql);
 	  			while (rs.next()) {
 	  				ret =rs.getInt(1); // ID

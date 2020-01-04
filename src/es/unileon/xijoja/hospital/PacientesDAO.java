@@ -333,6 +333,45 @@ public class PacientesDAO {
 		co.disconect();// Cerramos la conexion con la base de datos
 		return ret;
 	}
+    public String[] getPatient(int id,int idNurse) {
+
+ 		co = Conexion.getInstance();
+ 		conn = co.getConnection();
+
+ 		String sql  = "SELECT * FROM pacientes WHERE idPaciente='"+id+"' && fk_idEnfermero='"+idNurse+"'";
+  		
+ 		String[] ret = null;
+ 		Statement st;
+  		try {
+  			 st = conn.createStatement();
+
+  			 
+	  			ResultSet rs = st.executeQuery(sql);
+ 			ret = new String[12];
+ 			while (rs.next()) {
+ 				
+ 				ret[0] = rs.getString(1); // ID
+ 				ret[1] = rs.getString(2); // Nombre
+ 				ret[2] = rs.getString(3); // Apelllido1
+ 				ret[3] = rs.getString(4); // Apellido2
+ 				ret[4] = rs.getString(5); // NIE
+ 				ret[5] = rs.getString(6); // Fecha
+ 				ret[6] = rs.getString(7); // Habitacion
+ 				ret[7] = rs.getString(8); // Enfermedad
+ 				ret[8] = rs.getString(9); // medicinas
+ 				ret[9] = rs.getString(10); // idmedico
+ 				ret[10] = rs.getString(11);	//cantidad de medicamento
+ 				ret[11] = rs.getString(12);	//idenfermero
+
+
+ 			}
+ 		} catch (SQLException e) {
+ 			e.printStackTrace();
+ 		}
+
+ 		co.disconect();// Cerramos la conexion con la base de datos
+ 		return ret;
+ 	}
     
     public String[] getPatient(String search, boolean isdni) {
 
@@ -392,14 +431,14 @@ public class PacientesDAO {
 
 		return ret;
 	}
-    public ArrayList<String[]> getAllPatients(int id) {
+    public ArrayList<String[]> getAllPatients(int idNurse) {
 
   		ArrayList<String[]> ret = new ArrayList<String[]>();
 
   		int lastId = this.getLastID();
   		for (int i = 0; i <= lastId; i++) { 
 
-  			ret.add(getPatient(i));
+  			ret.add(getPatient(i,idNurse));
 
   		}
 
