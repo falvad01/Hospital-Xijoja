@@ -27,8 +27,8 @@ public class ControlerNurseWindow implements ActionListener {
 	private Logs log;
 	private PacientesDAO dao;
 	private PersonalDAO daoPersonal;
-	private int id;
-	private ArrayList<String[]> arrayNurse, arrayMedic;
+	private int id, idPatient;;
+	private ArrayList<String[]> listPatients;
 	String[] getPatientData = null;
 	
 	public ControlerNurseWindow(NurseWindow window) {
@@ -111,44 +111,43 @@ System.out.println("id es: "+id+nurseWindow.user+nurseWindow.password);
 				
 				
 		} else if (arg0.getActionCommand().equals("Buscar")) {
+			
 				
-//			if ((nurseWindow.textFieldSearchDNIGetPatient.getText().toString().equals(""))){
-//				nurseWindow.lblErrorGetPatient.setText("Error en el formulario");
-//				log.InfoLog("Error al buscar el paciente");
-//
-//				
-//			}else {
-//				//comprueba si se introduce un dni o numero de habitacion;
-//				boolean isDniOrRoom = isDni(nurseWindow.textFieldSearchDNIGetPatient.getText().toString());
-//				
-//				if (!dao.checkPatientExist(nurseWindow.textFieldSearchDNIGetPatient.getText().toString(),isDniOrRoom)) {
-//					nurseWindow.lblErrorGetPatient.setText("Error en el formulario");
-//					log.InfoLog("Error, no se encuentra el paciente indicado");
-//				}else {
-//					
-//					getPatientData = dao.getPatient(nurseWindow.textFieldSearchDNIGetPatient.getText().toString(),isDniOrRoom);
-//					nurseWindow.textFieldNameGetPatient.setText(getPatientData[1]);
-//					nurseWindow.textFieldSurname1GetPatient.setText(getPatientData[2]);
-//					nurseWindow.textFieldSurname2GetPatient.setText(getPatientData[3]);
-//					nurseWindow.textFieldDNIGetPatient.setText(getPatientData[4]);
-//					nurseWindow.textFieldRoomGetPatient.setText(getPatientData[6]);
-//					log.InfoLog("Devuelto el paciente con id: "+getPatientData[0]);
-//
-//			
-//				}	
-//			}
+			if ((nurseWindow.jcbPatient.getSelectedItem()==null)){
+				nurseWindow.lblErrorGetPatient.setText("No tiene pacientes asignados");
+				log.InfoLog("Error, no se selecionó un paciente");
+
+				
+			}else {
+				
+				
+				for (int i = 0; i < listPatients.size(); i++) {
+					if (nurseWindow.jcbPatient.getSelectedItem().toString().equals(listPatients.get(i)[1])) {
+						idPatient=Integer.parseInt(listPatients.get(i)[0]);
+					}
+				}
+			
+					filJComboBoxUnits();
+					getPatientData = dao.getPatient(idPatient);
+					nurseWindow.textFieldMedicine.setText(getPatientData[8]);
+					nurseWindow.textFieldUnits.setText(getPatientData[10]);
+					log.InfoLog("Devuelto el paciente con id: "+getPatientData[0]);
+
+			
+			}
 		}
 	}
+	
 	public void filJComboBox(JComboBox edit) {
 
-		ArrayList<String[]> list =dao.getPatientsByNurseOrMedic(false,id);// ArrayList de Arrays;
+		listPatients =dao.getPatientsByNurseOrMedic(false,id);// ArrayList de Arrays;
 
 		String[] data = new String[2];
-		if (list==null) {
+		if (listPatients==null) {
 			
 		}else {
-			for (int i = 0; i < list.size(); i++) {
-				data= list.get(i);
+			for (int i = 0; i < listPatients.size(); i++) {
+				data= listPatients.get(i);
 				edit.addItem(data[1]);
 				
 				
@@ -158,8 +157,9 @@ System.out.println("id es: "+id+nurseWindow.user+nurseWindow.password);
 		
 	}
 	public void filJComboBoxUnits() {
+		nurseWindow.jcbNUtits.removeAll();
 //TODO que se llame a esto cuando se selecione un paciente
-		int units =dao.getMedicineUnits(id);// ArrayList de Arrays;
+		int units =dao.getMedicineUnits(idPatient);// ArrayList de Arrays;
 
 			for (int i = 0; i <= units; i++) {
 				

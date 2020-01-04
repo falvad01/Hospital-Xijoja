@@ -172,30 +172,30 @@ public class NurseWindow extends JFrame {
 				getPatientPane.setBackground(Color.WHITE);
 				getPatientPane.setVisible(true);
 
-				JLabel label = new JLabel("Nombre");
+				JLabel label = new JLabel("Medicamento");
 				label.setFont(new Font("Tahoma", Font.PLAIN, 15));
-				label.setBounds(10, 74, 63, 23);
+				label.setBounds(10, 74, 150, 23);
 				getPatientPane.add(label);
 
-				JLabel lblApellido_1 = new JLabel("Trataiento restante: ");
+				JLabel lblApellido_1 = new JLabel("Tratamiento restante: ");
 				lblApellido_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
-				lblApellido_1.setBounds(10, 125, 80, 23);
+				lblApellido_1.setBounds(10, 125, 150, 23);
 				getPatientPane.add(lblApellido_1);
 
 				textFieldMedicine = new JTextField();
 				textFieldMedicine.setEnabled(false);
 				textFieldMedicine.setColumns(10);
-				textFieldMedicine.setBounds(100, 77, 143, 20);
+				textFieldMedicine.setBounds(165, 77, 143, 20);
 				getPatientPane.add(textFieldMedicine);
 
 				textFieldUnits = new JTextField();
 				textFieldUnits.setEnabled(false);
 				textFieldUnits.setColumns(10);
-				textFieldUnits.setBounds(100, 128, 143, 20);
+				textFieldUnits.setBounds(165, 128, 143, 20);
 				getPatientPane.add(textFieldUnits);
 				
 				jcbNUtits = new JComboBox();
-				jcbNUtits.setBounds(150, 12, 343, 20);
+				jcbNUtits.setBounds(390, 80, 180, 20);
 				getPatientPane.add(jcbNUtits);
 
 				
@@ -204,7 +204,7 @@ public class NurseWindow extends JFrame {
 				btnUseMedicine.setBackground(Color.WHITE);
 				btnUseMedicine.addActionListener(listener);
 
-				btnUseMedicine.setBounds(390, 154, 80, 23);
+				btnUseMedicine.setBounds(390, 154, 170, 23);
 				getPatientPane.add(btnUseMedicine);
 				
 		
