@@ -256,6 +256,7 @@ public class ControlerMedicWindow implements ActionListener {
 				//TODO falta por acabar esto y modificar el dao para que asigne medicamentos
 				
 			}
+			
 		
 		}
 		

@@ -160,6 +160,7 @@ public class PacientesDAO {
 
 		String sql = "UPDATE pacientes SET UMedicamento=? && fk_idProducto=? WHERE NIFNIE=?";
 
+		
 		try {
 	        PreparedStatement st = conn.prepareStatement(sql);
 	       
