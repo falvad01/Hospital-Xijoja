@@ -517,6 +517,36 @@ public class PersonalDAO {
 		return ret;
 
 	}
+	 public int getIdByUserAndPass(String user, String pass) {
+
+	  		co = Conexion.getInstance();
+	  		conn = co.getConnection();
+	  		
+	  		
+	  		String sql  = "SELECT * FROM personal WHERE usuario=? && contrasenia=?";
+	  		
+	  		int ret = 0;
+	  		try {
+	  			 PreparedStatement st = conn.prepareStatement(sql);
+	 	        st.setString(1, user);
+	 	        st.setString(2, pass);
+	  		
+	  			ResultSet rs = st.executeQuery(sql);
+	  			while (rs.next()) {
+	  				ret =rs.getInt(1); // ID
+	  				
+
+	  			}
+	  		} catch (SQLException e) {
+	  			// TODO Auto-generated catch block
+	  			e.printStackTrace();
+	  		}
+
+	  		co.disconect();// Cerramos la conexion con la base de datos
+	  		return ret;
+
+	  	}
+	   
 	public void reset() throws IOException  {
 
 		co = Conexion.getInstance();

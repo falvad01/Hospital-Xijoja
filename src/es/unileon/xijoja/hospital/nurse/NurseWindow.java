@@ -1,6 +1,7 @@
 package es.unileon.xijoja.hospital.nurse;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -29,9 +30,11 @@ public class NurseWindow extends JFrame {
 	Logs archivo = new Logs(); // Instancia de la clase para utilizar sus metodos
 
 	private PacientesDAO dao;
-	protected JPanel addPatientPane;
+	protected JPanel seePatientPane;
 	protected JPanel getPatientPane;
 	private ControlerNurseWindow listener;
+	protected String user;
+	protected String password;
 
 	protected JComboBox jcbNurse;
 	protected JComboBox jcbMedic;
@@ -48,12 +51,13 @@ public class NurseWindow extends JFrame {
 	protected JTextField textFieldRoomGetPatient;
 	protected JLabel lblErrorGetPatient;
 	protected JButton button;
+	protected JButton btnVerPlantilla;
 
 	protected JTextField textFieldSurname2GetPatient;
 
 	protected JTextField textFieldSearch;
 
-	public NurseWindow() {
+	public NurseWindow(String user, String password) {
 
 		setBounds(1024 / 4, 768 / 10, 969, 496);
 
@@ -113,17 +117,17 @@ public class NurseWindow extends JFrame {
 			}
 		});
 
-		JButton btnNewButton = new JButton("Añadir Paciente");
-		btnNewButton.setOpaque(false);
-		btnNewButton.setBackground(new Color(255, 255, 255));
-		btnNewButton.setBounds(28, 33, 234, 41);
-		getContentPane().add(btnNewButton);
-		btnNewButton.addActionListener(listener);
+		btnVerPlantilla = new JButton("Ver Pacientes");
+		btnVerPlantilla.setBackground(Color.WHITE);
+		btnVerPlantilla.setOpaque(false);
+		btnVerPlantilla.setBounds(28, 85, 234, 41);
+		getContentPane().add(btnVerPlantilla);
+		btnVerPlantilla.addActionListener(listener);
 
-		JButton btnEditEmployee = new JButton("Buscar Paciente");
+		JButton btnEditEmployee = new JButton("Usar Medicamento");
 		btnEditEmployee.setBackground(Color.WHITE);
 		btnEditEmployee.setOpaque(false);
-		btnEditEmployee.setBounds(28, 85, 234, 41);
+		btnEditEmployee.setBounds(28, 33, 234, 41);
 		getContentPane().add(btnEditEmployee);
 		btnEditEmployee.addActionListener(listener);
 
@@ -153,17 +157,16 @@ public class NurseWindow extends JFrame {
 	}
 
 	private void initComponentsPanels() throws SQLException {
+		seePatientPane = new JPanel();
+		seePatientPane.setLayout(null);
+		seePatientPane.setForeground(Color.WHITE);
+		seePatientPane.setBackground(Color.WHITE);
+		seePatientPane.setBounds(284, 11, 624, 450);
+		seePatientPane.setPreferredSize(new Dimension(630, 700));
+		seePatientPane.setVisible(false);
+		getContentPane().add(seePatientPane);
 
-		
-//
-//		addPatientPanel = new JPanel();
-//		addPatientPanel.setLayout(null);
-//		addPatientPanel.setForeground(Color.WHITE);
-//		addPatientPanel.setBackground(Color.WHITE);
-//		addPatientPanel.setBounds(284, 11, 624, 450);
-//		
-//		addPatientPanel.setPreferredSize(new Dimension(630, 700));
-//		addPatientPanel.setVisible(false);
+
 		
 		//------------------PANEL BUSCAR POR HABITACION O POR DNI--------------
 				getPatientPane = new JPanel();
@@ -172,7 +175,7 @@ public class NurseWindow extends JFrame {
 				getPatientPane.setLayout(null);
 				getPatientPane.setForeground(Color.WHITE);
 				getPatientPane.setBackground(Color.WHITE);
-				getPatientPane.setVisible(false);
+				getPatientPane.setVisible(true);
 
 				JLabel label = new JLabel("Nombre");
 				label.setFont(new Font("Tahoma", Font.PLAIN, 15));
@@ -266,101 +269,6 @@ public class NurseWindow extends JFrame {
 				lblErrorGetPatient.setBounds(358, 15, 143, 14);
 				getPatientPane.add(lblErrorGetPatient);
 
-		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-		addPatientPane = new JPanel();
-		addPatientPane.setForeground(Color.WHITE);
-		addPatientPane.setBackground(Color.WHITE);
-		addPatientPane.setBounds(284, 11, 630, 450);
-		getContentPane().add(addPatientPane);
-		addPatientPane.setLayout(null);
-
-		JLabel lblNombre = new JLabel("Nombre");
-		lblNombre.setBounds(10, 27, 63, 23);
-		lblNombre.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		addPatientPane.add(lblNombre);
-
-		JLabel lblApellidos = new JLabel("1º Apellido");
-		lblApellidos.setBounds(10, 78, 80, 23);
-		lblApellidos.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		addPatientPane.add(lblApellidos);
-
-		textFieldName = new JTextField();
-		textFieldName.setBounds(100, 30, 143, 20);
-		addPatientPane.add(textFieldName);
-		textFieldName.setColumns(10);
-
-		textFieldSurname1 = new JTextField();
-		textFieldSurname1.setBounds(100, 81, 143, 20);
-		addPatientPane.add(textFieldSurname1);
-		textFieldSurname1.setColumns(10);
-
-		JLabel lblNifnie = new JLabel("NIF/NIE");
-		lblNifnie.setBounds(10, 170, 63, 23);
-		lblNifnie.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		addPatientPane.add(lblNifnie);
-
-		textFieldNIFNIE = new JTextField();
-		textFieldNIFNIE.setBounds(100, 173, 143, 20);
-		textFieldNIFNIE.setColumns(10);
-		addPatientPane.add(textFieldNIFNIE);
-
-		JLabel lblFecha = new JLabel("Habitacion");
-		lblFecha.setBounds(320, 27, 93, 23);
-		lblFecha.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		addPatientPane.add(lblFecha);
-
-		textFieldRoom = new JTextField();
-		textFieldRoom.setBounds(400, 30, 103, 20);
-		textFieldRoom.setColumns(10);
-		addPatientPane.add(textFieldRoom);
-
-		JButton btnRegister = new JButton("Añadir");
-		btnRegister.setBounds(320, 260, 212, 47);
-		btnRegister.setBackground(Color.WHITE);
-		btnRegister.setOpaque(false);
-		addPatientPane.add(btnRegister);
-		btnRegister.addActionListener(listener);
-
-		JLabel lblApellido = new JLabel("2º Apellido");
-		lblApellido.setBounds(10, 123, 80, 23);
-		lblApellido.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		addPatientPane.add(lblApellido);
-
-		textFieldSurname2 = new JTextField();
-		textFieldSurname2.setBounds(100, 126, 143, 20);
-		textFieldSurname2.setColumns(10);
-		addPatientPane.add(textFieldSurname2);
-		
-		JLabel lblnurse = new JLabel("Enfermero");
-		lblnurse.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblnurse.setBounds(320, 78, 80, 23);
-		addPatientPane.add(lblnurse);
-
-		jcbNurse = new JComboBox();
-		//listener.filJComboBox(jcbNurse,false);
-		jcbNurse.setBounds(400, 81, 213, 20);
-		addPatientPane.add(jcbNurse);
-		
-		JLabel lblMedic = new JLabel("Médico");
-		lblMedic.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblMedic.setBounds(320, 125, 80, 23);
-		addPatientPane.add(lblMedic);
-
-		jcbMedic = new JComboBox();
-		//listener.filJComboBox(jcbMedic,true);
-		jcbMedic.setBounds(400, 128, 213, 20);
-		addPatientPane.add(jcbMedic);
-
-		lblError = new JLabel("");
-		lblError.setForeground(Color.RED);
-		lblError.setBounds(320, 241, 352, 14);
-		addPatientPane.add(lblError);
-
-		JLabel iconLabel = new JLabel("New label");
-		iconLabel.setBounds(43, 245, 252, 194);
-		addPatientPane.add(iconLabel);
-		iconLabel.setIcon(new ImageIcon(AdminWindow.class.getResource("/resources/iconAdmin.png")));
 	//	getContentPane().add(getPatientPane);
 
 	}

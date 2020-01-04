@@ -65,7 +65,10 @@ public class ControlerLoginWindow implements ActionListener, KeyListener {
 
 			} else if (job.equals("Enfermero")) {
 				log.InfoLog("Se ha logeado como enfermero el usuario: " + window.loginUser.getText());
-				NurseWindow windowNurse= new NurseWindow();
+				NurseWindow windowNurse= null;
+				
+				windowNurse = new NurseWindow(window.loginUser.toString(),window.loginPassword.getText().toString());
+			
 				windowNurse.setVisible(true);
 
 			} else if (job.equals("Secretario")) {

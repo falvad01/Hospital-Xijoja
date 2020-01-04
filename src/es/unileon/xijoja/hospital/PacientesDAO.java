@@ -392,7 +392,51 @@ public class PacientesDAO {
 
 		return ret;
 	}
+    public ArrayList<String[]> getAllPatients(int id) {
 
+  		ArrayList<String[]> ret = new ArrayList<String[]>();
+
+  		int lastId = this.getLastID();
+  		for (int i = 0; i <= lastId; i++) { 
+
+  			ret.add(getPatient(i));
+
+  		}
+
+  		return ret;
+  	}
+    
+
+     
+    public int getIdByUserAndPass(String user, String pass) {
+
+  		co = Conexion.getInstance();
+  		conn = co.getConnection();
+  		
+  		
+  		String sql  = "SELECT * FROM personal WHERE usuario=? && contrasenia=?";
+  		
+  		int ret = 0;
+  		try {
+  			 PreparedStatement st = conn.prepareStatement(sql);
+ 	        st.setString(1, user);
+ 	        st.setString(2, pass);
+  		
+  			ResultSet rs = st.executeQuery(sql);
+  			while (rs.next()) {
+  				ret =rs.getInt(1); // ID
+  				
+
+  			}
+  		} catch (SQLException e) {
+  			// TODO Auto-generated catch block
+  			e.printStackTrace();
+  		}
+
+  		co.disconect();// Cerramos la conexion con la base de datos
+  		return ret;
+
+  	}
    
  
 }
