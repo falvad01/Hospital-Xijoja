@@ -237,17 +237,17 @@ public class ControlerMedicWindow implements ActionListener {
 		window.getPatientPane.setVisible(false);
 		window.addMedicine.setVisible(true);
 	
-	}else if (arg0.getActionCommand().equals("Asignar")) {
+	}else if (arg0.getActionCommand().equals("Asignar")) {//probablemente haya que hacer un comprobarmedicamento, pro pal final
 		
-		if ((window.textFieldSearchDNIGetPatient.getText().toString().equals(""))){
+		if ((window.textFieldDNI.getText().toString().equals(""))){
 			window.lblErrorGetPatient.setText("Error en el formulario");
 			log.InfoLog("Error al buscar el paciente");
 		}else {
-			//comprueba si se introduce un dni o numero de habitacion;
-			boolean isDniOrRoom = isDni(window.textFieldSearchDNIGetPatient.getText().toString());
+			//comprueba si se introduce un dni
+			boolean isDniOrRoom = isDni(window.textFieldDNI.getText().toString());
 			
-			if (!dao.checkPatientExist(window.textFieldSearchDNIGetPatient.getText().toString(),isDniOrRoom)) {
-				window.lblErrorGetPatient.setText("Error en el formulario");
+			if (!dao.checkPatientExist(window.textFieldDNI.getText().toString(),isDniOrRoom)) {
+				window.lblError2.setText("Error en el formulario");
 				log.InfoLog("Error, no se encuentra el paciente indicado");
 			}else {
 				

@@ -51,6 +51,7 @@ public class MedicWindow extends JFrame {
 	protected JTextField Habitacion;
 	protected JTextField Medicamentos;
 	protected JLabel lberror;
+	protected JLabel lblError2;
 	protected JComboBox jcbNurse;
 	protected JComboBox jcbMedic;
 	protected JTextField textFieldNameGetPatient;
@@ -491,9 +492,9 @@ public class MedicWindow extends JFrame {
 		addMedicine.setLayout(null);
 		addMedicine.setVisible(false);
 		
-		JLabel lblNewLabel1 = new JLabel("DNI");
-		lblNewLabel1.setBounds(39, 69, 46, 20);
-		addMedicine.add(lblNewLabel1);
+		JLabel medicina = new JLabel("DNI");
+		medicina.setBounds(39, 69, 46, 20);
+		addMedicine.add(medicina);
 				
 		textFieldDNI = new JTextField();
 		textFieldDNI.setBounds(125, 69, 138, 20);
@@ -513,6 +514,11 @@ public class MedicWindow extends JFrame {
 		addMedicine.add(textField);
 		textField.setColumns(10);
 				
+		lblError2 = new JLabel("");
+		lblError2.setForeground(Color.RED);
+		lblError2.setBounds(358, 15, 143, 14);
+		addMedicine.add(lblError2);
+		
 		JButton btnAsignar = new JButton("Asignar");
 		btnAsignar.setBounds(385, 341, 169, 59);
 		btnAsignar.setOpaque(false);
