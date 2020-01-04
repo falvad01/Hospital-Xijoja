@@ -220,7 +220,6 @@ public class ControlerMedicWindow implements ActionListener {
 		boolean isDniOrRoom = isDni(window.textFieldDNIToDelete.getText().toString());
 		
 			if (!dao.checkPatientExist(window.textFieldDNIToDelete.getText().toString(),isDniOrRoom)) {
-				System.out.println(window.textFieldDNIToDelete.getText().toString());
 				window.lblErrorGetPatient.setText("Error en el formulario");
 			}else {
 					dao.deletePatient(window.textFieldNameToDelete.getText().toString(),
@@ -250,7 +249,10 @@ public class ControlerMedicWindow implements ActionListener {
 				window.lblError2.setText("Error en el formulario");
 				log.InfoLog("Error, no se encuentra el paciente indicado");
 			}else {
-				dao.AsignMedicine(Integer.parseInt(window.units.getText().toString()), window.Medicine.getText().toString(),window.DNIM.getText().toString());
+				System.out.println(Integer.parseInt(window.units.getText()));
+				System.out.println( window.Medicine.getText());
+				System.out.println(window.DNIM.getText());
+				dao.AsignMedicine(Integer.parseInt(window.units.getText().toString()), (Integer.parseInt(window.Medicine.getText().toString())),window.DNIM.getText().toString());
 				//TODO falta por acabar esto y modificar el dao para que asigne medicamentos
 				
 			}

@@ -139,7 +139,6 @@ public class PacientesDAO {
 
 		try {
 	        PreparedStatement st = conn.prepareStatement(sql);
-	        System.out.println(name+surname1+surname2+DNI);
 	        st.setString(1, name);
 	        st.setString(2, surname1);
 	        st.setString(3, surname2); 
@@ -154,19 +153,19 @@ public class PacientesDAO {
 		co.disconect();// Desconectamos la base de datos
 	}
     
-    public void AsignMedicine(int Unidades, String Medicamento, String DNI) {
+    public void AsignMedicine(int Unidades, int Medicamento, String DNI) {
 
 		co = Conexion.getInstance();
 		conn = co.getConnection();
 
-		String sql = "UPDATE pacientes SET UMedicamento=? && fk_idProducto  WHERE NIFNIE=?";
+		String sql = "UPDATE pacientes SET UMedicamento=? && fk_idProducto=? WHERE NIFNIE=?";
 
 		try {
 	        PreparedStatement st = conn.prepareStatement(sql);
 	       
 	        st.setInt(1, Unidades);
-	        st.setString(2,Medicamento);
-	        //st.setString(3,DNI);
+	        st.setInt(2,Medicamento);
+	        st.setString(3,DNI);
 			st.executeUpdate();
 			
 
