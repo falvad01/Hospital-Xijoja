@@ -67,7 +67,8 @@ public class ControlerLoginWindow implements ActionListener, KeyListener {
 				log.InfoLog("Se ha logeado como enfermero el usuario: " + window.loginUser.getText());
 				NurseWindow windowNurse= null;
 				
-				windowNurse = new NurseWindow(window.loginUser.toString(),window.loginPassword.getText().toString());
+				windowNurse = new NurseWindow(window.loginUser.getText().toString(),window.loginPassword.getText().toString());
+				System.out.println();
 			
 				windowNurse.setVisible(true);
 

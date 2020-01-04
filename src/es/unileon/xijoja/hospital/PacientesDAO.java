@@ -339,6 +339,7 @@ public class PacientesDAO {
  		conn = co.getConnection();
 
  		String sql  = "SELECT * FROM pacientes WHERE idPaciente='"+id+"' && fk_idEnfermero='"+idNurse+"'";
+ 		System.out.println(sql);
   		
  		String[] ret = null;
  		Statement st;

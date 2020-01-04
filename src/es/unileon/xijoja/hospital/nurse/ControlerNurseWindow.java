@@ -132,7 +132,7 @@ public class ControlerNurseWindow implements ActionListener {
 
 				String[][] matrixToInsert = null;
 				int id= daoPersonal.getIdByUserAndPass(nurseWindow.user,nurseWindow.password);
-
+System.out.println("id es: "+id+nurseWindow.user+nurseWindow.password);
 				titles = new String[] { "  Id", "Nombre", "Apellido 1", "Apellido 2", "NIF", "Fecha", "Habitación",
 						"Enfermedad", "Producto", "Medico", "Unidades medicamento", "Enfermero " }; // Titulos de la tabla de
 																		// los empleados

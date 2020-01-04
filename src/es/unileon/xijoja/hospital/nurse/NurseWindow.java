@@ -58,6 +58,8 @@ public class NurseWindow extends JFrame {
 	protected JTextField textFieldSearch;
 
 	public NurseWindow(String user, String password) {
+		this.user = user;
+		this.password = password;
 
 		setBounds(1024 / 4, 768 / 10, 969, 496);
 
