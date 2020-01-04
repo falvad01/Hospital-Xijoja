@@ -126,6 +126,44 @@ public class PacientesDAO {
 		
 		co.disconect();// Desconectamos la base de datos
 	}
+    
+    public void setfkProductoNull(int id) {
+
+ 		co = Conexion.getInstance();
+ 		conn = co.getConnection();
+ 	
+ 		
+ 		try {
+ 			String sql = "UPDATE pacientes SET fk_idProducto=? WHERE pacientes.idPaciente=?";		  
+ 			 PreparedStatement st = conn.prepareStatement(sql);
+ 	        st.setNull(1, Types.INTEGER);
+ 	        st.setInt(2, id);
+ 			
+ 			st.executeUpdate();
+
+ 		} catch (SQLException e) {
+ 			e.printStackTrace();
+ 		}
+ 		
+ 		co.disconect();// Desconectamos la base de datos
+ 	}
+    public void UseMedicine(int unidades,int id) {
+
+ 		co = Conexion.getInstance();
+ 		conn = co.getConnection();
+ 	
+ 		
+ 		try {
+ 			Statement st = conn.createStatement();
+ 			String sql = "UPDATE `pacientes` SET `UMedicamento` = '"+unidades+"' WHERE `pacientes`.`idPaciente` = '"+id+"'";		  
+ 			st.executeUpdate(sql);
+
+ 		} catch (SQLException e) {
+ 			e.printStackTrace();
+ 		}
+ 		
+ 		co.disconect();// Desconectamos la base de datos
+ 	}
 	public ArrayList<String[]> getPatientsByNurseOrMedic(boolean medic,int id) {
 
   		co = Conexion.getInstance();

@@ -199,7 +199,7 @@ public class NurseWindow extends JFrame {
 				getPatientPane.add(jcbNUtits);
 
 				
-				JButton btnUseMedicine = new JButton("Usar Medicamento");
+				JButton btnUseMedicine = new JButton("Tratamiento");
 				btnUseMedicine.setForeground(Color.BLACK);
 				btnUseMedicine.setBackground(Color.WHITE);
 				btnUseMedicine.addActionListener(listener);

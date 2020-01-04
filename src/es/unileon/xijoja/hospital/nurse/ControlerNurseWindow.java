@@ -78,7 +78,6 @@ public class ControlerNurseWindow implements ActionListener {
 
 				String[][] matrixToInsert = null;
 				
-System.out.println("id es: "+id+nurseWindow.user+nurseWindow.password);
 				titles = new String[] { "  Id", "Nombre", "Apellido 1", "Apellido 2", "NIF", "Fecha", "Habitación",
 						"Enfermedad", "Producto", "Medico", "Unidades medicamento", "Enfermero " }; // Titulos de la tabla de
 																		// los empleados
@@ -140,6 +139,30 @@ System.out.println("id es: "+id+nurseWindow.user+nurseWindow.password);
 					
 					nurseWindow.textFieldUnits.setText(getPatientData[10]);
 					log.InfoLog("Devuelto el paciente con id: "+getPatientData[0]);
+
+			
+			}
+		}else if (arg0.getActionCommand().equals("Tratamiento")) {
+			System.out.println("asdasd");
+			
+				
+			if ((nurseWindow.jcbPatient.getSelectedItem().equals("0"))){
+				nurseWindow.lblErrorGetPatient.setText("Seleciona cuanto tratamiento has realizado");
+				log.InfoLog("Error, se seleciono 0 de cantidad de medicamento");
+
+				
+			}else {
+				
+				int newUnitMedicine = Integer.parseInt(getPatientData[10])-Integer.parseInt(nurseWindow.jcbNUtits.getSelectedItem().toString());
+				dao.UseMedicine(newUnitMedicine, idPatient);
+				
+				
+				if (newUnitMedicine==0) {
+					dao.setfkProductoNull(idPatient);
+				}
+					filJComboBoxUnits();
+					
+					log.InfoLog("Se le aplico el tratamiento al paciente: "+getPatientData[0]);
 
 			
 			}
