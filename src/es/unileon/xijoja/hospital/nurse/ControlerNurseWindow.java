@@ -27,6 +27,7 @@ public class ControlerNurseWindow implements ActionListener {
 	private Logs log;
 	private PacientesDAO dao;
 	private PersonalDAO daoPersonal;
+	private int id;
 	private ArrayList<String[]> arrayNurse, arrayMedic;
 	String[] getPatientData = null;
 	
@@ -35,6 +36,7 @@ public class ControlerNurseWindow implements ActionListener {
 		this.daoPersonal= new PersonalDAO();
 		this.nurseWindow = window;
 		log = new Logs();
+		this. id= daoPersonal.getIdByUserAndPass(nurseWindow.user,nurseWindow.password);
 
 	}
 	
@@ -42,68 +44,7 @@ public class ControlerNurseWindow implements ActionListener {
 
 	public void actionPerformed(ActionEvent arg0) {
 
-		if (arg0.getActionCommand().equals("Añadir")) {
-
-			boolean add = true;
-			if ((nurseWindow.textFieldName.getText().equals("")) || (nurseWindow.textFieldSurname1.getText().equals(""))
-					|| (nurseWindow.textFieldSurname2.getText().equals("")) || (nurseWindow.textFieldNIFNIE.getText().equals(""))
-					|| (nurseWindow.textFieldRoom.getText().equals(""))) {
-
-				add = false;
-				nurseWindow.lblError.setText("Hay campos vacios");
-				log.InfoLog("Error, no se pudo introducir el paciente, hay campos vacios");
-
-			} else if(nurseWindow.jcbMedic.getSelectedItem()==null||nurseWindow.jcbNurse.getSelectedItem()==null) {
-				add = false;
-				nurseWindow.lblError.setText("No hay medicos/enfermeros disponibles");
-				log.InfoLog("Error, no se pudo introducir el paciente, no hay medicos/enfermeros disponibles");
-
-				
-			}else if (dao.checkIfRoomIsBusy(Integer.parseInt(nurseWindow.textFieldRoom.getText()))) {
-				add = false;
-				nurseWindow.lblError.setText("Esa habitacion no está disponible, proxima: "+ dao.firstRoomFree());
-				log.InfoLog("Error, no se pudo introducir el paciente, habitación ocupada");
-
-			}else{
-				nurseWindow.lblError.setText("");
-			}
-				if (add) {// Si da error no se aï¿½ade el empleado
-					System.out.println("Correcto");
-	
-					int id = dao.getLastID()+1;//siguiente id
-					
-					Date date = new Date(Calendar.getInstance().getTime().getTime());// Obtenemos la fecha actual
-					int idMedic=0,idNurse=0;
-					try {
-						nurseWindow.jcbMedic.getSelectedIndex();
-						
-						for (int i = 0; i < arrayMedic.size(); i++) {
-							if (nurseWindow.jcbMedic.getSelectedItem().toString().equals(arrayMedic.get(i)[1])) {
-								idMedic=Integer.parseInt(arrayMedic.get(i)[0]);;
-							}
-						}
-						for (int i = 0; i < arrayNurse.size(); i++) {
-							if (nurseWindow.jcbNurse.getSelectedItem().toString().equals(arrayNurse.get(i)[1])) {
-								idNurse=Integer.parseInt(arrayNurse.get(i)[0]);
-							}
-						}
-						
-	
-						dao.addPatient(id, nurseWindow.textFieldName.getText(), nurseWindow.textFieldSurname1.getText(),
-								nurseWindow.textFieldSurname2.getText(), nurseWindow.textFieldNIFNIE.getText(), date,
-								Integer.parseInt(nurseWindow.textFieldRoom.getText()),idMedic,idNurse);// LLamamos a la
-																					// funcion del DAO
-																					// que inserta el
-																					// paciente
-						log.InfoLog("Añadido el paciente con id: "+id);
-
-					} catch (SQLException e1) {
-	
-						e1.printStackTrace();
-					}
-				}
-			
-		} else if (arg0.getActionCommand().equals("Cerrar sesion")) {
+		if  (arg0.getActionCommand().equals("Cerrar sesion")) {
 
 				nurseWindow.setVisible(false);
 				//TODO arreglar que se borren los campos al cerrar sesion
@@ -131,7 +72,7 @@ public class ControlerNurseWindow implements ActionListener {
 				String[] titles = null;
 
 				String[][] matrixToInsert = null;
-				int id= daoPersonal.getIdByUserAndPass(nurseWindow.user,nurseWindow.password);
+				
 System.out.println("id es: "+id+nurseWindow.user+nurseWindow.password);
 				titles = new String[] { "  Id", "Nombre", "Apellido 1", "Apellido 2", "NIF", "Fecha", "HabitaciÃ³n",
 						"Enfermedad", "Producto", "Medico", "Unidades medicamento", "Enfermero " }; // Titulos de la tabla de
@@ -198,15 +139,10 @@ System.out.println("id es: "+id+nurseWindow.user+nurseWindow.password);
 			}
 		}
 	}
-	public void filJComboBox(JComboBox edit, boolean ismedic) {
+	public void filJComboBox(JComboBox edit) {
 
-		ArrayList<String[]> list =  daoPersonal.getNuseAndMedic(ismedic);
-		if (ismedic) {
-			arrayMedic=list;	
-		}else {
-			arrayNurse=list;
-		}
-		
+		ArrayList<String[]> list =dao.getPatientsByNurseOrMedic(false,id);// ArrayList de Arrays;
+
 		String[] data = new String[2];
 		if (list==null) {
 			

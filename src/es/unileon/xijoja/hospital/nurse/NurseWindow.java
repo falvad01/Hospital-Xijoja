@@ -36,7 +36,7 @@ public class NurseWindow extends JFrame {
 	protected String user;
 	protected String password;
 
-	protected JComboBox jcbNurse;
+	protected JComboBox jcbPatient;
 	protected JComboBox jcbMedic;
 	protected JTextField textFieldName;
 	protected JTextField textFieldSurname1;
@@ -249,21 +249,21 @@ public class NurseWindow extends JFrame {
 				separator2.setBounds(10, 52, 610, 33);
 				getPatientPane.add(separator2);
 
-				JLabel lblNewLabel = new JLabel("Introduce el DNI o habitación: ");
+				JLabel lblNewLabel = new JLabel("Seleciona el paciente: ");
 				lblNewLabel.setBounds(10, 11, 200, 23);
 				getPatientPane.add(lblNewLabel);
-
-				textFieldSearchDNIGetPatient = new JTextField();
-				textFieldSearchDNIGetPatient.setBounds(210, 12, 133, 20);
-				getPatientPane.add(textFieldSearchDNIGetPatient);
-				textFieldSearchDNIGetPatient.setColumns(10);
+				
+				jcbPatient = new JComboBox();
+				listener.filJComboBox(jcbPatient);
+				jcbPatient.setBounds(150, 12, 303, 20);
+				getPatientPane.add(jcbPatient);
 
 				JButton btnNewButton_1 = new JButton("Buscar");
 				btnNewButton_1.setForeground(Color.BLACK);
 				btnNewButton_1.setBackground(Color.WHITE);
 				btnNewButton_1.addActionListener(listener);
 
-				btnNewButton_1.setBounds(353, 11, 89, 23);
+				btnNewButton_1.setBounds(463, 11, 89, 23);
 				getPatientPane.add(btnNewButton_1);
 
 				lblErrorGetPatient = new JLabel("");

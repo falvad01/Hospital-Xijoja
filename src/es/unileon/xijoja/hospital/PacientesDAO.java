@@ -170,6 +170,43 @@ public class PacientesDAO {
 		
 		co.disconect();// Desconectamos la base de datos
 	}
+	public ArrayList<String[]> getPatientsByNurseOrMedic(boolean medic,int id) {
+
+  		co = Conexion.getInstance();
+  		conn = co.getConnection();
+  		ArrayList<String[]> ret = new ArrayList<String[]>();
+
+  		
+  		
+  		try {
+  			String sql;
+  			Statement st = conn.createStatement();
+  	  		if (medic) {
+  	  			sql = "SELECT * FROM pacientes WHERE fk_idMedico='"+id+"'";  	 	 
+  			}else {
+  				sql = "SELECT * FROM pacientes WHERE fk_idEnfermero='"+id+"'" ;
+  			}
+  	  		
+  	
+  	  	System.out.println(sql);
+  			ResultSet rs = st.executeQuery(sql);
+  			String[] ret2 = new String[2];
+  			while (rs.next()) {
+  	  			ret2 = new String[2];
+
+  				ret2[0] = rs.getString(1); // ID
+  				ret2[1] =  rs.getString(2) + " "+ rs.getString(3)+" "+ rs.getString(4); //nombre y apellidos
+  				ret.add(ret2);
+
+  			}
+  		} catch (SQLException e) {
+  			e.printStackTrace();
+  		}
+
+  		co.disconect();// Cerramos la conexion con la base de datos
+  		return ret;
+  	}
+    
 
 
     
