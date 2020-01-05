@@ -181,10 +181,10 @@ public class ControlerMedicWindow implements ActionListener {
 				}
 				System.out.println("id medico: "+ idMedic+" id Enfermero: "+idNurse);
 				
-
+//TODO: AÑADIR ENFERMEDAD o no funciona
 				dao.addPatient(id, window.NombreP.getText(), window.Apellido1.getText(),
 						window.Apellido2.getText(), window.DNI.getText(), date,
-						Integer.parseInt(window.Habitacion.getText()),idMedic,idNurse);// LLamamos a la
+						Integer.parseInt(window.Habitacion.getText()),""/*TODO AÑADIR ENFERMEDAD !!!! */,idMedic,idNurse);// LLamamos a la
 																			// funcion del DAO
 																			// que inserta el
 																			// paciente

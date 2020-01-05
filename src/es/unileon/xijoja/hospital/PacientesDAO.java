@@ -55,7 +55,7 @@ public class PacientesDAO {
      * @param Email
      * @throws SQLException
      */
-    public void addPatient(int id, String name, String surname1, String surname2, String NIE,Date date, int room, int idMedic, int idNurse) throws SQLException {
+    public void addPatient(int id, String name, String surname1, String surname2, String NIE,Date date, int room,String disease, int idMedic, int idNurse) throws SQLException {
  
         co = Conexion.getInstance();
         conn = co.getConnection();
@@ -70,7 +70,7 @@ public class PacientesDAO {
         st.setString(5, NIE);
         st.setDate(6, date);
         st.setInt(7,room );
-        st.setNull(8, Types.INTEGER);
+        st.setString(8, disease);
         st.setNull(9, Types.INTEGER);
         st.setInt(10, idMedic);
         st.setNull(11, Types.INTEGER);

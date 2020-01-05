@@ -86,7 +86,7 @@ public class ControlerSecretaryWindow implements ActionListener {
 	
 						dao.addPatient(id, secretarywindow.textFieldName.getText(), secretarywindow.textFieldSurname1.getText(),
 								secretarywindow.textFieldSurname2.getText(), secretarywindow.textFieldNIFNIE.getText(), date,
-								Integer.parseInt(secretarywindow.textFieldRoom.getText()),idMedic,idNurse);// LLamamos a la
+								Integer.parseInt(secretarywindow.textFieldRoom.getText()),secretarywindow.textFielddisease.getText(),idMedic,idNurse);// LLamamos a la
 																					// funcion del DAO
 																					// que inserta el
 																					// paciente

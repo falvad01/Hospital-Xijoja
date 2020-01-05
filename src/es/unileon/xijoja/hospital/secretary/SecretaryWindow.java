@@ -56,6 +56,7 @@ public class SecretaryWindow extends JFrame {
 	protected JTextField textFieldDNIGetPatient;
 	protected JTextField textFieldSearchDNIGetPatient;
 	protected JTextField textFieldRoomGetPatient;
+	protected JTextField textFielddisease;
 	protected JLabel lblErrorGetPatient;
 	protected JButton button;
 
@@ -328,10 +329,10 @@ public class SecretaryWindow extends JFrame {
 		textFieldNIFNIE.setColumns(10);
 		addPatientPane.add(textFieldNIFNIE);
 
-		JLabel lblFecha = new JLabel("Habitacion");
-		lblFecha.setBounds(320, 27, 93, 23);
-		lblFecha.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		addPatientPane.add(lblFecha);
+		JLabel lblRoom2 = new JLabel("Habitacion");
+		lblRoom2.setBounds(320, 27, 93, 23);
+		lblRoom2.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		addPatientPane.add(lblRoom2);
 
 		textFieldRoom = new JTextField();
 		textFieldRoom.setBounds(400, 30, 103, 20);
@@ -375,6 +376,16 @@ public class SecretaryWindow extends JFrame {
 		jcbMedic.setBounds(400, 128, 213, 20);
 		addPatientPane.add(jcbMedic);
 
+		JLabel lblEnfermedad = new JLabel("Enfermedad");
+		lblEnfermedad.setBounds(320, 169, 93, 23);
+		lblEnfermedad.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		addPatientPane.add(lblEnfermedad);
+
+		textFielddisease = new JTextField();
+		textFielddisease.setBounds(400, 172, 103, 20);
+		textFielddisease.setColumns(10);
+		addPatientPane.add(textFielddisease);
+		
 		lblError = new JLabel("");
 		lblError.setForeground(Color.RED);
 		lblError.setBounds(320, 241, 352, 14);
