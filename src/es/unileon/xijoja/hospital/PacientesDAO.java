@@ -74,7 +74,7 @@ public class PacientesDAO {
         st.setString(8, disease);
         st.setNull(9, Types.INTEGER);
         st.setInt(10, idMedic);
-        st.setNull(11, Types.INTEGER);
+        st.setInt(11, 0);
         st.setInt(12, idNurse);
         
 
@@ -615,9 +615,15 @@ public class PacientesDAO {
   		ArrayList<String[]> ret = new ArrayList<String[]>();
 
   		int lastId = this.getLastID();
+  		String[] retu;
   		for (int i = 0; i <= lastId; i++) { 
-
-  			ret.add(getPatient(i,idNurse));
+  			retu=getPatient(i,idNurse);
+  			System.out.println(retu[0]);
+  			if (retu[0]!=null) {
+  				System.out.println("añadido");
+  				ret.add(retu);
+			}
+  			
 
   		}
 
