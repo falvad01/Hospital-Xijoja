@@ -18,6 +18,7 @@ import javax.swing.JSeparator;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import es.unileon.xijoja.hospital.InfoWindow;
 import es.unileon.xijoja.hospital.Logs;
 import es.unileon.xijoja.hospital.PacientesDAO;
 import es.unileon.xijoja.hospital.admin.AdminWindow;
@@ -148,6 +149,19 @@ public class NurseWindow extends JFrame {
 		btnCloseSesion.setBounds(842, 473, 117, 23);
 		getContentPane().add(btnCloseSesion);
 		btnCloseSesion.addActionListener(listener);
+		
+		JButton button = new JButton(new ImageIcon(LoginWindow.class.getResource("/resources/--ndice.png")));
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				InfoWindow info = new InfoWindow("nurse");
+				info.setVisible(true);
+			}
+		});
+		button.setOpaque(false);
+		button.setBorder(null);
+		button.setBackground((Color) null);
+		button.setBounds(10, 462, 23, 23);
+		getContentPane().add(button);
 
 		
 	}

@@ -9,6 +9,8 @@ import java.awt.Toolkit;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -142,22 +144,61 @@ public class InfoWindow extends JFrame {
 
 		secretaryPanel = new JPanel();
 		secretaryPanel.setBounds(200, 79, 476, 335);
+		secretaryPanel.setBackground(Color.LIGHT_GRAY);
+
 		getContentPane().add(secretaryPanel);
 
 		JLabel lblAyudaSecretario = new JLabel("Ayuda Secretario");
 		lblAyudaSecretario.setFont(new Font("Tahoma", Font.BOLD, 37));
 		secretaryPanel.add(lblAyudaSecretario);
+		
+		JTextArea lblAyudaSecretarioAmplio = new JTextArea("Ayuda Secretario");
+		lblAyudaSecretarioAmplio.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		lblAyudaSecretarioAmplio.setBounds(0,5,300,200);
+		lblAyudaSecretarioAmplio.setBackground(Color.LIGHT_GRAY);
+		String ayuda = 
+				"La ventana de secretario cuenta con 2 menús diferenciados en la parte izquierda \n"
+				+ " y son los siguientes: \n"
+				+ "\n   -Añadir Paciente: Se introduce un paciente a la base de datos.\n"
+				+ "\n   -Buscar Paciente: Buscando tanto por DNI como por el numero de la habitacion nos "
+				+ "\n    devuelve los datos del paciente buscado.";
+		lblAyudaSecretarioAmplio.setText(ayuda);
+		lblAyudaSecretarioAmplio.setBounds(5,60,476,275);
+
+		secretaryPanel.add(lblAyudaSecretarioAmplio);
+		
 
 		nursePanel = new JPanel();
 		nursePanel.setBounds(200, 79, 476, 335);
 		getContentPane().add(nursePanel);
 		nursePanel.setLayout(null);
+		nursePanel.setBackground(Color.LIGHT_GRAY);
 
 		JLabel lblAyudaEnfermero = new JLabel("Ayuda Enfermero");
 		lblAyudaEnfermero.setBounds(77, 5, 321, 45);
 		lblAyudaEnfermero.setFont(new Font("Tahoma", Font.BOLD, 37));
 		nursePanel.add(lblAyudaEnfermero);
-
+		
+		JTextArea lblAyudaEnfermeroAmplio = new JTextArea("Ayuda");
+		lblAyudaEnfermeroAmplio.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		lblAyudaEnfermeroAmplio.setBackground(Color.lightGray);
+		 String ayudaEnfermero = 
+				"   La ventana de enfermero cuenta con 2 menús diferenciados en la parte izquierda \n"
+				+ "   y son los siguientes: \n"
+				+ "\n   -Usar Medicamento: Se empieza introduciendo un paciente, el cual tiene que"
+				+ "\n\testar previamente asignado a ese enfermero. Le damos al boton de buscar"
+				+ "\n\ty nos aparece la informacion del tratamiento asignado, el nombre y la cantidad"
+				+ "\n\tselecionamos la cantidad de medicamento que se le ha tratado y le damos"
+				+ "\n\tal botón de 'Tratamiento', seguidamente se borrarán las unidades de la "
+				+ "\n\tbase de datos y se actualizan los datos en pantalla.\n"
+				+ "\n   -Ver Pacientes: Se muestra una lista de todos los pacientes asigandos al"
+				+ "\n\tenfermero actual.";
+		 lblAyudaEnfermeroAmplio.setText(ayudaEnfermero);
+		 lblAyudaEnfermeroAmplio.setBounds(5,60,476,275);
+		 nursePanel.add(lblAyudaEnfermeroAmplio);
+		 
+		 
+		 
 		medicPanel = new JPanel();
 		medicPanel.setBounds(200, 79, 476, 335);
 		getContentPane().add(medicPanel);
