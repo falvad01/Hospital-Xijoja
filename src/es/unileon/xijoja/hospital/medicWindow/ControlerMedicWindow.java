@@ -278,14 +278,14 @@ public class ControlerMedicWindow implements ActionListener {
 				window.lblError2.setText("Error en el formulario");
 				log.InfoLog("Error, no se encuentra el paciente indicado");
 			}else {
-				int n;
+				int n,m;
 				dao.AsignMedicine(Integer.parseInt(window.units.getText().toString()), Integer.parseInt(window.Medicine.getText().toString()),window.DNIM.getText().toString());
 				
 				n=daoAlmacen.Medicine(Integer.parseInt(window.units.getText().toString()), Integer.parseInt(window.Medicine.getText().toString()));
 				System.out.println(n);
-
+				m=daoAlmacen.MedicineA(Integer.parseInt(window.units.getText().toString()), Integer.parseInt(window.Medicine.getText().toString()));
 				if(n<=0) {
-					window.lblError2.setText("Error, almacen vacio");
+					window.lblError2.setText("Error,quedan solo estas unidades: "+m);
 				
 				}else {
 					daoAlmacen.restMedicine(Integer.parseInt(window.units.getText().toString()), Integer.parseInt(window.Medicine.getText().toString()));

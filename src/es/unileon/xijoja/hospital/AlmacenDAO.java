@@ -63,6 +63,41 @@ public class AlmacenDAO {
   		return "";
   	}
     
+    public int MedicineA(int unidades, int medicamento) {
+
+  		co = Conexion.getInstance();
+  		conn = co.getConnection();
+  		int ret = 0;
+  		int UActuales;
+		String sql = "SELECT `Cantidad` FROM `almacen` WHERE `idProducto`= '"+medicamento+"'";		  
+
+  		try {
+  			Statement st = conn.createStatement();
+  			st.executeQuery(sql);
+  			ResultSet rs = st.executeQuery(sql);
+ 			while (rs.next()) {
+ 				
+ 				ret = rs.getInt(1);
+ 				
+ 				
+ 			}
+ 			
+ 			
+ 	  		
+  		} catch (SQLException e) {
+  			e.printStackTrace();
+  		}
+  		
+  		int UBase =ret;
+	  		
+  	  		
+  		co.disconect();// Desconectamos la base de datos
+  		
+  		return UBase;
+  	}
+    
+    
+    
     public int Medicine(int unidades, int medicamento) {
 
   		co = Conexion.getInstance();
@@ -87,7 +122,7 @@ public class AlmacenDAO {
   		} catch (SQLException e) {
   			e.printStackTrace();
   		}
-  		System.out.println("dao"+ret);
+  		
   		int UBase =ret;
 	  		UActuales=UBase-unidades;
 	  		
