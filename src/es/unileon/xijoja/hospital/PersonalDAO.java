@@ -99,16 +99,14 @@ public class PersonalDAO {
 			Statement st = conn.createStatement();
 			ResultSet rs = st.executeQuery("Select idTrabajador from personal");
 
-		       while (rs.next()) {
+		        while (rs.next()) {
 		            ret= (ret<rs.getInt(1)) ? rs.getInt(1):ret;
 		            	
-		           
-		            }
-		            System.out.println("El id más alto es: "+ ret);
+		       
+		        }
+		        System.out.println("El id más alto es: "+ ret);
 
-			while (rs.next()) {
-				// VOLCAR LOS DATOS
-			}
+		
 
 		} catch (SQLException e) {
 
