@@ -74,6 +74,7 @@ public class ControlerNurseWindow implements ActionListener {
 				//nurseWindow.lblError.setText("");
 
 				ArrayList<String[]> insert = null;
+				int numOfRows= dao.getNumRow();
 
 				String[] titles = null;
 

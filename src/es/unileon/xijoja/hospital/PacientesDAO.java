@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Types;
@@ -254,6 +255,30 @@ public class PacientesDAO {
            
             }
             System.out.println("El id más alto es: "+ ret);
+        } catch (SQLException e) {
+ 
+        }
+        co.disconect();// Cerramos la conexion con la base de datos
+ 
+        return ret;
+    }
+    public int getNumRow() {
+   	 
+        co = Conexion.getInstance();
+        conn = co.getConnection();
+        int ret = -1;
+        try {
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery("Select idPaciente from pacientes");
+            int count = 0;
+
+            while (rs.next()) {
+                ++count;
+                // Get data from the current row and use it
+            }
+
+          ret = count;
+            System.out.println("El numero total de filas es "+ ret);
         } catch (SQLException e) {
  
         }
