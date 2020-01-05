@@ -60,7 +60,6 @@ public class ControlerMedicWindow implements ActionListener {
 				data= list.get(i);
 				edit.addItem(data[1]);
 				
-				
 			}
 		}
 		
