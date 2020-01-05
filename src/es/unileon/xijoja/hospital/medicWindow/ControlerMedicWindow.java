@@ -284,7 +284,7 @@ public class ControlerMedicWindow implements ActionListener {
 				n=daoAlmacen.Medicine(Integer.parseInt(window.units.getText().toString()), Integer.parseInt(window.Medicine.getText().toString()));
 				System.out.println(n);
 				m=daoAlmacen.MedicineA(Integer.parseInt(window.units.getText().toString()), Integer.parseInt(window.Medicine.getText().toString()));
-				if(n<=0) {
+				if(n<0) {
 					window.lblError2.setText("Error,quedan solo estas unidades: "+m);
 				
 				}else {
