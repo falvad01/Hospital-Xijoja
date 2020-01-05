@@ -1,5 +1,6 @@
 package es.unileon.xijoja.hospital.nurse;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import javax.swing.JComboBox;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -85,34 +87,33 @@ public class ControlerNurseWindow implements ActionListener {
 																		// los empleados
 				insert = dao.getAllPatients(id);// ArrayList de Arrays
 			
-				matrixToInsert = new String[insert.size() + 1][12];
+				matrixToInsert = new String[insert.size()][12];
 				nurseWindow.seePatientPane.setPreferredSize(new Dimension(624, 20 + 20 * insert.size()));
-				nurseWindow.seePatientPane.setBounds(284, 11, 624, 20 + 20 * insert.size());
+				nurseWindow.seePatientPane.setBounds(284, 11, 624, 430);
 				
-				for (int i = 0; i < insert.size()+1; i++) { // rellenamos la matriz que meteremos en la tabla a partir
+				for (int i = 0; i < insert.size(); i++) { // rellenamos la matriz que meteremos en la tabla a partir
 					// del ArrayList de arrays devuelto del DAO
 					for (int j = 0; j < 12; j++) {
-						if (i == 0) {
-							
-
-							matrixToInsert[i][j] = titles[j];
-
-						} else {
-							matrixToInsert[i][j] = insert.get(i-1)[j];					}
+					
+							matrixToInsert[i][j] = insert.get(i)[j];					
 					}
-	}
+				}
+	
 				
 				JTable PatientsTable = new JTable();
 				PatientsTable.setBounds(5, 5, 600, 20 + 20 * insert.size());
 
 				PatientsTable.setVisible(true);
-				nurseWindow.seePatientPane.add(PatientsTable);
+			//	nurseWindow.seePatientPane.add(PatientsTable);
 				PatientsTable.setAutoscrolls(true);
 				
 
 				
 				DefaultTableModel tableModel = new DefaultTableModel(matrixToInsert, titles);
 				PatientsTable.setModel(tableModel);
+				
+				nurseWindow.seePatientPane.setViewportView(PatientsTable);
+
 				
 				
 				

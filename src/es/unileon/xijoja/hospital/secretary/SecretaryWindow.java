@@ -173,15 +173,6 @@ public class SecretaryWindow extends JFrame {
 	private void initComponentsPanels() throws SQLException {
 
 		
-//
-//		addPatientPanel = new JPanel();
-//		addPatientPanel.setLayout(null);
-//		addPatientPanel.setForeground(Color.WHITE);
-//		addPatientPanel.setBackground(Color.WHITE);
-//		addPatientPanel.setBounds(284, 11, 624, 450);
-//		
-//		addPatientPanel.setPreferredSize(new Dimension(630, 700));
-//		addPatientPanel.setVisible(false);
 		
 		//------------------PANEL BUSCAR POR HABITACION O POR DNI--------------
 				getPatientPane = new JPanel();
@@ -284,7 +275,7 @@ public class SecretaryWindow extends JFrame {
 				lblErrorGetPatient.setBounds(358, 15, 143, 14);
 				getPatientPane.add(lblErrorGetPatient);
 
-		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		//////////////////////////////////////////////////////////////Añadir pacientes
 
 		addPatientPane = new JPanel();
 		addPatientPane.setForeground(Color.WHITE);
@@ -389,7 +380,6 @@ public class SecretaryWindow extends JFrame {
 		iconLabel.setBounds(43, 245, 252, 194);
 		addPatientPane.add(iconLabel);
 		iconLabel.setIcon(new ImageIcon(AdminWindow.class.getResource("/resources/iconAdmin.png")));
-	//	getContentPane().add(getPatientPane);
 
 	}
 

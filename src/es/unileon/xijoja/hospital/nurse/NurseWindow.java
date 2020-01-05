@@ -14,6 +14,7 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -31,7 +32,7 @@ public class NurseWindow extends JFrame {
 	Logs archivo = new Logs(); // Instancia de la clase para utilizar sus metodos
 
 	private PacientesDAO dao;
-	protected JPanel seePatientPane;
+	protected JScrollPane seePatientPane;
 	protected JPanel getPatientPane;
 	private ControlerNurseWindow listener;
 	protected String user;
@@ -49,8 +50,6 @@ public class NurseWindow extends JFrame {
 	protected JButton btnVerPlantilla;
 	protected JButton btnUseMedicine ;
 
-
-	protected JTextField textFieldSearch;
 
 	public NurseWindow(String user, String password) {
 		this.user = user;
@@ -161,15 +160,24 @@ public class NurseWindow extends JFrame {
 	}
 
 	private void initComponentsPanels() throws SQLException {
-		seePatientPane = new JPanel();
-		seePatientPane.setLayout(null);
+		
+		//-------------------------------PANEL DE LA TABLA-------------------
+		
+
+
+		seePatientPane = new JScrollPane();
+		seePatientPane.setBounds(284, 11, 625, 420);
 		seePatientPane.setForeground(Color.WHITE);
 		seePatientPane.setBackground(Color.WHITE);
-		seePatientPane.setBounds(284, 11, 624, 450);
-		seePatientPane.setPreferredSize(new Dimension(630, 700));
+		seePatientPane.setPreferredSize(new Dimension(630, 420));
+        seePatientPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        seePatientPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+
 		seePatientPane.setVisible(false);
 		getContentPane().add(seePatientPane);
+	
 
+       
 
 		
 		//------------------PANEL BUSCAR POR HABITACION O POR DNI--------------
@@ -259,7 +267,6 @@ public class NurseWindow extends JFrame {
 				lblErrorGetPatient.setBounds(378, 240, 273, 14);
 				getPatientPane.add(lblErrorGetPatient);
 
-	//	getContentPane().add(getPatientPane);
 
 	}
 
