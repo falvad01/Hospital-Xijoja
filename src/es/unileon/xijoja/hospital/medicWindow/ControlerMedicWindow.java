@@ -239,14 +239,14 @@ public class ControlerMedicWindow implements ActionListener {
 	}else if (arg0.getActionCommand().equals("Asignar")) {//probablemente haya que hacer un comprobarmedicamento, pro pal final
 		
 		
-		
+	/*	
 		
 		
 		if(window.jcbMedicine.getSelectedItem()==null) {
 			
 			window.lblError2.setText("Error elemento nulo");
 		}
-		
+		*/
 		if ((window.DNIM.getText().toString().equals(""))){
 			window.lblError2.setText("Error en el formulario");
 			log.InfoLog("Error al buscar el paciente");
@@ -255,12 +255,12 @@ public class ControlerMedicWindow implements ActionListener {
 		}else {
 			//comprueba si se introduce un dni
 			
-			window.jcbMedicine.getSelectedIndex();
+		
 
 			boolean isDniOrRoom = isDni(window.DNIM.getText().toString());
-			
+			/*
 			int m = 0;
-			
+		
 			
 			if (window.jcbMedicine.getSelectedItem().toString().equals("Paracetamol")) {
 				m=0;
@@ -273,14 +273,23 @@ public class ControlerMedicWindow implements ActionListener {
 			}
 			
 			System.out.println(m);
-		
+		*/
 			if (!dao.checkPatientExist(window.DNIM.getText().toString(),isDniOrRoom)) {
 				window.lblError2.setText("Error en el formulario");
 				log.InfoLog("Error, no se encuentra el paciente indicado");
 			}else {
+				int n;
+				dao.AsignMedicine(Integer.parseInt(window.units.getText().toString()), Integer.parseInt(window.Medicine.getText().toString()),window.DNIM.getText().toString());
 				
-				dao.AsignMedicine(Integer.parseInt(window.units.getText().toString()), m,window.DNIM.getText().toString());
+				n=daoAlmacen.Medicine(Integer.parseInt(window.units.getText().toString()), Integer.parseInt(window.Medicine.getText().toString()));
+				System.out.println(n);
+
+				if(n<=0) {
+					window.lblError2.setText("Error, almacen vacio");
 				
+				}else {
+					daoAlmacen.restMedicine(Integer.parseInt(window.units.getText().toString()), Integer.parseInt(window.Medicine.getText().toString()));
+				}
 				
 				
 			}

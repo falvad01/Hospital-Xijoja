@@ -354,7 +354,7 @@ public class MedicWindow extends JFrame {
 		
 		lblError2 = new JLabel("");
 		lblError2.setForeground(Color.RED);
-		lblError2.setBounds(358, 15, 143, 14);
+		lblError2.setBounds(358, 15, 143, 80);
 		addMedicine.add(lblError2);
 		
 		JButton btnAsignar = new JButton("Asignar");
