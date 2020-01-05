@@ -247,15 +247,13 @@ public class PacientesDAO {
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery("Select idPaciente from pacientes");
  
-            if (rs.last()) {// Nos posicionamos al final
-                ret = rs.getInt(1);// sacamos la ultima id
- 
-            }
- 
+         
             while (rs.next()) {
-                // VOLCAR LOS DATOS
+            ret= (ret<rs.getInt(1)) ? rs.getInt(1):ret;
+            	
+           
             }
- 
+            System.out.println("El id más alto es: "+ ret);
         } catch (SQLException e) {
  
         }

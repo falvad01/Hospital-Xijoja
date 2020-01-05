@@ -99,10 +99,12 @@ public class PersonalDAO {
 			Statement st = conn.createStatement();
 			ResultSet rs = st.executeQuery("Select idTrabajador from personal");
 
-			if (rs.last()) {// Nos posicionamos al final
-				ret = rs.getInt(1);// sacamos la cantidad de filas/registros SACAMOS EL ULTIMO ID, NO EL NUMERO DE COLUMNAS
-			}
-			System.out.println("el ultimo id es: "+ ret);
+		       while (rs.next()) {
+		            ret= (ret<rs.getInt(1)) ? rs.getInt(1):ret;
+		            	
+		           
+		            }
+		            System.out.println("El id más alto es: "+ ret);
 
 			while (rs.next()) {
 				// VOLCAR LOS DATOS
@@ -556,7 +558,7 @@ public class PersonalDAO {
 
 	  	  		try {
 	  	  		Statement st = conn.createStatement();
-	  			String sql = "SELECT * FROM pacientes WHERE idPaciente='" + firstId + "'";
+	  			String sql = "SELECT * FROM personal WHERE idTrabajador='" + firstId + "'";
 	  			System.out.println(sql);
 	  	  			ResultSet rs = st.executeQuery(sql);
 		
