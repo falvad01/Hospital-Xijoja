@@ -13,6 +13,7 @@ import javax.swing.JComboBox;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import es.unileon.xijoja.hospital.AlmacenDAO;
 import es.unileon.xijoja.hospital.Logs;
 import es.unileon.xijoja.hospital.PacientesDAO;
 import es.unileon.xijoja.hospital.PersonalDAO;
@@ -27,6 +28,7 @@ public class ControlerMedicWindow implements ActionListener {
 	//private PersonalDAO dao;
 	private PacientesDAO dao;
 	private PersonalDAO daoPersonal;
+	private AlmacenDAO daoAlmacen;
 	private ArrayList<String[]> arrayNurse, arrayMedic;
 	String[] getPatientData = null;
 
@@ -36,6 +38,7 @@ public class ControlerMedicWindow implements ActionListener {
 
 		this.window = window;
 		dao = new PacientesDAO();
+		this.daoAlmacen= new AlmacenDAO();
 		this.daoPersonal= new PersonalDAO();
 
 		log = new Logs();
@@ -235,22 +238,50 @@ public class ControlerMedicWindow implements ActionListener {
 	
 	}else if (arg0.getActionCommand().equals("Asignar")) {//probablemente haya que hacer un comprobarmedicamento, pro pal final
 		
+		
+		
+		
+		
+		if(window.jcbMedicine.getSelectedItem()==null) {
+			
+			window.lblError2.setText("Error elemento nulo");
+		}
+		
 		if ((window.DNIM.getText().toString().equals(""))){
 			window.lblError2.setText("Error en el formulario");
 			log.InfoLog("Error al buscar el paciente");
+		
+			
 		}else {
 			//comprueba si se introduce un dni
+			
+			window.jcbMedicine.getSelectedIndex();
+
 			boolean isDniOrRoom = isDni(window.DNIM.getText().toString());
 			
+			int m = 0;
+			
+			
+			if (window.jcbMedicine.getSelectedItem().toString().equals("Paracetamol")) {
+				m=0;
+			}else if(window.jcbMedicine.getSelectedItem().toString().equals("Aspirina")) {
+				m=1;
+			}else if(window.jcbMedicine.getSelectedItem().toString().equals("Betadine")) {
+				m=2;
+			}else if(window.jcbMedicine.getSelectedItem().toString().equals("Morfina")) {
+				m=3;
+			}
+			
+			System.out.println(m);
+		
 			if (!dao.checkPatientExist(window.DNIM.getText().toString(),isDniOrRoom)) {
 				window.lblError2.setText("Error en el formulario");
 				log.InfoLog("Error, no se encuentra el paciente indicado");
 			}else {
-				System.out.println(Integer.parseInt(window.units.getText()));
-				System.out.println( window.Medicine.getText());
-				System.out.println(window.DNIM.getText());
-				dao.AsignMedicine(Integer.parseInt(window.units.getText().toString()), (Integer.parseInt(window.Medicine.getText().toString())),window.DNIM.getText().toString());
-				//TODO falta por acabar esto y modificar el dao para que asigne medicamentos
+				
+				dao.AsignMedicine(Integer.parseInt(window.units.getText().toString()), m,window.DNIM.getText().toString());
+				
+				
 				
 			}
 			

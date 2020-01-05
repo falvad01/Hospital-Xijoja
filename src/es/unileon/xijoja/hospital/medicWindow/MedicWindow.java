@@ -55,6 +55,7 @@ public class MedicWindow extends JFrame {
 	protected JLabel lblError2;
 	protected JComboBox jcbNurse;
 	protected JComboBox jcbMedic;
+	protected JComboBox jcbMedicine;
 	protected JTextField textFieldNameGetPatient;
 	protected JTextField textFieldSurname1GetPatient;
 	protected JTextField textFieldDNIGetPatient;
@@ -316,7 +317,79 @@ public class MedicWindow extends JFrame {
 				textEnfermedad.setColumns(10);
 				textEnfermedad.setBounds(145, 251, 116, 22);
 				addPatientsPanel.add(textEnfermedad);
-		getContentPane().add(seePacientsPanel);
+		
+		
+		
+	
+		//panel asignar medicamento
+		
+		addMedicine=new JPanel();
+		addMedicine.setBackground(Color.WHITE);
+		addMedicine.setBounds(274, 0, 649, 467);
+		getContentPane().add(addMedicine);
+		addMedicine.setLayout(null);
+		addMedicine.setVisible(false);
+		
+		JLabel medicina = new JLabel("DNI");
+		medicina.setBounds(39, 69, 46, 20);
+		addMedicine.add(medicina);
+		
+		DNIM = new JTextField();
+		DNIM.setBounds(125, 69, 138, 20);
+		addMedicine.add(DNIM);
+		DNIM.setColumns(10);
+		
+		JLabel lblNewLabel3 = new JLabel("Introducir el DNI del paciente y el medicamento que desea asignarle");
+		lblNewLabel3.setBounds(39, 23, 451, 20);
+		addMedicine.add(lblNewLabel3);
+		
+		JLabel lblMedicamento = new JLabel("Medicamento");
+		lblMedicamento.setBounds(39, 127, 91, 16);
+		addMedicine.add(lblMedicamento);
+		
+		Medicine = new JTextField();
+		Medicine.setBounds(125, 124, 138, 22);
+		addMedicine.add(Medicine);
+		Medicine.setColumns(10);
+		
+		lblError2 = new JLabel("");
+		lblError2.setForeground(Color.RED);
+		lblError2.setBounds(358, 15, 143, 14);
+		addMedicine.add(lblError2);
+		
+		JButton btnAsignar = new JButton("Asignar");
+		btnAsignar.setBounds(385, 341, 169, 59);
+		btnAsignar.setOpaque(false);
+		btnAsignar.setBackground(new Color(255, 255, 255));
+		addMedicine.add(btnAsignar);
+		
+		units = new JTextField();
+		units.setColumns(10);
+		units.setBounds(125, 182, 138, 22);
+		addMedicine.add(units);
+		
+		JLabel lblUnidades = new JLabel("Unidades");
+		lblUnidades.setBounds(39, 185, 56, 16);
+		addMedicine.add(lblUnidades);
+		btnAsignar.addActionListener(listener);
+		
+		
+		JLabel label_3 = new JLabel("Medicamento");
+		label_3.setBounds(39, 235, 91, 16);
+		addMedicine.add(label_3);
+		
+		JComboBox<String> jcbMedicine = new JComboBox<String>();
+		jcbMedicine.setBounds(125, 232, 138, 22);
+		jcbMedicine.addItem("Paracetamol");
+		jcbMedicine.addItem("Aspirina");
+		jcbMedicine.addItem("Betadine");
+		jcbMedicine.addItem("Morfina");
+		addMedicine.add(jcbMedicine);
+		jcbMedicine.addActionListener(listener);
+
+		
+
+		
 		
 		/*
 		JLabel lblMedicamentos = new JLabel("Medicamentos");
@@ -407,153 +480,98 @@ public class MedicWindow extends JFrame {
 		getPatientPane.setForeground(Color.WHITE);
 		getPatientPane.setBackground(Color.WHITE);
 		getPatientPane.setVisible(false);
-
-		JLabel label = new JLabel("Nombre");
-		label.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		
+	    JLabel label = new JLabel("Nombre");
+	    label.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		label.setBounds(10, 74, 63, 23);
 		getPatientPane.add(label);
-
+				
 		JLabel lblApellido1 = new JLabel("1� Apellido");
 		lblApellido1.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblApellido1.setBounds(10, 125, 80, 23);
 		getPatientPane.add(lblApellido1);
-
+						
 		textFieldNameGetPatient = new JTextField();
-		textFieldNameGetPatient.setEnabled(false);
-		textFieldNameGetPatient.setColumns(10);
+	    textFieldNameGetPatient.setEnabled(false);
+	    textFieldNameGetPatient.setColumns(10);
 		textFieldNameGetPatient.setBounds(100, 77, 143, 20);
 		getPatientPane.add(textFieldNameGetPatient);
-
+								
 		textFieldSurname1GetPatient = new JTextField();
 		textFieldSurname1GetPatient.setEnabled(false);
 		textFieldSurname1GetPatient.setColumns(10);
 		textFieldSurname1GetPatient.setBounds(100, 128, 143, 20);
 		getPatientPane.add(textFieldSurname1GetPatient);
-
+										
 		JLabel label_2 = new JLabel("NIF/NIE");
 		label_2.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		label_2.setBounds(10, 217, 63, 23);
-		getPatientPane.add(label_2);
-
+	    getPatientPane.add(label_2);
+												
 		textFieldDNIGetPatient = new JTextField();
 		textFieldDNIGetPatient.setEnabled(false);
 		textFieldDNIGetPatient.setColumns(10);
 		textFieldDNIGetPatient.setBounds(100, 220, 143, 20);
 		getPatientPane.add(textFieldDNIGetPatient);
-
-	
-
-		JLabel lblApellido_2 = new JLabel("2� Apellido");
+														
+															
+														
+	    JLabel lblApellido_2 = new JLabel("2� Apellido");
 		lblApellido_2.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblApellido_2.setBounds(10, 170, 80, 23);
 		getPatientPane.add(lblApellido_2);
-
+																
 		textFieldSurname2GetPatient = new JTextField();
 		textFieldSurname2GetPatient.setEnabled(false);
 		textFieldSurname2GetPatient.setColumns(10);
 		textFieldSurname2GetPatient.setBounds(100, 173, 143, 20);
 		getPatientPane.add(textFieldSurname2GetPatient);
-		
-		
+																		
+																		
 		JLabel lblRoom = new JLabel("Habitacion");
 		lblRoom.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblRoom.setBounds(390, 74, 80, 23);
 		getPatientPane.add(lblRoom);
-
+																		
 		textFieldRoomGetPatient = new JTextField();
 		textFieldRoomGetPatient.setEnabled(false);
 		textFieldRoomGetPatient.setColumns(10);
 		textFieldRoomGetPatient.setBounds(470, 77, 143, 20);
 		getPatientPane.add(textFieldRoomGetPatient);
-		
-		
+																				
+																				
 		JLabel label_9 = new JLabel("");
 		label_9.setForeground(Color.RED);
 		label_9.setBounds(390, 241, 212, 14);
 		getPatientPane.add(label_9);
-
-		
-
+																				
+																						
+																				
 		JSeparator separator2 = new JSeparator();
 		separator2.setBounds(10, 52, 610, 33);
 		getPatientPane.add(separator2);
-
+																						
 		JLabel lblNewLabel = new JLabel("Introduce el DNI o habitaci�n: ");
 		lblNewLabel.setBounds(10, 11, 200, 23);
 		getPatientPane.add(lblNewLabel);
-
-		textFieldSearchDNIGetPatient = new JTextField();
+																								
+        textFieldSearchDNIGetPatient = new JTextField();
 		textFieldSearchDNIGetPatient.setBounds(210, 12, 133, 20);
 		getPatientPane.add(textFieldSearchDNIGetPatient);
 		textFieldSearchDNIGetPatient.setColumns(10);
-
+																										
 		JButton btnNewButton_1 = new JButton("Buscar");
 		btnNewButton_1.setForeground(Color.BLACK);
 		btnNewButton_1.setBackground(Color.WHITE);
 		btnNewButton_1.addActionListener(listener);
-
+																												
 		btnNewButton_1.setBounds(353, 11, 89, 23);
 		getPatientPane.add(btnNewButton_1);
-
+																														
 		lblErrorGetPatient = new JLabel("");
 		lblErrorGetPatient.setForeground(Color.RED);
 		lblErrorGetPatient.setBounds(358, 15, 143, 14);
 		getPatientPane.add(lblErrorGetPatient);
-		
-	
-		//panel asignar medicamento
-		
-		addMedicine=new JPanel();
-		addMedicine.setBackground(Color.WHITE);
-		addMedicine.setBounds(274, 0, 649, 467);
-		getContentPane().add(addMedicine);
-		addMedicine.setLayout(null);
-		addMedicine.setVisible(false);
-		
-		JLabel medicina = new JLabel("DNI");
-		medicina.setBounds(39, 69, 46, 20);
-		addMedicine.add(medicina);
-		
-		DNIM = new JTextField();
-		DNIM.setBounds(125, 69, 138, 20);
-		addMedicine.add(DNIM);
-		DNIM.setColumns(10);
-		
-		JLabel lblNewLabel3 = new JLabel("Introducir el DNI del paciente y el medicamento que desea asignarle");
-		lblNewLabel3.setBounds(39, 23, 451, 20);
-		addMedicine.add(lblNewLabel3);
-		
-		JLabel lblMedicamento = new JLabel("Medicamento");
-		lblMedicamento.setBounds(39, 127, 91, 16);
-		addMedicine.add(lblMedicamento);
-		
-		Medicine = new JTextField();
-		Medicine.setBounds(125, 124, 138, 22);
-		addMedicine.add(Medicine);
-		Medicine.setColumns(10);
-		
-		lblError2 = new JLabel("");
-		lblError2.setForeground(Color.RED);
-		lblError2.setBounds(358, 15, 143, 14);
-		addMedicine.add(lblError2);
-		
-		JButton btnAsignar = new JButton("Asignar");
-		btnAsignar.setBounds(385, 341, 169, 59);
-		btnAsignar.setOpaque(false);
-		btnAsignar.setBackground(new Color(255, 255, 255));
-		addMedicine.add(btnAsignar);
-		
-		units = new JTextField();
-		units.setColumns(10);
-		units.setBounds(125, 182, 138, 22);
-		addMedicine.add(units);
-		
-		JLabel lblUnidades = new JLabel("Unidades");
-		lblUnidades.setBounds(39, 185, 56, 16);
-		addMedicine.add(lblUnidades);
-		btnAsignar.addActionListener(listener);
-
-		
 				
 		
 	}

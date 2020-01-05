@@ -63,5 +63,61 @@ public class AlmacenDAO {
   		return "";
   	}
     
+    public int Medicine(int unidades, int medicamento) {
+
+  		co = Conexion.getInstance();
+  		conn = co.getConnection();
+  		String[] ret = null;
+  		int UActuales;
+		String sql = "SELECT `Cantidad` FROM `almacen` WHERE `idProducto`= '"+medicamento+"'";		  
+
+  		try {
+  			Statement st = conn.createStatement();
+  			st.executeQuery(sql);
+  			ResultSet rs = st.executeQuery(sql);
+ 			while (rs.next()) {
+ 				
+ 				ret[0] = rs.getString(1);
+ 				
+ 				
+ 			}
+ 			
+ 			
+ 	  		
+  		} catch (SQLException e) {
+  			e.printStackTrace();
+  		}
+  		
+  		int UBase =Integer.parseInt((ret[0]));
+	  		UActuales=UBase-unidades;
+  		
+  		
+  		
+  		co.disconect();// Desconectamos la base de datos
+  		
+  		return UActuales;
+  	}
+    
+    public void restMedicine(int unidades, int medicamento) {
+
+  		co = Conexion.getInstance();
+  		conn = co.getConnection();
+  		
+  		int UActuales;
+  		UActuales=Medicine(unidades, medicamento);
+  		
+  		try {
+  			Statement st = conn.createStatement();
+  			String sql = "UPDATE `almacen` SET `Cantidad` = '"+UActuales+"', `UMedicamento` = '"+unidades+"' WHERE `almacen`.`idProducto` = '"+medicamento+"'";		  
+  			st.executeUpdate(sql);
+
+  		} catch (SQLException e) {
+  			e.printStackTrace();
+  		}
+  		
+  		co.disconect();// Desconectamos la base de datos
+  	}
+    
+
 }
  
