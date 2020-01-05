@@ -378,6 +378,78 @@ public class PacientesDAO {
   		return room;
     }
     
+    public int firstIdFree() {
+    	boolean finish=false;
+  		co = Conexion.getInstance();
+  		conn = co.getConnection();
+  		int firstId=0;
+  		while(!finish) {
+  			
+
+  	  		try {
+  	  		Statement st = conn.createStatement();
+  			String sql = "SELECT * FROM pacientes WHERE idPaciente='" + firstId + "'";
+  			System.out.println(sql);
+  	  			ResultSet rs = st.executeQuery(sql);
+	
+	  	  	if (rs.next()) {
+	  	  		System.out.println("existe la id numero "+ firstId);
+	  	  		firstId++;
+			}else {
+		
+				System.out.println("Id libre: "+ firstId);
+  	  	  		finish=true;
+  	  	  		return firstId;	  				
+			}
+	  	  				
+	  	  		
+
+  	  			
+  			
+  		} catch (SQLException e) {
+  			e.printStackTrace();
+  		}
+
+  		co.disconect();// Cerramos la conexion con la base de datos
+
+  	}
+  		return firstId;
+    }
+    public boolean checkIfIdIsBusy(int firstId) {
+    	boolean ret=false;
+  		co = Conexion.getInstance();
+  		conn = co.getConnection();
+  		System.out.println("Aqui parece que si entra");
+  		String sql = "SELECT * FROM pacientes WHERE ='" + firstId + "'";
+  		
+  		
+  		Statement st;
+
+  		try {
+  			st = conn.createStatement();
+  			ResultSet rs = st.executeQuery(sql);
+
+  			while (rs.next()) {
+  				rs.getString(1); // ID
+
+  				if (rs.getString(1) == null) {
+
+  					ret = false;
+  				} else {
+  					ret = true;
+  				}
+
+  			}
+  		} catch (SQLException e) {
+  			
+  			e.printStackTrace();
+  		}
+
+  		co.disconect();// Cerramos la conexion con la base de datos
+
+  		return ret;
+
+  	}
       
     
     public String[] getPatient(int id) {

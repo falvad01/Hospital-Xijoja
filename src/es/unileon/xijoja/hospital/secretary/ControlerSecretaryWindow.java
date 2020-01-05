@@ -65,7 +65,8 @@ public class ControlerSecretaryWindow implements ActionListener {
 				if (add) {// Si da error no se a�ade el empleado
 					System.out.println("Correcto");
 	
-					int id = dao.getLastID()+1;//siguiente id
+				//	int id = dao.getLastID()+1;//siguiente id
+					int id = dao.firstIdFree();
 					
 					Date date = new Date(Calendar.getInstance().getTime().getTime());// Obtenemos la fecha actual
 					int idMedic=0,idNurse=0;

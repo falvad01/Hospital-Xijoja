@@ -546,7 +546,43 @@ public class PersonalDAO {
 	  		return ret;
 
 	  	}
-	   
+	 public int firstIdFree() {
+	    	boolean finish=false;
+	  		co = Conexion.getInstance();
+	  		conn = co.getConnection();
+	  		int firstId=0;
+	  		while(!finish) {
+	  			
+
+	  	  		try {
+	  	  		Statement st = conn.createStatement();
+	  			String sql = "SELECT * FROM pacientes WHERE idPaciente='" + firstId + "'";
+	  			System.out.println(sql);
+	  	  			ResultSet rs = st.executeQuery(sql);
+		
+		  	  	if (rs.next()) {
+		  	  		System.out.println("existe la id numero "+ firstId);
+		  	  		firstId++;
+				}else {
+			
+					System.out.println("Id libre: "+ firstId);
+	  	  	  		finish=true;
+	  	  	  		return firstId;	  				
+				}
+		  	  				
+		  	  		
+
+	  	  			
+	  			
+	  		} catch (SQLException e) {
+	  			e.printStackTrace();
+	  		}
+
+	  		co.disconect();// Cerramos la conexion con la base de datos
+
+	  	}
+	  		return firstId;
+	    }
 	public void reset() throws IOException  {
 
 		co = Conexion.getInstance();
