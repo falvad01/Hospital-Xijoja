@@ -13,6 +13,7 @@ import javax.swing.JComboBox;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import com.sun.corba.se.impl.encoding.CodeSetConversion.BTCConverter;
 import com.sun.mail.handlers.text_html;
 
 import es.unileon.xijoja.hospital.AlmacenDAO;
@@ -132,11 +133,16 @@ public class ControlerNurseWindow implements ActionListener {
 				}
 					nurseWindow.textFieldMedicine.setEnabled(true);
 					nurseWindow.textFieldUnits.setEnabled(true);
+					nurseWindow.btnUseMedicine.setEnabled(true);
 
 					filJComboBoxUnits();
 					getPatientData = dao.getPatient(idPatient);
+					if (getPatientData[8]==null) {
+						nurseWindow.textFieldMedicine.setText("Sin tratamiento asignado");
+						
+					}else {
 					nurseWindow.textFieldMedicine.setText(daoAlmacen.getMedicineName(Integer.parseInt(getPatientData[8])));
-					
+					}
 					nurseWindow.textFieldUnits.setText(getPatientData[10]);
 					log.InfoLog("Devuelto el paciente con id: "+getPatientData[0]);
 
@@ -144,9 +150,7 @@ public class ControlerNurseWindow implements ActionListener {
 			}
 		}else if (arg0.getActionCommand().equals("Tratamiento")) {
 			System.out.println("asdasd");
-			
-				
-			if ((nurseWindow.jcbPatient.getSelectedItem().equals("0"))){
+			if ((nurseWindow.jcbNUtits.getSelectedItem().toString().equals("0"))){
 				nurseWindow.lblErrorGetPatient.setText("Seleciona cuanto tratamiento has realizado");
 				log.InfoLog("Error, se seleciono 0 de cantidad de medicamento");
 
@@ -161,6 +165,10 @@ public class ControlerNurseWindow implements ActionListener {
 					dao.setfkProductoNull(idPatient);
 				}
 					filJComboBoxUnits();
+					getPatientData = dao.getPatient(idPatient);
+					nurseWindow.textFieldMedicine.setText(daoAlmacen.getMedicineName(Integer.parseInt(getPatientData[8])));
+					
+					nurseWindow.textFieldUnits.setText(getPatientData[10]);
 					
 					log.InfoLog("Se le aplico el tratamiento al paciente: "+getPatientData[0]);
 
