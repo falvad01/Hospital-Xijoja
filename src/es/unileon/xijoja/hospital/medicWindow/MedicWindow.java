@@ -25,6 +25,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 
+
 import es.unileon.xijoja.hospital.Logs;
 import es.unileon.xijoja.hospital.PacientesDAO;
 import es.unileon.xijoja.hospital.admin.AdminWindow;
@@ -76,16 +77,16 @@ public class MedicWindow extends JFrame {
     protected JTextField Medicine;
     protected JTextField DNIM;
     protected JTextField textEnfermedad;
+   
 
 
    
-   
-
 
 	// TODO las variables que se quieran ser usadas en el controlador tienen que
 	// estar en protected NO en private
 
-	public MedicWindow() {
+	public MedicWindow() { 
+		
 
 		log.InfoLog("Iniciada la sesion del medico");
 		screen = Toolkit.getDefaultToolkit();
@@ -317,6 +318,7 @@ public class MedicWindow extends JFrame {
 				textEnfermedad.setColumns(10);
 				textEnfermedad.setBounds(145, 251, 116, 22);
 				addPatientsPanel.add(textEnfermedad);
+		getContentPane().add(seePacientsPanel);
 		
 		
 		
