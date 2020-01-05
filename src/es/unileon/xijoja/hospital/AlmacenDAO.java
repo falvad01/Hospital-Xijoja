@@ -67,7 +67,7 @@ public class AlmacenDAO {
 
   		co = Conexion.getInstance();
   		conn = co.getConnection();
-  		String[] ret = null;
+  		int ret = 0;
   		int UActuales;
 		String sql = "SELECT `Cantidad` FROM `almacen` WHERE `idProducto`= '"+medicamento+"'";		  
 
@@ -77,7 +77,7 @@ public class AlmacenDAO {
   			ResultSet rs = st.executeQuery(sql);
  			while (rs.next()) {
  				
- 				ret[0] = rs.getString(1);
+ 				ret = rs.getInt(1);
  				
  				
  			}
@@ -87,10 +87,10 @@ public class AlmacenDAO {
   		} catch (SQLException e) {
   			e.printStackTrace();
   		}
-  		
-  		int UBase =Integer.parseInt((ret[0]));
+  		System.out.println("dao"+ret);
+  		int UBase =ret;
 	  		UActuales=UBase-unidades;
-  		
+	  		
   		
   		
   		co.disconect();// Desconectamos la base de datos
@@ -105,10 +105,10 @@ public class AlmacenDAO {
   		
   		int UActuales;
   		UActuales=Medicine(unidades, medicamento);
-  		
+  		System.out.println(UActuales);
   		try {
   			Statement st = conn.createStatement();
-  			String sql = "UPDATE `almacen` SET `Cantidad` = '"+UActuales+"', `UMedicamento` = '"+unidades+"' WHERE `almacen`.`idProducto` = '"+medicamento+"'";		  
+  			String sql = "UPDATE `almacen` SET `Cantidad` = '"+UActuales+"' WHERE `almacen`.`idProducto` = '"+medicamento+"'";	  
   			st.executeUpdate(sql);
 
   		} catch (SQLException e) {
