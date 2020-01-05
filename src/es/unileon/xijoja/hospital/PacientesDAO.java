@@ -254,7 +254,7 @@ public class PacientesDAO {
             	
            
             }
-            System.out.println("El id más alto es: "+ ret);
+            System.out.println("El id mï¿½s alto es: "+ ret);
         } catch (SQLException e) {
  
         }
@@ -262,6 +262,33 @@ public class PacientesDAO {
  
         return ret;
     }
+    
+    public int getLastIDM() {
+   	 
+        co = Conexion.getInstance();
+        conn = co.getConnection();
+        int ret = -1;
+        try {
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery("Select idPaciente from pacientes");
+ 
+            if (rs.last()) {// Nos posicionamos al final
+                ret = rs.getInt(1);// sacamos la ultima id
+ 
+            }
+ 
+            while (rs.next()) {
+                // VOLCAR LOS DATOS
+            }
+ 
+        } catch (SQLException e) {
+ 
+        }
+        co.disconect();// Cerramos la conexion con la base de datos
+ 
+        return ret;
+    }
+    
     public int getNumRow() {
    	 
         co = Conexion.getInstance();
@@ -511,6 +538,7 @@ public class PacientesDAO {
 		co.disconect();// Cerramos la conexion con la base de datos
 		return ret;
 	}
+    
     public String[] getPatient(int id,int idNurse) {
 
  		co = Conexion.getInstance();
@@ -601,7 +629,7 @@ public class PacientesDAO {
 
 		ArrayList<String[]> ret = new ArrayList<String[]>();
 
-		int lastId = this.getLastID();
+		int lastId = this.getLastIDM();
 		for (int i = 0; i <= lastId; i++) { 
 
 			ret.add(getPatient(i));
@@ -620,7 +648,7 @@ public class PacientesDAO {
   			retu=getPatient(i,idNurse);
   			System.out.println(retu[0]);
   			if (retu[0]!=null) {
-  				System.out.println("añadido");
+  				System.out.println("aï¿½adido");
   				ret.add(retu);
 			}
   			
