@@ -34,7 +34,7 @@ public class ControlerSecretaryWindow implements ActionListener {
 	}
 	
 	
-
+//TODO comprobar codigo inutil
 	public void actionPerformed(ActionEvent arg0) {
 
 		if (arg0.getActionCommand().equals("Añadir")) {

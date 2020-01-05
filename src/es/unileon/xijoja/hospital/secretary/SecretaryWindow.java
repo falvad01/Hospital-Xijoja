@@ -30,8 +30,7 @@ import es.unileon.xijoja.hospital.PacientesDAO;
 import es.unileon.xijoja.hospital.admin.AdminWindow;
 import es.unileon.xijoja.hospital.login.LoginWindow;
 
-//TODO panel despedir empleados
-//TODO problema con los ID al eliminar trabajadores
+
 
 @SuppressWarnings("serial")
 public class SecretaryWindow extends JFrame {
@@ -86,12 +85,7 @@ public class SecretaryWindow extends JFrame {
 
 	}
 
-	/*
-	 * TODO comprobar que se lanza desde loginwindow
-	 * 
-	 * 
-	 * 
-	 */
+	
 	private void initComponents() throws SQLException {
 
 		getContentPane().setBackground(Color.WHITE);

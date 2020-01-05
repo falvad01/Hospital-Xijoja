@@ -197,7 +197,6 @@ public class ControlerNurseWindow implements ActionListener {
 	}
 	public void filJComboBoxUnits() {
 		nurseWindow.jcbNUtits.removeAllItems();
-//TODO que se llame a esto cuando se selecione un paciente
 		int units =dao.getMedicineUnits(idPatient);// ArrayList de Arrays;
 
 			for (int i = 0; i <= units; i++) {
