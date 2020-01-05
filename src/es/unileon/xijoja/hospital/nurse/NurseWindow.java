@@ -76,12 +76,6 @@ public class NurseWindow extends JFrame {
 
 	}
 
-	/*
-	 * TODO comprobar que se lanza desde loginwindow
-	 * 
-	 * 
-	 * 
-	 */
 	private void initComponents() throws SQLException {
 
 		getContentPane().setBackground(Color.WHITE);

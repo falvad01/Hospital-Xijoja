@@ -38,7 +38,7 @@ public class Logs {
 
 			archivo.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		} // Se cierra el archivo
 	}
