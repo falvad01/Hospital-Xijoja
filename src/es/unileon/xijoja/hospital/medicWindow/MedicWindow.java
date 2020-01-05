@@ -73,6 +73,7 @@ public class MedicWindow extends JFrame {
     protected JTextField units;
     protected JTextField Medicine;
     protected JTextField DNIM;
+    protected JTextField textEnfermedad;
 
 
    
@@ -226,7 +227,7 @@ public class MedicWindow extends JFrame {
 		addPatientsPanel.setVisible(true);
 		
 		JLabel iconLabel = new JLabel("New label");
-		iconLabel.setBounds(290, 128, 271, 222);
+		iconLabel.setBounds(355, 127, 250, 222);
 		addPatientsPanel.add(iconLabel);
 		iconLabel.setIcon(new ImageIcon(AdminWindow.class.getResource("/resources/iconAdmin.png")));
 		getContentPane().add(addPatientsPanel);
@@ -237,75 +238,85 @@ public class MedicWindow extends JFrame {
 		btnModificarEstadoPaciente.setBounds(407, 381, 198, 41);
 		addPatientsPanel.add(btnModificarEstadoPaciente);
 		btnModificarEstadoPaciente.addActionListener(listener);
-
 		
-		JLabel label_1 = new JLabel("Nombre Paciente");
-		label_1.setBounds(32, 47, 101, 16);
-		addPatientsPanel.add(label_1);
-		
-		NombreP = new JTextField();
-		NombreP.setColumns(10);
-		NombreP.setBounds(145, 44, 116, 22);
-		addPatientsPanel.add(NombreP);
-		
-		JLabel lblApellido = new JLabel("Apellido 1");
-		lblApellido.setBounds(32, 88, 101, 16);
-		addPatientsPanel.add(lblApellido);
-		
-		JLabel lblApellido_1 = new JLabel("Apellido 2");
-		lblApellido_1.setBounds(32, 127, 101, 16);
-		addPatientsPanel.add(lblApellido_1);
-		
-		Apellido1 = new JTextField();
-		Apellido1.setColumns(10);
-		Apellido1.setBounds(145, 85, 116, 22);
-		addPatientsPanel.add(Apellido1);
-		
-		Apellido2 = new JTextField();
-		Apellido2.setColumns(10);
-		Apellido2.setBounds(145, 124, 116, 22);
-		addPatientsPanel.add(Apellido2);
-		
-		JLabel lblNifnie = new JLabel("NIFNIE");
-		lblNifnie.setBounds(32, 168, 56, 16);
-		addPatientsPanel.add(lblNifnie);
-		
-		DNI = new JTextField();
-		DNI.setBounds(145, 165, 116, 22);
-		addPatientsPanel.add(DNI);
-		DNI.setColumns(10);
-		
-		JLabel lblHabitacin = new JLabel("Habitación");
-		lblHabitacin.setBounds(32, 209, 89, 16);
-		addPatientsPanel.add(lblHabitacin);
-		
-		Habitacion = new JTextField();
-		Habitacion.setBounds(145, 206, 116, 22);
-		addPatientsPanel.add(Habitacion);
-		Habitacion.setColumns(10);
-		lberror = new JLabel("");
-		lberror.setForeground(Color.RED);
-		lberror.setBounds(100, 241, 212, 14);
-		addPatientsPanel.add(lberror);
-		
-		jcbNurse = new JComboBox();
-		listener.filJComboBox(jcbNurse,false);
-		jcbNurse.setBounds(392, 86, 213, 20);
-		addPatientsPanel.add(jcbNurse);
-		
-		jcbMedic = new JComboBox();
-		listener.filJComboBox(jcbMedic,true);
-		jcbMedic.setBounds(392, 45, 213, 20);
-		addPatientsPanel.add(jcbMedic);
-		
-		JLabel lblMedico = new JLabel("Medico");
-		lblMedico.setBounds(307, 47, 56, 16);
-		addPatientsPanel.add(lblMedico);
-		
-		JLabel lblEnfermera = new JLabel("Enfermera");
-		lblEnfermera.setBounds(307, 88, 73, 16);
-		addPatientsPanel.add(lblEnfermera);
+				
+				JLabel label_1 = new JLabel("Nombre Paciente");
+				label_1.setBounds(32, 47, 101, 16);
+				addPatientsPanel.add(label_1);
+				
+				NombreP = new JTextField();
+				NombreP.setColumns(10);
+				NombreP.setBounds(145, 44, 116, 22);
+				addPatientsPanel.add(NombreP);
+				
+				JLabel lblApellido = new JLabel("Apellido 1");
+				lblApellido.setBounds(32, 88, 101, 16);
+				addPatientsPanel.add(lblApellido);
+				
+				JLabel lblApellido_1 = new JLabel("Apellido 2");
+				lblApellido_1.setBounds(32, 127, 101, 16);
+				addPatientsPanel.add(lblApellido_1);
+				
+				Apellido1 = new JTextField();
+				Apellido1.setColumns(10);
+				Apellido1.setBounds(145, 85, 116, 22);
+				addPatientsPanel.add(Apellido1);
+				
+				Apellido2 = new JTextField();
+				Apellido2.setColumns(10);
+				Apellido2.setBounds(145, 124, 116, 22);
+				addPatientsPanel.add(Apellido2);
+				
+				JLabel lblNifnie = new JLabel("NIFNIE");
+				lblNifnie.setBounds(32, 168, 56, 16);
+				addPatientsPanel.add(lblNifnie);
+				
+				DNI = new JTextField();
+				DNI.setBounds(145, 165, 116, 22);
+				addPatientsPanel.add(DNI);
+				DNI.setColumns(10);
+				
+				JLabel lblHabitacin = new JLabel("Habitación");
+				lblHabitacin.setBounds(32, 209, 89, 16);
+				addPatientsPanel.add(lblHabitacin);
+				
+				Habitacion = new JTextField();
+				Habitacion.setBounds(145, 206, 116, 22);
+				addPatientsPanel.add(Habitacion);
+				Habitacion.setColumns(10);
+				lberror = new JLabel("");
+				lberror.setForeground(Color.RED);
+				lberror.setBounds(50, 241, 260, 150);
+				addPatientsPanel.add(lberror);
+				
+				jcbNurse = new JComboBox();
+				listener.filJComboBox(jcbNurse,false);
+				jcbNurse.setBounds(392, 86, 213, 20);
+				addPatientsPanel.add(jcbNurse);
+				
+				jcbMedic = new JComboBox();
+				listener.filJComboBox(jcbMedic,true);
+				jcbMedic.setBounds(392, 45, 213, 20);
+				addPatientsPanel.add(jcbMedic);
+				
+				JLabel lblMedico = new JLabel("Medico");
+				lblMedico.setBounds(307, 47, 56, 16);
+				addPatientsPanel.add(lblMedico);
+				
+				JLabel lblEnfermera = new JLabel("Enfermera");
+				lblEnfermera.setBounds(307, 88, 73, 16);
+				addPatientsPanel.add(lblEnfermera);
+				
+				JLabel lblEnfermedad = new JLabel("Enfermedad");
+				lblEnfermedad.setBounds(32, 254, 89, 16);
+				addPatientsPanel.add(lblEnfermedad);
+				
+				textEnfermedad = new JTextField();
+				textEnfermedad.setColumns(10);
+				textEnfermedad.setBounds(145, 251, 116, 22);
+				addPatientsPanel.add(textEnfermedad);
 		getContentPane().add(seePacientsPanel);
+		
 		/*
 		JLabel lblMedicamentos = new JLabel("Medicamentos");
 		lblMedicamentos.setBounds(32, 298, 116, 16);
