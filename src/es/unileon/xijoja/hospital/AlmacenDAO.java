@@ -153,6 +153,34 @@ public class AlmacenDAO {
   		co.disconect();// Desconectamos la base de datos
   	}
     
+    public ArrayList<String[]> getMedicine() {
 
+  		co = Conexion.getInstance();
+  		conn = co.getConnection();
+  		ArrayList<String[]> ret = new ArrayList<String[]>();
+
+  		String sql = "SELECT * FROM almacen WHERE idProducto=?" ;
+  		
+  		try {
+  			PreparedStatement st = conn.prepareStatement(sql);
+  	 	        st.setString(1, "Medicinas");
+  	 	    
+  			ResultSet rs = st.executeQuery();
+  			String[] ret2 = new String[2];
+  			while (rs.next()) {
+  	  			ret2 = new String[2];
+
+  				ret2[0] = rs.getString(1); // ID
+  				ret2[1] = "Medicamento. "+ rs.getString(2) + " "+ rs.getString(3)+" "+ rs.getString(4); //nombre y apellidos
+  				ret.add(ret2);
+
+  			}
+  		} catch (SQLException e) {
+  			e.printStackTrace();
+  		}
+
+  		co.disconect();// Cerramos la conexion con la base de datos
+  		return ret;
+  	}
 }
  

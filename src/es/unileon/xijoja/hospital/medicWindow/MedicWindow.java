@@ -380,14 +380,10 @@ public class MedicWindow extends JFrame {
 		label_3.setBounds(39, 235, 91, 16);
 		addMedicine.add(label_3);
 		
-		JComboBox<String> jcbMedicine = new JComboBox<String>();
-		jcbMedicine.setBounds(125, 232, 138, 22);
-		jcbMedicine.addItem("Paracetamol");
-		jcbMedicine.addItem("Aspirina");
-		jcbMedicine.addItem("Betadine");
-		jcbMedicine.addItem("Morfina");
-		addMedicine.add(jcbMedicine);
-		jcbMedicine.addActionListener(listener);
+		jcbMedicine = new JComboBox();
+		listener.filJComboBox2(jcbMedicine,false);
+		jcbNurse.setBounds(392, 86, 213, 20);
+		addPatientsPanel.add(jcbNurse);
 
 		
 
