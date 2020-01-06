@@ -264,6 +264,7 @@ public class ControlerAdmin implements ActionListener {
 			adminWindow.lblErrorDelete.setText("");
 			adminWindow.lblErrorEdit.setText("");
 			adminWindow.addPatientsPanel.setVisible(false);
+			adminWindow.seePacientsPanel.setVisible(false);
 
 		} else if ((arg0.getActionCommand().equals("Ver plantilla")) || (arg0.getActionCommand().equals("Recargar"))) {
 
@@ -276,6 +277,7 @@ public class ControlerAdmin implements ActionListener {
 			adminWindow.lblErrorDelete.setText("");
 			adminWindow.lblErrorEdit.setText("");
 			adminWindow.addPatientsPanel.setVisible(false);
+			adminWindow.seePacientsPanel.setVisible(false);
 
 			ArrayList<String[]> insert = null;
 
@@ -348,6 +350,7 @@ public class ControlerAdmin implements ActionListener {
 			adminWindow.lblErrorDelete.setText("");
 			adminWindow.lblErrorEdit.setText("");
 			adminWindow.addPatientsPanel.setVisible(false);
+			adminWindow.seePacientsPanel.setVisible(false);
 
 		} else if (arg0.getActionCommand().equals("Buscar")) {
 			// TODO saltar fallo si el dni no existe o el campo esta vacio
@@ -419,6 +422,7 @@ public class ControlerAdmin implements ActionListener {
 			adminWindow.lblErrorDelete.setText("");
 			adminWindow.lblErrorEdit.setText("");
 			adminWindow.addPatientsPanel.setVisible(false);
+			adminWindow.seePacientsPanel.setVisible(false);
 		} else if (arg0.getActionCommand().equals("Cerrar sesion")) {
 
 			adminWindow.setVisible(false);
@@ -456,6 +460,7 @@ public class ControlerAdmin implements ActionListener {
 			adminWindow.lblErrorDelete.setText("");
 			adminWindow.lblErrorEdit.setText("");
 			adminWindow.addPatientsPanel.setVisible(true);
+			adminWindow.seePacientsPanel.setVisible(false);
 
 		} else if (arg0.getActionCommand().contentEquals("Ingresar")) {
 
@@ -520,6 +525,59 @@ public class ControlerAdmin implements ActionListener {
 				}
 			}
 
+		}else if (arg0.getActionCommand().contentEquals("Ver pacientes")) {
+			
+			adminWindow.seeEmployeesPanel.setVisible(false);
+			adminWindow.addEmployeePanel.setVisible(false);
+			adminWindow.editEmployeesPanel.setVisible(false);
+			adminWindow.btnVerPlantilla.setText("Ver plantilla");
+			adminWindow.deletePanel.setVisible(false);
+			adminWindow.lblError.setText("");
+			adminWindow.lblErrorDelete.setText("");
+			adminWindow.lblErrorEdit.setText("");
+			adminWindow.addPatientsPanel.setVisible(false);
+			adminWindow.seePacientsPanel.setVisible(true);
+			
+			ArrayList<String[]> insert = null;
+
+			String[] titles = null;
+
+			String[][] matrixToInsert = null;
+
+			titles = new String[] { "  Id", "Nombre", "Apellido 1", "Apellido 2", "NIF", "Fecha", "Habitación",
+					"Enfermedad", "Producto", "Medico", "Unidades medicamento", "Enfermero " }; // Titulos de la tabla de
+																	// los empleados
+			insert = patientsDao.getAllPatients();// ArrayList de Arrays
+		
+			matrixToInsert = new String[insert.size() + 1][12];
+			adminWindow.seePacientsPanel.setPreferredSize(new Dimension(624, 20 + 20 * insert.size()));
+			adminWindow.seePacientsPanel.setBounds(284, 11, 624, 20 + 20 * insert.size());
+			
+			for (int i = 0; i < insert.size()+1; i++) { // rellenamos la matriz que meteremos en la tabla a partir
+				// del ArrayList de arrays devuelto del DAO
+				for (int j = 0; j < 12; j++) {
+					if (i == 0) {
+						
+
+						matrixToInsert[i][j] = titles[j];
+
+					} else {
+						matrixToInsert[i][j] = insert.get(i-1)[j];					}
+				}
+}
+			
+			JTable PatientsTable = new JTable();
+			PatientsTable.setBounds(5, 5, 600, 20 + 20 * insert.size());
+
+			PatientsTable.setVisible(true);
+			adminWindow.seePacientsPanel.add(PatientsTable);
+			PatientsTable.setAutoscrolls(true);
+			
+
+			
+			DefaultTableModel tableModel = new DefaultTableModel(matrixToInsert, titles);
+			PatientsTable.setModel(tableModel);
+			
 		}
 	}
 }

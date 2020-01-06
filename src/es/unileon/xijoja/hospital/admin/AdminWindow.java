@@ -43,6 +43,7 @@ public class AdminWindow extends JFrame {
 	protected JPanel seeEmployeesPanel;
 	protected JPanel addEmployeePanel;
 	protected JPanel addPatientsPanel;
+	protected JPanel seePacientsPanel;
 
 	// private JScrollPane panelquebaja;
 
@@ -665,9 +666,10 @@ public class AdminWindow extends JFrame {
 		getContentPane().add(btnNewButton_2);
 		btnNewButton_2.addActionListener(listener);
 
-		JButton button = new JButton("New button");
-		button.setBounds(28, 203, 234, 23);
-		getContentPane().add(button);
+		JButton btnVerPacientes = new JButton("Ver pacientes");
+		btnVerPacientes.addActionListener(listener);
+		btnVerPacientes.setBounds(28, 203, 234, 23);
+		getContentPane().add(btnVerPacientes);
 
 		JButton button_1 = new JButton("New button");
 		button_1.setBounds(28, 237, 234, 23);
@@ -678,6 +680,14 @@ public class AdminWindow extends JFrame {
 		getContentPane().add(button_2);
 		btnCloseSesion.addActionListener(listener);
 		lblApellido_1.setBounds(32, 127, 101, 16);
+		seePacientsPanel = new JPanel();
+		seePacientsPanel.setLayout(null);
+		seePacientsPanel.setForeground(Color.WHITE);
+		seePacientsPanel.setBackground(Color.WHITE);
+		seePacientsPanel.setBounds(284, 11, 624, 450);
+		seePacientsPanel.setPreferredSize(new Dimension(630, 700));
+		seePacientsPanel.setVisible(false);
+		getContentPane().add(seePacientsPanel);
 
 	}
 }
