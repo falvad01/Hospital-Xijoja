@@ -381,7 +381,7 @@ public class MedicWindow extends JFrame {
 		addMedicine.add(label_3);
 		
 		jcbMedicine = new JComboBox();
-		listener.filJComboBox2(jcbMedicine,false);
+		listener.filJComboBox2(jcbMedicine);
 		jcbNurse.setBounds(392, 86, 213, 20);
 		addPatientsPanel.add(jcbNurse);
 
