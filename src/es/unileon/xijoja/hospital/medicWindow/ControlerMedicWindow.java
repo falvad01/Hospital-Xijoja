@@ -110,6 +110,8 @@ public class ControlerMedicWindow implements ActionListener {
 			window.deletePatientsPanel.setVisible(false);
 			window.getPatientPane.setVisible(false);
 			window.addMedicine.setVisible(false);
+			window.week.setVisible(false);
+
 			
 			ArrayList<String[]> insert = null;
 
@@ -228,6 +230,8 @@ public class ControlerMedicWindow implements ActionListener {
 		window.deletePatientsPanel.setVisible(false);
 		window.getPatientPane.setVisible(false);
 		window.addMedicine.setVisible(false);
+		window.week.setVisible(false);
+
 		
 		
 	} else if (arg0.getActionCommand().equals("Dar alta Paciente")) {
@@ -237,6 +241,7 @@ public class ControlerMedicWindow implements ActionListener {
 		window.deletePatientsPanel.setVisible(true);
 		window.getPatientPane.setVisible(false);
 		window.addMedicine.setVisible(false);
+		window.week.setVisible(false);
 		window.lblErrorDelete.setText("");
 		
 	} else if (arg0.getActionCommand().equals("Borrar")) {
@@ -286,6 +291,8 @@ public class ControlerMedicWindow implements ActionListener {
 		window.deletePatientsPanel.setVisible(false);
 		window.getPatientPane.setVisible(false);
 		window.addMedicine.setVisible(true);
+		window.week.setVisible(false);
+
 	
 	}else if (arg0.getActionCommand().equals("Asignar")) {//probablemente haya que hacer un comprobarmedicamento, pro pal final
 		
@@ -345,6 +352,8 @@ public class ControlerMedicWindow implements ActionListener {
 		window.deletePatientsPanel.setVisible(false);
 		window.getPatientPane.setVisible(true);
 		window.addMedicine.setVisible(false);
+		window.week.setVisible(false);
+
 		
 	} else if (arg0.getActionCommand().equals("Buscar")) {
 		
@@ -390,8 +399,12 @@ public class ControlerMedicWindow implements ActionListener {
 		
 	}else if (arg0.getActionCommand().equals("Informe de la semana")) {
 		
-		
-		
+		window.seePacientsPanel.setVisible(false);
+		window.addPatientsPanel.setVisible(false);
+		window.deletePatientsPanel.setVisible(false);
+		window.getPatientPane.setVisible(false);
+		window.addMedicine.setVisible(false);
+		window.week.setVisible(true);
 		
 		
 		

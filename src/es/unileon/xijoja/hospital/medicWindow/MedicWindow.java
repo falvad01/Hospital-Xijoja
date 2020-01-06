@@ -234,15 +234,6 @@ public class MedicWindow extends JFrame {
 		seePacientsPanel.setPreferredSize(new Dimension(630, 700));
 		seePacientsPanel.setVisible(false);
 		
-		//panel resumen semana
-		week = new JPanel();
-		week.setLayout(null);
-		week.setForeground(Color.WHITE);
-		week.setBackground(Color.WHITE);
-		week.setBounds(284, 11, 624, 450);
-		week.setPreferredSize(new Dimension(630, 700));
-		week.setVisible(true);
-		
 		//panel ingresar paciente
 		
 		addPatientsPanel = new JPanel();
@@ -342,6 +333,18 @@ public class MedicWindow extends JFrame {
 				textEnfermedad.setColumns(10);
 				textEnfermedad.setBounds(145, 251, 116, 22);
 				addPatientsPanel.add(textEnfermedad);
+				jcbNurse.setBounds(392, 86, 213, 20);
+				addPatientsPanel.add(jcbNurse);
+		
+		//panel resumen semana
+		week = new JPanel();
+		week.setLayout(null);
+		week.setForeground(Color.WHITE);
+		week.setBackground(Color.WHITE);
+		week.setBounds(278, 11, 630, 450);
+		week.setPreferredSize(new Dimension(630, 700));
+		getContentPane().add(week);
+		week.setVisible(true);
 		getContentPane().add(seePacientsPanel);
 		
 		
@@ -406,8 +409,6 @@ public class MedicWindow extends JFrame {
 		
 		jcbMedicine = new JComboBox();
 		listener.filJComboBox2(jcbMedicine);
-		jcbNurse.setBounds(392, 86, 213, 20);
-		addPatientsPanel.add(jcbNurse);
 
 		
 
