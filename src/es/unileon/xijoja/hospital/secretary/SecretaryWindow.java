@@ -118,7 +118,7 @@ public class SecretaryWindow extends JFrame {
 			}
 		});
 
-		JButton btnNewButton = new JButton("Añadir Paciente");
+		JButton btnNewButton = new JButton("Aï¿½adir Paciente");
 		btnNewButton.setOpaque(false);
 		btnNewButton.setBackground(new Color(255, 255, 255));
 		btnNewButton.setBounds(28, 33, 234, 41);
@@ -188,7 +188,7 @@ public class SecretaryWindow extends JFrame {
 				label.setBounds(10, 74, 63, 23);
 				getPatientPane.add(label);
 
-				JLabel lblApellido_1 = new JLabel("1º Apellido");
+				JLabel lblApellido_1 = new JLabel("1ï¿½ Apellido");
 				lblApellido_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
 				lblApellido_1.setBounds(10, 125, 80, 23);
 				getPatientPane.add(lblApellido_1);
@@ -218,7 +218,7 @@ public class SecretaryWindow extends JFrame {
 
 			
 
-				JLabel lblApellido_2 = new JLabel("2º Apellido");
+				JLabel lblApellido_2 = new JLabel("2ï¿½ Apellido");
 				lblApellido_2.setFont(new Font("Tahoma", Font.PLAIN, 15));
 				lblApellido_2.setBounds(10, 170, 80, 23);
 				getPatientPane.add(lblApellido_2);
@@ -253,7 +253,7 @@ public class SecretaryWindow extends JFrame {
 				separator2.setBounds(10, 52, 610, 33);
 				getPatientPane.add(separator2);
 
-				JLabel lblNewLabel = new JLabel("Introduce el DNI o habitación: ");
+				JLabel lblNewLabel = new JLabel("Introduce el DNI o habitaciï¿½n: ");
 				lblNewLabel.setBounds(10, 11, 200, 23);
 				getPatientPane.add(lblNewLabel);
 
@@ -272,10 +272,10 @@ public class SecretaryWindow extends JFrame {
 
 				lblErrorGetPatient = new JLabel("");
 				lblErrorGetPatient.setForeground(Color.RED);
-				lblErrorGetPatient.setBounds(358, 15, 143, 14);
+				lblErrorGetPatient.setBounds(358, 15, 255, 14);
 				getPatientPane.add(lblErrorGetPatient);
 
-		//////////////////////////////////////////////////////////////Añadir pacientes
+		//////////////////////////////////////////////////////////////Aï¿½adir pacientes
 
 		addPatientPane = new JPanel();
 		addPatientPane.setForeground(Color.WHITE);
@@ -289,7 +289,7 @@ public class SecretaryWindow extends JFrame {
 		lblNombre.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		addPatientPane.add(lblNombre);
 
-		JLabel lblApellidos = new JLabel("1º Apellido");
+		JLabel lblApellidos = new JLabel("1ï¿½ Apellido");
 		lblApellidos.setBounds(10, 78, 80, 23);
 		lblApellidos.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		addPatientPane.add(lblApellidos);
@@ -324,14 +324,14 @@ public class SecretaryWindow extends JFrame {
 		textFieldRoom.setColumns(10);
 		addPatientPane.add(textFieldRoom);
 
-		JButton btnRegister = new JButton("Añadir");
+		JButton btnRegister = new JButton("Aï¿½adir");
 		btnRegister.setBounds(320, 260, 212, 47);
 		btnRegister.setBackground(Color.WHITE);
 		btnRegister.setOpaque(false);
 		addPatientPane.add(btnRegister);
 		btnRegister.addActionListener(listener);
 
-		JLabel lblApellido = new JLabel("2º Apellido");
+		JLabel lblApellido = new JLabel("2ï¿½ Apellido");
 		lblApellido.setBounds(10, 123, 80, 23);
 		lblApellido.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		addPatientPane.add(lblApellido);
@@ -351,7 +351,7 @@ public class SecretaryWindow extends JFrame {
 		jcbNurse.setBounds(400, 81, 213, 20);
 		addPatientPane.add(jcbNurse);
 		
-		JLabel lblMedic = new JLabel("Médico");
+		JLabel lblMedic = new JLabel("Mï¿½dico");
 		lblMedic.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblMedic.setBounds(320, 125, 80, 23);
 		addPatientPane.add(lblMedic);

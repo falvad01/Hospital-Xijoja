@@ -37,7 +37,7 @@ public class ControlerSecretaryWindow implements ActionListener {
 //TODO comprobar codigo inutil
 	public void actionPerformed(ActionEvent arg0) {
 
-		if (arg0.getActionCommand().equals("Añadir")) {
+		if (arg0.getActionCommand().equals("Aï¿½adir")) {
 
 			boolean add = true;
 			if ((secretarywindow.textFieldName.getText().equals("")) || (secretarywindow.textFieldSurname1.getText().equals(""))
@@ -56,8 +56,8 @@ public class ControlerSecretaryWindow implements ActionListener {
 				
 			}else if (dao.checkIfRoomIsBusy(Integer.parseInt(secretarywindow.textFieldRoom.getText()))) {
 				add = false;
-				secretarywindow.lblError.setText("Esa habitacion no está disponible, proxima: "+ dao.firstRoomFree());
-				log.InfoLog("Error, no se pudo introducir el paciente, habitación ocupada");
+				secretarywindow.lblError.setText("Esa habitacion no estï¿½ disponible, proxima: "+ dao.firstRoomFree());
+				log.InfoLog("Error, no se pudo introducir el paciente, habitaciï¿½n ocupada");
 
 			}else{
 				secretarywindow.lblError.setText("");
@@ -91,7 +91,7 @@ public class ControlerSecretaryWindow implements ActionListener {
 																					// funcion del DAO
 																					// que inserta el
 																					// paciente
-						log.InfoLog("Añadido el paciente con id: "+id);
+						log.InfoLog("Aï¿½adido el paciente con id: "+id);
 
 					} catch (SQLException e1) {
 	
@@ -115,7 +115,7 @@ public class ControlerSecretaryWindow implements ActionListener {
 				secretarywindow.addPatientPane.setVisible(false);
 				secretarywindow.getPatientPane.setVisible(true);
 				
-		} else if (arg0.getActionCommand().equals("Añadir Paciente")) {
+		} else if (arg0.getActionCommand().equals("Aï¿½adir Paciente")) {
 				System.out.println("2");
 				secretarywindow.getPatientPane.setVisible(false);
 				secretarywindow.addPatientPane.setVisible(true);
@@ -124,7 +124,7 @@ public class ControlerSecretaryWindow implements ActionListener {
 		} else if (arg0.getActionCommand().equals("Buscar")) {
 				
 			if ((secretarywindow.textFieldSearchDNIGetPatient.getText().toString().equals(""))){
-				secretarywindow.lblErrorGetPatient.setText("Error en el formulario");
+				secretarywindow.lblErrorGetPatient.setText("                                          Error en el formulario");
 				log.InfoLog("Error al buscar el paciente");
 
 				

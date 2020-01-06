@@ -242,7 +242,6 @@ public class ControlerMedicWindow implements ActionListener {
 	} else if (arg0.getActionCommand().equals("Borrar")) {
 		// TODO no funciona, no se por que
 		
-		boolean isDniOrRoom = isDni(window.textFieldDNIToDelete.getText().toString());
 
 		boolean add = true;
 
@@ -251,23 +250,32 @@ public class ControlerMedicWindow implements ActionListener {
 			add=false;
 		window.lblErrorDelete.setText("Hay campos vacios");
 		log.InfoLog("Error, no se pudo borrar el paciente, hay campos vacios");
-		}else if (!dao.checkPatientExist(window.textFieldDNIToDelete.getText().toString(),isDniOrRoom)) {
-			add=false;
-			window.lblErrorDelete.setText("DNI o Habtización erroneo");
-			log.InfoLog("Error, DNI o habitación erroneos");
-
+		
 	}else {
 		window.lblErrorDelete.setText("");
 
 	}
 		
+		
 		if(add) {
 		//comprueba si se introduce un dni o numero de habitacion;
 		
-			
+
+			boolean isDniOrRoom = isDni(window.textFieldDNIToDelete.getText().toString());
+
+			if (!dao.checkPatientExist(window.textFieldDNIToDelete.getText().toString(),isDniOrRoom)) {
+				add=false;
+				window.lblErrorDelete.setText("DNI erroneo");
+				log.InfoLog("Error, DNI o habitación erroneos");
+			}else {
+					
+
 					dao.deletePatient(window.textFieldNameToDelete.getText().toString(),
 					window.textFieldFirstDeleteToDelete.getText().toString(),
 					window.textFieldSecondDeleteToDelete.getText().toString(), window.textFieldDNIToDelete.getText().toString());
+					window.lblErrorDelete.setText("");
+
+			}
 		}
 		
 	
@@ -283,7 +291,6 @@ public class ControlerMedicWindow implements ActionListener {
 		
 		int n,m;
 		int idMedic=0;
-		boolean isDniOrRoom = isDni(window.DNIM.getText().toString());
 		boolean add=true;
 
 		
@@ -297,11 +304,7 @@ public class ControlerMedicWindow implements ActionListener {
 			m=daoAlmacen.MedicineA(Integer.parseInt(window.units.getText().toString()), Integer.parseInt(window.Medicine.getText().toString()));
 
 			window.lblError2.setText("Error,quedan solo estas unidades: "+m);
-		}else if(!dao.checkPatientExist(window.DNIM.getText().toString(),isDniOrRoom)) {
-			add=false;
-
-			window.lblError2.setText("DNI erroneo");
-			log.InfoLog("DNI erroneo");	
+			
 		}else {
 			window.lblError2.setText("");
 
@@ -319,13 +322,22 @@ public class ControlerMedicWindow implements ActionListener {
 					
 				}	
 				*/
+		boolean isDniOrRoom = isDni(window.DNIM.getText().toString());
+
+		if(!dao.checkPatientExist(window.DNIM.getText().toString(),isDniOrRoom)) {
+			add=false;
+
+			window.lblError2.setText("DNI erroneo");
+			log.InfoLog("DNI erroneo");
+		}else {
 				dao.AsignMedicine(Integer.parseInt(window.units.getText().toString()), Integer.parseInt(window.Medicine.getText().toString()),window.DNIM.getText().toString());
 			
 					//daoAlmacen.restMedicine(Integer.parseInt(window.units.getText().toString()), /Integer.parseInt(window.Medicine.getText().toString()));
 					daoAlmacen.restMedicine(Integer.parseInt(window.units.getText().toString()),Integer.parseInt(window.Medicine.getText().toString()));//,idMedic);
+					window.lblError2.setText("");
 
 				}
-				
+		}
 		
 	} else if (arg0.getActionCommand().equals("Buscar Paciente")) {
 		window.seePacientsPanel.setVisible(false);
@@ -339,8 +351,9 @@ public class ControlerMedicWindow implements ActionListener {
 		boolean add=true;
 		
 		if ((window.textFieldSearchDNIGetPatient.getText().toString().equals(""))){
-			window.lblErrorGetPatient.setText("Error en el formulario");
-			log.InfoLog("Error al buscar el paciente");
+			add=false;
+			window.lblErrorGetPatient.setText("                             campos vacios");
+			log.InfoLog("campos vacios");
 
 			
 		}else {
@@ -353,7 +366,9 @@ public class ControlerMedicWindow implements ActionListener {
 			boolean isDniOrRoom = isDni(window.textFieldSearchDNIGetPatient.getText().toString());
 			
 			if (!dao.checkPatientExist(window.textFieldSearchDNIGetPatient.getText().toString(),isDniOrRoom)) {
-				window.lblErrorGetPatient.setText("Error en el formulario");
+				add=false;
+
+				window.lblErrorGetPatient.setText("                              Error en el formulario");
 				log.InfoLog("Error, no se encuentra el paciente indicado");
 			}else {
 				
@@ -364,6 +379,7 @@ public class ControlerMedicWindow implements ActionListener {
 				window.textFieldDNIGetPatient.setText(getPatientData[4]);
 				window.textFieldRoomGetPatient.setText(getPatientData[6]);
 				log.InfoLog("Devuelto el paciente con id: "+getPatientData[0]);
+				window.lblErrorGetPatient.setText("");
 
 		
 			}	
@@ -397,4 +413,3 @@ public class ControlerMedicWindow implements ActionListener {
 	}
 
 }
-
