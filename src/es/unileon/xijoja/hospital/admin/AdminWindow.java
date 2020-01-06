@@ -42,6 +42,7 @@ public class AdminWindow extends JFrame {
 
 	protected JPanel seeEmployeesPanel;
 	protected JPanel addEmployeePanel;
+	protected JPanel addPatientsPanel;
 
 	// private JScrollPane panelquebaja;
 
@@ -88,6 +89,19 @@ public class AdminWindow extends JFrame {
 	protected JTextField textFieldFirstDeleteToDelete;
 	protected JTextField textFieldSecondDeleteToDelete;
 	protected JLabel lblErrorDelete;
+
+	protected JTextField NombreP;
+	protected JTextField surname1AddPatients;
+	protected JTextField surname2AddPatients;
+	protected JTextField DNI;
+	protected JTextField roomAddPatients;
+	protected JTextField Medicamentos;
+	protected JLabel lberror;
+	protected JLabel lblError2;
+	protected JComboBox jcbNurse;
+	protected JComboBox jcbMedic;
+	protected JComboBox jcbMedicine;
+	protected JTextField textEnfermedad;
 
 	public AdminWindow(String user, String password) throws SQLException {
 		log.InfoLog("Iniciada la sesion del administrador");
@@ -140,21 +154,21 @@ public class AdminWindow extends JFrame {
 		JButton btnNewButton = new JButton("Añadir trabajador");
 		btnNewButton.setOpaque(false);
 		btnNewButton.setBackground(new Color(255, 255, 255));
-		btnNewButton.setBounds(28, 33, 234, 41);
+		btnNewButton.setBounds(28, 33, 234, 23);
 		getContentPane().add(btnNewButton);
 		btnNewButton.addActionListener(listener);
 
 		btnVerPlantilla = new JButton("Ver plantilla");
 		btnVerPlantilla.setBackground(Color.WHITE);
 		btnVerPlantilla.setOpaque(false);
-		btnVerPlantilla.setBounds(28, 139, 234, 41);
+		btnVerPlantilla.setBounds(28, 101, 234, 23);
 		getContentPane().add(btnVerPlantilla);
 		btnVerPlantilla.addActionListener(listener);
 
 		JButton btnEditEmployee = new JButton("Editar trabajador");
 		btnEditEmployee.setBackground(Color.WHITE);
 		btnEditEmployee.setOpaque(false);
-		btnEditEmployee.setBounds(28, 85, 234, 41);
+		btnEditEmployee.setBounds(28, 67, 234, 23);
 		getContentPane().add(btnEditEmployee);
 		btnEditEmployee.addActionListener(listener);
 
@@ -208,7 +222,7 @@ public class AdminWindow extends JFrame {
 		btnBorrarEmpleado.addActionListener(listener);
 		btnBorrarEmpleado.setOpaque(false);
 		btnBorrarEmpleado.setBackground(Color.WHITE);
-		btnBorrarEmpleado.setBounds(28, 196, 234, 41);
+		btnBorrarEmpleado.setBounds(28, 135, 234, 23);
 		getContentPane().add(btnBorrarEmpleado);
 
 		JButton button = new JButton(new ImageIcon(LoginWindow.class.getResource("/resources/--ndice.png")));
@@ -236,8 +250,103 @@ public class AdminWindow extends JFrame {
 		seeEmployeesPanel.setBounds(284, 11, 624, 450);
 		seeEmployeesPanel.setPreferredSize(new Dimension(630, 700));
 		seeEmployeesPanel.setVisible(false);
-		getContentPane().add(seeEmployeesPanel);
+		///////////////////////////////////////////////////////////////////////////////////
+		addPatientsPanel = new JPanel();
+		addPatientsPanel.setBounds(278, 11, 630, 450);
+		getContentPane().add(addPatientsPanel);
+		addPatientsPanel.setLayout(null);
+		addPatientsPanel.setForeground(Color.WHITE);
+		addPatientsPanel.setBackground(Color.WHITE);
+		addPatientsPanel.setVisible(true);
 
+		JLabel iconLabel2 = new JLabel("New label");
+		iconLabel2.setBounds(355, 127, 250, 222);
+		addPatientsPanel.add(iconLabel2);
+		iconLabel2.setIcon(new ImageIcon(AdminWindow.class.getResource("/resources/iconAdmin.png")));
+		getContentPane().add(addPatientsPanel);
+
+		JButton btnModificarEstadoPaciente = new JButton("Ingresar");
+		btnModificarEstadoPaciente.setOpaque(false);
+		btnModificarEstadoPaciente.setBackground(new Color(255, 255, 255));
+		btnModificarEstadoPaciente.setBounds(407, 381, 198, 41);
+		addPatientsPanel.add(btnModificarEstadoPaciente);
+		btnModificarEstadoPaciente.addActionListener(listener);
+
+		JLabel label_1 = new JLabel("Nombre Paciente");
+		label_1.setBounds(32, 47, 101, 16);
+		addPatientsPanel.add(label_1);
+
+		NombreP = new JTextField();
+		NombreP.setColumns(10);
+		NombreP.setBounds(145, 44, 116, 22);
+		addPatientsPanel.add(NombreP);
+
+		JLabel lblApellido2 = new JLabel("Apellido 1");
+		lblApellido2.setBounds(32, 88, 101, 16);
+		addPatientsPanel.add(lblApellido2);
+
+		JLabel lblApellido_12 = new JLabel("Apellido 2");
+		addPatientsPanel.add(lblApellido_12);
+
+		surname1AddPatients = new JTextField();
+		surname1AddPatients.setColumns(10);
+		surname1AddPatients.setBounds(145, 85, 116, 22);
+		addPatientsPanel.add(surname1AddPatients);
+
+		surname2AddPatients = new JTextField();
+		surname2AddPatients.setColumns(10);
+		surname2AddPatients.setBounds(145, 124, 116, 22);
+		addPatientsPanel.add(surname2AddPatients);
+
+		JLabel lblNifnie2 = new JLabel("NIFNIE");
+		lblNifnie2.setBounds(32, 168, 56, 16);
+		addPatientsPanel.add(lblNifnie2);
+
+		DNI = new JTextField();
+		DNI.setBounds(145, 165, 116, 22);
+		addPatientsPanel.add(DNI);
+		DNI.setColumns(10);
+
+		JLabel lblHabitacin = new JLabel("Habitación");
+		lblHabitacin.setBounds(32, 209, 89, 16);
+		addPatientsPanel.add(lblHabitacin);
+
+		roomAddPatients = new JTextField();
+		roomAddPatients.setBounds(145, 206, 116, 22);
+		addPatientsPanel.add(roomAddPatients);
+		roomAddPatients.setColumns(10);
+		lberror = new JLabel("");
+		lberror.setForeground(Color.RED);
+		lberror.setBounds(50, 241, 260, 150);
+		addPatientsPanel.add(lberror);
+
+		jcbNurse = new JComboBox();
+		listener.filJComboBox(jcbNurse, false);
+		jcbNurse.setBounds(392, 86, 213, 20);
+		addPatientsPanel.add(jcbNurse);
+
+		jcbMedic = new JComboBox();
+		listener.filJComboBox(jcbMedic, true);
+		jcbMedic.setBounds(392, 45, 213, 20);
+		addPatientsPanel.add(jcbMedic);
+
+		JLabel lblMedico_1 = new JLabel("Medico");
+		lblMedico_1.setBounds(307, 47, 56, 16);
+		addPatientsPanel.add(lblMedico_1);
+
+		JLabel lblEnfermera = new JLabel("Enfermera");
+		lblEnfermera.setBounds(307, 88, 73, 16);
+		addPatientsPanel.add(lblEnfermera);
+
+		JLabel lblEnfermedad = new JLabel("Enfermedad");
+		lblEnfermedad.setBounds(32, 254, 89, 16);
+		addPatientsPanel.add(lblEnfermedad);
+
+		textEnfermedad = new JTextField();
+		textEnfermedad.setColumns(10);
+		textEnfermedad.setBounds(145, 251, 116, 22);
+		addPatientsPanel.add(textEnfermedad);
+		getContentPane().add(seeEmployeesPanel);
 
 		// ---------------------------------------------PANEL BORRAR
 		// EMPLEADOS--------------------------------------//
@@ -293,7 +402,7 @@ public class AdminWindow extends JFrame {
 		btnDelete.setBounds(285, 244, 138, 20);
 		deletePanel.add(btnDelete);
 
-		 lblErrorDelete = new JLabel("");
+		lblErrorDelete = new JLabel("");
 		lblErrorDelete.setForeground(Color.RED);
 		lblErrorDelete.setBounds(433, 247, 165, 14);
 		deletePanel.add(lblErrorDelete);
@@ -546,11 +655,29 @@ public class AdminWindow extends JFrame {
 		iconLabel.setBounds(43, 245, 252, 194);
 		addEmployeePanel.add(iconLabel);
 		iconLabel.setIcon(new ImageIcon(AdminWindow.class.getResource("/resources/iconAdmin.png")));
-		
+
 		JButton btnCloseSesion = new JButton("Cerrar sesion");
 		btnCloseSesion.setBounds(842, 473, 117, 23);
 		getContentPane().add(btnCloseSesion);
+
+		JButton btnNewButton_2 = new JButton("Ingresar paciente");
+		btnNewButton_2.setBounds(28, 169, 234, 23);
+		getContentPane().add(btnNewButton_2);
+		btnNewButton_2.addActionListener(listener);
+
+		JButton button = new JButton("New button");
+		button.setBounds(28, 203, 234, 23);
+		getContentPane().add(button);
+
+		JButton button_1 = new JButton("New button");
+		button_1.setBounds(28, 237, 234, 23);
+		getContentPane().add(button_1);
+
+		JButton button_2 = new JButton("New button");
+		button_2.setBounds(28, 271, 234, 23);
+		getContentPane().add(button_2);
 		btnCloseSesion.addActionListener(listener);
+		lblApellido_1.setBounds(32, 127, 101, 16);
 
 	}
 }

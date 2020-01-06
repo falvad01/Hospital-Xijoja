@@ -104,7 +104,7 @@ public class PersonalDAO {
 		            	
 		       
 		        }
-		        System.out.println("El id más alto es: "+ ret);
+		        System.out.println("El id mï¿½s alto es: "+ ret);
 
 		
 
