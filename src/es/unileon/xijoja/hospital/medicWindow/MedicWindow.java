@@ -25,7 +25,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 
-
+import es.unileon.xijoja.hospital.InfoWindow;
 import es.unileon.xijoja.hospital.Logs;
 import es.unileon.xijoja.hospital.PacientesDAO;
 import es.unileon.xijoja.hospital.admin.AdminWindow;
@@ -77,7 +77,7 @@ public class MedicWindow extends JFrame {
     protected JTextField Medicine;
     protected JTextField DNIM;
     protected JTextField textEnfermedad;
-   
+    protected JButton button;
 
 
    
@@ -203,6 +203,19 @@ public class MedicWindow extends JFrame {
 		btnNewButton.setBackground(new Color(255, 255, 255));
 		getContentPane().add(btnNewButton);
 		btnNewButton.addActionListener(listener);
+		
+		JButton button = new JButton(new ImageIcon(LoginWindow.class.getResource("/resources/--ndice.png")));
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				InfoWindow info = new InfoWindow("medico");
+				info.setVisible(true);
+			}
+		});
+		button.setOpaque(false);
+		button.setBorder(null);
+		button.setBackground((Color) null);
+		button.setBounds(10, 462, 23, 23);
+		getContentPane().add(button);
 
 	}
 

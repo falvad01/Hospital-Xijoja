@@ -157,9 +157,9 @@ public class InfoWindow extends JFrame {
 		lblAyudaSecretarioAmplio.setBounds(0,5,300,200);
 		lblAyudaSecretarioAmplio.setBackground(Color.LIGHT_GRAY);
 		String ayuda = 
-				"La ventana de secretario cuenta con 2 men�s diferenciados en la parte izquierda \n"
+				"La ventana de secretario cuenta con 2 men�s diferenciados en la parte izquierda \n"
 				+ " y son los siguientes: \n"
-				+ "\n   -A�adir Paciente: Se introduce un paciente a la base de datos.\n"
+				+ "\n   -A�adir Paciente: Se introduce un paciente a la base de datos.\n"
 				+ "\n   -Buscar Paciente: Buscando tanto por DNI como por el numero de la habitacion nos "
 				+ "\n    devuelve los datos del paciente buscado.";
 		lblAyudaSecretarioAmplio.setText(ayuda);
@@ -183,13 +183,13 @@ public class InfoWindow extends JFrame {
 		lblAyudaEnfermeroAmplio.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		lblAyudaEnfermeroAmplio.setBackground(Color.lightGray);
 		 String ayudaEnfermero = 
-				"   La ventana de enfermero cuenta con 2 men�s diferenciados en la parte izquierda \n"
+				"   La ventana de enfermero cuenta con 2 men�s diferenciados en la parte izquierda \n"
 				+ "   y son los siguientes: \n"
 				+ "\n   -Usar Medicamento: Se empieza introduciendo un paciente, el cual tiene que"
 				+ "\n\testar previamente asignado a ese enfermero. Le damos al boton de buscar"
 				+ "\n\ty nos aparece la informacion del tratamiento asignado, el nombre y la cantidad"
 				+ "\n\tselecionamos la cantidad de medicamento que se le ha tratado y le damos"
-				+ "\n\tal bot�n de 'Tratamiento', seguidamente se borrar�n las unidades de la "
+				+ "\n\tal bot�n de 'Tratamiento', seguidamente se borrar�n las unidades de la "
 				+ "\n\tbase de datos y se actualizan los datos en pantalla.\n"
 				+ "\n   -Ver Pacientes: Se muestra una lista de todos los pacientes asigandos al"
 				+ "\n\tenfermero actual.";
@@ -204,10 +204,36 @@ public class InfoWindow extends JFrame {
 		getContentPane().add(medicPanel);
 		medicPanel.setLayout(null);
 
-		JLabel lblAyudaEmdico = new JLabel("Ayuda Medico");
-		lblAyudaEmdico.setBounds(10, 0, 258, 45);
-		lblAyudaEmdico.setFont(new Font("Tahoma", Font.BOLD, 37));
-		medicPanel.add(lblAyudaEmdico);
+		JLabel lblAyudaMedico = new JLabel("Ayuda Medico");
+		lblAyudaMedico.setBounds(10, 0, 258, 45);
+		lblAyudaMedico.setFont(new Font("Tahoma", Font.BOLD, 37));
+		medicPanel.add(lblAyudaMedico);
+		
+		JTextArea lblAyudaMedicoAmplio = new JTextArea("Ayuda");
+		lblAyudaMedicoAmplio.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		lblAyudaMedicoAmplio.setBackground(Color.lightGray);
+		 String ayudaMedico = 
+				"   La ventana de medico cuenta con 6 men�s diferenciados en la parte izquierda \n"
+				+ "   y son los siguientes: \n"
+				+ "\n   -Asignar Medicamento: Se introduce el DNI, medicamento y cantidad del mismo"
+				+ "\n después lo actualizará en la base de datos cuando se pulse el boton asignar, "
+				+ "\navisará de cuantos productos de un medicamento quedan"
+				+ "\n  -Ingresar Paciente: Aquí se rellenarán todos los campos para añadir un"
+				+ "\n paciente nuevo a la base de datos"
+				+ "\n  -Dar alta paciente: Aquí introducciendo DNI, Nombre y los 2 apellidos "
+				+ "\nse le dará el alta a un paciente  "
+				+ "\n y será eliminado de la base de datos"
+				+ "\n\tbase de datos y se actualizan los datos en pantalla.\n"
+				+ "\n   -Ver Pacientes: Se muestra una lista de todos los pacientes asigandos al"
+				+ "\n\tenfermero actual."
+				+ "\n   -informe semana: Se muestra un resuemn de los pacientes dados"
+				+ "\n de alta en la semana"
+		 		+ "\n   -Buscar paciente: Se muestra una ventana en la cual podrás "
+		 		+ "\nbuscar por nombre o habitación un paciente en específico";
+		 lblAyudaMedicoAmplio.setText(ayudaMedico);
+		 lblAyudaMedicoAmplio.setBounds(5,60,476,275);
+		 medicPanel.add(lblAyudaMedicoAmplio);
+		 
 
 		adminPanel = new JPanel();
 		adminPanel.setBounds(200, 79, 476, 335);
