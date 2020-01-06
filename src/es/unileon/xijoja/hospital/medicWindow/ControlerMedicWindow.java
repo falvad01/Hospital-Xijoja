@@ -237,24 +237,37 @@ public class ControlerMedicWindow implements ActionListener {
 		window.deletePatientsPanel.setVisible(true);
 		window.getPatientPane.setVisible(false);
 		window.addMedicine.setVisible(false);
-		window.lberror.setText("");
 		window.lblErrorDelete.setText("");
 		
 	} else if (arg0.getActionCommand().equals("Borrar")) {
 		// TODO no funciona, no se por que
 		
+		boolean add = true;
+
+		if ((window.textFieldNameToDelete.getText().equals("")) || (window.textFieldFirstDeleteToDelete.getText().equals(""))
+				|| (window.textFieldSecondDeleteToDelete.getText().equals("")) || (window.textFieldDNIToDelete.getText().equals(""))) {
+			add=false;
+		window.lblErrorDelete.setText("Hay campos vacios");
+		log.InfoLog("Error, no se pudo borrar el paciente, hay campos vacios");
+	}else {
+		window.lblErrorDelete.setText("");
+
+	}
 		
+		if(add) {
 		//comprueba si se introduce un dni o numero de habitacion;
 		boolean isDniOrRoom = isDni(window.textFieldDNIToDelete.getText().toString());
 		
 			if (!dao.checkPatientExist(window.textFieldDNIToDelete.getText().toString(),isDniOrRoom)) {
-				window.lblErrorGetPatient.setText("Error en el formulario");
+				window.lblErrorDelete.setText("Error en el formulario");
+			
+				
 			}else {
 					dao.deletePatient(window.textFieldNameToDelete.getText().toString(),
 					window.textFieldFirstDeleteToDelete.getText().toString(),
 					window.textFieldSecondDeleteToDelete.getText().toString(), window.textFieldDNIToDelete.getText().toString());
 		}
-		
+		}
 	
 	}else if (arg0.getActionCommand().equals("Asignar Medicamento Paciente")) {
 		
@@ -266,29 +279,38 @@ public class ControlerMedicWindow implements ActionListener {
 	
 	}else if (arg0.getActionCommand().equals("Asignar")) {//probablemente haya que hacer un comprobarmedicamento, pro pal final
 		
-		
+		int n,m;
 		int idMedic=0;
 		
+		boolean add=true;
+		n=daoAlmacen.Medicine(Integer.parseInt(window.units.getText().toString()), Integer.parseInt(window.Medicine.getText().toString()));
+		//n=daoAlmacen.Medicine(Integer.parseInt(window.units.getText().toString()), idMedic);
+		m=daoAlmacen.MedicineA(Integer.parseInt(window.units.getText().toString()), Integer.parseInt(window.Medicine.getText().toString()));
+		//m=daoAlmacen.MedicineA(Integer.parseInt(window.units.getText().toString()), idMedic);
 		
-		
-		
-		
-		if ((window.DNIM.getText().toString().equals(""))){
-			window.lblError2.setText("Error en el formulario");
-			log.InfoLog("Error al buscar el paciente");
-		
+		//habria que cambiarlo con el JBox, el cual aun no funciona
+		if ((window.DNIM.getText().toString().equals("")) || (window.units.getText().toString().equals("")) || (window.Medicine.getText().toString().equals("")) ){
+			add=false;
+			window.lblError2.setText("Hay campos vacios");
+			log.InfoLog("campos vacios al asignar medicamento");
+		}else if(n<0) {
+			add=false;
+
+			window.lblError2.setText("Error,quedan solo estas unidades: "+m);
 			
 		}else {
-			//comprueba si se introduce un dni
-			
+			window.lblError2.setText("");
 
+		}
+		
+		if(add) {
 			boolean isDniOrRoom = isDni(window.DNIM.getText().toString());
 			
 			if (!dao.checkPatientExist(window.DNIM.getText().toString(),isDniOrRoom)) {
 				window.lblError2.setText("Error en el formulario");
 				log.InfoLog("Error, no se encuentra el paciente indicado");
-			}else {
-				int n,m;
+			
+				/*
 				window.jcbMedic.getSelectedIndex();
 				
 				for (int i = 0; i < arrayMedic.size(); i++) {
@@ -297,22 +319,19 @@ public class ControlerMedicWindow implements ActionListener {
 					}
 					
 				}	
-				
+				*/
 				dao.AsignMedicine(Integer.parseInt(window.units.getText().toString()), Integer.parseInt(window.Medicine.getText().toString()),window.DNIM.getText().toString());
 				
-				//n=daoAlmacen.Medicine(Integer.parseInt(window.units.getText().toString()), Integer.parseInt(window.Medicine.getText().toString()));
-				n=daoAlmacen.Medicine(Integer.parseInt(window.units.getText().toString()), idMedic);
+				
 
 				System.out.println(n);
-				//m=daoAlmacen.MedicineA(Integer.parseInt(window.units.getText().toString()), Integer.parseInt(window.Medicine.getText().toString()));
-				m=daoAlmacen.MedicineA(Integer.parseInt(window.units.getText().toString()), idMedic);
+				
 
-				if(n<0) {
-					window.lblError2.setText("Error,quedan solo estas unidades: "+m);
+				
 				
 				}else {
 					//daoAlmacen.restMedicine(Integer.parseInt(window.units.getText().toString()), /Integer.parseInt(window.Medicine.getText().toString()));
-					daoAlmacen.restMedicine(Integer.parseInt(window.units.getText().toString()),idMedic);
+					daoAlmacen.restMedicine(Integer.parseInt(window.units.getText().toString()),Integer.parseInt(window.Medicine.getText().toString()));//,idMedic);
 
 				}
 				
@@ -320,7 +339,7 @@ public class ControlerMedicWindow implements ActionListener {
 			}
 			
 		
-		}
+		
 		
 	} else if (arg0.getActionCommand().equals("Buscar Paciente")) {
 		window.seePacientsPanel.setVisible(false);
@@ -331,12 +350,19 @@ public class ControlerMedicWindow implements ActionListener {
 		
 	} else if (arg0.getActionCommand().equals("Buscar")) {
 		
+		boolean add=true;
+		
 		if ((window.textFieldSearchDNIGetPatient.getText().toString().equals(""))){
 			window.lblErrorGetPatient.setText("Error en el formulario");
 			log.InfoLog("Error al buscar el paciente");
 
 			
 		}else {
+			window.lblErrorGetPatient.setText("");
+
+		}
+		
+		if(add) {
 			//comprueba si se introduce un dni o numero de habitacion;
 			boolean isDniOrRoom = isDni(window.textFieldSearchDNIGetPatient.getText().toString());
 			

@@ -43,6 +43,7 @@ public class MedicWindow extends JFrame {
 	protected JPanel deletePatientsPanel;
 	protected JPanel addMedicine;
 	protected JPanel getPatientPane;
+	protected JPanel week;
 	
 	private PacientesDAO dao;
 	private ControlerMedicWindow listener;
@@ -232,6 +233,16 @@ public class MedicWindow extends JFrame {
 		seePacientsPanel.setBounds(284, 11, 624, 450);
 		seePacientsPanel.setPreferredSize(new Dimension(630, 700));
 		seePacientsPanel.setVisible(false);
+		
+		//panel resumen semana
+		week = new JPanel();
+		week.setLayout(null);
+		week.setForeground(Color.WHITE);
+		week.setBackground(Color.WHITE);
+		week.setBounds(284, 11, 624, 450);
+		week.setPreferredSize(new Dimension(630, 700));
+		week.setVisible(true);
+		
 		//panel ingresar paciente
 		
 		addPatientsPanel = new JPanel();
@@ -369,7 +380,7 @@ public class MedicWindow extends JFrame {
 		
 		lblError2 = new JLabel("");
 		lblError2.setForeground(Color.RED);
-		lblError2.setBounds(358, 90, 200, 80);
+		lblError2.setBounds(358, 91, 300, 80);
 		addMedicine.add(lblError2);
 		
 		JButton btnAsignar = new JButton("Asignar");
@@ -477,10 +488,6 @@ public class MedicWindow extends JFrame {
 		lblErrorDelete.setBounds(433, 247, 165, 14);
 		deletePatientsPanel.add(lblErrorDelete);
 		
-		lblErrorGetPatient = new JLabel("");
-		lblErrorGetPatient.setForeground(Color.RED);
-		lblErrorGetPatient.setBounds(358, 15, 143, 14);
-		deletePatientsPanel.add(lblErrorGetPatient);
 		
 		
 		//panel buscar
@@ -496,6 +503,12 @@ public class MedicWindow extends JFrame {
 	    label.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		label.setBounds(10, 74, 63, 23);
 		getPatientPane.add(label);
+		
+		lblErrorGetPatient = new JLabel("");
+		lblErrorGetPatient.setForeground(Color.RED);
+		lblErrorGetPatient.setBounds(358, 15, 143, 14);
+		getPatientPane.add(lblErrorGetPatient);
+		
 				
 		JLabel lblApellido1 = new JLabel("1� Apellido");
 		lblApellido1.setFont(new Font("Tahoma", Font.PLAIN, 15));
