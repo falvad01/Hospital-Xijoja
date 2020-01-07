@@ -1,4 +1,4 @@
-s.unileon.xijoja.hospital.medicWindow;
+package es.unileon.xijoja.hospital.medicWindow;
 
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
