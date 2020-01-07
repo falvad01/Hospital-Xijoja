@@ -85,26 +85,33 @@ public class PacientesDAO {
 
 	}
 
-	public void deletePatient(String name, String surname1, String surname2, String DNI) {
+	public boolean deletePatient(String name, String surname1, String surname2, String DNI) {
 
 		co = Conexion.getInstance();
 		conn = co.getConnection();
-
-		String sql = "DELETE FROM pacientes WHERE Nombre=? && Apellido1=? && Apellido2=? && NIFNIE=?";
+		boolean ret = false;
+		String sql = "DELETE FROM pacientes WHERE Nombre='" + name + "' AND Apellido1='" + surname1 + "' AND Apellido2='"
+				+ surname2 + "' AND NIFNIE='" + DNI + "'";
+		Statement st;
 
 		try {
-			PreparedStatement st = conn.prepareStatement(sql);
-			st.setString(1, name);
-			st.setString(2, surname1);
-			st.setString(3, surname2);
-			st.setString(4, DNI);
-			st.executeUpdate();
+			st = conn.createStatement();
+			int rs = st.executeUpdate(sql);
+
+			if (rs == 0) {
+				ret = false;
+			} else {
+				ret = true;
+			}
 
 		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
 		co.disconect();// Desconectamos la base de datos
+		System.out.println(ret);
+		return ret;
 	}
 
 	public void AsignMedicine(int unidades, int medicamento, String DNI) {
@@ -349,29 +356,25 @@ public class PacientesDAO {
 		}
 
 		Statement st;
-
+		
 		try {
 			st = conn.createStatement();
 			ResultSet rs = st.executeQuery(sql);
-
-			while (rs.next()) {
-				rs.getString(1); // ID
-
-				if (rs.getString(1) == null) {
-
-					ret = false;
-				} else {
-					ret = true;
-				}
-
+			//rs.getString(1); // ID
+			System.out.println("RS " + !rs.next());
+			if (!rs.next()) {
+				
+				ret = false;
+			} else {
+				ret = true;
 			}
-		} catch (SQLException e) {
 
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 
 		co.disconect();// Cerramos la conexion con la base de datos
-
+		System.out.println(ret);
 		return ret;
 
 	}

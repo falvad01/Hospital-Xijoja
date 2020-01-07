@@ -416,28 +416,19 @@ public class PersonalDAO {
 		co = Conexion.getInstance();
 		conn = co.getConnection();
 
-		String sql = "UPDATE personal SET Nombre='?',Apellido1='?',Apellido2='?',NIFNIE='?',CuentaBancaria='?',Puesto='?',usuario='?',Email='?' WHERE idTrabajador = ?";
-
+		String sql = "UPDATE personal SET Nombre='" + name + "',Apellido1='" + surname1 + "',Apellido2='" + surname2
+				+ "',NIFNIE='" + DNI + "',CuentaBancaria='" + bankAccount + "',Puesto='" + job + "',usuario='" + user
+				+ "',Email='" + email + "' WHERE idTrabajador = " + id;
+		Statement st;
 		try {
-			PreparedStatement st = conn.prepareStatement(sql);
-			st.setString(1, name);
-			st.setString(2, surname1);
-			st.setString(3, surname2);
-			st.setString(4, DNI);
-			st.setString(5, bankAccount);
-			st.setString(6, job);
-			st.setString(7, user);
-			st.setString(8, email);
-			st.setInt(9, id);
-
-			st.executeUpdate();
-
+			st = conn.createStatement();
+			st.executeUpdate(sql);
 		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
 		co.disconect();// Desconectamos la base de datos
-
 	}
 
 	/**
@@ -449,27 +440,33 @@ public class PersonalDAO {
 	 * 
 	 *                 Metodo para borrar un empleado
 	 */
-	public void deleteEmployee(String name, String surname1, String surname2, String DNI) {
+	public boolean deleteEmployee(String name, String surname1, String surname2, String DNI) {
 
 		co = Conexion.getInstance();
 		conn = co.getConnection();
-
+		boolean ret = false;
 		String sql = "DELETE FROM personal WHERE Nombre='" + name + "' AND Apellido1='" + surname1 + "' AND Apellido2='"
 				+ surname2 + "' AND NIFNIE='" + DNI + "'";
 		Statement st;
+
 		try {
 			st = conn.createStatement();
+			int rs = st.executeUpdate(sql);
 
-			st.executeUpdate(sql);
-			System.out.println("PAN");
+			if (rs == 0) {
+				ret = false;
+			} else {
+				ret = true;
+			}
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println("AQUI");
+
 		co.disconect();// Desconectamos la base de datos
-	
+		System.out.println(ret);
+		return ret;
 	}
 
 	/**
@@ -493,8 +490,8 @@ public class PersonalDAO {
 			st = conn.createStatement();
 			ResultSet rs = st.executeQuery(sql);
 
-			//rs.getString(1); // ID
-			//System.out.println("Lo que no es null " + rs.getString(1));
+			// rs.getString(1); // ID
+			// System.out.println("Lo que no es null " + rs.getString(1));
 			if (rs == null) {
 
 				ret = false;

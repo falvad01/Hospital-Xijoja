@@ -77,7 +77,7 @@ public class ControlerAdmin implements ActionListener {
 	 * @param surname2
 	 * @return
 	 * 
-	 *         Generamos un usuario con el nombre y apellidos pasados por parametro
+	 * 		Generamos un usuario con el nombre y apellidos pasados por parametro
 	 */
 	private String genUser(String name, String surname1, String surname2) {
 
@@ -123,7 +123,7 @@ public class ControlerAdmin implements ActionListener {
 	 * 
 	 * @return
 	 * 
-	 *         Generamos una contraseña aleatoria
+	 * 		Generamos una contraseña aleatoria
 	 */
 	private String genPassword() {
 
@@ -265,6 +265,7 @@ public class ControlerAdmin implements ActionListener {
 			adminWindow.lblErrorEdit.setText("");
 			adminWindow.addPatientsPanel.setVisible(false);
 			adminWindow.seePacientsPanel.setVisible(false);
+			adminWindow.deletePatientsPanel.setVisible(false);
 
 		} else if ((arg0.getActionCommand().equals("Ver plantilla")) || (arg0.getActionCommand().equals("Recargar"))) {
 
@@ -278,6 +279,7 @@ public class ControlerAdmin implements ActionListener {
 			adminWindow.lblErrorEdit.setText("");
 			adminWindow.addPatientsPanel.setVisible(false);
 			adminWindow.seePacientsPanel.setVisible(false);
+			adminWindow.deletePatientsPanel.setVisible(false);
 
 			ArrayList<String[]> insert = null;
 
@@ -351,6 +353,7 @@ public class ControlerAdmin implements ActionListener {
 			adminWindow.lblErrorEdit.setText("");
 			adminWindow.addPatientsPanel.setVisible(false);
 			adminWindow.seePacientsPanel.setVisible(false);
+			adminWindow.deletePatientsPanel.setVisible(false);
 
 		} else if (arg0.getActionCommand().equals("Buscar")) {
 			// TODO saltar fallo si el dni no existe o el campo esta vacio
@@ -423,6 +426,8 @@ public class ControlerAdmin implements ActionListener {
 			adminWindow.lblErrorEdit.setText("");
 			adminWindow.addPatientsPanel.setVisible(false);
 			adminWindow.seePacientsPanel.setVisible(false);
+			adminWindow.deletePatientsPanel.setVisible(false);
+
 		} else if (arg0.getActionCommand().equals("Cerrar sesion")) {
 
 			adminWindow.setVisible(false);
@@ -436,18 +441,21 @@ public class ControlerAdmin implements ActionListener {
 			}
 
 		} else if (arg0.getActionCommand().equals("Borrar")) {
-			// TODO no funciona, no se por que
 
-			
 			if ((!personalDao.checkEmployeeExist(adminWindow.textFieldSearchDNIEdit.getText().toString()))) {
 				adminWindow.lblErrorDelete.setText("Empleado no encontrado");
 				// TODO comporbar que el DNI coincida con el nombre y los apellidos
 			} else {
 				System.out.println("Boton borrar pulsado");
-				personalDao.deleteEmployee(adminWindow.textFieldNameToDelete.getText(),
+				boolean result = personalDao.deleteEmployee(adminWindow.textFieldNameToDelete.getText(),
 						adminWindow.textFieldFirstDeleteToDelete.getText(),
 						adminWindow.textFieldSecondDeleteToDelete.getText(),
 						adminWindow.textFieldDNIToDelete.getText());
+				if (!result) {// Si algo ha fallado al borrar el empleado
+					adminWindow.lblErrorDelete.setText("Los datos no coinciden");
+				} else {
+					adminWindow.lblErrorDelete.setText("");
+				}
 			}
 
 		} else if (arg0.getActionCommand().contentEquals("Ingresar paciente")) {
@@ -462,6 +470,7 @@ public class ControlerAdmin implements ActionListener {
 			adminWindow.lblErrorEdit.setText("");
 			adminWindow.addPatientsPanel.setVisible(true);
 			adminWindow.seePacientsPanel.setVisible(false);
+			adminWindow.deletePatientsPanel.setVisible(false);
 
 		} else if (arg0.getActionCommand().contentEquals("Ingresar")) {
 
@@ -526,8 +535,8 @@ public class ControlerAdmin implements ActionListener {
 				}
 			}
 
-		}else if (arg0.getActionCommand().contentEquals("Ver pacientes")) {
-			
+		} else if (arg0.getActionCommand().contentEquals("Ver pacientes")) {
+
 			adminWindow.seeEmployeesPanel.setVisible(false);
 			adminWindow.addEmployeePanel.setVisible(false);
 			adminWindow.editEmployeesPanel.setVisible(false);
@@ -538,7 +547,8 @@ public class ControlerAdmin implements ActionListener {
 			adminWindow.lblErrorEdit.setText("");
 			adminWindow.addPatientsPanel.setVisible(false);
 			adminWindow.seePacientsPanel.setVisible(true);
-			
+			adminWindow.deletePatientsPanel.setVisible(false);
+
 			ArrayList<String[]> insert = null;
 
 			String[] titles = null;
@@ -546,39 +556,73 @@ public class ControlerAdmin implements ActionListener {
 			String[][] matrixToInsert = null;
 
 			titles = new String[] { "  Id", "Nombre", "Apellido 1", "Apellido 2", "NIF", "Fecha", "Habitación",
-					"Enfermedad", "Producto", "Medico", "Unidades medicamento", "Enfermero " }; // Titulos de la tabla de
-																	// los empleados
+					"Enfermedad", "Producto", "Medico", "Unidades medicamento", "Enfermero " }; // Titulos de la tabla
+																								// de
+			// los empleados
 			insert = patientsDao.getAllPatients();// ArrayList de Arrays
-		
+
 			matrixToInsert = new String[insert.size() + 1][12];
 			adminWindow.seePacientsPanel.setPreferredSize(new Dimension(624, 20 + 20 * insert.size()));
 			adminWindow.seePacientsPanel.setBounds(284, 11, 624, 20 + 20 * insert.size());
-			
-			for (int i = 0; i < insert.size()+1; i++) { // rellenamos la matriz que meteremos en la tabla a partir
+
+			for (int i = 0; i < insert.size() + 1; i++) { // rellenamos la matriz que meteremos en la tabla a partir
 				// del ArrayList de arrays devuelto del DAO
 				for (int j = 0; j < 12; j++) {
 					if (i == 0) {
-						
 
 						matrixToInsert[i][j] = titles[j];
 
 					} else {
-						matrixToInsert[i][j] = insert.get(i-1)[j];					}
+						matrixToInsert[i][j] = insert.get(i - 1)[j];
+					}
 				}
-}
-			
+			}
+
 			JTable PatientsTable = new JTable();
 			PatientsTable.setBounds(5, 5, 600, 20 + 20 * insert.size());
 
 			PatientsTable.setVisible(true);
 			adminWindow.seePacientsPanel.add(PatientsTable);
 			PatientsTable.setAutoscrolls(true);
-			
 
-			
 			DefaultTableModel tableModel = new DefaultTableModel(matrixToInsert, titles);
 			PatientsTable.setModel(tableModel);
-			
+
+		} else if (arg0.getActionCommand().contentEquals("Borrar paciente")) {
+			adminWindow.seeEmployeesPanel.setVisible(false);
+			adminWindow.addEmployeePanel.setVisible(false);
+			adminWindow.editEmployeesPanel.setVisible(false);
+			adminWindow.btnVerPlantilla.setText("Ver plantilla");
+			adminWindow.deletePanel.setVisible(false);
+			adminWindow.lblError.setText("");
+			adminWindow.lblErrorDelete.setText("");
+			adminWindow.lblErrorEdit.setText("");
+			adminWindow.addPatientsPanel.setVisible(false);
+			adminWindow.seePacientsPanel.setVisible(false);
+			adminWindow.deletePatientsPanel.setVisible(true);
+
+		} else if (arg0.getActionCommand().contentEquals("Eliminar")) {
+
+			if (!patientsDao.checkPatientExist(adminWindow.textFieldDNIToDeletePacient.getText(), true)) {
+				adminWindow.textFieldErrorDeletePacient.setText("Paciente no encontrado");
+				// TODO comporbar que el DNI coincida con el nombre y los apellidos
+			} else {
+				System.out.println("Boton borrar pulsado");
+
+				boolean restult = patientsDao.deletePatient(adminWindow.textFieldNameToDeleteEmployee.getText(),
+						adminWindow.textFieldFirstSurnameToDeleteEmployee.getText(),
+						adminWindow.textFieldSecondSurnameToDeleteEmployee.getText(),
+						adminWindow.textFieldErrorDeletePacient.getText());
+
+				if (!restult) {
+					adminWindow.textFieldErrorDeletePacient.setText("Los datos no coinciden");
+
+				} else {
+					adminWindow.textFieldErrorDeletePacient.setText("");
+
+				}
+
+			}
 		}
 	}
 }

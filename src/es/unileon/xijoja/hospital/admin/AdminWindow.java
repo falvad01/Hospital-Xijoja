@@ -44,6 +44,7 @@ public class AdminWindow extends JFrame {
 	protected JPanel addEmployeePanel;
 	protected JPanel addPatientsPanel;
 	protected JPanel seePacientsPanel;
+	protected JPanel deletePatientsPanel;
 
 	// private JScrollPane panelquebaja;
 
@@ -103,6 +104,11 @@ public class AdminWindow extends JFrame {
 	protected JComboBox jcbMedic;
 	protected JComboBox jcbMedicine;
 	protected JTextField textEnfermedad;
+	protected JTextField textFieldDNIToDeletePacient;
+	protected JTextField textFieldNameToDeleteEmployee;
+	protected JTextField textFieldFirstSurnameToDeleteEmployee;
+	protected JTextField textFieldSecondSurnameToDeleteEmployee;
+	protected JTextField textFieldErrorDeletePacient;
 
 	public AdminWindow(String user, String password) throws SQLException {
 		log.InfoLog("Iniciada la sesion del administrador");
@@ -239,6 +245,37 @@ public class AdminWindow extends JFrame {
 		button.setBounds(10, 462, 23, 23);
 		getContentPane().add(button);
 
+		JButton btnVerAlmacen = new JButton("Ver Almacen");
+		btnVerAlmacen.setBounds(28, 231, 234, 23);
+		getContentPane().add(btnVerAlmacen);
+
+		JButton btnComprarMedicamentos = new JButton("Comprar medicamentos");
+		btnComprarMedicamentos.setBounds(28, 265, 234, 23);
+		getContentPane().add(btnComprarMedicamentos);
+		JButton btnCloseSesion = new JButton("Cerrar sesion");
+		btnCloseSesion.setBounds(842, 473, 117, 23);
+		getContentPane().add(btnCloseSesion);
+
+		JButton btnNewButton_2 = new JButton("Ingresar paciente");
+		btnNewButton_2.setBounds(28, 130, 234, 23);
+		getContentPane().add(btnNewButton_2);
+		btnNewButton_2.addActionListener(listener);
+
+		JButton btnVerPacientes = new JButton("Ver pacientes");
+		btnVerPacientes.addActionListener(listener);
+		btnVerPacientes.setBounds(28, 156, 234, 23);
+		getContentPane().add(btnVerPacientes);
+
+		JButton btnBorrarPaciente = new JButton("Borrar paciente");
+		btnBorrarPaciente.addActionListener(listener);
+		btnBorrarPaciente.setBounds(28, 182, 234, 23);
+		getContentPane().add(btnBorrarPaciente);
+
+		JButton btnEditarPaciente = new JButton("Editar Paciente");
+		btnEditarPaciente.setBounds(28, 209, 234, 23);
+		getContentPane().add(btnEditarPaciente);
+		btnCloseSesion.addActionListener(listener);
+
 	}
 
 	private void initComponentsPanels() throws SQLException {
@@ -251,9 +288,71 @@ public class AdminWindow extends JFrame {
 		seeEmployeesPanel.setBounds(284, 11, 624, 450);
 		seeEmployeesPanel.setPreferredSize(new Dimension(630, 700));
 		seeEmployeesPanel.setVisible(false);
-		///////////////////////////////////////////////////////////////////////////////////
+//----------------------------------PANEL AÑADIR PACIENTES--------------------------//
 		addPatientsPanel = new JPanel();
 		addPatientsPanel.setVisible(false);
+
+		// ------------------------------PANEL BORRAR
+		// EMPLEADOS-------------------------//
+		deletePatientsPanel = new JPanel();
+		deletePatientsPanel.setVisible(false);
+		deletePatientsPanel.setBackground(Color.WHITE);
+		deletePatientsPanel.setBounds(274, 0, 649, 467);
+		getContentPane().add(deletePatientsPanel);
+		deletePatientsPanel.setLayout(null);
+
+		JLabel lblNewLabel_123 = new JLabel("DNI");
+		lblNewLabel_123.setBounds(39, 69, 46, 20);
+		deletePatientsPanel.add(lblNewLabel_123);
+
+		JLabel lblNewLabel_22 = new JLabel("Nombre");
+		lblNewLabel_22.setBounds(39, 119, 46, 14);
+		deletePatientsPanel.add(lblNewLabel_22);
+
+		JLabel lblApellido_32 = new JLabel("1º Apellido");
+		lblApellido_32.setBounds(39, 169, 60, 14);
+		deletePatientsPanel.add(lblApellido_32);
+
+		JLabel lblapellido2 = new JLabel("2ºApellido");
+		lblapellido2.setBounds(39, 218, 60, 14);
+		deletePatientsPanel.add(lblapellido2);
+
+		JLabel lblNewLabel_32 = new JLabel("Introducir los siguientes datos para borrar");
+		lblNewLabel_32.setBounds(39, 23, 275, 20);
+		deletePatientsPanel.add(lblNewLabel_32);
+
+		JButton btnDelete2 = new JButton("Eliminar");
+		btnDelete2.addActionListener(listener);
+		btnDelete2.setBounds(285, 244, 138, 20);
+		btnDelete2.setOpaque(false);
+		btnDelete2.setBackground(new Color(255, 255, 255));
+		deletePatientsPanel.add(btnDelete2);
+
+		textFieldDNIToDeletePacient = new JTextField();
+		textFieldDNIToDeletePacient.setBounds(111, 69, 100, 20);
+		deletePatientsPanel.add(textFieldDNIToDeletePacient);
+		textFieldDNIToDeletePacient.setColumns(10);
+
+		textFieldNameToDeleteEmployee = new JTextField();
+		textFieldNameToDeleteEmployee.setBounds(111, 116, 100, 20);
+		deletePatientsPanel.add(textFieldNameToDeleteEmployee);
+		textFieldNameToDeleteEmployee.setColumns(10);
+
+		textFieldFirstSurnameToDeleteEmployee = new JTextField();
+		textFieldFirstSurnameToDeleteEmployee.setBounds(109, 166, 100, 20);
+		deletePatientsPanel.add(textFieldFirstSurnameToDeleteEmployee);
+		textFieldFirstSurnameToDeleteEmployee.setColumns(10);
+
+		textFieldSecondSurnameToDeleteEmployee = new JTextField();
+		textFieldSecondSurnameToDeleteEmployee.setColumns(10);
+		textFieldSecondSurnameToDeleteEmployee.setBounds(109, 215, 100, 20);
+		deletePatientsPanel.add(textFieldSecondSurnameToDeleteEmployee);
+
+		textFieldErrorDeletePacient = new JTextField();
+		textFieldErrorDeletePacient.setCaretColor(Color.RED);
+		textFieldErrorDeletePacient.setBounds(436, 244, 154, 20);
+		deletePatientsPanel.add(textFieldErrorDeletePacient);
+		textFieldErrorDeletePacient.setColumns(10);
 		addPatientsPanel.setBounds(278, 11, 630, 450);
 		getContentPane().add(addPatientsPanel);
 		addPatientsPanel.setLayout(null);
@@ -349,8 +448,7 @@ public class AdminWindow extends JFrame {
 		addPatientsPanel.add(textEnfermedad);
 		getContentPane().add(seeEmployeesPanel);
 
-		// ---------------------------------------------PANEL BORRAR
-		// EMPLEADOS--------------------------------------//
+// ---------------------------------------------PANEL BORRAR EMPLEADOS--------------------------------------//
 		deletePanel = new JPanel();
 		deletePanel.setBackground(Color.WHITE);
 		deletePanel.setBounds(274, 0, 649, 467);
@@ -407,8 +505,7 @@ public class AdminWindow extends JFrame {
 		lblErrorDelete.setForeground(Color.RED);
 		lblErrorDelete.setBounds(433, 247, 165, 14);
 		deletePanel.add(lblErrorDelete);
-		// --------------------------------------------PANEL EDITAR
-		// EMPLEADOS-------------------------------------//
+// --------------------------------------------PANEL EDITAR EMPLEADOS-------------------------------------//
 		editEmployeesPanel = new JPanel();
 		editEmployeesPanel.setBounds(284, 11, 624, 450);
 		getContentPane().add(editEmployeesPanel);
@@ -656,30 +753,9 @@ public class AdminWindow extends JFrame {
 		iconLabel.setBounds(43, 245, 252, 194);
 		addEmployeePanel.add(iconLabel);
 		iconLabel.setIcon(new ImageIcon(AdminWindow.class.getResource("/resources/iconAdmin.png")));
-
-		JButton btnCloseSesion = new JButton("Cerrar sesion");
-		btnCloseSesion.setBounds(842, 473, 117, 23);
-		getContentPane().add(btnCloseSesion);
-
-		JButton btnNewButton_2 = new JButton("Ingresar paciente");
-		btnNewButton_2.setBounds(28, 130, 234, 23);
-		getContentPane().add(btnNewButton_2);
-		btnNewButton_2.addActionListener(listener);
-
-		JButton btnVerPacientes = new JButton("Ver pacientes");
-		btnVerPacientes.addActionListener(listener);
-		btnVerPacientes.setBounds(28, 156, 234, 23);
-		getContentPane().add(btnVerPacientes);
-
-		JButton btnBorrarPaciente = new JButton("Borrar Paciente");
-		btnBorrarPaciente.setBounds(28, 182, 234, 23);
-		getContentPane().add(btnBorrarPaciente);
-
-		JButton btnEditarPaciente = new JButton("Editar Paciente");
-		btnEditarPaciente.setBounds(28, 209, 234, 23);
-		getContentPane().add(btnEditarPaciente);
-		btnCloseSesion.addActionListener(listener);
 		lblApellido_1.setBounds(32, 127, 101, 16);
+
+// ---------------------------------------VER PACIENTES-----------------------------------//
 		seePacientsPanel = new JPanel();
 		seePacientsPanel.setLayout(null);
 		seePacientsPanel.setForeground(Color.WHITE);
@@ -688,14 +764,6 @@ public class AdminWindow extends JFrame {
 		seePacientsPanel.setPreferredSize(new Dimension(630, 700));
 		seePacientsPanel.setVisible(false);
 		getContentPane().add(seePacientsPanel);
-		
-		JButton btnVerAlmacen = new JButton("Ver Almacen");
-		btnVerAlmacen.setBounds(28, 231, 234, 23);
-		getContentPane().add(btnVerAlmacen);
-		
-		JButton btnComprarMedicamentos = new JButton("Comprar medicamentos");
-		btnComprarMedicamentos.setBounds(28, 265, 234, 23);
-		getContentPane().add(btnComprarMedicamentos);
 
 	}
 }
