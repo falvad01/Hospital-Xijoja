@@ -34,7 +34,9 @@ public class ControlerMedicWindow implements ActionListener {
 	private ArrayList<String[]> arrayMedicine;
 	String[] getPatientData = null;
 	String[] getPatientDNI = null;
+	private int idProduct;
 	private ArrayList<String[]> arrayPacientes;
+	String[] getProductData = null;
 
 
 
@@ -77,22 +79,18 @@ public class ControlerMedicWindow implements ActionListener {
 	}
 	
 
-	public void filJComboBox2(JComboBox edit) {
+	public void filJComboBoxMedicines() {
+		
+		int Medicines =daoAlmacen.getMedicineMedic(idProduct);// ArrayList de Arrays;
 
-		ArrayList<String[]> list =  daoAlmacen.getMedicine();
-		
-			arrayMedicine=list;	
-		
-		String[] data = new String[2];
-		if (list==null) {
-			
-		}else {
-			for (int i = 0; i < list.size(); i++) {
-				data= list.get(i);
-				edit.addItem(data[1]);
+			for (int i = 0; i <= Medicines; i++) {
+				
+				window.jcbMedicine.addItem(i);
+				
 				
 			}
-		}
+		
+		
 		
 	}
 	public boolean isDni (String dniOrRoom) {
@@ -262,7 +260,9 @@ public class ControlerMedicWindow implements ActionListener {
 			add=false;
 		window.lblErrorDelete.setText("Hay campos vacios");
 		log.InfoLog("Error, no se pudo borrar el paciente, hay campos vacios");
-		
+		}else if ((window.jcbMedicine.getSelectedItem()==null)){
+				window.lblErrorGetPatient.setText("No tiene pacientes asignados");
+				log.InfoLog("Error, no se selecion� un paciente");
 	}else {
 		window.lblErrorDelete.setText("");
 
@@ -280,9 +280,10 @@ public class ControlerMedicWindow implements ActionListener {
 				window.lblErrorDelete.setText("DNI erroneo");
 				log.InfoLog("Error, DNI o habitación erroneos");
 			}else {
-					
-				getPatientDNI=dao.getPatientDNI(window.textFieldDNIToDelete.getText().toString());
-				arrayMedicine.add(getPatientDNI);
+				filJComboBoxMedicines();
+				getProductData = daoAlmacen.getMedicine(idProduct);
+				//getPatientDNI=dao.getPatientDNI(window.textFieldDNIToDelete.getText().toString());
+				//arrayMedicine.add(getPatientDNI);
 				
 				/*
 				Iterator<String[]> it = arrayPacientes.iterator();
