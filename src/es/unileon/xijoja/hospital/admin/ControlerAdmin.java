@@ -438,15 +438,16 @@ public class ControlerAdmin implements ActionListener {
 		} else if (arg0.getActionCommand().equals("Borrar")) {
 			// TODO no funciona, no se por que
 
+			
 			if ((!personalDao.checkEmployeeExist(adminWindow.textFieldSearchDNIEdit.getText().toString()))) {
 				adminWindow.lblErrorDelete.setText("Empleado no encontrado");
 				// TODO comporbar que el DNI coincida con el nombre y los apellidos
 			} else {
 				System.out.println("Boton borrar pulsado");
-				personalDao.deleteEmployee(adminWindow.textFieldNameToDelete.toString(),
-						adminWindow.textFieldFirstDeleteToDelete.toString(),
-						adminWindow.textFieldSecondDeleteToDelete.toString(),
-						adminWindow.textFieldDNIToDelete.toString());
+				personalDao.deleteEmployee(adminWindow.textFieldNameToDelete.getText(),
+						adminWindow.textFieldFirstDeleteToDelete.getText(),
+						adminWindow.textFieldSecondDeleteToDelete.getText(),
+						adminWindow.textFieldDNIToDelete.getText());
 			}
 
 		} else if (arg0.getActionCommand().contentEquals("Ingresar paciente")) {

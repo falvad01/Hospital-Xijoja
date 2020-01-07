@@ -23,7 +23,7 @@ public class Logs {
 			Calendar fechaActual = Calendar.getInstance(); // Para poder utilizar el paquete calendar
 
 			String clas = new Exception().getStackTrace()[1].getClassName();// Obtenemos la calse que llama al log
-			System.out.println(clas);
+			
 			String[] parts = clas.split("hospital.");// nos uqedamos con la ultima parte
 
 			// Empieza a escribir en el archivo

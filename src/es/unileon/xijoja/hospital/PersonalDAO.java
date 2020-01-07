@@ -454,23 +454,22 @@ public class PersonalDAO {
 		co = Conexion.getInstance();
 		conn = co.getConnection();
 
-		String sql = "DELETE FROM personal WHERE Nombre='?' && Apellido1='?' && Apellido2='?' && NIFNIE='?'";
-
+		String sql = "DELETE FROM personal WHERE Nombre='" + name + "' AND Apellido1='" + surname1 + "' AND Apellido2='"
+				+ surname2 + "' AND NIFNIE='" + DNI + "'";
+		Statement st;
 		try {
-			PreparedStatement st = conn.prepareStatement(sql);
+			st = conn.createStatement();
 
-			st.setString(1, name);
-			st.setString(2, surname1);
-			st.setString(3, surname2);
-			st.setString(4, DNI);
-			st.executeUpdate();
+			st.executeUpdate(sql);
 			System.out.println("PAN");
 
 		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		System.out.println("AQUI");
 		co.disconect();// Desconectamos la base de datos
+	
 	}
 
 	/**
@@ -486,7 +485,7 @@ public class PersonalDAO {
 
 		co = Conexion.getInstance();
 		conn = co.getConnection();
-		System.out.println("Aqui ni entra");
+
 		String sql = "SELECT * FROM personal WHERE NIFNIE='" + DNI + "'";
 		Statement st;
 
@@ -494,17 +493,15 @@ public class PersonalDAO {
 			st = conn.createStatement();
 			ResultSet rs = st.executeQuery(sql);
 
-			while (rs.next()) {
-				rs.getString(1); // ID
+			//rs.getString(1); // ID
+			//System.out.println("Lo que no es null " + rs.getString(1));
+			if (rs == null) {
 
-				if (rs.getString(1) == null) {
-
-					ret = false;
-				} else {
-					ret = true;
-				}
-
+				ret = false;
+			} else {
+				ret = true;
 			}
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

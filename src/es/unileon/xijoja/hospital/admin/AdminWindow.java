@@ -162,14 +162,14 @@ public class AdminWindow extends JFrame {
 		btnVerPlantilla = new JButton("Ver plantilla");
 		btnVerPlantilla.setBackground(Color.WHITE);
 		btnVerPlantilla.setOpaque(false);
-		btnVerPlantilla.setBounds(28, 101, 234, 23);
+		btnVerPlantilla.setBounds(28, 80, 234, 23);
 		getContentPane().add(btnVerPlantilla);
 		btnVerPlantilla.addActionListener(listener);
 
 		JButton btnEditEmployee = new JButton("Editar trabajador");
 		btnEditEmployee.setBackground(Color.WHITE);
 		btnEditEmployee.setOpaque(false);
-		btnEditEmployee.setBounds(28, 67, 234, 23);
+		btnEditEmployee.setBounds(28, 56, 234, 23);
 		getContentPane().add(btnEditEmployee);
 		btnEditEmployee.addActionListener(listener);
 
@@ -223,7 +223,7 @@ public class AdminWindow extends JFrame {
 		btnBorrarEmpleado.addActionListener(listener);
 		btnBorrarEmpleado.setOpaque(false);
 		btnBorrarEmpleado.setBackground(Color.WHITE);
-		btnBorrarEmpleado.setBounds(28, 135, 234, 23);
+		btnBorrarEmpleado.setBounds(28, 106, 234, 23);
 		getContentPane().add(btnBorrarEmpleado);
 
 		JButton button = new JButton(new ImageIcon(LoginWindow.class.getResource("/resources/--ndice.png")));
@@ -253,12 +253,12 @@ public class AdminWindow extends JFrame {
 		seeEmployeesPanel.setVisible(false);
 		///////////////////////////////////////////////////////////////////////////////////
 		addPatientsPanel = new JPanel();
+		addPatientsPanel.setVisible(false);
 		addPatientsPanel.setBounds(278, 11, 630, 450);
 		getContentPane().add(addPatientsPanel);
 		addPatientsPanel.setLayout(null);
 		addPatientsPanel.setForeground(Color.WHITE);
 		addPatientsPanel.setBackground(Color.WHITE);
-		addPatientsPanel.setVisible(true);
 
 		JLabel iconLabel2 = new JLabel("New label");
 		iconLabel2.setBounds(355, 127, 250, 222);
@@ -662,22 +662,22 @@ public class AdminWindow extends JFrame {
 		getContentPane().add(btnCloseSesion);
 
 		JButton btnNewButton_2 = new JButton("Ingresar paciente");
-		btnNewButton_2.setBounds(28, 169, 234, 23);
+		btnNewButton_2.setBounds(28, 130, 234, 23);
 		getContentPane().add(btnNewButton_2);
 		btnNewButton_2.addActionListener(listener);
 
 		JButton btnVerPacientes = new JButton("Ver pacientes");
 		btnVerPacientes.addActionListener(listener);
-		btnVerPacientes.setBounds(28, 203, 234, 23);
+		btnVerPacientes.setBounds(28, 156, 234, 23);
 		getContentPane().add(btnVerPacientes);
 
-		JButton button_1 = new JButton("New button");
-		button_1.setBounds(28, 237, 234, 23);
-		getContentPane().add(button_1);
+		JButton btnBorrarPaciente = new JButton("Borrar Paciente");
+		btnBorrarPaciente.setBounds(28, 182, 234, 23);
+		getContentPane().add(btnBorrarPaciente);
 
-		JButton button_2 = new JButton("New button");
-		button_2.setBounds(28, 271, 234, 23);
-		getContentPane().add(button_2);
+		JButton btnEditarPaciente = new JButton("Editar Paciente");
+		btnEditarPaciente.setBounds(28, 209, 234, 23);
+		getContentPane().add(btnEditarPaciente);
 		btnCloseSesion.addActionListener(listener);
 		lblApellido_1.setBounds(32, 127, 101, 16);
 		seePacientsPanel = new JPanel();
@@ -688,6 +688,14 @@ public class AdminWindow extends JFrame {
 		seePacientsPanel.setPreferredSize(new Dimension(630, 700));
 		seePacientsPanel.setVisible(false);
 		getContentPane().add(seePacientsPanel);
+		
+		JButton btnVerAlmacen = new JButton("Ver Almacen");
+		btnVerAlmacen.setBounds(28, 231, 234, 23);
+		getContentPane().add(btnVerAlmacen);
+		
+		JButton btnComprarMedicamentos = new JButton("Comprar medicamentos");
+		btnComprarMedicamentos.setBounds(28, 265, 234, 23);
+		getContentPane().add(btnComprarMedicamentos);
 
 	}
 }

@@ -124,10 +124,11 @@ public class PacientesDAO {
 
 		co.disconect();// Desconectamos la base de datos
 	}
-/**
- * 
- * @param id
- */
+
+	/**
+	 * 
+	 * @param id
+	 */
 	public void setfkProductoNull(int id) {
 
 		co = Conexion.getInstance();
@@ -621,7 +622,7 @@ public class PacientesDAO {
 	 * @param idEmployee
 	 * @return
 	 */
-	public String[] getPatient(int id, int idEmployee,boolean isMedic) {
+	public String[] getPatient(int id, int idEmployee, boolean isMedic) {
 
 		co = Conexion.getInstance();
 		conn = co.getConnection();
@@ -631,7 +632,7 @@ public class PacientesDAO {
 		} else {
 			sql = "SELECT * FROM pacientes WHERE idPaciente='" + id + "' && fk_idEnfermero='" + idEmployee + "'";
 		}
-		
+
 		System.out.println(sql);
 
 		String[] ret = null;
@@ -741,14 +742,14 @@ public class PacientesDAO {
 	 * @param idNurse
 	 * @return
 	 */
-	public ArrayList<String[]> getAllPatients(int idNurse,boolean isMedic) {
+	public ArrayList<String[]> getAllPatients(int idNurse, boolean isMedic) {
 
 		ArrayList<String[]> ret = new ArrayList<String[]>();
 
 		int lastId = this.getLastID();
 		String[] retu;
 		for (int i = 0; i <= lastId; i++) {
-			retu = getPatient(i, idNurse,isMedic);
+			retu = getPatient(i, idNurse, isMedic);
 			System.out.println(retu[0]);
 			if (retu[0] != null) {
 				System.out.println("a�adido");
