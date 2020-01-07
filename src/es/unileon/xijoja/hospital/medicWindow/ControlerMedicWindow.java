@@ -1,4 +1,4 @@
-package es.unileon.xijoja.hospital.medicWindow;
+s.unileon.xijoja.hospital.medicWindow;
 
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -34,7 +34,7 @@ public class ControlerMedicWindow implements ActionListener {
 	private ArrayList<String[]> arrayMedicine;
 	String[] getPatientData = null;
 	String[] getPatientDNI = null;
-	private int idProduct;
+	private int id,idProduct;
 	private ArrayList<String[]> arrayPacientes;
 	String[] getProductData = null;
 
@@ -50,7 +50,7 @@ public class ControlerMedicWindow implements ActionListener {
 		dao = new PacientesDAO();
 		this.daoAlmacen= new AlmacenDAO();
 		this.daoPersonal= new PersonalDAO();
-
+		//this. id= daoPersonal.getIdByUserAndPass(window.user,window.password);
 		log = new Logs();
 		//TODO inicializar aqui el dao
 	}
@@ -81,9 +81,9 @@ public class ControlerMedicWindow implements ActionListener {
 
 	public void filJComboBoxMedicines() {
 		
-		int Medicines =daoAlmacen.getMedicineMedic(idProduct);// ArrayList de Arrays;
+		String[] Medicines  =daoAlmacen.getMedicineMedic();// ArrayList de Arrays;
 
-			for (int i = 0; i <= Medicines; i++) {
+			for (int i = 0; i <= Medicines.length; i++) {
 				
 				window.jcbMedicine.addItem(i);
 				
@@ -280,8 +280,7 @@ public class ControlerMedicWindow implements ActionListener {
 				window.lblErrorDelete.setText("DNI erroneo");
 				log.InfoLog("Error, DNI o habitación erroneos");
 			}else {
-				filJComboBoxMedicines();
-				getProductData = daoAlmacen.getMedicine(idProduct);
+				
 				//getPatientDNI=dao.getPatientDNI(window.textFieldDNIToDelete.getText().toString());
 				//arrayMedicine.add(getPatientDNI);
 				
@@ -316,7 +315,7 @@ public class ControlerMedicWindow implements ActionListener {
 		int idMedic=0;
 		boolean add=true;
 
-		
+		filJComboBoxMedicines();
 		//habria que cambiarlo con el JBox, el cual aun no funciona
 		if ((window.DNIM.getText().toString().equals("")) || (window.units.getText().toString().equals("")) || (window.Medicine.getText().toString().equals("")) ){
 			add=false;
@@ -353,6 +352,8 @@ public class ControlerMedicWindow implements ActionListener {
 			window.lblError2.setText("DNI erroneo");
 			log.InfoLog("DNI erroneo");
 		}else {
+			
+			
 				dao.AsignMedicine(Integer.parseInt(window.units.getText().toString()), Integer.parseInt(window.Medicine.getText().toString()),window.DNIM.getText().toString());
 			
 					//daoAlmacen.restMedicine(Integer.parseInt(window.units.getText().toString()), /Integer.parseInt(window.Medicine.getText().toString()));
