@@ -79,6 +79,8 @@ public class MedicWindow extends JFrame {
     protected JTextField DNIM;
     protected JTextField textEnfermedad;
     protected JButton button;
+   // protected String user;
+	//protected String password;
 
 
    
@@ -86,8 +88,10 @@ public class MedicWindow extends JFrame {
 	// TODO las variables que se quieran ser usadas en el controlador tienen que
 	// estar en protected NO en private
 
-	public MedicWindow() { 
-		
+	//public MedicWindow(String user, String password) { 
+		public MedicWindow() { 	
+		//this.user = user;
+		//this.password = password;
 
 		log.InfoLog("Iniciada la sesion del medico");
 		screen = Toolkit.getDefaultToolkit();
@@ -336,17 +340,6 @@ public class MedicWindow extends JFrame {
 				jcbNurse.setBounds(392, 86, 213, 20);
 				addPatientsPanel.add(jcbNurse);
 		
-		//panel resumen semana
-		week = new JPanel();
-		week.setLayout(null);
-		week.setForeground(Color.WHITE);
-		week.setBackground(Color.WHITE);
-		week.setBounds(278, 11, 630, 450);
-		week.setPreferredSize(new Dimension(630, 700));
-		getContentPane().add(week);
-		week.setVisible(true);
-		getContentPane().add(seePacientsPanel);
-		
 		
 		
 	
@@ -408,7 +401,21 @@ public class MedicWindow extends JFrame {
 		addMedicine.add(label_3);
 		
 		jcbMedicine = new JComboBox();
-		listener.filJComboBox2(jcbMedicine);
+		jcbMedicine.setBounds(125, 233, 138, 20);
+		addMedicine.add(jcbMedicine);
+		listener.filJComboBoxMedicines();
+		
+		
+		//panel resumen semana
+		week = new JPanel();
+		week.setLayout(null);
+		week.setForeground(Color.WHITE);
+		week.setBackground(Color.WHITE);
+		week.setBounds(278, 11, 630, 450);
+		week.setPreferredSize(new Dimension(630, 700));
+		getContentPane().add(week);
+		week.setVisible(true);
+		getContentPane().add(seePacientsPanel);
 
 		
 
