@@ -230,7 +230,7 @@ public class ControlerAdmin implements ActionListener {
 						adminWindow.textFieldSurname1.getText(), adminWindow.textFieldSurname1.getText()));
 				adminWindow.lblPassword.setText(genPassword());
 
-				int id = personalDao.getLastID() + 1;// siguiente id
+				int id = personalDao.firstIdFree();// siguiente id
 
 				Date date = new Date(Calendar.getInstance().getTime().getTime());// Obtenemos la fecha actual
 

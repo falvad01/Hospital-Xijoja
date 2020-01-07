@@ -30,7 +30,7 @@ public class PersonalDAO {
 	 *
 	 */
 	public PersonalDAO() {
-		log= new Logs();
+		log = new Logs();
 	}
 
 	/**
@@ -99,14 +99,11 @@ public class PersonalDAO {
 			Statement st = conn.createStatement();
 			ResultSet rs = st.executeQuery("Select idTrabajador from personal");
 
-		        while (rs.next()) {
-		            ret= (ret<rs.getInt(1)) ? rs.getInt(1):ret;
-		            	
-		       
-		        }
-		        System.out.println("El id m�s alto es: "+ ret);
+			while (rs.next()) {
+				ret = (ret < rs.getInt(1)) ? rs.getInt(1) : ret;
 
-		
+			}
+			System.out.println("El id m�s alto es: " + ret);
 
 		} catch (SQLException e) {
 
@@ -135,41 +132,42 @@ public class PersonalDAO {
 	 */
 	public ArrayList<String[]> getNuseAndMedic(boolean medic) {
 
-  		co = Conexion.getInstance();
-  		conn = co.getConnection();
-  		ArrayList<String[]> ret = new ArrayList<String[]>();
+		co = Conexion.getInstance();
+		conn = co.getConnection();
+		ArrayList<String[]> ret = new ArrayList<String[]>();
 
-  		String sql = "SELECT * FROM personal WHERE Puesto=?" ;
-  		
-  		try {
-  			PreparedStatement st = conn.prepareStatement(sql);
-  	  		if (medic) {
-  	  			 System.out.println("busco medicos");
-  	 	        st.setString(1, "Medico");
-  	 	     
-  			}else {
-  					System.out.println("busco enfermeros");
-  				 st.setString(1, "Enfermero");
-  			}
-  			
-  			ResultSet rs = st.executeQuery();
-  			String[] ret2 = new String[2];
-  			while (rs.next()) {
-  	  			ret2 = new String[2];
+		String sql = "SELECT * FROM personal WHERE Puesto=?";
 
-  				ret2[0] = rs.getString(1); // ID
-  				ret2[1] = "Dr. "+ rs.getString(2) + " "+ rs.getString(3)+" "+ rs.getString(4); //nombre y apellidos
-  				ret.add(ret2);
+		try {
+			PreparedStatement st = conn.prepareStatement(sql);
+			if (medic) {
+				System.out.println("busco medicos");
+				st.setString(1, "Medico");
 
-  			}
-  		} catch (SQLException e) {
-  			e.printStackTrace();
-  		}
+			} else {
+				System.out.println("busco enfermeros");
+				st.setString(1, "Enfermero");
+			}
 
-  		co.disconect();// Cerramos la conexion con la base de datos
-  		return ret;
-  	}
-    
+			ResultSet rs = st.executeQuery();
+			String[] ret2 = new String[2];
+			while (rs.next()) {
+				ret2 = new String[2];
+
+				ret2[0] = rs.getString(1); // ID
+				ret2[1] = "Dr. " + rs.getString(2) + " " + rs.getString(3) + " " + rs.getString(4); // nombre y
+																									// apellidos
+				ret.add(ret2);
+
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		co.disconect();// Cerramos la conexion con la base de datos
+		return ret;
+	}
+
 	public void addEmployee(int id, String name, String surname1, String surname2, String DNI, Date date,
 			String bankAccount, String job, String password, String user, String email) {
 
@@ -179,18 +177,18 @@ public class PersonalDAO {
 		String sql = "INSERT INTO personal (idTrabajador, Nombre, Apellido1, Apellido2, NIFNIE, FechaAlta, CuentaBancaria, Puesto, contrasenia, usuario, Email) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
 
 		try {
-	        PreparedStatement st = conn.prepareStatement(sql);
-	        st.setInt(1, id);
-	        st.setString(2, name);
-	        st.setString(3, surname1);
-	        st.setString(4, surname2); 
-	        st.setString(5, DNI);
-	        st.setDate(6, date);
-	        st.setString(7,bankAccount );
-	        st.setString(8, job);
-	        st.setString(9,password);
-	        st.setString(10, user);
-	        st.setString(11, email);
+			PreparedStatement st = conn.prepareStatement(sql);
+			st.setInt(1, id);
+			st.setString(2, name);
+			st.setString(3, surname1);
+			st.setString(4, surname2);
+			st.setString(5, DNI);
+			st.setDate(6, date);
+			st.setString(7, bankAccount);
+			st.setString(8, job);
+			st.setString(9, password);
+			st.setString(10, user);
+			st.setString(11, email);
 			st.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -374,7 +372,7 @@ public class PersonalDAO {
 
 		int lastId = this.getLastID();//
 		System.out.println(lastId);
-		for (int i = 0; i <= lastId; i++) { 
+		for (int i = 0; i <= lastId; i++) {
 			ret.add(getEmployee(i));
 
 		}
@@ -419,22 +417,21 @@ public class PersonalDAO {
 		conn = co.getConnection();
 
 		String sql = "UPDATE personal SET Nombre='?',Apellido1='?',Apellido2='?',NIFNIE='?',CuentaBancaria='?',Puesto='?',usuario='?',Email='?' WHERE idTrabajador = ?";
-		
 
 		try {
-	        PreparedStatement st = conn.prepareStatement(sql);
-	        st.setString(1, name);
-	        st.setString(2, surname1);
-	        st.setString(3, surname2); 
-	        st.setString(4, DNI);
-	        st.setString(5,bankAccount );
-	        st.setString(6, job);
-	        st.setString(7, user);
-	        st.setString(8, email);
-	        st.setInt(9, id);
+			PreparedStatement st = conn.prepareStatement(sql);
+			st.setString(1, name);
+			st.setString(2, surname1);
+			st.setString(3, surname2);
+			st.setString(4, DNI);
+			st.setString(5, bankAccount);
+			st.setString(6, job);
+			st.setString(7, user);
+			st.setString(8, email);
+			st.setInt(9, id);
 
 			st.executeUpdate();
-	
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -458,15 +455,14 @@ public class PersonalDAO {
 		conn = co.getConnection();
 
 		String sql = "DELETE FROM personal WHERE Nombre='?' && Apellido1='?' && Apellido2='?' && NIFNIE='?'";
-		
 
 		try {
-	        PreparedStatement st = conn.prepareStatement(sql);
-	        
-	        st.setString(1, name);
-	        st.setString(2, surname1);
-	        st.setString(3, surname2); 
-	        st.setString(4, DNI);
+			PreparedStatement st = conn.prepareStatement(sql);
+
+			st.setString(1, name);
+			st.setString(2, surname1);
+			st.setString(3, surname2);
+			st.setString(4, DNI);
 			st.executeUpdate();
 			System.out.println("PAN");
 
@@ -518,72 +514,68 @@ public class PersonalDAO {
 		return ret;
 
 	}
-	 public int getIdByUserAndPass(String user, String pass) {
 
-	  		co = Conexion.getInstance();
-	  		conn = co.getConnection();
-	  		
-	  		Statement st ;
-	  		String sql  = "SELECT * FROM personal WHERE usuario='"+user+"' && contrasenia='"+pass+"'";
-	  		
-	  		int ret = 0;
-	  		try {
-	 			 st = conn.createStatement();
+	public int getIdByUserAndPass(String user, String pass) {
 
-	 
-	  			ResultSet rs = st.executeQuery(sql);
-	  			while (rs.next()) {
-	  				ret =rs.getInt(1); // ID
-	  				
+		co = Conexion.getInstance();
+		conn = co.getConnection();
 
-	  			}
-	  		} catch (SQLException e) {
-	  	
-	  			e.printStackTrace();
-	  		}
+		Statement st;
+		String sql = "SELECT * FROM personal WHERE usuario='" + user + "' && contrasenia='" + pass + "'";
 
-	  		co.disconect();// Cerramos la conexion con la base de datos
-	  		return ret;
+		int ret = 0;
+		try {
+			st = conn.createStatement();
 
-	  	}
-	 public int firstIdFree() {
-	    	boolean finish=false;
-	  		co = Conexion.getInstance();
-	  		conn = co.getConnection();
-	  		int firstId=0;
-	  		while(!finish) {
-	  			
+			ResultSet rs = st.executeQuery(sql);
+			while (rs.next()) {
+				ret = rs.getInt(1); // ID
 
-	  	  		try {
-	  	  		Statement st = conn.createStatement();
-	  			String sql = "SELECT * FROM personal WHERE idTrabajador='" + firstId + "'";
-	  			System.out.println(sql);
-	  	  			ResultSet rs = st.executeQuery(sql);
-		
-		  	  	if (rs.next()) {
-		  	  		System.out.println("existe la id numero "+ firstId);
-		  	  		firstId++;
-				}else {
-			
-					System.out.println("Id libre: "+ firstId);
-	  	  	  		finish=true;
-	  	  	  		return firstId;	  				
+			}
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}
+
+		co.disconect();// Cerramos la conexion con la base de datos
+		return ret;
+
+	}
+
+	public int firstIdFree() {
+		boolean finish = false;
+		co = Conexion.getInstance();
+		conn = co.getConnection();
+		int firstId = 0;
+		while (!finish) {
+
+			try {
+				Statement st = conn.createStatement();
+				String sql = "SELECT * FROM personal WHERE idTrabajador='" + firstId + "'";
+				System.out.println(sql);
+				ResultSet rs = st.executeQuery(sql);
+
+				if (rs.next()) {
+					System.out.println("existe la id numero " + firstId);
+					firstId++;
+				} else {
+
+					System.out.println("Id libre: " + firstId);
+					finish = true;
+					return firstId;
 				}
-		  	  				
-		  	  		
 
-	  	  			
-	  			
-	  		} catch (SQLException e) {
-	  			e.printStackTrace();
-	  		}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 
-	  		co.disconect();// Cerramos la conexion con la base de datos
+			co.disconect();// Cerramos la conexion con la base de datos
 
-	  	}
-	  		return firstId;
-	    }
-	public void reset() throws IOException  {
+		}
+		return firstId;
+	}
+
+	public void reset() throws IOException {
 
 		co = Conexion.getInstance();
 		conn = co.getConnection();
@@ -596,19 +588,17 @@ public class PersonalDAO {
 			st.execute(sql);
 			log.InfoLog("Borrada correctamente la base de datos");
 
-
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-	
-		
+
 		BufferedReader in = new BufferedReader(new FileReader("etc/xijoja_base_de_datos.sql"));
 		String str;
 		StringBuffer sb = new StringBuffer();
-		
+
 		try {
 			st = conn.createStatement();
-	        String line = null;
+			String line = null;
 			// read script line by line
 			while ((line = in.readLine()) != null) {
 				// execute query
@@ -616,17 +606,17 @@ public class PersonalDAO {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}finally {
+		} finally {
 			// close file reader
 			if (in != null) {
 				in.close();
 			}
-			
+
 		}
-	
+
 		System.out.println("---------------------BASE DE DATOS RESETEADA----------------------");
 		log.InfoLog("Base de datos reseteada completamente");
-		
+
 		co.disconect();// Desconectamos la base de datos
 	}
 
