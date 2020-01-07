@@ -85,7 +85,7 @@ public class ControlerNurseWindow implements ActionListener {
 				titles = new String[] { "  Id", "Nombre", "Apellido 1", "Apellido 2", "NIF", "Fecha", "Habitación",
 						"Enfermedad", "Producto", "Medico", "Unidades medicamento", "Enfermero " }; // Titulos de la tabla de
 																		// los empleados
-				insert = dao.getAllPatients(id);// ArrayList de Arrays
+				insert = dao.getAllPatients(id,false);// ArrayList de Arrays
 			
 				matrixToInsert = new String[insert.size()][12];
 				nurseWindow.seePatientPane.setPreferredSize(new Dimension(624, 20 + 20 * insert.size()));
