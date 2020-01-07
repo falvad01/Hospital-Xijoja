@@ -605,14 +605,14 @@ public class ControlerAdmin implements ActionListener {
 
 			if (!patientsDao.checkPatientExist(adminWindow.textFieldDNIToDeletePacient.getText(), true)) {
 				adminWindow.textFieldErrorDeletePacient.setText("Paciente no encontrado");
-				// TODO comporbar que el DNI coincida con el nombre y los apellidos
+				
 			} else {
 				System.out.println("Boton borrar pulsado");
 
 				boolean restult = patientsDao.deletePatient(adminWindow.textFieldNameToDeleteEmployee.getText(),
 						adminWindow.textFieldFirstSurnameToDeleteEmployee.getText(),
 						adminWindow.textFieldSecondSurnameToDeleteEmployee.getText(),
-						adminWindow.textFieldErrorDeletePacient.getText());
+						adminWindow.textFieldDNIToDeletePacient.getText());
 
 				if (!restult) {
 					adminWindow.textFieldErrorDeletePacient.setText("Los datos no coinciden");

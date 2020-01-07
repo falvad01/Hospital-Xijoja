@@ -81,7 +81,6 @@ public class PacientesDAO {
 		System.out.println("se ha introducido un paciente");
 		co.disconect();// Desconectamos la base de datos
 
-		co.disconect();// Cerramos la conexion con la base de datos
 
 	}
 
@@ -94,6 +93,7 @@ public class PacientesDAO {
 				+ surname2 + "' AND NIFNIE='" + DNI + "'";
 		Statement st;
 
+		System.err.println(sql);
 		try {
 			st = conn.createStatement();
 			int rs = st.executeUpdate(sql);
@@ -356,13 +356,13 @@ public class PacientesDAO {
 		}
 
 		Statement st;
-		
 		try {
 			st = conn.createStatement();
 			ResultSet rs = st.executeQuery(sql);
-			//rs.getString(1); // ID
-			System.out.println("RS " + !rs.next());
-			if (!rs.next()) {
+			System.out.println(sql);
+
+			System.out.println("RS " + rs.isBeforeFirst());
+			if (!rs.isBeforeFirst()) {
 				
 				ret = false;
 			} else {
