@@ -28,9 +28,9 @@ public class main {
 		LoginWindow w2=new LoginWindow();
 
 		//window.setVisible(true);
-		w2.setVisible(true);
+		window.setVisible(true);
 		//window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		w2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
 }

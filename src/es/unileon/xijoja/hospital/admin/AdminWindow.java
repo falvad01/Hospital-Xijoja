@@ -356,7 +356,7 @@ public class AdminWindow extends JFrame {
 				lblNumParacetalmol.setText(String.valueOf(num));
 			}
 		});
-		btnNewButton_3.setBounds(194, 47, 41, 23);
+		btnNewButton_3.setBounds(254, 51, 41, 14);
 		seeWarehousePanel.add(btnNewButton_3);
 
 		JButton button = new JButton(">");
@@ -367,7 +367,7 @@ public class AdminWindow extends JFrame {
 				lblNumAspirina.setText(String.valueOf(num));
 			}
 		});
-		button.setBounds(194, 70, 41, 23);
+		button.setBounds(254, 74, 41, 14);
 		seeWarehousePanel.add(button);
 
 		JButton button_1 = new JButton(">");
@@ -378,7 +378,7 @@ public class AdminWindow extends JFrame {
 				lblNumBetadine.setText(String.valueOf(num));
 			}
 		});
-		button_1.setBounds(194, 95, 41, 23);
+		button_1.setBounds(254, 99, 41, 14);
 		seeWarehousePanel.add(button_1);
 
 		JButton button_2 = new JButton(">");
@@ -389,57 +389,180 @@ public class AdminWindow extends JFrame {
 				lblNumMorfina.setText(String.valueOf(num));
 			}
 		});
-		button_2.setBounds(194, 120, 41, 23);
+		button_2.setBounds(254, 124, 41, 14);
 		seeWarehousePanel.add(button_2);
 
 		JButton button_3 = new JButton("<");
 		button_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int num = Integer.valueOf(lblNumParacetalmol.getText());
-				num--;
-				lblNumParacetalmol.setText(String.valueOf(num));
+				
+				if (Integer.valueOf(lblNumParacetalmol.getText()) <= 0) {
+					//TODO poner aqui el error en el label
+				} else {
+					int num = Integer.valueOf(lblNumParacetalmol.getText());
+					num--;
+					lblNumParacetalmol.setText(String.valueOf(num));
+				}
+				
+				
 			}
 		});
-		button_3.setBounds(154, 47, 41, 23);
+		button_3.setBounds(214, 51, 41, 14);
 		seeWarehousePanel.add(button_3);
 
 		JButton button_4 = new JButton("<");
 		button_4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int num = Integer.valueOf(lblNumAspirina.getText());
-				num--;
-				lblNumAspirina.setText(String.valueOf(num));
+				if (Integer.valueOf(lblNumAspirina.getText()) <= 0) {
+					//TODO poner aqui el error en el label
+				} else {
+					int num = Integer.valueOf(lblNumAspirina.getText());
+					num--;
+					lblNumAspirina.setText(String.valueOf(num));
+				}
 			}
 		});
-		button_4.setBounds(154, 70, 41, 23);
+		button_4.setBounds(214, 74, 41, 14);
 		seeWarehousePanel.add(button_4);
 
 		JButton button_5 = new JButton("<");
 		button_5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int num = Integer.valueOf(lblNumBetadine.getText());
-				num--;
-				lblNumBetadine.setText(String.valueOf(num));
+				if (Integer.valueOf(lblNumBetadine.getText()) <= 0) {
+					//TODO poner aqui el error en el label
+				} else {
+					int num = Integer.valueOf(lblNumBetadine.getText());
+					num--;
+					lblNumBetadine.setText(String.valueOf(num));
+				}
 			}
 		});
-		button_5.setBounds(154, 95, 41, 23);
+		button_5.setBounds(214, 99, 41, 14);
 		seeWarehousePanel.add(button_5);
 
 		JButton button_6 = new JButton("<");
 		button_6.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int num = Integer.valueOf(lblNumMorfina.getText());
-				num--;
-				lblNumMorfina.setText(String.valueOf(num));
+				if (Integer.valueOf(lblNumMorfina.getText()) <= 0) {
+					//TODO poner aqui el error en el label
+				} else {
+					int num = Integer.valueOf(lblNumMorfina.getText());
+					num--;
+					lblNumMorfina.setText(String.valueOf(num));
+				}
 			}
 		});
-		button_6.setBounds(154, 120, 41, 23);
+		button_6.setBounds(214, 124, 41, 14);
 		seeWarehousePanel.add(button_6);
-		
+
 		JButton btnNewButton_4 = new JButton("Añadir o retirar");
 		btnNewButton_4.addActionListener(listener);
 		btnNewButton_4.setBounds(262, 172, 133, 34);
 		seeWarehousePanel.add(btnNewButton_4);
+
+		JButton btnNewButton_5 = new JButton(">>");
+		btnNewButton_5.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int num = Integer.valueOf(lblNumParacetalmol.getText());
+				num = num + 5;
+				lblNumParacetalmol.setText(String.valueOf(num));
+			}
+		});
+		btnNewButton_5.setBounds(295, 51, 49, 14);
+		seeWarehousePanel.add(btnNewButton_5);
+
+		JButton button_7 = new JButton(">>");
+		button_7.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int num = Integer.valueOf(lblNumAspirina.getText());
+				num = num + 5;
+				lblNumAspirina.setText(String.valueOf(num));
+			}
+		});
+		button_7.setBounds(295, 74, 49, 14);
+		seeWarehousePanel.add(button_7);
+
+		JButton button_8 = new JButton(">>");
+		button_8.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int num = Integer.valueOf(lblNumBetadine.getText());
+				num = num + 5;
+				lblNumBetadine.setText(String.valueOf(num));
+			}
+		});
+		button_8.setBounds(295, 99, 49, 14);
+		seeWarehousePanel.add(button_8);
+
+		JButton button_9 = new JButton(">>");
+		button_9.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int num = Integer.valueOf(lblNumMorfina.getText());
+				num = num + 5;
+				lblNumMorfina.setText(String.valueOf(num));
+			}
+		});
+		button_9.setBounds(295, 124, 49, 14);
+		seeWarehousePanel.add(button_9);
+
+		JButton button_10 = new JButton("<<");
+		button_10.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (Integer.valueOf(lblNumParacetalmol.getText()) < 5) {
+					//TODO poner aqui el error en el label
+				} else {
+					int num = Integer.valueOf(lblNumParacetalmol.getText());
+					num = num - 5;
+					lblNumParacetalmol.setText(String.valueOf(num));
+				}
+			}
+		});
+		button_10.setBounds(168, 51, 49, 14);
+		seeWarehousePanel.add(button_10);
+
+		JButton button_11 = new JButton("<<");
+		button_11.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (Integer.valueOf(lblNumAspirina.getText()) < 5) {
+					//TODO poner aqui el error en el label
+				} else {
+					int num = Integer.valueOf(lblNumAspirina.getText());
+					num = num - 5;
+					lblNumAspirina.setText(String.valueOf(num));
+				}
+			}
+		});
+		button_11.setBounds(168, 74, 49, 14);
+		seeWarehousePanel.add(button_11);
+
+		JButton button_12 = new JButton("<<");
+		button_12.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (Integer.valueOf(lblNumBetadine.getText()) < 5) {
+					//TODO poner aqui el error en el label
+				} else {
+					int num = Integer.valueOf(lblNumBetadine.getText());
+					num = num - 5;
+					lblNumBetadine.setText(String.valueOf(num));
+				}
+			}
+		});
+		button_12.setBounds(168, 99, 49, 14);
+		seeWarehousePanel.add(button_12);
+
+		JButton button_13 = new JButton("<<");
+		button_13.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (Integer.valueOf(lblNumMorfina.getText()) < 5) {
+					//TODO poner aqui el error en el label
+				} else {
+					int num = Integer.valueOf(lblNumMorfina.getText());
+					num = num - 5;
+					lblNumMorfina.setText(String.valueOf(num));
+				}
+			}
+		});
+		button_13.setBounds(168, 124, 49, 14);
+		seeWarehousePanel.add(button_13);
 
 // ------------------------------PANEL BORRAR EMPLEADOS-------------------------//
 		deletePatientsPanel = new JPanel();
