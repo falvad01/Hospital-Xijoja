@@ -75,7 +75,6 @@ public class MedicWindow extends JFrame {
 	protected JTextField textField;
     protected JTextField textField_1;
     protected JTextField units;
-    protected JTextField Medicine;
     protected JTextField DNIM;
     protected JTextField textEnfermedad;
     protected JButton button;
@@ -365,18 +364,9 @@ public class MedicWindow extends JFrame {
 		lblNewLabel3.setBounds(39, 23, 451, 20);
 		addMedicine.add(lblNewLabel3);
 		
-		JLabel lblMedicamento = new JLabel("Medicamento");
-		lblMedicamento.setBounds(39, 127, 91, 16);
-		addMedicine.add(lblMedicamento);
-		
-		Medicine = new JTextField();
-		Medicine.setBounds(125, 124, 138, 22);
-		addMedicine.add(Medicine);
-		Medicine.setColumns(10);
-		
 		lblError2 = new JLabel("");
 		lblError2.setForeground(Color.RED);
-		lblError2.setBounds(358, 90, 200, 80);
+		lblError2.setBounds(275, 90, 337, 80);
 		addMedicine.add(lblError2);
 		
 		JButton btnAsignar = new JButton("Asignar");
@@ -387,23 +377,23 @@ public class MedicWindow extends JFrame {
 		
 		units = new JTextField();
 		units.setColumns(10);
-		units.setBounds(125, 182, 138, 22);
+		units.setBounds(125, 116, 138, 22);
 		addMedicine.add(units);
 		
 		JLabel lblUnidades = new JLabel("Unidades");
-		lblUnidades.setBounds(39, 185, 56, 16);
+		lblUnidades.setBounds(39, 119, 56, 16);
 		addMedicine.add(lblUnidades);
 		btnAsignar.addActionListener(listener);
 		
 		
 		JLabel label_3 = new JLabel("Medicamento");
-		label_3.setBounds(39, 235, 91, 16);
+		label_3.setBounds(39, 170, 91, 16);
 		addMedicine.add(label_3);
 		
 		jcbMedicine = new JComboBox();
-		jcbMedicine.setBounds(125, 233, 138, 20);
+		jcbMedicine.setBounds(125, 168, 138, 20);
 		addMedicine.add(jcbMedicine);
-		listener.filJComboBoxMedicines();
+		listener.filJComboBoxMedicines(jcbMedicine);
 		
 		
 		//panel resumen semana
