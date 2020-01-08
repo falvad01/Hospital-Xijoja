@@ -83,7 +83,33 @@ public class PacientesDAO {
 
 
 	}
+	public void addPatientM(int id, String name, String surname1, String surname2, String NIE, Date date, int room,
+			String disease, int idProducto, int idMedic,int UMedicamento, int idNurse) throws SQLException {
 
+		co = Conexion.getInstance();
+		conn = co.getConnection();
+
+		String sql = "INSERT INTO pacientes (idPaciente, Nombre, Apellido1, Apellido2, NIFNIE, FechaBaja, Habitacion, Enfermedad, fk_idProducto, fk_idMedico, UMedicamento, fk_idEnfermero) VALUES(?,?,?,?,?,?,?,?,?,?,?,?) ";
+		PreparedStatement st = conn.prepareStatement(sql);
+		st.setInt(1, id);
+		st.setString(2, name);
+		st.setString(3, surname1);
+		st.setString(4, surname2);
+		st.setString(5, NIE);
+		st.setDate(6, date);
+		st.setInt(7, room);
+		st.setString(8, disease);
+		st.setInt(9, idProducto);
+		st.setInt(10, idMedic);
+		st.setInt(11, UMedicamento);
+		st.setInt(12, idNurse);
+
+		st.executeUpdate();
+		System.out.println("se ha introducido un paciente");
+		co.disconect();// Desconectamos la base de datos
+
+
+	}
 	public boolean deletePatient(String name, String surname1, String surname2, String DNI) {
 
 		co = Conexion.getInstance();

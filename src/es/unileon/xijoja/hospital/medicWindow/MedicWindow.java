@@ -58,6 +58,7 @@ public class MedicWindow extends JFrame {
 	protected JComboBox jcbNurse;
 	protected JComboBox jcbMedic;
 	protected JComboBox jcbMedicine;
+	protected JComboBox jcbMedicineadd;
 	protected JTextField textFieldNameGetPatient;
 	protected JTextField textFieldSurname1GetPatient;
 	protected JTextField textFieldDNIGetPatient;
@@ -78,6 +79,7 @@ public class MedicWindow extends JFrame {
     protected JTextField DNIM;
     protected JTextField textEnfermedad;
     protected JButton button;
+    protected JTextField textU;
    // protected String user;
 	//protected String password;
 
@@ -288,6 +290,11 @@ public class MedicWindow extends JFrame {
 				Apellido2.setBounds(145, 124, 116, 22);
 				addPatientsPanel.add(Apellido2);
 				
+				jcbMedicineadd = new JComboBox();
+				jcbMedicineadd.setBounds(145, 295, 116, 20);
+				addPatientsPanel.add(jcbMedicineadd);
+				listener.filJComboBoxMedicines(jcbMedicineadd);
+				
 				JLabel lblNifnie = new JLabel("NIFNIE");
 				lblNifnie.setBounds(32, 168, 56, 16);
 				addPatientsPanel.add(lblNifnie);
@@ -307,7 +314,7 @@ public class MedicWindow extends JFrame {
 				Habitacion.setColumns(10);
 				lberror = new JLabel("");
 				lberror.setForeground(Color.RED);
-				lberror.setBounds(50, 241, 260, 150);
+				lberror.setBounds(50, 361, 260, 46);
 				addPatientsPanel.add(lberror);
 				
 				jcbNurse = new JComboBox();
@@ -338,6 +345,19 @@ public class MedicWindow extends JFrame {
 				addPatientsPanel.add(textEnfermedad);
 				jcbNurse.setBounds(392, 86, 213, 20);
 				addPatientsPanel.add(jcbNurse);
+				
+				JLabel lblMedicina = new JLabel("Medicina");
+				lblMedicina.setBounds(32, 297, 101, 16);
+				addPatientsPanel.add(lblMedicina);
+				
+				textU = new JTextField();
+				textU.setColumns(10);
+				textU.setBounds(145, 328, 116, 22);
+				addPatientsPanel.add(textU);
+				
+				JLabel lblUnidades_1 = new JLabel("Unidades");
+				lblUnidades_1.setBounds(32, 332, 56, 16);
+				addPatientsPanel.add(lblUnidades_1);
 		
 		
 		

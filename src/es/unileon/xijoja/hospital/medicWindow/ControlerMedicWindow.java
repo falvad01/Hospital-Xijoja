@@ -173,9 +173,13 @@ public class ControlerMedicWindow implements ActionListener {
 
 		boolean add = true;
 
+		
+	
+		
+		
 		if ((window.NombreP.getText().equals("")) || (window.Apellido1.getText().equals(""))
 				|| (window.Apellido2.getText().equals("")) || (window.DNI.getText().equals(""))
-				|| (window.Habitacion.getText().equals(""))) {// Comprobamos
+				|| (window.Habitacion.getText().equals("")) || (window.textU.getText().equals(""))) {// Comprobamos
 			// si algum
 			// campo esta
 			// vacio
@@ -193,7 +197,10 @@ public class ControlerMedicWindow implements ActionListener {
 			add = false;
 			window.lberror.setText("Esa habitacion no est� disponible, proxima: "+ dao.firstRoomFree());
 			log.InfoLog("Error, no se pudo introducir el paciente, habitaci�n ocupada");
-
+		}else if(window.jcbMedicineadd.getSelectedItem()==null) {
+			add = false;
+			window.lberror.setText("No hay medicamentos");
+			log.InfoLog("Error, No hay medicamentos");
 		}else{
 			window.lberror.setText("");
 		}
@@ -208,10 +215,14 @@ public class ControlerMedicWindow implements ActionListener {
 
 			
 			Date date = new Date(Calendar.getInstance().getTime().getTime());// Obtenemos la fecha actual
-			int idMedic=0,idNurse=0;
+			int idMedic=0,idNurse=0, idMedicine=0;;
 			try {
-				window.jcbMedic.getSelectedIndex();
-				
+				window.jcbMedicineadd.getSelectedIndex();
+				for (int i = 0; i < arrayMedicine.size(); i++) {
+					if (window.jcbMedicineadd.getSelectedItem().toString().equals(arrayMedicine.get(i)[1])) {
+						idMedicine=Integer.parseInt(arrayMedicine.get(i)[0]);;
+					}
+				}
 				for (int i = 0; i < arrayMedic.size(); i++) {
 					if (window.jcbMedic.getSelectedItem().toString().equals(arrayMedic.get(i)[1])) {
 						idMedic=Integer.parseInt(arrayMedic.get(i)[0]);;
@@ -222,12 +233,12 @@ public class ControlerMedicWindow implements ActionListener {
 						idNurse=Integer.parseInt(arrayNurse.get(i)[0]);
 					}
 				}
-				System.out.println("id medico: "+ idMedic+" id Enfermero: "+idNurse);
+				System.out.println("id medico: "+ idMedic+" id Enfermero: "+idNurse+"idMedicine"+idMedicine);
 				
 
-				dao.addPatient(id, window.NombreP.getText(), window.Apellido1.getText(),
+				dao.addPatientM(id, window.NombreP.getText(), window.Apellido1.getText(),
 						window.Apellido2.getText(), window.DNI.getText(), date,
-						Integer.parseInt(window.Habitacion.getText()),window.textEnfermedad.getText(),idMedic,idNurse);
+						Integer.parseInt(window.Habitacion.getText()),window.textEnfermedad.getText(),idMedicine,idMedic,idNurse,Integer.parseInt(window.textU.getText()));
 				log.InfoLog("A�adido el paciente con id: "+id);
 												
 			} catch (SQLException e1) {
