@@ -16,6 +16,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import es.unileon.xijoja.hospital.AlmacenDAO;
 import es.unileon.xijoja.hospital.Logs;
 import es.unileon.xijoja.hospital.PacientesDAO;
 import es.unileon.xijoja.hospital.PersonalDAO;
@@ -27,6 +28,7 @@ public class ControlerAdmin implements ActionListener {
 	private Logs log;
 	private PersonalDAO personalDao;
 	private PacientesDAO patientsDao;
+	private AlmacenDAO warehouseDAO;
 	private AdminWindow adminWindow;
 	private ArrayList<String[]> arrayNurse, arrayMedic;
 	protected int numAdmin;
@@ -38,6 +40,7 @@ public class ControlerAdmin implements ActionListener {
 	public ControlerAdmin(AdminWindow adminWindow) {
 		personalDao = new PersonalDAO();
 		patientsDao = new PacientesDAO();
+		warehouseDAO = new AlmacenDAO();
 		log = new Logs();
 		this.adminWindow = adminWindow;
 	}
@@ -266,6 +269,8 @@ public class ControlerAdmin implements ActionListener {
 			adminWindow.addPatientsPanel.setVisible(false);
 			adminWindow.seePacientsPanel.setVisible(false);
 			adminWindow.deletePatientsPanel.setVisible(false);
+			adminWindow.seeWarehousePanel.setVisible(false);
+
 
 		} else if ((arg0.getActionCommand().equals("Ver plantilla")) || (arg0.getActionCommand().equals("Recargar"))) {
 
@@ -280,6 +285,8 @@ public class ControlerAdmin implements ActionListener {
 			adminWindow.addPatientsPanel.setVisible(false);
 			adminWindow.seePacientsPanel.setVisible(false);
 			adminWindow.deletePatientsPanel.setVisible(false);
+			adminWindow.seeWarehousePanel.setVisible(false);
+
 
 			ArrayList<String[]> insert = null;
 
@@ -354,6 +361,8 @@ public class ControlerAdmin implements ActionListener {
 			adminWindow.addPatientsPanel.setVisible(false);
 			adminWindow.seePacientsPanel.setVisible(false);
 			adminWindow.deletePatientsPanel.setVisible(false);
+			adminWindow.seeWarehousePanel.setVisible(false);
+
 
 		} else if (arg0.getActionCommand().equals("Buscar")) {
 			// TODO saltar fallo si el dni no existe o el campo esta vacio
@@ -427,6 +436,8 @@ public class ControlerAdmin implements ActionListener {
 			adminWindow.addPatientsPanel.setVisible(false);
 			adminWindow.seePacientsPanel.setVisible(false);
 			adminWindow.deletePatientsPanel.setVisible(false);
+			adminWindow.seeWarehousePanel.setVisible(false);
+
 
 		} else if (arg0.getActionCommand().equals("Cerrar sesion")) {
 
@@ -471,6 +482,8 @@ public class ControlerAdmin implements ActionListener {
 			adminWindow.addPatientsPanel.setVisible(true);
 			adminWindow.seePacientsPanel.setVisible(false);
 			adminWindow.deletePatientsPanel.setVisible(false);
+			adminWindow.seeWarehousePanel.setVisible(false);
+
 
 		} else if (arg0.getActionCommand().contentEquals("Ingresar")) {
 
@@ -548,6 +561,8 @@ public class ControlerAdmin implements ActionListener {
 			adminWindow.addPatientsPanel.setVisible(false);
 			adminWindow.seePacientsPanel.setVisible(true);
 			adminWindow.deletePatientsPanel.setVisible(false);
+			adminWindow.seeWarehousePanel.setVisible(false);
+
 
 			ArrayList<String[]> insert = null;
 
@@ -600,6 +615,7 @@ public class ControlerAdmin implements ActionListener {
 			adminWindow.addPatientsPanel.setVisible(false);
 			adminWindow.seePacientsPanel.setVisible(false);
 			adminWindow.deletePatientsPanel.setVisible(true);
+			adminWindow.seeWarehousePanel.setVisible(false);
 
 		} else if (arg0.getActionCommand().contentEquals("Eliminar")) {
 
@@ -623,6 +639,24 @@ public class ControlerAdmin implements ActionListener {
 				}
 
 			}
+		}else if (arg0.getActionCommand().contentEquals("Ver Almacen")) {
+			adminWindow.seeEmployeesPanel.setVisible(false);
+			adminWindow.addEmployeePanel.setVisible(false);
+			adminWindow.editEmployeesPanel.setVisible(false);
+			adminWindow.btnVerPlantilla.setText("Ver plantilla");
+			adminWindow.deletePanel.setVisible(false);
+			adminWindow.lblError.setText("");
+			adminWindow.lblErrorDelete.setText("");
+			adminWindow.lblErrorEdit.setText("");
+			adminWindow.addPatientsPanel.setVisible(false);
+			adminWindow.seePacientsPanel.setVisible(false);
+			adminWindow.deletePatientsPanel.setVisible(false);
+			adminWindow.seeWarehousePanel.setVisible(true);
+			
+			adminWindow.lblNumBetadine.setText(String.valueOf(warehouseDAO.getCountMedicine("Betadine")));
+			adminWindow.lblNumMorfina.setText(String.valueOf(warehouseDAO.getCountMedicine("Morfina")));
+			adminWindow.lblNumAspirina.setText(String.valueOf(warehouseDAO.getCountMedicine("Aspirina")));
+			adminWindow.lblNumParacetalmol.setText(String.valueOf(warehouseDAO.getCountMedicine("Paracetamol")));
 		}
 	}
 }

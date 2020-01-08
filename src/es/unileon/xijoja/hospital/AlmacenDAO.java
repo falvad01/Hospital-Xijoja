@@ -248,5 +248,32 @@ public class AlmacenDAO {
 			co.disconect();// Cerramos la conexion con la base de datos
 			return ret;
 		}
+	
+	public int getCountMedicine(String medicine) {
+		
+		
+		co = Conexion.getInstance();
+		conn = co.getConnection();
+
+		Statement st;
+		String sql = "SELECT * FROM almacen WHERE Nombre='" + medicine + "'";
+
+		int ret = 0;
+		try {
+			st = conn.createStatement();
+
+			ResultSet rs = st.executeQuery(sql);
+			while (rs.next()) {
+				ret = rs.getInt(2); // cantidad
+
+			}
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}
+
+		co.disconect();// Cerramos la conexion con la base de datos
+		return ret;
+	}
 }
  

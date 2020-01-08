@@ -45,6 +45,7 @@ public class AdminWindow extends JFrame {
 	protected JPanel addPatientsPanel;
 	protected JPanel seePacientsPanel;
 	protected JPanel deletePatientsPanel;
+	protected JPanel seeWarehousePanel;
 
 	// private JScrollPane panelquebaja;
 
@@ -109,6 +110,11 @@ public class AdminWindow extends JFrame {
 	protected JTextField textFieldFirstSurnameToDeleteEmployee;
 	protected JTextField textFieldSecondSurnameToDeleteEmployee;
 	protected JTextField textFieldErrorDeletePacient;
+
+	protected JLabel lblNumMorfina;
+	protected JLabel lblNumBetadine;
+	protected JLabel lblNumParacetalmol;
+	protected JLabel lblNumAspirina;
 
 	public AdminWindow(String user, String password) throws SQLException {
 		log.InfoLog("Iniciada la sesion del administrador");
@@ -246,6 +252,7 @@ public class AdminWindow extends JFrame {
 		getContentPane().add(button);
 
 		JButton btnVerAlmacen = new JButton("Ver Almacen");
+		btnVerAlmacen.addActionListener(listener);
 		btnVerAlmacen.setBounds(28, 231, 234, 23);
 		getContentPane().add(btnVerAlmacen);
 
@@ -292,8 +299,93 @@ public class AdminWindow extends JFrame {
 		addPatientsPanel = new JPanel();
 		addPatientsPanel.setVisible(false);
 
-		// ------------------------------PANEL BORRAR
-		// EMPLEADOS-------------------------//
+		// --------------------------------------PANEL VER
+		// ALMACEN---------------------------------------//
+		seeWarehousePanel = new JPanel();
+		seeWarehousePanel.setVisible(false);
+		seeWarehousePanel.setBackground(Color.WHITE);
+		getContentPane().add(seeWarehousePanel);
+		seeWarehousePanel.setBounds(284, 11, 624, 450);
+		seeWarehousePanel.setLayout(null);
+
+		JLabel lblNewLabel_4 = new JLabel("Paracetamol");
+		lblNewLabel_4.setBounds(16, 51, 78, 14);
+		seeWarehousePanel.add(lblNewLabel_4);
+
+		JLabel lblAspirina = new JLabel("Aspirina");
+		lblAspirina.setBounds(34, 74, 78, 14);
+		seeWarehousePanel.add(lblAspirina);
+
+		JLabel lblBetadine = new JLabel("Betadine");
+		lblBetadine.setBounds(34, 99, 78, 14);
+		seeWarehousePanel.add(lblBetadine);
+
+		JLabel lblMorfina = new JLabel("Morfina");
+		lblMorfina.setBounds(34, 124, 78, 14);
+		seeWarehousePanel.add(lblMorfina);
+
+		lblNumParacetalmol = new JLabel("New label");
+		lblNumParacetalmol.setBounds(104, 51, 46, 14);
+		seeWarehousePanel.add(lblNumParacetalmol);
+
+		lblNumAspirina = new JLabel("New label");
+		lblNumAspirina.setBounds(104, 74, 46, 14);
+		seeWarehousePanel.add(lblNumAspirina);
+
+		JSeparator separator_1 = new JSeparator();
+		separator_1.setOrientation(SwingConstants.VERTICAL);
+		separator_1.setForeground(Color.BLACK);
+		separator_1.setBounds(92, 51, 8, 87);
+		seeWarehousePanel.add(separator_1);
+
+		lblNumBetadine = new JLabel("New label");
+		lblNumBetadine.setBounds(104, 99, 46, 14);
+		seeWarehousePanel.add(lblNumBetadine);
+
+		lblNumMorfina = new JLabel("New label");
+		lblNumMorfina.setBounds(104, 124, 46, 14);
+		seeWarehousePanel.add(lblNumMorfina);
+
+		JButton btnNewButton_3 = new JButton(">");
+		btnNewButton_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				int num = Integer.valueOf(lblNumParacetalmol.getText());
+				num++;
+				lblNumParacetalmol.setText(String.valueOf(num));
+			}
+		});
+		btnNewButton_3.setBounds(194, 47, 41, 23);
+		seeWarehousePanel.add(btnNewButton_3);
+
+		JButton button = new JButton(">");
+		button.setBounds(194, 70, 41, 23);
+		seeWarehousePanel.add(button);
+
+		JButton button_1 = new JButton(">");
+		button_1.setBounds(194, 95, 41, 23);
+		seeWarehousePanel.add(button_1);
+
+		JButton button_2 = new JButton(">");
+		button_2.setBounds(194, 120, 41, 23);
+		seeWarehousePanel.add(button_2);
+
+		JButton button_3 = new JButton("<");
+		button_3.setBounds(154, 47, 41, 23);
+		seeWarehousePanel.add(button_3);
+
+		JButton button_4 = new JButton("<");
+		button_4.setBounds(154, 70, 41, 23);
+		seeWarehousePanel.add(button_4);
+
+		JButton button_5 = new JButton("<");
+		button_5.setBounds(154, 95, 41, 23);
+		seeWarehousePanel.add(button_5);
+
+		JButton button_6 = new JButton("<");
+		button_6.setBounds(154, 120, 41, 23);
+		seeWarehousePanel.add(button_6);
+
+// ------------------------------PANEL BORRAR EMPLEADOS-------------------------//
 		deletePatientsPanel = new JPanel();
 		deletePatientsPanel.setVisible(false);
 		deletePatientsPanel.setBackground(Color.WHITE);
@@ -755,7 +847,7 @@ public class AdminWindow extends JFrame {
 		iconLabel.setIcon(new ImageIcon(AdminWindow.class.getResource("/resources/iconAdmin.png")));
 		lblApellido_1.setBounds(32, 127, 101, 16);
 
-// ---------------------------------------VER PACIENTES-----------------------------------//
+// ---------------------------------------PANEL VER PACIENTES-----------------------------------//
 		seePacientsPanel = new JPanel();
 		seePacientsPanel.setLayout(null);
 		seePacientsPanel.setForeground(Color.WHITE);
@@ -764,6 +856,5 @@ public class AdminWindow extends JFrame {
 		seePacientsPanel.setPreferredSize(new Dimension(630, 700));
 		seePacientsPanel.setVisible(false);
 		getContentPane().add(seePacientsPanel);
-
 	}
 }
