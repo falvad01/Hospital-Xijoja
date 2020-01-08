@@ -275,5 +275,23 @@ public class AlmacenDAO {
 		co.disconect();// Cerramos la conexion con la base de datos
 		return ret;
 	}
+	
+	public void addNewMedicines(String medicine, int amount) {
+		co = Conexion.getInstance();
+		conn = co.getConnection();
+
+		String sql = "UPDATE almacen SET Cantidad='" + amount + "' WHERE Nombre = '" + medicine + "'";
+		Statement st;
+		System.out.println(sql);
+		try {
+			st = conn.createStatement();
+			st.executeUpdate(sql);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		co.disconect();// Desconectamos la base de datos
+	}
 }
  

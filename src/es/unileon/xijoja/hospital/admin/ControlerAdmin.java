@@ -271,7 +271,6 @@ public class ControlerAdmin implements ActionListener {
 			adminWindow.deletePatientsPanel.setVisible(false);
 			adminWindow.seeWarehousePanel.setVisible(false);
 
-
 		} else if ((arg0.getActionCommand().equals("Ver plantilla")) || (arg0.getActionCommand().equals("Recargar"))) {
 
 			adminWindow.seeEmployeesPanel.setVisible(true);
@@ -286,7 +285,6 @@ public class ControlerAdmin implements ActionListener {
 			adminWindow.seePacientsPanel.setVisible(false);
 			adminWindow.deletePatientsPanel.setVisible(false);
 			adminWindow.seeWarehousePanel.setVisible(false);
-
 
 			ArrayList<String[]> insert = null;
 
@@ -363,7 +361,6 @@ public class ControlerAdmin implements ActionListener {
 			adminWindow.deletePatientsPanel.setVisible(false);
 			adminWindow.seeWarehousePanel.setVisible(false);
 
-
 		} else if (arg0.getActionCommand().equals("Buscar")) {
 			// TODO saltar fallo si el dni no existe o el campo esta vacio
 
@@ -438,7 +435,6 @@ public class ControlerAdmin implements ActionListener {
 			adminWindow.deletePatientsPanel.setVisible(false);
 			adminWindow.seeWarehousePanel.setVisible(false);
 
-
 		} else if (arg0.getActionCommand().equals("Cerrar sesion")) {
 
 			adminWindow.setVisible(false);
@@ -483,7 +479,6 @@ public class ControlerAdmin implements ActionListener {
 			adminWindow.seePacientsPanel.setVisible(false);
 			adminWindow.deletePatientsPanel.setVisible(false);
 			adminWindow.seeWarehousePanel.setVisible(false);
-
 
 		} else if (arg0.getActionCommand().contentEquals("Ingresar")) {
 
@@ -563,7 +558,6 @@ public class ControlerAdmin implements ActionListener {
 			adminWindow.deletePatientsPanel.setVisible(false);
 			adminWindow.seeWarehousePanel.setVisible(false);
 
-
 			ArrayList<String[]> insert = null;
 
 			String[] titles = null;
@@ -621,7 +615,7 @@ public class ControlerAdmin implements ActionListener {
 
 			if (!patientsDao.checkPatientExist(adminWindow.textFieldDNIToDeletePacient.getText(), true)) {
 				adminWindow.textFieldErrorDeletePacient.setText("Paciente no encontrado");
-				
+
 			} else {
 				System.out.println("Boton borrar pulsado");
 
@@ -639,7 +633,7 @@ public class ControlerAdmin implements ActionListener {
 				}
 
 			}
-		}else if (arg0.getActionCommand().contentEquals("Ver Almacen")) {
+		} else if (arg0.getActionCommand().contentEquals("Ver Almacen")) {
 			adminWindow.seeEmployeesPanel.setVisible(false);
 			adminWindow.addEmployeePanel.setVisible(false);
 			adminWindow.editEmployeesPanel.setVisible(false);
@@ -652,11 +646,18 @@ public class ControlerAdmin implements ActionListener {
 			adminWindow.seePacientsPanel.setVisible(false);
 			adminWindow.deletePatientsPanel.setVisible(false);
 			adminWindow.seeWarehousePanel.setVisible(true);
-			
+
 			adminWindow.lblNumBetadine.setText(String.valueOf(warehouseDAO.getCountMedicine("Betadine")));
 			adminWindow.lblNumMorfina.setText(String.valueOf(warehouseDAO.getCountMedicine("Morfina")));
 			adminWindow.lblNumAspirina.setText(String.valueOf(warehouseDAO.getCountMedicine("Aspirina")));
 			adminWindow.lblNumParacetalmol.setText(String.valueOf(warehouseDAO.getCountMedicine("Paracetamol")));
+		} else if (arg0.getActionCommand().contentEquals("Añadir o retirar")) {
+			System.out.println("COmprar");
+			warehouseDAO.addNewMedicines("Paracetamol",Integer.valueOf(adminWindow.lblNumParacetalmol.getText()));
+			warehouseDAO.addNewMedicines("Aspirina",Integer.valueOf(adminWindow.lblNumAspirina.getText()));
+			warehouseDAO.addNewMedicines("Betadine",Integer.valueOf(adminWindow.lblNumBetadine.getText()));
+			warehouseDAO.addNewMedicines("Morfina",Integer.valueOf(adminWindow.lblNumMorfina.getText()));
+			
 		}
 	}
 }

@@ -15,6 +15,8 @@ import javax.swing.JPanel;
 import javax.swing.JLabel;
 
 import java.awt.Font;
+import java.awt.List;
+
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
@@ -358,32 +360,86 @@ public class AdminWindow extends JFrame {
 		seeWarehousePanel.add(btnNewButton_3);
 
 		JButton button = new JButton(">");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int num = Integer.valueOf(lblNumAspirina.getText());
+				num++;
+				lblNumAspirina.setText(String.valueOf(num));
+			}
+		});
 		button.setBounds(194, 70, 41, 23);
 		seeWarehousePanel.add(button);
 
 		JButton button_1 = new JButton(">");
+		button_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int num = Integer.valueOf(lblNumBetadine.getText());
+				num++;
+				lblNumBetadine.setText(String.valueOf(num));
+			}
+		});
 		button_1.setBounds(194, 95, 41, 23);
 		seeWarehousePanel.add(button_1);
 
 		JButton button_2 = new JButton(">");
+		button_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int num = Integer.valueOf(lblNumMorfina.getText());
+				num++;
+				lblNumMorfina.setText(String.valueOf(num));
+			}
+		});
 		button_2.setBounds(194, 120, 41, 23);
 		seeWarehousePanel.add(button_2);
 
 		JButton button_3 = new JButton("<");
+		button_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int num = Integer.valueOf(lblNumParacetalmol.getText());
+				num--;
+				lblNumParacetalmol.setText(String.valueOf(num));
+			}
+		});
 		button_3.setBounds(154, 47, 41, 23);
 		seeWarehousePanel.add(button_3);
 
 		JButton button_4 = new JButton("<");
+		button_4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int num = Integer.valueOf(lblNumAspirina.getText());
+				num--;
+				lblNumAspirina.setText(String.valueOf(num));
+			}
+		});
 		button_4.setBounds(154, 70, 41, 23);
 		seeWarehousePanel.add(button_4);
 
 		JButton button_5 = new JButton("<");
+		button_5.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int num = Integer.valueOf(lblNumBetadine.getText());
+				num--;
+				lblNumBetadine.setText(String.valueOf(num));
+			}
+		});
 		button_5.setBounds(154, 95, 41, 23);
 		seeWarehousePanel.add(button_5);
 
 		JButton button_6 = new JButton("<");
+		button_6.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int num = Integer.valueOf(lblNumMorfina.getText());
+				num--;
+				lblNumMorfina.setText(String.valueOf(num));
+			}
+		});
 		button_6.setBounds(154, 120, 41, 23);
 		seeWarehousePanel.add(button_6);
+		
+		JButton btnNewButton_4 = new JButton("Añadir o retirar");
+		btnNewButton_4.addActionListener(listener);
+		btnNewButton_4.setBounds(262, 172, 133, 34);
+		seeWarehousePanel.add(btnNewButton_4);
 
 // ------------------------------PANEL BORRAR EMPLEADOS-------------------------//
 		deletePatientsPanel = new JPanel();
