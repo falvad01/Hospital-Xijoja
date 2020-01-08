@@ -215,38 +215,38 @@ public class AlmacenDAO {
 	}
     
    
-	public String[] getMedicineMedic() {
-		co = Conexion.getInstance();
-  		conn = co.getConnection();
-		String[] ret = null;
+	public ArrayList<String[]> getMedicineMedic() {
+		
 
-  		
-  		
-  		try {
-  			String sql;
-  			Statement st = conn.createStatement();
-  	  
-  	  			sql = "SELECT Nombre FROM almacen";  	 	 
-  			
-  	  		
-  	
-  	  
-  			ResultSet rs = st.executeQuery(sql);
-  			ret = new String[1];
-  			while (rs.next()) {
-  	  		
+			co = Conexion.getInstance();
+			conn = co.getConnection();
+			ArrayList<String[]> ret = new ArrayList<String[]>();
 
-  				ret[0] = rs.getString(1); 
-  				
+			try {
+				String sql;
+				Statement st = conn.createStatement();
+				
+					sql = "SELECT * FROM almacen";
+				
 
-  			}
-  		} catch (SQLException e) {
-  			e.printStackTrace();
-  		}
+				
+				ResultSet rs = st.executeQuery(sql);
+				String[] ret2 = new String[2];
+				while (rs.next()) {
+					ret2 = new String[2];
 
-  		co.disconect();// Cerramos la conexion con la base de datos
-		return ret;
-  		
-	}
+					ret2[0] = rs.getString(1); // ID
+					ret2[1] = rs.getString(3); // nombre y apellidos
+					ret.add(ret2);
+					
+
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+			co.disconect();// Cerramos la conexion con la base de datos
+			return ret;
+		}
 }
  
