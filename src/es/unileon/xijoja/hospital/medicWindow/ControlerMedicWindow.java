@@ -79,17 +79,24 @@ public class ControlerMedicWindow implements ActionListener {
 	}
 	
 
-	public void filJComboBoxMedicines() {
+	public void filJComboBoxMedicines(JComboBox edit) {
 		
-		String[] Medicines  =daoAlmacen.getMedicineMedic();// ArrayList de Arrays;
+		ArrayList<String[]> Medicines=daoAlmacen.getMedicineMedic();// ArrayList de Arrays;
 
-			for (int i = 0; i <= Medicines.length; i++) {
-				
-				window.jcbMedicine.addItem(i);
-				
+		
+			arrayMedicine=Medicines;	
+		
+		
+		String[] data = new String[2];
+		if (Medicines==null) {
+			
+		}else {
+			for (int i = 0; i < Medicines.size(); i++) {
+				data= Medicines.get(i);
+				edit.addItem(data[1]);
 				
 			}
-		
+		}
 		
 		
 	}
@@ -312,21 +319,32 @@ public class ControlerMedicWindow implements ActionListener {
 	}else if (arg0.getActionCommand().equals("Asignar")) {//probablemente haya que hacer un comprobarmedicamento, pro pal final
 		
 		int n,m;
-		int idMedic=0;
 		boolean add=true;
-
-		filJComboBoxMedicines();
+		
+		int idMedicine=0;
+		window.jcbMedic.getSelectedIndex();
+		for (int i = 0; i < arrayMedicine.size(); i++) {
+			if (window.jcbMedicine.getSelectedItem().toString().equals(arrayMedicine.get(i)[1])) {
+				idMedicine=Integer.parseInt(arrayMedicine.get(i)[0]);;
+			}
+		}
+		
 		//habria que cambiarlo con el JBox, el cual aun no funciona
-		if ((window.DNIM.getText().toString().equals("")) || (window.units.getText().toString().equals("")) || (window.Medicine.getText().toString().equals("")) ){
+		if ((window.DNIM.getText().toString().equals("")) || (window.units.getText().toString().equals(""))){
 			add=false;
 			window.lblError2.setText("Hay campos vacios");
 			log.InfoLog("campos vacios al asignar medicamento");
-		}else if(daoAlmacen.Medicine(Integer.parseInt(window.units.getText().toString()), Integer.parseInt(window.Medicine.getText().toString()))<0) {
+		}else if(daoAlmacen.Medicine(Integer.parseInt(window.units.getText().toString()), idMedicine)<0) {
 			add=false;
-			m=daoAlmacen.MedicineA(Integer.parseInt(window.units.getText().toString()), Integer.parseInt(window.Medicine.getText().toString()));
+			m=daoAlmacen.MedicineA(Integer.parseInt(window.units.getText().toString()), idMedicine);
 
 			window.lblError2.setText("Error,quedan solo estas unidades: "+m);
-			
+		}else if(window.jcbMedicine.getSelectedItem()==null) {
+					add = false;
+					window.lberror.setText("No hay medicamentos");
+					log.InfoLog("Error, No hay medicamentos");
+		
+
 		}else {
 			window.lblError2.setText("");
 
@@ -334,33 +352,32 @@ public class ControlerMedicWindow implements ActionListener {
 		
 		if(add) {
 			
-				/*
-				window.jcbMedic.getSelectedIndex();
+			
+			
+	
+			
+			boolean isDniOrRoom = isDni(window.DNIM.getText().toString());
+
+			if(!dao.checkPatientExist(window.DNIM.getText().toString(),isDniOrRoom)) {
+				add=false;
+
+				window.lblError2.setText("DNI erroneo");
+				log.InfoLog("DNI erroneo");
+			}else {
 				
-				for (int i = 0; i < arrayMedic.size(); i++) {
-					if (window.jcbMedicine.getSelectedItem().toString().equals(arrayMedicine.get(i)[1])) {
-						idMedic=Integer.parseInt(arrayMedicine.get(i)[0]);;
+				
+					dao.AsignMedicine(Integer.parseInt(window.units.getText().toString()),idMedicine,window.DNIM.getText().toString());
+				
+						//daoAlmacen.restMedicine(Integer.parseInt(window.units.getText().toString()), /Integer.parseInt(window.Medicine.getText().toString()));
+						daoAlmacen.restMedicine(Integer.parseInt(window.units.getText().toString()),idMedicine);//,idMedic);
+						window.lblError2.setText("");
+
 					}
-					
-				}	
-				*/
-		boolean isDniOrRoom = isDni(window.DNIM.getText().toString());
-
-		if(!dao.checkPatientExist(window.DNIM.getText().toString(),isDniOrRoom)) {
-			add=false;
-
-			window.lblError2.setText("DNI erroneo");
-			log.InfoLog("DNI erroneo");
-		}else {
+		
 			
 			
-				dao.AsignMedicine(Integer.parseInt(window.units.getText().toString()), Integer.parseInt(window.Medicine.getText().toString()),window.DNIM.getText().toString());
 			
-					//daoAlmacen.restMedicine(Integer.parseInt(window.units.getText().toString()), /Integer.parseInt(window.Medicine.getText().toString()));
-					daoAlmacen.restMedicine(Integer.parseInt(window.units.getText().toString()),Integer.parseInt(window.Medicine.getText().toString()));//,idMedic);
-					window.lblError2.setText("");
-
-				}
+		
 		}
 		
 	} else if (arg0.getActionCommand().equals("Buscar Paciente")) {
