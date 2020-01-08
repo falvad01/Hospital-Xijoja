@@ -201,6 +201,7 @@ public class ControlerMedicWindow implements ActionListener {
 			add = false;
 			window.lberror.setText("No hay medicamentos");
 			log.InfoLog("Error, No hay medicamentos");
+			
 		}else{
 			window.lberror.setText("");
 		}
@@ -212,7 +213,7 @@ public class ControlerMedicWindow implements ActionListener {
 
 			//int id = dao.getLastID()+1;//siguiente id
 			int id = dao.firstIdFree();
-
+			int m;
 			
 			Date date = new Date(Calendar.getInstance().getTime().getTime());// Obtenemos la fecha actual
 			int idMedic=0,idNurse=0, idMedicine=0;;
@@ -235,12 +236,18 @@ public class ControlerMedicWindow implements ActionListener {
 				}
 				System.out.println("id medico: "+ idMedic+" id Enfermero: "+idNurse+"idMedicine"+idMedicine);
 				
-
+			if(daoAlmacen.Medicine(Integer.parseInt(window.textU.getText()), idMedicine)<0) {
+				add=false;
+				m=daoAlmacen.MedicineA(Integer.parseInt(window.textU.getText()), idMedicine);
+				window.lberror.setText("Error,quedan solo estas unidades: "+m);
+			}else {
 				dao.addPatientM(id, window.NombreP.getText(), window.Apellido1.getText(),
 						window.Apellido2.getText(), window.DNI.getText(), date,
 						Integer.parseInt(window.Habitacion.getText()),window.textEnfermedad.getText(),idMedicine,idMedic,idNurse,Integer.parseInt(window.textU.getText()));
+				daoAlmacen.restMedicine(Integer.parseInt(window.textU.getText().toString()),idMedicine);//,idMedic);
+
 				log.InfoLog("A�adido el paciente con id: "+id);
-												
+			}								
 			} catch (SQLException e1) {
 
 				e1.printStackTrace();
