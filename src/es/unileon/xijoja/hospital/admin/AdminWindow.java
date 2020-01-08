@@ -176,7 +176,7 @@ public class AdminWindow extends JFrame {
 		btnVerPlantilla = new JButton("Ver plantilla");
 		btnVerPlantilla.setBackground(Color.WHITE);
 		btnVerPlantilla.setOpaque(false);
-		btnVerPlantilla.setBounds(28, 80, 234, 23);
+		btnVerPlantilla.setBounds(28, 79, 234, 23);
 		getContentPane().add(btnVerPlantilla);
 		btnVerPlantilla.addActionListener(listener);
 
@@ -237,7 +237,7 @@ public class AdminWindow extends JFrame {
 		btnBorrarEmpleado.addActionListener(listener);
 		btnBorrarEmpleado.setOpaque(false);
 		btnBorrarEmpleado.setBackground(Color.WHITE);
-		btnBorrarEmpleado.setBounds(28, 106, 234, 23);
+		btnBorrarEmpleado.setBounds(28, 102, 234, 23);
 		getContentPane().add(btnBorrarEmpleado);
 
 		JButton button = new JButton(new ImageIcon(LoginWindow.class.getResource("/resources/--ndice.png")));
@@ -254,34 +254,35 @@ public class AdminWindow extends JFrame {
 		getContentPane().add(button);
 
 		JButton btnVerAlmacen = new JButton("Ver Almacen");
+		btnVerAlmacen.setBackground(Color.WHITE);
 		btnVerAlmacen.addActionListener(listener);
-		btnVerAlmacen.setBounds(28, 231, 234, 23);
+		btnVerAlmacen.setBounds(28, 220, 234, 23);
 		getContentPane().add(btnVerAlmacen);
-
-		JButton btnComprarMedicamentos = new JButton("Comprar medicamentos");
-		btnComprarMedicamentos.setBounds(28, 265, 234, 23);
-		getContentPane().add(btnComprarMedicamentos);
 		JButton btnCloseSesion = new JButton("Cerrar sesion");
 		btnCloseSesion.setBounds(842, 473, 117, 23);
 		getContentPane().add(btnCloseSesion);
 
 		JButton btnNewButton_2 = new JButton("Ingresar paciente");
-		btnNewButton_2.setBounds(28, 130, 234, 23);
+		btnNewButton_2.setBackground(Color.WHITE);
+		btnNewButton_2.setBounds(28, 125, 234, 23);
 		getContentPane().add(btnNewButton_2);
 		btnNewButton_2.addActionListener(listener);
 
 		JButton btnVerPacientes = new JButton("Ver pacientes");
+		btnVerPacientes.setBackground(Color.WHITE);
 		btnVerPacientes.addActionListener(listener);
-		btnVerPacientes.setBounds(28, 156, 234, 23);
+		btnVerPacientes.setBounds(28, 148, 234, 23);
 		getContentPane().add(btnVerPacientes);
 
 		JButton btnBorrarPaciente = new JButton("Borrar paciente");
+		btnBorrarPaciente.setBackground(Color.WHITE);
 		btnBorrarPaciente.addActionListener(listener);
-		btnBorrarPaciente.setBounds(28, 182, 234, 23);
+		btnBorrarPaciente.setBounds(28, 172, 234, 23);
 		getContentPane().add(btnBorrarPaciente);
 
 		JButton btnEditarPaciente = new JButton("Editar Paciente");
-		btnEditarPaciente.setBounds(28, 209, 234, 23);
+		btnEditarPaciente.setBackground(Color.WHITE);
+		btnEditarPaciente.setBounds(28, 196, 234, 23);
 		getContentPane().add(btnEditarPaciente);
 		btnCloseSesion.addActionListener(listener);
 
@@ -349,6 +350,7 @@ public class AdminWindow extends JFrame {
 		seeWarehousePanel.add(lblNumMorfina);
 
 		JButton btnNewButton_3 = new JButton(">");
+		btnNewButton_3.setBackground(Color.WHITE);
 		btnNewButton_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				int num = Integer.valueOf(lblNumParacetalmol.getText());
@@ -360,6 +362,7 @@ public class AdminWindow extends JFrame {
 		seeWarehousePanel.add(btnNewButton_3);
 
 		JButton button = new JButton(">");
+		button.setBackground(Color.WHITE);
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int num = Integer.valueOf(lblNumAspirina.getText());
@@ -371,6 +374,7 @@ public class AdminWindow extends JFrame {
 		seeWarehousePanel.add(button);
 
 		JButton button_1 = new JButton(">");
+		button_1.setBackground(Color.WHITE);
 		button_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int num = Integer.valueOf(lblNumBetadine.getText());
@@ -382,6 +386,7 @@ public class AdminWindow extends JFrame {
 		seeWarehousePanel.add(button_1);
 
 		JButton button_2 = new JButton(">");
+		button_2.setBackground(Color.WHITE);
 		button_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int num = Integer.valueOf(lblNumMorfina.getText());
@@ -393,6 +398,7 @@ public class AdminWindow extends JFrame {
 		seeWarehousePanel.add(button_2);
 
 		JButton button_3 = new JButton("<");
+		button_3.setBackground(Color.WHITE);
 		button_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -411,6 +417,7 @@ public class AdminWindow extends JFrame {
 		seeWarehousePanel.add(button_3);
 
 		JButton button_4 = new JButton("<");
+		button_4.setBackground(Color.WHITE);
 		button_4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (Integer.valueOf(lblNumAspirina.getText()) <= 0) {
@@ -426,6 +433,7 @@ public class AdminWindow extends JFrame {
 		seeWarehousePanel.add(button_4);
 
 		JButton button_5 = new JButton("<");
+		button_5.setBackground(Color.WHITE);
 		button_5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (Integer.valueOf(lblNumBetadine.getText()) <= 0) {
@@ -441,6 +449,7 @@ public class AdminWindow extends JFrame {
 		seeWarehousePanel.add(button_5);
 
 		JButton button_6 = new JButton("<");
+		button_6.setBackground(Color.WHITE);
 		button_6.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (Integer.valueOf(lblNumMorfina.getText()) <= 0) {
@@ -456,11 +465,13 @@ public class AdminWindow extends JFrame {
 		seeWarehousePanel.add(button_6);
 
 		JButton btnNewButton_4 = new JButton("Añadir o retirar");
+		btnNewButton_4.setBackground(Color.WHITE);
 		btnNewButton_4.addActionListener(listener);
 		btnNewButton_4.setBounds(262, 172, 133, 34);
 		seeWarehousePanel.add(btnNewButton_4);
 
 		JButton btnNewButton_5 = new JButton(">>");
+		btnNewButton_5.setBackground(Color.WHITE);
 		btnNewButton_5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int num = Integer.valueOf(lblNumParacetalmol.getText());
@@ -468,10 +479,11 @@ public class AdminWindow extends JFrame {
 				lblNumParacetalmol.setText(String.valueOf(num));
 			}
 		});
-		btnNewButton_5.setBounds(295, 51, 49, 14);
+		btnNewButton_5.setBounds(294, 51, 49, 14);
 		seeWarehousePanel.add(btnNewButton_5);
 
 		JButton button_7 = new JButton(">>");
+		button_7.setBackground(Color.WHITE);
 		button_7.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int num = Integer.valueOf(lblNumAspirina.getText());
@@ -479,10 +491,11 @@ public class AdminWindow extends JFrame {
 				lblNumAspirina.setText(String.valueOf(num));
 			}
 		});
-		button_7.setBounds(295, 74, 49, 14);
+		button_7.setBounds(294, 74, 49, 14);
 		seeWarehousePanel.add(button_7);
 
 		JButton button_8 = new JButton(">>");
+		button_8.setBackground(Color.WHITE);
 		button_8.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int num = Integer.valueOf(lblNumBetadine.getText());
@@ -490,10 +503,11 @@ public class AdminWindow extends JFrame {
 				lblNumBetadine.setText(String.valueOf(num));
 			}
 		});
-		button_8.setBounds(295, 99, 49, 14);
+		button_8.setBounds(294, 99, 49, 14);
 		seeWarehousePanel.add(button_8);
 
 		JButton button_9 = new JButton(">>");
+		button_9.setBackground(Color.WHITE);
 		button_9.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int num = Integer.valueOf(lblNumMorfina.getText());
@@ -501,10 +515,11 @@ public class AdminWindow extends JFrame {
 				lblNumMorfina.setText(String.valueOf(num));
 			}
 		});
-		button_9.setBounds(295, 124, 49, 14);
+		button_9.setBounds(294, 124, 49, 14);
 		seeWarehousePanel.add(button_9);
 
 		JButton button_10 = new JButton("<<");
+		button_10.setBackground(Color.WHITE);
 		button_10.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (Integer.valueOf(lblNumParacetalmol.getText()) < 5) {
@@ -520,6 +535,7 @@ public class AdminWindow extends JFrame {
 		seeWarehousePanel.add(button_10);
 
 		JButton button_11 = new JButton("<<");
+		button_11.setBackground(Color.WHITE);
 		button_11.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (Integer.valueOf(lblNumAspirina.getText()) < 5) {
@@ -535,6 +551,7 @@ public class AdminWindow extends JFrame {
 		seeWarehousePanel.add(button_11);
 
 		JButton button_12 = new JButton("<<");
+		button_12.setBackground(Color.WHITE);
 		button_12.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (Integer.valueOf(lblNumBetadine.getText()) < 5) {
@@ -550,6 +567,7 @@ public class AdminWindow extends JFrame {
 		seeWarehousePanel.add(button_12);
 
 		JButton button_13 = new JButton("<<");
+		button_13.setBackground(Color.WHITE);
 		button_13.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (Integer.valueOf(lblNumMorfina.getText()) < 5) {
