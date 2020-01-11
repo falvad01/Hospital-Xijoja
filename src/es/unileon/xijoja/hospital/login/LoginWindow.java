@@ -37,6 +37,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JPopupMenu;
 import javax.swing.ActionMap;
 import javax.swing.BorderFactory;
+import javax.swing.GroupLayout.Alignment;
 import javax.swing.ImageIcon;
 import javax.swing.InputMap;
 
@@ -147,7 +148,7 @@ public class LoginWindow extends JFrame {
 		loginPanel.add(trama);
 		
 		JLabel lblLogin = new JLabel("ACCEDER");
-		lblLogin.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 20));
+		lblLogin.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 17));
 		lblLogin.setBounds(40, 70, 150, 50);
 		loginPanel.add(lblLogin);
 		
@@ -158,7 +159,7 @@ public class LoginWindow extends JFrame {
 
 		//loginUser.setVerticalAlignment(SwingConstants.BOTTOM);
 		//loginUser.setHorizontalAlignment(JTextField.TRAILING );
-		loginUser.setBounds(40, 115, 165, 50);
+		loginUser.setBounds(40, 115, 165, 45);
 		loginUser.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 11));
 		
 		lblUser = new JLabel("USUARIO");
@@ -175,7 +176,7 @@ public class LoginWindow extends JFrame {
 		loginPassword.setBackground(new Color(228,230,230));
 		loginPassword.setForeground(new Color(100,100,100));
 
-		loginPassword.setBounds(40, 176, 165, 50);
+		loginPassword.setBounds(40, 166, 165, 45);
 		loginPassword.setEchoChar('\u0000');
 		loginPassword.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 11));
 		
@@ -188,15 +189,17 @@ public class LoginWindow extends JFrame {
 		loginPassword.addKeyListener(listener);
 
 
-		ImageIcon icon = new ImageIcon(LoginWindow.class.getResource("/resources/flechaIntro.png"));
-		Image scaleImage = icon.getImage().getScaledInstance(73, 23,Image.SCALE_DEFAULT);
-		JButton btnLogin = new JButton(new ImageIcon(scaleImage));
+		ImageIcon icon = new ImageIcon(LoginWindow.class.getResource("/resources/FlechaGris.png"));
+		Image scaleImage = icon.getImage().getScaledInstance(55, 38,Image.SCALE_DEFAULT);
+		JButton btnLogin = new RoundedJButton(30);
+		btnLogin.setBackground(new Color(228,230,230));
+		btnLogin.setForeground(new Color(100,100,100));
+		btnLogin.setBorder(null);
+		btnLogin.setBounds(81, 235, 62, 45);
+		btnLogin.setIcon(new ImageIcon(scaleImage));
+		btnLogin.setBackground(new Color(228,230,230));
 		btnLogin.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 12));
-		btnLogin.setBounds(125, 257, 73, 23);
 
-		//TODO añadir JbuttonBordered, copiando o outro poñendo a imaxe en distinto color cando os campos estén correctos
-		btnLogin.setBackground(null);
-		// btnLogin.setBorder(null);
 		btnLogin.setOpaque(false);
 		btnLogin.addKeyListener(listener);
 		btnLogin.addActionListener(listener);
@@ -249,10 +252,6 @@ public class LoginWindow extends JFrame {
             } );
         
  
-           
-		
-			//	buttonSettings.addActionListener(listener);
-
 		lblLoginError = new JLabel("");
 		lblLoginError.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		lblLoginError.setForeground(Color.RED);
@@ -383,6 +382,46 @@ public class LoginWindow extends JFrame {
 			  public String getText() {
 			    return showingHint ? "" : super.getText();
 			  }
+			}
+		public class RoundedJButton extends JButton implements FocusListener {
+
+			
+			  private Shape shape;
+
+
+			  public RoundedJButton(int size) {
+			  
+			    super.addFocusListener(this);
+		        setOpaque(false); // As suggested by @AVD in comment.
+		    }
+		    protected void paintComponent(Graphics g) {
+		         g.setColor(new Color(110,110,120));
+		         g.fillRoundRect(0, 0, getWidth()-1, getHeight()-1, 10, 10);
+		         super.paintComponent(g);
+		    }
+		    protected void paintBorder(Graphics g) {
+		         g.setColor(new Color(110,110,110));
+		         g.drawRoundRect(0, 0, getWidth()-1, getHeight()-1, 10, 10);
+		    }
+		    public boolean contains(int x, int y) {
+		         if (shape == null || !shape.getBounds().equals(getBounds())) {
+		             shape = new RoundRectangle2D.Float(0, 0, getWidth()-1, getHeight()-1, 10, 10);
+		         }
+		         return shape.contains(x, y);
+		    }
+			@Override
+			public void focusGained(FocusEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+			@Override
+			public void focusLost(FocusEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+
+			  
 			}
 	}
 
