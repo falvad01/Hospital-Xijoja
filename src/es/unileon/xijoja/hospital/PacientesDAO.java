@@ -370,7 +370,7 @@ public class PacientesDAO {
 	 */
 	public boolean checkPatientExist(String search, boolean isdni) {
 		boolean ret = false;
-
+		//TODO algo falla aqui COMO SIEMPRE
 		co = Conexion.getInstance();
 		conn = co.getConnection();
 		System.out.println("Aqui parece que si entra");
@@ -568,11 +568,11 @@ public class PacientesDAO {
 	 * @param DNI
 	 * @return
 	 */
-	public String[] getPatientDNI(String DNI) {
+	public String[] getPatient(String DNI) {
 
 		co = Conexion.getInstance();
 		conn = co.getConnection();
-
+		System.out.println("SI NO FUNCIONA EL FALLO ESTARA AQUI");
 		String sql = "SELECT * FROM pacientes WHERE NIFNIE='" + DNI + "'";
 		Statement st;
 		String[] ret = null;
@@ -789,5 +789,6 @@ public class PacientesDAO {
 
 		return ret;
 	}
+	
 
 }
