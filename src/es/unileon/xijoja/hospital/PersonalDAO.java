@@ -263,7 +263,7 @@ public class PersonalDAO {
 	public String[] getEmployee(String DNI) {
 
 		co = Conexion.getInstance();
-		DNI = DNI.replaceFirst("[\\s\\S]{0,1}$", "");// TODO no funciona, quitar la letra del DNI para que funcione
+		DNI = DNI.replaceFirst("[\\s\\S]{0,1}$", "");
 		conn = co.getConnection();
 		System.out.println("DNI: " + DNI);
 		String sql = "SELECT * FROM personal WHERE NIFNIE=" + DNI;
@@ -485,15 +485,15 @@ public class PersonalDAO {
 
 		String sql = "SELECT * FROM personal WHERE NIFNIE='" + DNI + "'";
 		Statement st;
-
+		//TODO REVISAR ESTO CON EDITAR EMPLEADO
 		try {
 			st = conn.createStatement();
 			ResultSet rs = st.executeQuery(sql);
+			System.out.println(sql);
 
-			// rs.getString(1); // ID
-			// System.out.println("Lo que no es null " + rs.getString(1));
-			if (rs == null) {
-
+			System.out.println("RS " + rs.isBeforeFirst());
+			if (!rs.isBeforeFirst()) {
+				
 				ret = false;
 			} else {
 				ret = true;
@@ -504,7 +504,7 @@ public class PersonalDAO {
 		}
 
 		co.disconect();// Cerramos la conexion con la base de datos
-
+		System.out.println(ret);
 		return ret;
 
 	}
