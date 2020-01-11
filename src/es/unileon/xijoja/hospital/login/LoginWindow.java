@@ -8,6 +8,7 @@ import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.geom.RoundRectangle2D;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -35,14 +36,18 @@ import javax.swing.JButton;
 import javax.swing.JPasswordField;
 import javax.swing.JPopupMenu;
 import javax.swing.ActionMap;
+import javax.swing.BorderFactory;
+import javax.swing.GroupLayout.Alignment;
 import javax.swing.ImageIcon;
 import javax.swing.InputMap;
 
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontFormatException;
+import java.awt.Graphics;
 import java.awt.GraphicsEnvironment;
 import java.awt.Image;
+import java.awt.Shape;
 
 @SuppressWarnings("serial")
 public class LoginWindow extends JFrame {
@@ -60,6 +65,8 @@ public class LoginWindow extends JFrame {
 	protected JLabel lblLoginError;
 	protected JLabel lblUser;
 	protected JLabel lblPassword;
+	protected Color ColorBorder;
+	protected Color ColorBorderPass;
 
 	private Logs log = new Logs();
 
@@ -69,7 +76,8 @@ public class LoginWindow extends JFrame {
 		getContentPane().setBackground(Color.WHITE);
 		setBackground(Color.WHITE);
 		this.listener = new ControlerLoginWindow(this);
-
+		ColorBorder= Color.white;
+		ColorBorderPass= Color.white;
 		setBounds(1024 / 4, 768 / 6, PWIDTH, PHEIGH);
 
 		setUndecorated(true);
@@ -131,7 +139,7 @@ public class LoginWindow extends JFrame {
 		getContentPane().add(loginPanel);
 		loginPanel.setLayout(null);
 		JLabel iconLabel = new JLabel(new ImageIcon(LoginWindow.class.getResource("/resources/icon.png")));
-		iconLabel.setBounds(33, 11, 45, 45);
+		iconLabel.setBounds(24, 21, 45, 45);
 		loginPanel.add(iconLabel);
 
 		trama = new JTextField();
@@ -139,11 +147,15 @@ public class LoginWindow extends JFrame {
 		trama.setBounds(0, 0, 0, 0);
 		loginPanel.add(trama);
 		
-		loginUser = new HintTextField("USUARIO");
-		loginUser.setBackground(Color.WHITE);
-		//loginUser.setVerticalAlignment(SwingConstants.BOTTOM);
-		//loginUser.setHorizontalAlignment(JTextField.TRAILING );
-		loginUser.setBounds(40, 115, 165, 50);
+		JLabel lblLogin = new JLabel("ACCEDER");
+		lblLogin.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 17));
+		lblLogin.setBounds(40, 70, 150, 50);
+		loginPanel.add(lblLogin);
+		
+		loginUser = new HintTextField("USUARIO",55);
+		loginUser.setBackground(new Color(228,230,230));
+		loginUser.setForeground(new Color(100,100,100));
+		loginUser.setBounds(40, 115, 165, 45);
 		loginUser.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 11));
 		
 		lblUser = new JLabel("USUARIO");
@@ -156,8 +168,11 @@ public class LoginWindow extends JFrame {
 		loginUser.setColumns(10);
 		loginUser.addKeyListener(listener);
 
-		loginPassword = new HintPasswordField("CONTRASEÑA");
-		loginPassword.setBounds(40, 176, 165, 50);
+		loginPassword = new HintPasswordField("CONTRASEÑA",30);
+		loginPassword.setBackground(new Color(228,230,230));
+		loginPassword.setForeground(new Color(100,100,100));
+
+		loginPassword.setBounds(40, 166, 165, 45);
 		loginPassword.setEchoChar('\u0000');
 		loginPassword.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 11));
 		
@@ -166,22 +181,33 @@ public class LoginWindow extends JFrame {
 		lblPassword.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 8));
 		lblPassword.setBounds(5, 0, 120, 20);
 		loginPassword.add(lblPassword);
-	
 		loginPanel.add(loginPassword);
 		loginPassword.addKeyListener(listener);
+		
 
 
 
-		JButton btnLogin = new JButton("Login");
-		btnLogin.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 11));
-		btnLogin.setBounds(125, 257, 73, 23);
+		ImageIcon icon = new ImageIcon(LoginWindow.class.getResource("/resources/FlechaGris.png"));
+		Image scaleImage = icon.getImage().getScaledInstance(55, 38,Image.SCALE_DEFAULT);
+		JButton btnLogin = new RoundedJButton(30);
+		btnLogin.setBackground(new Color(228,230,230));
+		btnLogin.setForeground(new Color(100,100,100));
+		btnLogin.setBorder(null);
+		btnLogin.setBounds(81, 235, 62, 45);
+		btnLogin.setIcon(new ImageIcon(scaleImage));
+		btnLogin.setBackground(new Color(228,230,230));
+		btnLogin.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 12));
 
-		btnLogin.setBackground(null);
-		// btnLogin.setBorder(null);
 		btnLogin.setOpaque(false);
 		btnLogin.addKeyListener(listener);
 		btnLogin.addActionListener(listener);
 		loginPanel.add(btnLogin);
+		
+		JLabel lblinfo = new JLabel("All Rights Reserved ©2020 Xijoja Software ");
+		lblinfo.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 8));
+		lblinfo.setBounds(5, 315, 230, 50);
+		loginPanel.add(lblinfo);
+		
 
 		JButton buttonInfo = new JButton(new ImageIcon(LoginWindow.class.getResource("/resources/--ndice.png")));
 		buttonInfo.addActionListener(new ActionListener() {
@@ -194,18 +220,18 @@ public class LoginWindow extends JFrame {
 		buttonInfo.setOpaque(false);
 		buttonInfo.setBorder(null);
 		buttonInfo.setBackground((Color) null);
-		buttonInfo.setBounds(10, 314, 23, 23);
+		buttonInfo.setBounds(10, 304, 23, 23);
 		loginPanel.add(buttonInfo);
 		
 		
-		ImageIcon icon = new ImageIcon(LoginWindow.class.getResource("/resources/settings.png"));
-		Image scaleImage = icon.getImage().getScaledInstance(23, 23,Image.SCALE_DEFAULT);
+		 icon = new ImageIcon(LoginWindow.class.getResource("/resources/settings.png"));
+		 scaleImage = icon.getImage().getScaledInstance(23, 23,Image.SCALE_DEFAULT);
 		JButton buttonSettings = new JButton(new ImageIcon(scaleImage));
 	
 		buttonSettings.setOpaque(false);
 		buttonSettings.setBorder(null);
 		buttonSettings.setBackground((Color) null);
-		buttonSettings.setBounds(40, 314, 23, 23);
+		buttonSettings.setBounds(40, 304, 23, 23);
 		loginPanel.add(buttonSettings);
 		  
 		
@@ -230,14 +256,10 @@ public class LoginWindow extends JFrame {
             } );
         
  
-           
-		
-			//	buttonSettings.addActionListener(listener);
-
 		lblLoginError = new JLabel("");
 		lblLoginError.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		lblLoginError.setForeground(Color.RED);
-		lblLoginError.setBounds(38, 211, 160, 14);
+		lblLoginError.setBounds(38, 230, 160, 14);
 		loginPanel.add(lblLoginError);
 		
 
@@ -247,19 +269,40 @@ public class LoginWindow extends JFrame {
 
 		  private final String hint;
 		  private boolean showingHint;
+		  private Shape shape;
 
-		  public HintTextField(final String hint) {
-		    super(hint);
+
+		  public HintTextField(final String hint, int size) {
+		    super(hint,size);
 		    this.hint = hint;
 		    this.showingHint = true;
 		    super.addFocusListener(this);
-		  }
+	        setOpaque(false); // As suggested by @AVD in comment.
+	    }
+	    protected void paintComponent(Graphics g) {
+	         g.setColor(getBackground());
+	         g.fillRoundRect(0, 0, getWidth()-1, getHeight()-1, 10, 10);
+	         super.paintComponent(g);
+	    }
+	    protected void paintBorder(Graphics g) {
+	         g.setColor(ColorBorder);
+	         g.drawRoundRect(0, 0, getWidth()-1, getHeight()-1, 10, 10);
+	    }
+	    public boolean contains(int x, int y) {
+	         if (shape == null || !shape.getBounds().equals(getBounds())) {
+	             shape = new RoundRectangle2D.Float(0, 0, getWidth()-1, getHeight()-1, 10, 10);
+	         }
+	         return shape.contains(x, y);
+	    }
 
 		  @Override
 		  public void focusGained(FocusEvent e) {
 		    if(this.getText().isEmpty()) {
 		      super.setText("");
 		      lblUser.setVisible(true);
+		      loginUser.setBorder(BorderFactory.createLineBorder(Color.black,1));
+		      ColorBorder= Color.BLACK;
+		      loginUser.setForeground(Color.BLACK);
 		      showingHint = false;
 		    }
 		  }
@@ -268,6 +311,9 @@ public class LoginWindow extends JFrame {
 		    if(this.getText().isEmpty()) {
 		      super.setText(hint);
 		      lblUser.setVisible(false);
+		      loginUser.setForeground(new Color(100,100,100));
+		      loginUser.setBorder(BorderFactory.createLineBorder(Color.white,1));
+		      ColorBorder= Color.WHITE;
 		      showingHint = true;
 		    }
 		  }
@@ -279,22 +325,45 @@ public class LoginWindow extends JFrame {
 		}
 		public class HintPasswordField extends JPasswordField implements FocusListener {
 
-			  private final String hint;
+			private final String hint;
 			  private boolean showingHint;
+			  private Shape shape;
 
-			  public HintPasswordField(final String hint) {
-			    super(hint);
+
+			  public HintPasswordField(final String hint, int size) {
+			    super(hint,size);
 			    this.hint = hint;
 			    this.showingHint = true;
 			    super.addFocusListener(this);
-			  }
+		        setOpaque(false); // As suggested by @AVD in comment.
+		    }
+		    protected void paintComponent(Graphics g) {
+		         g.setColor(getBackground());
+		         g.fillRoundRect(0, 0, getWidth()-1, getHeight()-1, 10, 10);
+		         super.paintComponent(g);
+		    }
+		    protected void paintBorder(Graphics g) {
+		         g.setColor(ColorBorder);
+		         g.drawRoundRect(0, 0, getWidth()-1, getHeight()-1, 10, 10);
+		    }
+		    public boolean contains(int x, int y) {
+		         if (shape == null || !shape.getBounds().equals(getBounds())) {
+		             shape = new RoundRectangle2D.Float(0, 0, getWidth()-1, getHeight()-1, 10, 10);
+		         }
+		         return shape.contains(x, y);
+		    }
+
 
 			  @Override
 			  public void focusGained(FocusEvent e) {
 			    if(this.getText().isEmpty()) {
 			      super.setText("");
 				  this.setEchoChar('*');
-				    lblPassword.setVisible(true);
+				  loginPassword.setBorder(BorderFactory.createLineBorder(Color.black,1));
+			      ColorBorderPass= Color.BLACK;
+			      loginPassword.setForeground(Color.BLACK);
+			      
+				  lblPassword.setVisible(true);
 
 			      showingHint = false;
 			    }
@@ -304,6 +373,9 @@ public class LoginWindow extends JFrame {
 			    if(this.getText().isEmpty()) {
 			      super.setText(hint);
 			      showingHint = true;
+			      loginPassword.setForeground(new Color(100,100,100));
+			      loginPassword.setBorder(BorderFactory.createLineBorder(Color.white,1));
+			      ColorBorderPass= Color.WHITE;
 				  lblPassword.setVisible(false);
 
 			     this.setEchoChar('\u0000');
@@ -314,6 +386,46 @@ public class LoginWindow extends JFrame {
 			  public String getText() {
 			    return showingHint ? "" : super.getText();
 			  }
+			}
+		public class RoundedJButton extends JButton implements FocusListener {
+
+			
+			  private Shape shape;
+
+
+			  public RoundedJButton(int size) {
+			  
+			    super.addFocusListener(this);
+		        setOpaque(false); // As suggested by @AVD in comment.
+		    }
+		    protected void paintComponent(Graphics g) {
+		         g.setColor(new Color(110,110,120));
+		         g.fillRoundRect(0, 0, getWidth()-1, getHeight()-1, 10, 10);
+		         super.paintComponent(g);
+		    }
+		    protected void paintBorder(Graphics g) {
+		         g.setColor(new Color(110,110,110));
+		         g.drawRoundRect(0, 0, getWidth()-1, getHeight()-1, 10, 10);
+		    }
+		    public boolean contains(int x, int y) {
+		         if (shape == null || !shape.getBounds().equals(getBounds())) {
+		             shape = new RoundRectangle2D.Float(0, 0, getWidth()-1, getHeight()-1, 10, 10);
+		         }
+		         return shape.contains(x, y);
+		    }
+			@Override
+			public void focusGained(FocusEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+			@Override
+			public void focusLost(FocusEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+
+			  
 			}
 	}
 

@@ -30,6 +30,8 @@ import es.unileon.xijoja.hospital.Logs;
 import es.unileon.xijoja.hospital.PacientesDAO;
 import es.unileon.xijoja.hospital.admin.AdminWindow;
 import es.unileon.xijoja.hospital.login.LoginWindow;
+import javax.swing.JTextPane;
+import javax.swing.JTextArea;
 
 @SuppressWarnings("serial")
 public class MedicWindow extends JFrame {
@@ -241,6 +243,7 @@ public class MedicWindow extends JFrame {
 		
 		//panel ingresar paciente
 		
+		
 		addPatientsPanel = new JPanel();
 		addPatientsPanel.setBounds(278, 11, 630, 450);
 		getContentPane().add(addPatientsPanel);
@@ -360,6 +363,25 @@ public class MedicWindow extends JFrame {
 				addPatientsPanel.add(lblUnidades_1);
 		
 		
+		//panel resumen semana
+		week = new JPanel();
+		week.setLayout(null);
+		week.setForeground(Color.WHITE);
+		week.setBackground(Color.WHITE);
+		week.setBounds(278, 11, 630, 450);
+		week.setPreferredSize(new Dimension(630, 700));
+		getContentPane().add(week);
+		
+		JLabel lblPacientesDadosDe = new JLabel("Pacientes dados de alta esta semana");
+		lblPacientesDadosDe.setBounds(57, 56, 249, 39);
+		week.add(lblPacientesDadosDe);
+		
+		JLabel lblNewLabel_4 = new JLabel("New label");
+		lblNewLabel_4.setBounds(297, 67, 56, 16);
+		week.add(lblNewLabel_4);
+		week.setVisible(true);
+		
+		
 		
 	
 		//panel asignar medicamento
@@ -414,17 +436,6 @@ public class MedicWindow extends JFrame {
 		jcbMedicine.setBounds(125, 168, 138, 20);
 		addMedicine.add(jcbMedicine);
 		listener.filJComboBoxMedicines(jcbMedicine);
-		
-		
-		//panel resumen semana
-		week = new JPanel();
-		week.setLayout(null);
-		week.setForeground(Color.WHITE);
-		week.setBackground(Color.WHITE);
-		week.setBounds(278, 11, 630, 450);
-		week.setPreferredSize(new Dimension(630, 700));
-		getContentPane().add(week);
-		week.setVisible(true);
 		getContentPane().add(seePacientsPanel);
 
 		
