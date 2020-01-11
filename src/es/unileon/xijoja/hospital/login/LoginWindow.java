@@ -160,7 +160,7 @@ public class LoginWindow extends JFrame {
 		
 		lblUser = new JLabel("USUARIO");
 		lblUser.setVisible(false);
-		lblUser.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 8));
+		lblUser.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 7));
 		lblUser.setBounds(5, 0, 120, 20);
 		loginUser.add(lblUser);
 		
@@ -178,7 +178,7 @@ public class LoginWindow extends JFrame {
 		
 		lblPassword = new JLabel("CONTRASEÑA");
 		lblPassword.setVisible(false);
-		lblPassword.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 8));
+		lblPassword.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 7));
 		lblPassword.setBounds(5, 0, 120, 20);
 		loginPassword.add(lblPassword);
 		loginPanel.add(loginPassword);
@@ -196,7 +196,7 @@ public class LoginWindow extends JFrame {
 		btnLogin.setBounds(81, 220, 58, 40);
 		btnLogin.setIcon(new ImageIcon(scaleImage));
 		btnLogin.setBackground(new Color(228,232,230));
-		btnLogin.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 12));
+		btnLogin.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 11));
 
 		btnLogin.setOpaque(false);
 		btnLogin.addKeyListener(listener);
@@ -343,7 +343,7 @@ public class LoginWindow extends JFrame {
 		         super.paintComponent(g);
 		    }
 		    protected void paintBorder(Graphics g) {
-		         g.setColor(ColorBorder);
+		         g.setColor(ColorBorderPass);
 		         g.drawRoundRect(0, 0, getWidth()-1, getHeight()-1, 10, 10);
 		    }
 		    public boolean contains(int x, int y) {
