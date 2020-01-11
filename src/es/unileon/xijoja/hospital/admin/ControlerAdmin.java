@@ -270,6 +270,7 @@ public class ControlerAdmin implements ActionListener {
 			adminWindow.seePacientsPanel.setVisible(false);
 			adminWindow.deletePatientsPanel.setVisible(false);
 			adminWindow.seeWarehousePanel.setVisible(false);
+			adminWindow.editPacientsPanel.setVisible(false);
 
 		} else if ((arg0.getActionCommand().equals("Ver plantilla")) || (arg0.getActionCommand().equals("Recargar"))) {
 
@@ -285,6 +286,7 @@ public class ControlerAdmin implements ActionListener {
 			adminWindow.seePacientsPanel.setVisible(false);
 			adminWindow.deletePatientsPanel.setVisible(false);
 			adminWindow.seeWarehousePanel.setVisible(false);
+			adminWindow.editPacientsPanel.setVisible(false);
 
 			ArrayList<String[]> insert = null;
 
@@ -360,9 +362,10 @@ public class ControlerAdmin implements ActionListener {
 			adminWindow.seePacientsPanel.setVisible(false);
 			adminWindow.deletePatientsPanel.setVisible(false);
 			adminWindow.seeWarehousePanel.setVisible(false);
+			adminWindow.editPacientsPanel.setVisible(false);
 
 		} else if (arg0.getActionCommand().equals("Buscar")) {
-			// TODO saltar fallo si el dni no existe o el campo esta vacio
+			
 
 			if ((adminWindow.textFieldSearchDNIEdit.getText().toString().equals(""))
 					|| (!personalDao.checkEmployeeExist(adminWindow.textFieldSearchDNIEdit.getText().toString()))) {
@@ -434,6 +437,7 @@ public class ControlerAdmin implements ActionListener {
 			adminWindow.seePacientsPanel.setVisible(false);
 			adminWindow.deletePatientsPanel.setVisible(false);
 			adminWindow.seeWarehousePanel.setVisible(false);
+			adminWindow.editPacientsPanel.setVisible(false);
 
 		} else if (arg0.getActionCommand().equals("Cerrar sesion")) {
 
@@ -479,6 +483,7 @@ public class ControlerAdmin implements ActionListener {
 			adminWindow.seePacientsPanel.setVisible(false);
 			adminWindow.deletePatientsPanel.setVisible(false);
 			adminWindow.seeWarehousePanel.setVisible(false);
+			adminWindow.editPacientsPanel.setVisible(false);
 
 		} else if (arg0.getActionCommand().contentEquals("Ingresar")) {
 
@@ -557,6 +562,7 @@ public class ControlerAdmin implements ActionListener {
 			adminWindow.seePacientsPanel.setVisible(true);
 			adminWindow.deletePatientsPanel.setVisible(false);
 			adminWindow.seeWarehousePanel.setVisible(false);
+			adminWindow.editPacientsPanel.setVisible(false);
 
 			ArrayList<String[]> insert = null;
 
@@ -610,6 +616,7 @@ public class ControlerAdmin implements ActionListener {
 			adminWindow.seePacientsPanel.setVisible(false);
 			adminWindow.deletePatientsPanel.setVisible(true);
 			adminWindow.seeWarehousePanel.setVisible(false);
+			adminWindow.editPacientsPanel.setVisible(false);
 
 		} else if (arg0.getActionCommand().contentEquals("Eliminar")) {
 
@@ -646,6 +653,7 @@ public class ControlerAdmin implements ActionListener {
 			adminWindow.seePacientsPanel.setVisible(false);
 			adminWindow.deletePatientsPanel.setVisible(false);
 			adminWindow.seeWarehousePanel.setVisible(true);
+			adminWindow.editPacientsPanel.setVisible(false);
 
 			adminWindow.lblNumBetadine.setText(String.valueOf(warehouseDAO.getCountMedicine("Betadine")));
 			adminWindow.lblNumMorfina.setText(String.valueOf(warehouseDAO.getCountMedicine("Morfina")));
@@ -658,6 +666,40 @@ public class ControlerAdmin implements ActionListener {
 			warehouseDAO.addNewMedicines("Betadine",Integer.valueOf(adminWindow.lblNumBetadine.getText()));
 			warehouseDAO.addNewMedicines("Morfina",Integer.valueOf(adminWindow.lblNumMorfina.getText()));
 			
+		}else if (arg0.getActionCommand().contentEquals("Editar Paciente")) {
+			
+			adminWindow.seeEmployeesPanel.setVisible(false);
+			adminWindow.addEmployeePanel.setVisible(false);
+			adminWindow.editEmployeesPanel.setVisible(false);
+			adminWindow.btnVerPlantilla.setText("Ver plantilla");
+			adminWindow.deletePanel.setVisible(false);
+			adminWindow.lblError.setText("");
+			adminWindow.lblErrorDelete.setText("");
+			adminWindow.lblErrorEdit.setText("");
+			adminWindow.addPatientsPanel.setVisible(false);
+			adminWindow.seePacientsPanel.setVisible(false);
+			adminWindow.deletePatientsPanel.setVisible(false);
+			adminWindow.seeWarehousePanel.setVisible(false);
+			adminWindow.editPacientsPanel.setVisible(true);
+			
+		}else if (arg0.getActionCommand().contentEquals("Buscar paciente")) {
+			
+			if ((adminWindow.textFieldDNISearchEditPacient.getText().toString().equals(""))
+					|| (!patientsDao.checkPatientExist(adminWindow.textFieldSearchDNIEdit.getText().toString(), true))) {
+				adminWindow.lblErrorEditPacient.setText("Error en el formulario");
+			} else {
+				enableAllEdit(true);
+				employeeToEdit = patientsDao.getPatient(adminWindow.textFieldSearchDNIEdit.getText().toString());
+
+				adminWindow.textFieldNameEditPacient.setText(employeeToEdit[1]);
+				adminWindow.textFieldSurname1EditPacient.setText(employeeToEdit[2]);
+				adminWindow.textFieldSurname2EditPacient.setText(employeeToEdit[3]);
+				adminWindow.textFieldDNIEditPacient.setText(employeeToEdit[4]);
+				adminWindow.textFieldIllnesEditPacient.setText(employeeToEdit[7]);
+				adminWindow.textFieldRommEditPacient.setText(employeeToEdit[6]);
+				
+				
+			}
 		}
 	}
 }

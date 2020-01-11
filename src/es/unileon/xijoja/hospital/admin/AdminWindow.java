@@ -48,6 +48,7 @@ public class AdminWindow extends JFrame {
 	protected JPanel seePacientsPanel;
 	protected JPanel deletePatientsPanel;
 	protected JPanel seeWarehousePanel;
+	protected JPanel editPacientsPanel;
 
 	// private JScrollPane panelquebaja;
 
@@ -112,11 +113,18 @@ public class AdminWindow extends JFrame {
 	protected JTextField textFieldFirstSurnameToDeleteEmployee;
 	protected JTextField textFieldSecondSurnameToDeleteEmployee;
 	protected JTextField textFieldErrorDeletePacient;
-
+	protected JLabel lblErrorEditPacient;
 	protected JLabel lblNumMorfina;
 	protected JLabel lblNumBetadine;
 	protected JLabel lblNumParacetalmol;
 	protected JLabel lblNumAspirina;
+	protected JTextField textFieldDNISearchEditPacient;
+	protected JTextField textFieldNameEditPacient;
+	protected JTextField textFieldSurname1EditPacient;
+	protected JTextField textFieldSurname2EditPacient;
+	protected JTextField textFieldDNIEditPacient;
+	protected JTextField textFieldIllnesEditPacient;
+	protected JTextField textFieldRommEditPacient;
 
 	public AdminWindow(String user, String password) throws SQLException {
 		log.InfoLog("Iniciada la sesion del administrador");
@@ -281,6 +289,7 @@ public class AdminWindow extends JFrame {
 		getContentPane().add(btnBorrarPaciente);
 
 		JButton btnEditarPaciente = new JButton("Editar Paciente");
+		btnEditarPaciente.addActionListener(listener);
 		btnEditarPaciente.setBackground(Color.WHITE);
 		btnEditarPaciente.setBounds(28, 196, 234, 23);
 		getContentPane().add(btnEditarPaciente);
@@ -300,9 +309,93 @@ public class AdminWindow extends JFrame {
 		seeEmployeesPanel.setVisible(false);
 
 // --------------------------------------PANEL EDITAR PACIENTE-------------------------------//
-		JPanel editPacientsPanel = new JPanel();
+		 editPacientsPanel = new JPanel();
+		editPacientsPanel.setBackground(Color.WHITE);
+		editPacientsPanel.setVisible(false);
 		editPacientsPanel.setBounds(284, 11, 624, 450);
 		getContentPane().add(editPacientsPanel);
+		editPacientsPanel.setLayout(null);
+		
+		JLabel lblNewLabel_5 = new JLabel("Introduce DNI");
+		lblNewLabel_5.setBounds(10, 11, 121, 14);
+		editPacientsPanel.add(lblNewLabel_5);
+		
+		JSeparator separator_2 = new JSeparator();
+		separator_2.setBounds(10, 34, 610, 14);
+		editPacientsPanel.add(separator_2);
+		
+		textFieldDNISearchEditPacient = new JTextField();
+		textFieldDNISearchEditPacient.setBounds(99, 8, 128, 20);
+		editPacientsPanel.add(textFieldDNISearchEditPacient);
+		textFieldDNISearchEditPacient.setColumns(10);
+		
+		JLabel lblNewLabel_6 = new JLabel("Nombre");
+		lblNewLabel_6.setBounds(10, 67, 46, 14);
+		editPacientsPanel.add(lblNewLabel_6);
+		
+		JLabel lblApellido_4 = new JLabel("1º Apellido");
+		lblApellido_4.setBounds(10, 103, 74, 14);
+		editPacientsPanel.add(lblApellido_4);
+		
+		JLabel lblApellido_5 = new JLabel("2º Apellido");
+		lblApellido_5.setBounds(10, 139, 74, 14);
+		editPacientsPanel.add(lblApellido_5);
+		
+		JLabel lblNifnie_1 = new JLabel("NIF/NIE");
+		lblNifnie_1.setBounds(10, 176, 46, 14);
+		editPacientsPanel.add(lblNifnie_1);
+		
+		JLabel lblEnfermedad_1 = new JLabel("Enfermedad");
+		lblEnfermedad_1.setBounds(10, 211, 74, 14);
+		editPacientsPanel.add(lblEnfermedad_1);
+		
+		JLabel lblHabitacion = new JLabel("Habitacion");
+		lblHabitacion.setBounds(10, 247, 74, 14);
+		editPacientsPanel.add(lblHabitacion);
+		
+		textFieldNameEditPacient = new JTextField();
+		textFieldNameEditPacient.setBounds(79, 64, 86, 20);
+		editPacientsPanel.add(textFieldNameEditPacient);
+		textFieldNameEditPacient.setColumns(10);
+		
+		textFieldSurname1EditPacient = new JTextField();
+		textFieldSurname1EditPacient.setColumns(10);
+		textFieldSurname1EditPacient.setBounds(79, 100, 86, 20);
+		editPacientsPanel.add(textFieldSurname1EditPacient);
+		
+		textFieldSurname2EditPacient = new JTextField();
+		textFieldSurname2EditPacient.setColumns(10);
+		textFieldSurname2EditPacient.setBounds(79, 136, 86, 20);
+		editPacientsPanel.add(textFieldSurname2EditPacient);
+		
+		textFieldDNIEditPacient = new JTextField();
+		textFieldDNIEditPacient.setColumns(10);
+		textFieldDNIEditPacient.setBounds(79, 173, 86, 20);
+		editPacientsPanel.add(textFieldDNIEditPacient);
+		
+		textFieldIllnesEditPacient = new JTextField();
+		textFieldIllnesEditPacient.setColumns(10);
+		textFieldIllnesEditPacient.setBounds(79, 208, 86, 20);
+		editPacientsPanel.add(textFieldIllnesEditPacient);
+		
+		textFieldRommEditPacient = new JTextField();
+		textFieldRommEditPacient.setColumns(10);
+		textFieldRommEditPacient.setBounds(79, 244, 86, 20);
+		editPacientsPanel.add(textFieldRommEditPacient);
+		
+		JButton btnNewButton_6 = new JButton("Buscar paciente");
+		btnNewButton_6.addActionListener(listener);
+		btnNewButton_6.setBounds(247, 7, 128, 23);
+		editPacientsPanel.add(btnNewButton_6);
+		
+		JButton btnNewButton_7 = new JButton("Guardar paciente");
+		btnNewButton_7.setBounds(203, 272, 121, 23);
+		editPacientsPanel.add(btnNewButton_7);
+		
+		 lblErrorEditPacient = new JLabel("");
+		lblErrorEditPacient.setBackground(Color.RED);
+		lblErrorEditPacient.setBounds(385, 11, 200, 14);
+		editPacientsPanel.add(lblErrorEditPacient);
 
 // --------------------------------------PANEL VER ALMACEN---------------------------------------//
 		seeWarehousePanel = new JPanel();
