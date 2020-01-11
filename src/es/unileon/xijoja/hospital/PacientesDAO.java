@@ -376,6 +376,7 @@ public class PacientesDAO {
 		System.out.println("Aqui parece que si entra");
 		String sql;
 		if (isdni) {
+			//search = search.replaceFirst("[\\s\\S]{0,1}$", "");
 			sql = "SELECT * FROM pacientes WHERE NIFNIE='" + search + "'";
 		} else {
 			sql = "SELECT * FROM pacientes WHERE Habitacion='" + search + "'";
@@ -573,6 +574,7 @@ public class PacientesDAO {
 		co = Conexion.getInstance();
 		conn = co.getConnection();
 		System.out.println("SI NO FUNCIONA EL FALLO ESTARA AQUI");
+		//DNI = DNI.replaceFirst("[\\s\\S]{0,1}$", "");
 		String sql = "SELECT * FROM pacientes WHERE NIFNIE='" + DNI + "'";
 		Statement st;
 		String[] ret = null;
@@ -580,6 +582,7 @@ public class PacientesDAO {
 			st = conn.createStatement();
 			ResultSet rs = st.executeQuery(sql);
 			ret = new String[12];
+			System.out.println(sql);
 			while (rs.next()) {
 
 				ret[0] = rs.getString(1); // ID
@@ -599,7 +602,7 @@ public class PacientesDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
+		System.out.println(ret[2]);
 		co.disconect();// Cerramos la conexion con la base de datos
 		return ret;
 	}

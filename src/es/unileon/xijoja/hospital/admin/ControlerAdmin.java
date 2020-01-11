@@ -36,6 +36,7 @@ public class ControlerAdmin implements ActionListener {
 	protected int numNurse;
 	protected int numSecre;
 	String[] employeeToEdit = null;
+	String[] pacientToEdit = null;
 
 	public ControlerAdmin(AdminWindow adminWindow) {
 		personalDao = new PersonalDAO();
@@ -517,7 +518,7 @@ public class ControlerAdmin implements ActionListener {
 			if (add) {// Si da error no se a�ade el empleado
 				System.out.println("Correcto");
 
-				int id = personalDao.getLastID() + 1;// siguiente id
+				int id = patientsDao.getLastID() + 1;// siguiente id
 
 				Date date = new Date(Calendar.getInstance().getTime().getTime());// Obtenemos la fecha actual
 				int idMedic = 0, idNurse = 0;
@@ -683,20 +684,20 @@ public class ControlerAdmin implements ActionListener {
 			adminWindow.editPacientsPanel.setVisible(true);
 			
 		}else if (arg0.getActionCommand().contentEquals("Buscar paciente")) {
-			
+			System.out.println(patientsDao.checkPatientExist(adminWindow.textFieldDNISearchEditPacient.getText().toString(), true));
 			if ((adminWindow.textFieldDNISearchEditPacient.getText().toString().equals(""))
-					|| (!patientsDao.checkPatientExist(adminWindow.textFieldSearchDNIEdit.getText().toString(), true))) {
+					|| (!patientsDao.checkPatientExist(adminWindow.textFieldDNISearchEditPacient.getText().toString(), true))) {
 				adminWindow.lblErrorEditPacient.setText("Error en el formulario");
 			} else {
-				enableAllEdit(true);
-				employeeToEdit = patientsDao.getPatient(adminWindow.textFieldSearchDNIEdit.getText().toString());
-
-				adminWindow.textFieldNameEditPacient.setText(employeeToEdit[1]);
-				adminWindow.textFieldSurname1EditPacient.setText(employeeToEdit[2]);
-				adminWindow.textFieldSurname2EditPacient.setText(employeeToEdit[3]);
-				adminWindow.textFieldDNIEditPacient.setText(employeeToEdit[4]);
-				adminWindow.textFieldIllnesEditPacient.setText(employeeToEdit[7]);
-				adminWindow.textFieldRommEditPacient.setText(employeeToEdit[6]);
+				
+				pacientToEdit = patientsDao.getPatient(adminWindow.textFieldDNISearchEditPacient.getText().toString());
+				System.out.println(pacientToEdit[1]);
+				adminWindow.textFieldNameEditPacient.setText(pacientToEdit[1]);
+				adminWindow.textFieldSurname1EditPacient.setText(pacientToEdit[2]);
+				adminWindow.textFieldSurname2EditPacient.setText(pacientToEdit[3]);
+				adminWindow.textFieldDNIEditPacient.setText(pacientToEdit[4]);
+				adminWindow.textFieldIllnesEditPacient.setText(pacientToEdit[7]);
+				adminWindow.textFieldRommEditPacient.setText(pacientToEdit[6]);
 				
 				
 			}
