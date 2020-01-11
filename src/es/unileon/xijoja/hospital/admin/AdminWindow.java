@@ -298,12 +298,13 @@ public class AdminWindow extends JFrame {
 		seeEmployeesPanel.setBounds(284, 11, 624, 450);
 		seeEmployeesPanel.setPreferredSize(new Dimension(630, 700));
 		seeEmployeesPanel.setVisible(false);
-//----------------------------------PANEL AÑADIR PACIENTES--------------------------//
-		addPatientsPanel = new JPanel();
-		addPatientsPanel.setVisible(false);
 
-		// --------------------------------------PANEL VER
-		// ALMACEN---------------------------------------//
+// --------------------------------------PANEL EDITAR PACIENTE-------------------------------//
+		JPanel editPacientsPanel = new JPanel();
+		editPacientsPanel.setBounds(284, 11, 624, 450);
+		getContentPane().add(editPacientsPanel);
+
+// --------------------------------------PANEL VER ALMACEN---------------------------------------//
 		seeWarehousePanel = new JPanel();
 		seeWarehousePanel.setVisible(false);
 		seeWarehousePanel.setBackground(Color.WHITE);
@@ -401,16 +402,15 @@ public class AdminWindow extends JFrame {
 		button_3.setBackground(Color.WHITE);
 		button_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+
 				if (Integer.valueOf(lblNumParacetalmol.getText()) <= 0) {
-					//TODO poner aqui el error en el label
+					// TODO poner aqui el error en el label
 				} else {
 					int num = Integer.valueOf(lblNumParacetalmol.getText());
 					num--;
 					lblNumParacetalmol.setText(String.valueOf(num));
 				}
-				
-				
+
 			}
 		});
 		button_3.setBounds(214, 51, 41, 14);
@@ -421,7 +421,7 @@ public class AdminWindow extends JFrame {
 		button_4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (Integer.valueOf(lblNumAspirina.getText()) <= 0) {
-					//TODO poner aqui el error en el label
+					// TODO poner aqui el error en el label
 				} else {
 					int num = Integer.valueOf(lblNumAspirina.getText());
 					num--;
@@ -437,7 +437,7 @@ public class AdminWindow extends JFrame {
 		button_5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (Integer.valueOf(lblNumBetadine.getText()) <= 0) {
-					//TODO poner aqui el error en el label
+					// TODO poner aqui el error en el label
 				} else {
 					int num = Integer.valueOf(lblNumBetadine.getText());
 					num--;
@@ -453,7 +453,7 @@ public class AdminWindow extends JFrame {
 		button_6.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (Integer.valueOf(lblNumMorfina.getText()) <= 0) {
-					//TODO poner aqui el error en el label
+					// TODO poner aqui el error en el label
 				} else {
 					int num = Integer.valueOf(lblNumMorfina.getText());
 					num--;
@@ -523,7 +523,7 @@ public class AdminWindow extends JFrame {
 		button_10.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (Integer.valueOf(lblNumParacetalmol.getText()) < 5) {
-					//TODO poner aqui el error en el label
+					// TODO poner aqui el error en el label
 				} else {
 					int num = Integer.valueOf(lblNumParacetalmol.getText());
 					num = num - 5;
@@ -539,7 +539,7 @@ public class AdminWindow extends JFrame {
 		button_11.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (Integer.valueOf(lblNumAspirina.getText()) < 5) {
-					//TODO poner aqui el error en el label
+					// TODO poner aqui el error en el label
 				} else {
 					int num = Integer.valueOf(lblNumAspirina.getText());
 					num = num - 5;
@@ -555,7 +555,7 @@ public class AdminWindow extends JFrame {
 		button_12.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (Integer.valueOf(lblNumBetadine.getText()) < 5) {
-					//TODO poner aqui el error en el label
+					// TODO poner aqui el error en el label
 				} else {
 					int num = Integer.valueOf(lblNumBetadine.getText());
 					num = num - 5;
@@ -571,7 +571,7 @@ public class AdminWindow extends JFrame {
 		button_13.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (Integer.valueOf(lblNumMorfina.getText()) < 5) {
-					//TODO poner aqui el error en el label
+					// TODO poner aqui el error en el label
 				} else {
 					int num = Integer.valueOf(lblNumMorfina.getText());
 					num = num - 5;
@@ -642,6 +642,11 @@ public class AdminWindow extends JFrame {
 		textFieldErrorDeletePacient.setBounds(436, 244, 154, 20);
 		deletePatientsPanel.add(textFieldErrorDeletePacient);
 		textFieldErrorDeletePacient.setColumns(10);
+
+		// ----------------------------------PANEL AÑADIR
+		// PACIENTES--------------------------//
+		addPatientsPanel = new JPanel();
+		addPatientsPanel.setVisible(false);
 		addPatientsPanel.setBounds(278, 11, 630, 450);
 		getContentPane().add(addPatientsPanel);
 		addPatientsPanel.setLayout(null);
