@@ -3,15 +3,21 @@ package es.unileon.xijoja.hospital.login;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.sql.SQLException;
 
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 import javax.swing.KeyStroke;
+import javax.swing.SwingConstants;
 
 import es.unileon.xijoja.hospital.InfoWindow;
 import es.unileon.xijoja.hospital.Logs;
@@ -34,6 +40,8 @@ import javax.swing.InputMap;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.FontFormatException;
+import java.awt.GraphicsEnvironment;
 import java.awt.Image;
 
 @SuppressWarnings("serial")
@@ -46,9 +54,13 @@ public class LoginWindow extends JFrame {
 	/* LOGIN */
 	protected JPanel loginPanel;
 	protected JTextField loginUser;
+	protected JTextField trama;
 	protected JPasswordField loginPassword;
 	protected PersonalDAO dao;
 	protected JLabel lblLoginError;
+	protected JLabel lblUser;
+	protected JLabel lblPassword;
+
 	private Logs log = new Logs();
 
 	public LoginWindow() throws IOException {
@@ -69,6 +81,13 @@ public class LoginWindow extends JFrame {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		try {
+		     GraphicsEnvironment ge =   GraphicsEnvironment.getLocalGraphicsEnvironment();
+		     ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("etc/rexlia.ttf")));
+		} catch (IOException|FontFormatException e) {
+		     //Handle exception
+		}
+		
 	}
 
 	private void initComponents() throws IOException {
@@ -112,36 +131,50 @@ public class LoginWindow extends JFrame {
 		getContentPane().add(loginPanel);
 		loginPanel.setLayout(null);
 		JLabel iconLabel = new JLabel(new ImageIcon(LoginWindow.class.getResource("/resources/icon.png")));
-		iconLabel.setBounds(23, 62, 45, 45);
+		iconLabel.setBounds(33, 11, 45, 45);
 		loginPanel.add(iconLabel);
 
+		trama = new JTextField();
+		trama.setBackground(Color.WHITE);
+		trama.setBounds(0, 0, 0, 0);
+		loginPanel.add(trama);
 		
-		
-		loginUser = new JTextField();
+		loginUser = new HintTextField("USUARIO");
 		loginUser.setBackground(Color.WHITE);
-		loginUser.setBounds(83, 115, 115, 20);
+		//loginUser.setVerticalAlignment(SwingConstants.BOTTOM);
+		//loginUser.setHorizontalAlignment(JTextField.TRAILING );
+		loginUser.setBounds(40, 115, 165, 50);
+		loginUser.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 11));
+		
+		lblUser = new JLabel("USUARIO");
+		lblUser.setVisible(false);
+		lblUser.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 8));
+		lblUser.setBounds(5, 0, 120, 20);
+		loginUser.add(lblUser);
+		
 		loginPanel.add(loginUser);
 		loginUser.setColumns(10);
 		loginUser.addKeyListener(listener);
 
-		loginPassword = new JPasswordField();
-		loginPassword.setBounds(83, 146, 115, 20);
+		loginPassword = new HintPasswordField("CONTRASEÑA");
+		loginPassword.setBounds(40, 176, 165, 50);
+		loginPassword.setEchoChar('\u0000');
+		loginPassword.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 11));
+		
+		lblPassword = new JLabel("CONTRASEÑA");
+		lblPassword.setVisible(false);
+		lblPassword.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 8));
+		lblPassword.setBounds(5, 0, 120, 20);
+		loginPassword.add(lblPassword);
+	
 		loginPanel.add(loginPassword);
 		loginPassword.addKeyListener(listener);
 
-		JLabel lblUser = new JLabel("USER");
-		lblUser.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 11));
-		lblUser.setBounds(49, 118, 73, 14);
-		loginPanel.add(lblUser);
 
-		JLabel lblPassword = new JLabel("PASSWORD");
-		lblPassword.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 11));
-		lblPassword.setBounds(23, 146, 90, 14);
-		loginPanel.add(lblPassword);
 
 		JButton btnLogin = new JButton("Login");
 		btnLogin.setFont(new Font("Yu Gothic UI Semibold", Font.PLAIN, 11));
-		btnLogin.setBounds(125, 177, 73, 23);
+		btnLogin.setBounds(125, 257, 73, 23);
 
 		btnLogin.setBackground(null);
 		// btnLogin.setBorder(null);
@@ -206,6 +239,81 @@ public class LoginWindow extends JFrame {
 		lblLoginError.setForeground(Color.RED);
 		lblLoginError.setBounds(38, 211, 160, 14);
 		loginPanel.add(lblLoginError);
+		
 
+		}
+
+		public class HintTextField extends JTextField implements FocusListener {
+
+		  private final String hint;
+		  private boolean showingHint;
+
+		  public HintTextField(final String hint) {
+		    super(hint);
+		    this.hint = hint;
+		    this.showingHint = true;
+		    super.addFocusListener(this);
+		  }
+
+		  @Override
+		  public void focusGained(FocusEvent e) {
+		    if(this.getText().isEmpty()) {
+		      super.setText("");
+		      lblUser.setVisible(true);
+		      showingHint = false;
+		    }
+		  }
+		  @Override
+		  public void focusLost(FocusEvent e) {
+		    if(this.getText().isEmpty()) {
+		      super.setText(hint);
+		      lblUser.setVisible(false);
+		      showingHint = true;
+		    }
+		  }
+
+		  @Override
+		  public String getText() {
+		    return showingHint ? "" : super.getText();
+		  }
+		}
+		public class HintPasswordField extends JPasswordField implements FocusListener {
+
+			  private final String hint;
+			  private boolean showingHint;
+
+			  public HintPasswordField(final String hint) {
+			    super(hint);
+			    this.hint = hint;
+			    this.showingHint = true;
+			    super.addFocusListener(this);
+			  }
+
+			  @Override
+			  public void focusGained(FocusEvent e) {
+			    if(this.getText().isEmpty()) {
+			      super.setText("");
+				  this.setEchoChar('*');
+				    lblPassword.setVisible(true);
+
+			      showingHint = false;
+			    }
+			  }
+			  @Override
+			  public void focusLost(FocusEvent e) {
+			    if(this.getText().isEmpty()) {
+			      super.setText(hint);
+			      showingHint = true;
+				  lblPassword.setVisible(false);
+
+			     this.setEchoChar('\u0000');
+			    }
+			  }
+
+			  @Override
+			  public String getText() {
+			    return showingHint ? "" : super.getText();
+			  }
+			}
 	}
-}
+
