@@ -184,13 +184,12 @@ public class LoginWindow extends JFrame {
 		lblPassword.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 8));
 		lblPassword.setBounds(5, 0, 120, 20);
 		loginPassword.add(lblPassword);
-	
 		loginPanel.add(loginPassword);
 		loginPassword.addKeyListener(listener);
 
 
 		ImageIcon icon = new ImageIcon(LoginWindow.class.getResource("/resources/flechaIntro.png"));
-		Image scaleImage = icon.getImage().getScaledInstance(23, 23,Image.SCALE_DEFAULT);
+		Image scaleImage = icon.getImage().getScaledInstance(73, 23,Image.SCALE_DEFAULT);
 		JButton btnLogin = new JButton(new ImageIcon(scaleImage));
 		btnLogin.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 12));
 		btnLogin.setBounds(125, 257, 73, 23);
