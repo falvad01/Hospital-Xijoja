@@ -155,7 +155,7 @@ public class LoginWindow extends JFrame {
 		loginUser = new HintTextField("USUARIO",55);
 		loginUser.setBackground(new Color(228,230,230));
 		loginUser.setForeground(new Color(100,100,100));
-		loginUser.setBounds(40, 115, 165, 45);
+		loginUser.setBounds(40, 115, 165, 40);
 		loginUser.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 11));
 		
 		lblUser = new JLabel("USUARIO");
@@ -172,7 +172,7 @@ public class LoginWindow extends JFrame {
 		loginPassword.setBackground(new Color(228,230,230));
 		loginPassword.setForeground(new Color(100,100,100));
 
-		loginPassword.setBounds(40, 166, 165, 45);
+		loginPassword.setBounds(40, 161, 165, 40);
 		loginPassword.setEchoChar('\u0000');
 		loginPassword.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 11));
 		
@@ -188,14 +188,14 @@ public class LoginWindow extends JFrame {
 
 
 		ImageIcon icon = new ImageIcon(LoginWindow.class.getResource("/resources/FlechaGris.png"));
-		Image scaleImage = icon.getImage().getScaledInstance(55, 38,Image.SCALE_DEFAULT);
+		Image scaleImage = icon.getImage().getScaledInstance(50, 35,Image.SCALE_DEFAULT);
 		JButton btnLogin = new RoundedJButton(30);
 		btnLogin.setBackground(new Color(228,230,230));
 		btnLogin.setForeground(new Color(100,100,100));
 		btnLogin.setBorder(null);
-		btnLogin.setBounds(81, 235, 62, 45);
+		btnLogin.setBounds(81, 220, 58, 40);
 		btnLogin.setIcon(new ImageIcon(scaleImage));
-		btnLogin.setBackground(new Color(228,230,230));
+		btnLogin.setBackground(new Color(228,232,230));
 		btnLogin.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 12));
 
 		btnLogin.setOpaque(false);
