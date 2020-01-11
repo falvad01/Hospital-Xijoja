@@ -39,6 +39,7 @@ public class ControlerMedicWindow implements ActionListener {
 	String[] getProductData = null;
 
 
+	
 
 	
 

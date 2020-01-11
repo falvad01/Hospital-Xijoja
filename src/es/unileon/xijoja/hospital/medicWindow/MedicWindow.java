@@ -243,6 +243,7 @@ public class MedicWindow extends JFrame {
 		
 		//panel ingresar paciente
 		
+		
 		addPatientsPanel = new JPanel();
 		addPatientsPanel.setBounds(278, 11, 630, 450);
 		getContentPane().add(addPatientsPanel);
