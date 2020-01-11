@@ -155,10 +155,6 @@ public class LoginWindow extends JFrame {
 		loginUser = new HintTextField("USUARIO",55);
 		loginUser.setBackground(new Color(228,230,230));
 		loginUser.setForeground(new Color(100,100,100));
-
-
-		//loginUser.setVerticalAlignment(SwingConstants.BOTTOM);
-		//loginUser.setHorizontalAlignment(JTextField.TRAILING );
 		loginUser.setBounds(40, 115, 165, 45);
 		loginUser.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 11));
 		
@@ -187,6 +183,8 @@ public class LoginWindow extends JFrame {
 		loginPassword.add(lblPassword);
 		loginPanel.add(loginPassword);
 		loginPassword.addKeyListener(listener);
+		
+
 
 
 		ImageIcon icon = new ImageIcon(LoginWindow.class.getResource("/resources/FlechaGris.png"));
@@ -204,6 +202,12 @@ public class LoginWindow extends JFrame {
 		btnLogin.addKeyListener(listener);
 		btnLogin.addActionListener(listener);
 		loginPanel.add(btnLogin);
+		
+		JLabel lblinfo = new JLabel("All Rights Reserved ©2020 Xijoja Software ");
+		lblinfo.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 8));
+		lblinfo.setBounds(5, 315, 230, 50);
+		loginPanel.add(lblinfo);
+		
 
 		JButton buttonInfo = new JButton(new ImageIcon(LoginWindow.class.getResource("/resources/--ndice.png")));
 		buttonInfo.addActionListener(new ActionListener() {
@@ -216,7 +220,7 @@ public class LoginWindow extends JFrame {
 		buttonInfo.setOpaque(false);
 		buttonInfo.setBorder(null);
 		buttonInfo.setBackground((Color) null);
-		buttonInfo.setBounds(10, 314, 23, 23);
+		buttonInfo.setBounds(10, 304, 23, 23);
 		loginPanel.add(buttonInfo);
 		
 		
@@ -227,7 +231,7 @@ public class LoginWindow extends JFrame {
 		buttonSettings.setOpaque(false);
 		buttonSettings.setBorder(null);
 		buttonSettings.setBackground((Color) null);
-		buttonSettings.setBounds(40, 314, 23, 23);
+		buttonSettings.setBounds(40, 304, 23, 23);
 		loginPanel.add(buttonSettings);
 		  
 		
