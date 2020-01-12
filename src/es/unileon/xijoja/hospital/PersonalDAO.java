@@ -574,7 +574,7 @@ public class PersonalDAO {
 		co = Conexion.getInstance();
 		conn = co.getConnection();
 
-		String sql = "DROP TABLE `pacientes`, `personal`, `almacen`";
+		String sql = "DROP TABLE `pacientes`, `personal`, `almacen`, `eliminados`";
 		Statement st;
 		try {
 			st = conn.createStatement();
