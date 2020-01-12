@@ -194,13 +194,13 @@ public class SecretaryWindow extends JFrame {
 
 		JLabel lblNombre = new JLabel("Nombre");
 		lblNombre.setHorizontalAlignment(SwingConstants.TRAILING);
-		lblNombre.setBounds(86, 27, 63, 23);
+		lblNombre.setBounds(28, 27, 121, 23);
 		lblNombre.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
 		addPatientPane.add(lblNombre);
 
-		JLabel lblApellidos = new JLabel("1ï¿½ Apellido");
+		JLabel lblApellidos = new JLabel("1º Apellido");
 		lblApellidos.setHorizontalAlignment(SwingConstants.TRAILING);
-		lblApellidos.setBounds(69, 78, 80, 23);
+		lblApellidos.setBounds(28, 78, 121, 23);
 		lblApellidos.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
 		addPatientPane.add(lblApellidos);
 
@@ -216,7 +216,7 @@ public class SecretaryWindow extends JFrame {
 
 		JLabel lblNifnie = new JLabel("NIF/NIE");
 		lblNifnie.setHorizontalAlignment(SwingConstants.TRAILING);
-		lblNifnie.setBounds(86, 170, 63, 23);
+		lblNifnie.setBounds(28, 170, 121, 23);
 		lblNifnie.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
 		addPatientPane.add(lblNifnie);
 
@@ -227,13 +227,13 @@ public class SecretaryWindow extends JFrame {
 
 		JLabel lblRoom2 = new JLabel("Habitacion");
 		lblRoom2.setHorizontalAlignment(SwingConstants.TRAILING);
-		lblRoom2.setBounds(356, 27, 93, 23);
+		lblRoom2.setBounds(335, 27, 114, 23);
 		lblRoom2.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
 		addPatientPane.add(lblRoom2);
 
 		
 		JButton btnRegister = new RoundedJButton(15);
-		btnRegister.setText("Aï¿½adir");
+		btnRegister.setText("Añadir");
 		btnRegister.setBounds(320, 260, 212, 47);
 		btnRegister.setBackground(Color.WHITE);
 		btnRegister.setOpaque(false);
@@ -246,9 +246,9 @@ public class SecretaryWindow extends JFrame {
 		addPatientPane.add(textFieldRoom);
 		
 
-		JLabel lblApellido = new JLabel("2ï¿½ Apellido");
+		JLabel lblApellido = new JLabel("2º Apellido");
 		lblApellido.setHorizontalAlignment(SwingConstants.TRAILING);
-		lblApellido.setBounds(69, 123, 80, 23);
+		lblApellido.setBounds(28, 123, 121, 23);
 		lblApellido.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
 		addPatientPane.add(lblApellido);
 
@@ -260,7 +260,7 @@ public class SecretaryWindow extends JFrame {
 		JLabel lblnurse = new JLabel("Enfermero");
 		lblnurse.setHorizontalAlignment(SwingConstants.TRAILING);
 		lblnurse.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
-		lblnurse.setBounds(369, 78, 80, 23);
+		lblnurse.setBounds(335, 78, 114, 23);
 		addPatientPane.add(lblnurse);
 
 		jcbNurse = new JComboBox();
@@ -268,10 +268,10 @@ public class SecretaryWindow extends JFrame {
 		jcbNurse.setBounds(459, 81, 213, 20);
 		addPatientPane.add(jcbNurse);
 
-		JLabel lblMedic = new JLabel("Mï¿½dico");
+		JLabel lblMedic = new JLabel("Médico");
 		lblMedic.setHorizontalAlignment(SwingConstants.TRAILING);
 		lblMedic.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
-		lblMedic.setBounds(369, 123, 80, 23);
+		lblMedic.setBounds(335, 123, 114, 23);
 		addPatientPane.add(lblMedic);
 
 		jcbMedic = new JComboBox();
@@ -281,7 +281,7 @@ public class SecretaryWindow extends JFrame {
 
 		JLabel lblEnfermedad = new JLabel("Enfermedad");
 		lblEnfermedad.setHorizontalAlignment(SwingConstants.TRAILING);
-		lblEnfermedad.setBounds(356, 170, 93, 23);
+		lblEnfermedad.setBounds(335, 170, 114, 23);
 		lblEnfermedad.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
 		addPatientPane.add(lblEnfermedad);
 

@@ -116,7 +116,6 @@ public class ControlerSecretaryWindow implements ActionListener {
 				secretarywindow.getPatientPane.setVisible(true);
 				
 		} else if (arg0.getActionCommand().equals("Añadir Paciente")) {
-				System.out.println("2");
 				secretarywindow.getPatientPane.setVisible(false);
 				secretarywindow.addPatientPane.setVisible(true);
 				
