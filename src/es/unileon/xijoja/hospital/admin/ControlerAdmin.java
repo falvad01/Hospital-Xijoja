@@ -268,7 +268,7 @@ public class ControlerAdmin implements ActionListener {
 			adminWindow.lblErrorDelete.setText("");
 			adminWindow.lblErrorEdit.setText("");
 			adminWindow.addPatientsPanel.setVisible(false);
-			adminWindow.seePacientsPanel.setVisible(false);
+			adminWindow.seePatientPane.setVisible(false);
 			adminWindow.deletePatientsPanel.setVisible(false);
 			adminWindow.seeWarehousePanel.setVisible(false);
 			adminWindow.editPacientsPanel.setVisible(false);
@@ -284,69 +284,54 @@ public class ControlerAdmin implements ActionListener {
 			adminWindow.lblErrorDelete.setText("");
 			adminWindow.lblErrorEdit.setText("");
 			adminWindow.addPatientsPanel.setVisible(false);
-			adminWindow.seePacientsPanel.setVisible(false);
+			adminWindow.seePatientPane.setVisible(false);
 			adminWindow.deletePatientsPanel.setVisible(false);
 			adminWindow.seeWarehousePanel.setVisible(false);
 			adminWindow.editPacientsPanel.setVisible(false);
 
 			ArrayList<String[]> insert = null;
+			//int numOfRows= dao.getNumRow();
 
 			String[] titles = null;
 
 			String[][] matrixToInsert = null;
-
-			titles = new String[] { "  Id", "Nombre", "Apellido 1", "Apellido 2", "NIF", "Fecha", "Cuenta Bancaria",
-					"Puesto", "Contrase�a", "Usuario", "Email" }; // Titulos de la tabla de
+			
+			titles = new String[] { "  Id", "Nombre", "Apellido 1", "Apellido 2", "NIF", "Fecha", "Habitación",
+					"Enfermedad", "Producto", "Medico", "Unidades medicamento", "Enfermero " }; // Titulos de la tabla de
 																	// los empleados
 			insert = personalDao.getAllEmployees();// ArrayList de Arrays
-			System.out.println("inset vale" + insert.size());
-			for (int i = 0; i < insert.size(); i++) {
-				System.out.println(insert.get(i)[0]);
-			}
-			matrixToInsert = new String[insert.size() + 1][11];
+		
+			matrixToInsert = new String[insert.size()][12];
 			adminWindow.seeEmployeesPanel.setPreferredSize(new Dimension(624, 20 + 20 * insert.size()));
-			adminWindow.seeEmployeesPanel.setBounds(284, 11, 624, 20 + 20 * insert.size());
-
-			for (int i = 0; i < insert.size() + 1; i++) { // rellenamos la matriz que meteremos en la tabla a partir
-															// del ArrayList de arrays devuelto del DAO /// +1 PORQUE NO
-															// CONTABA QUE HACIA FALTA TAMBIEN LA FILA EN LA CUAL EST�N
-															// LOS TITULOS
+			adminWindow.seeEmployeesPanel.setBounds(284, 11, 624, 430);
+			
+			for (int i = 0; i < insert.size(); i++) { // rellenamos la matriz que meteremos en la tabla a partir
+				// del ArrayList de arrays devuelto del DAO
 				for (int j = 0; j < 11; j++) {
-					if (i == 0) {
-
-						matrixToInsert[i][j] = titles[j];
-
-					} else {
-						matrixToInsert[i][j] = insert.get(i - 1)[j];// a�adi un -1, no se tenia en cuenta la fila que s
-																	// euarda para los titulos, entonces empezaba en el
-																	// id 1
-					}
+				
+						matrixToInsert[i][j] = insert.get(i)[j];					
 				}
 			}
 
-			JTable employeesTable = new JTable();
-			employeesTable.setBounds(20, 20, 600, 20 + 20 * insert.size());
+			
+			JTable employeeTable = new JTable();
+			employeeTable.setBounds(5, 5, 600, 20 + 20 * insert.size());
 
-			employeesTable.setVisible(true);
-			adminWindow.seeEmployeesPanel.add(employeesTable);
-			/*
-			 * //TODO lo que hizo xian es esto que esta comentado panelquebaja = new
-			 * JScrollPane(seeEmployeesPanel);
-			 *
-			 * panelquebaja.setHorizontalScrollBarPolicy(JScrollPane.
-			 * HORIZONTAL_SCROLLBAR_NEVER);
-			 * panelquebaja.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS
-			 * ); panelquebaja.setBounds(seeEmployeesPanel.getBounds());
-			 * System.out.println(panelquebaja.getBounds());
-			 * getContentPane().add(panelquebaja);
-			 *
-			 * panelquebaja.setVisible(true);
-			 */
+			employeeTable.setVisible(true);
+		//	nurseWindow.seePatientPane.add(PatientsTable);
+			employeeTable.setAutoscrolls(true);
+			
 
-			employeesTable.setAutoscrolls(true);
-
+			
 			DefaultTableModel tableModel = new DefaultTableModel(matrixToInsert, titles);
-			employeesTable.setModel(tableModel);
+			employeeTable.setModel(tableModel);
+			
+			adminWindow.seeEmployeesPanel.setViewportView(employeeTable);
+
+			employeeTable.setAutoscrolls(true);
+
+			DefaultTableModel tableModel2 = new DefaultTableModel(matrixToInsert, titles);
+			employeeTable.setModel(tableModel2);
 
 		} else if (arg0.getActionCommand().equals("Editar trabajador")) {
 
@@ -360,7 +345,7 @@ public class ControlerAdmin implements ActionListener {
 			adminWindow.lblErrorDelete.setText("");
 			adminWindow.lblErrorEdit.setText("");
 			adminWindow.addPatientsPanel.setVisible(false);
-			adminWindow.seePacientsPanel.setVisible(false);
+			adminWindow.seePatientPane.setVisible(false);
 			adminWindow.deletePatientsPanel.setVisible(false);
 			adminWindow.seeWarehousePanel.setVisible(false);
 			adminWindow.editPacientsPanel.setVisible(false);
@@ -434,7 +419,7 @@ public class ControlerAdmin implements ActionListener {
 			adminWindow.lblErrorDelete.setText("");
 			adminWindow.lblErrorEdit.setText("");
 			adminWindow.addPatientsPanel.setVisible(false);
-			adminWindow.seePacientsPanel.setVisible(false);
+			adminWindow.seePatientPane.setVisible(false);
 			adminWindow.deletePatientsPanel.setVisible(false);
 			adminWindow.seeWarehousePanel.setVisible(false);
 			adminWindow.editPacientsPanel.setVisible(false);
@@ -480,7 +465,7 @@ public class ControlerAdmin implements ActionListener {
 			adminWindow.lblErrorDelete.setText("");
 			adminWindow.lblErrorEdit.setText("");
 			adminWindow.addPatientsPanel.setVisible(true);
-			adminWindow.seePacientsPanel.setVisible(false);
+			adminWindow.seePatientPane.setVisible(false);
 			adminWindow.deletePatientsPanel.setVisible(false);
 			adminWindow.seeWarehousePanel.setVisible(false);
 			adminWindow.editPacientsPanel.setVisible(false);
@@ -559,49 +544,49 @@ public class ControlerAdmin implements ActionListener {
 			adminWindow.lblErrorDelete.setText("");
 			adminWindow.lblErrorEdit.setText("");
 			adminWindow.addPatientsPanel.setVisible(false);
-			adminWindow.seePacientsPanel.setVisible(true);
+			adminWindow.seePatientPane.setVisible(true);
 			adminWindow.deletePatientsPanel.setVisible(false);
 			adminWindow.seeWarehousePanel.setVisible(false);
 			adminWindow.editPacientsPanel.setVisible(false);
 
 			ArrayList<String[]> insert = null;
+			int numOfRows= patientsDao.getNumRow();
 
 			String[] titles = null;
 
 			String[][] matrixToInsert = null;
-
+			
 			titles = new String[] { "  Id", "Nombre", "Apellido 1", "Apellido 2", "NIF", "Fecha", "Habitación",
-					"Enfermedad", "Producto", "Medico", "Unidades medicamento", "Enfermero " }; // Titulos de la tabla
-																								// de
-			// los empleados
+					"Enfermedad", "Producto", "Medico", "Unidades medicamento", "Enfermero " }; // Titulos de la tabla de
+																	// los empleados
 			insert = patientsDao.getAllPatients();// ArrayList de Arrays
-
-			matrixToInsert = new String[insert.size() + 1][12];
-			adminWindow.seePacientsPanel.setPreferredSize(new Dimension(624, 20 + 20 * insert.size()));
-			adminWindow.seePacientsPanel.setBounds(284, 11, 624, 20 + 20 * insert.size());
-
-			for (int i = 0; i < insert.size() + 1; i++) { // rellenamos la matriz que meteremos en la tabla a partir
+		
+			matrixToInsert = new String[insert.size()][12];
+			adminWindow.seePatientPane.setPreferredSize(new Dimension(624, 20 + 20 * insert.size()));
+			adminWindow.seePatientPane.setBounds(284, 11, 624, 430);
+			
+			for (int i = 0; i < insert.size(); i++) { // rellenamos la matriz que meteremos en la tabla a partir
 				// del ArrayList de arrays devuelto del DAO
 				for (int j = 0; j < 12; j++) {
-					if (i == 0) {
-
-						matrixToInsert[i][j] = titles[j];
-
-					} else {
-						matrixToInsert[i][j] = insert.get(i - 1)[j];
-					}
+				
+						matrixToInsert[i][j] = insert.get(i)[j];					
 				}
 			}
 
+			
 			JTable PatientsTable = new JTable();
 			PatientsTable.setBounds(5, 5, 600, 20 + 20 * insert.size());
 
 			PatientsTable.setVisible(true);
-			adminWindow.seePacientsPanel.add(PatientsTable);
+		//	nurseWindow.seePatientPane.add(PatientsTable);
 			PatientsTable.setAutoscrolls(true);
+			
 
+			
 			DefaultTableModel tableModel = new DefaultTableModel(matrixToInsert, titles);
 			PatientsTable.setModel(tableModel);
+			
+			adminWindow.seePatientPane.setViewportView(PatientsTable);
 
 		} else if (arg0.getActionCommand().contentEquals("Borrar paciente")) {
 			adminWindow.seeEmployeesPanel.setVisible(false);
@@ -613,7 +598,7 @@ public class ControlerAdmin implements ActionListener {
 			adminWindow.lblErrorDelete.setText("");
 			adminWindow.lblErrorEdit.setText("");
 			adminWindow.addPatientsPanel.setVisible(false);
-			adminWindow.seePacientsPanel.setVisible(false);
+			adminWindow.seePatientPane.setVisible(false);
 			adminWindow.deletePatientsPanel.setVisible(true);
 			adminWindow.seeWarehousePanel.setVisible(false);
 			adminWindow.editPacientsPanel.setVisible(false);
@@ -650,7 +635,7 @@ public class ControlerAdmin implements ActionListener {
 			adminWindow.lblErrorDelete.setText("");
 			adminWindow.lblErrorEdit.setText("");
 			adminWindow.addPatientsPanel.setVisible(false);
-			adminWindow.seePacientsPanel.setVisible(false);
+			adminWindow.seePatientPane.setVisible(false);
 			adminWindow.deletePatientsPanel.setVisible(false);
 			adminWindow.seeWarehousePanel.setVisible(true);
 			adminWindow.editPacientsPanel.setVisible(false);
@@ -677,7 +662,7 @@ public class ControlerAdmin implements ActionListener {
 			adminWindow.lblErrorDelete.setText("");
 			adminWindow.lblErrorEdit.setText("");
 			adminWindow.addPatientsPanel.setVisible(false);
-			adminWindow.seePacientsPanel.setVisible(false);
+			adminWindow.seePatientPane.setVisible(false);
 			adminWindow.deletePatientsPanel.setVisible(false);
 			adminWindow.seeWarehousePanel.setVisible(false);
 			adminWindow.editPacientsPanel.setVisible(true);
@@ -716,7 +701,9 @@ public class ControlerAdmin implements ActionListener {
 
 					if (pf.getText().equals(adminWindow.password)) {// Si se acierta la contraseña
 						out = true;
-						if (patientsDao.checkIfRoomIsBusy(Integer.parseInt(pacientToEdit[6]))) {//Comprobamos que la habitacion no este ocupada
+						if (patientsDao.checkIfRoomIsBusy(Integer.parseInt(pacientToEdit[6]))) {// Comprobamos que la
+																								// habitacion no este
+																								// ocupada
 
 							adminWindow.lblErrorEditPacientRomm.setText(
 									"Esa habitacion no est� disponible, proxima: " + patientsDao.firstRoomFree());

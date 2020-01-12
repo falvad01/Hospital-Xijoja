@@ -11,7 +11,7 @@ import java.sql.SQLException;
 import javax.swing.JFrame;
 import javax.swing.JButton;
 import javax.swing.JPanel;
-
+import javax.swing.JScrollPane;
 import javax.swing.JLabel;
 
 import java.awt.Font;
@@ -42,10 +42,10 @@ public class AdminWindow extends JFrame {
 
 	Logs archivo = new Logs(); // Instancia de la clase para utilizar sus metodos
 
-	protected JPanel seeEmployeesPanel;
+	protected JScrollPane seeEmployeesPanel;
 	protected JPanel addEmployeePanel;
 	protected JPanel addPatientsPanel;
-	protected JPanel seePacientsPanel;
+	protected JScrollPane seePatientPane;
 	protected JPanel deletePatientsPanel;
 	protected JPanel seeWarehousePanel;
 	protected JPanel editPacientsPanel;
@@ -147,7 +147,7 @@ public class AdminWindow extends JFrame {
 
 	private void initComponents() throws SQLException {
 
-		getContentPane().setBackground(Color.WHITE);
+		getContentPane().setBackground(Color.LIGHT_GRAY);
 		getContentPane().setLayout(null);
 
 		JButton crossButton = new JButton(new ImageIcon(LoginWindow.class.getResource("/resources/cross.png")));
@@ -268,7 +268,7 @@ public class AdminWindow extends JFrame {
 		btnVerAlmacen.setBounds(28, 220, 234, 23);
 		getContentPane().add(btnVerAlmacen);
 		JButton btnCloseSesion = new JButton("Cerrar sesion");
-		btnCloseSesion.setBounds(842, 473, 117, 23);
+		btnCloseSesion.setBounds(145, 462, 117, 23);
 		getContentPane().add(btnCloseSesion);
 
 		JButton btnNewButton_2 = new JButton("Ingresar paciente");
@@ -301,19 +301,23 @@ public class AdminWindow extends JFrame {
 	private void initComponentsPanels() throws SQLException {
 
 //-----------------------------------------------PANEL VER EMPLEADOS-----------------------------------------//
-		seeEmployeesPanel = new JPanel();
-		seeEmployeesPanel.setLayout(null);
+		
+		seeEmployeesPanel = new JScrollPane();
+		seeEmployeesPanel.setBounds(284, 11, 625, 420);
 		seeEmployeesPanel.setForeground(Color.WHITE);
 		seeEmployeesPanel.setBackground(Color.WHITE);
-		seeEmployeesPanel.setBounds(284, 11, 624, 450);
-		seeEmployeesPanel.setPreferredSize(new Dimension(630, 700));
+		seeEmployeesPanel.setPreferredSize(new Dimension(630, 420));
+		seeEmployeesPanel.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		seeEmployeesPanel.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+
 		seeEmployeesPanel.setVisible(false);
+		getContentPane().add(seeEmployeesPanel);
 
 // --------------------------------------PANEL EDITAR PACIENTE-------------------------------//
 		 editPacientsPanel = new JPanel();
 		editPacientsPanel.setBackground(Color.WHITE);
 		editPacientsPanel.setVisible(false);
-		editPacientsPanel.setBounds(284, 11, 624, 450);
+		editPacientsPanel.setBounds(274, 0, 695, 496);
 		getContentPane().add(editPacientsPanel);
 		editPacientsPanel.setLayout(null);
 		
@@ -411,7 +415,7 @@ public class AdminWindow extends JFrame {
 		seeWarehousePanel.setVisible(false);
 		seeWarehousePanel.setBackground(Color.WHITE);
 		getContentPane().add(seeWarehousePanel);
-		seeWarehousePanel.setBounds(284, 11, 624, 450);
+		seeWarehousePanel.setBounds(274, 0, 695, 496);
 		seeWarehousePanel.setLayout(null);
 
 		JLabel lblNewLabel_4 = new JLabel("Paracetamol");
@@ -688,7 +692,7 @@ public class AdminWindow extends JFrame {
 		deletePatientsPanel = new JPanel();
 		deletePatientsPanel.setVisible(false);
 		deletePatientsPanel.setBackground(Color.WHITE);
-		deletePatientsPanel.setBounds(274, 0, 649, 467);
+		deletePatientsPanel.setBounds(274, 0, 695, 496);
 		getContentPane().add(deletePatientsPanel);
 		deletePatientsPanel.setLayout(null);
 
@@ -749,7 +753,7 @@ public class AdminWindow extends JFrame {
 		// PACIENTES--------------------------//
 		addPatientsPanel = new JPanel();
 		addPatientsPanel.setVisible(false);
-		addPatientsPanel.setBounds(278, 11, 630, 450);
+		addPatientsPanel.setBounds(274, 0, 695, 496);
 		getContentPane().add(addPatientsPanel);
 		addPatientsPanel.setLayout(null);
 		addPatientsPanel.setForeground(Color.WHITE);
@@ -847,7 +851,7 @@ public class AdminWindow extends JFrame {
 // ---------------------------------------------PANEL BORRAR EMPLEADOS--------------------------------------//
 		deletePanel = new JPanel();
 		deletePanel.setBackground(Color.WHITE);
-		deletePanel.setBounds(274, 0, 649, 467);
+		deletePanel.setBounds(274, 0, 695, 496);
 		getContentPane().add(deletePanel);
 		deletePanel.setLayout(null);
 		deletePanel.setVisible(false);
@@ -903,7 +907,7 @@ public class AdminWindow extends JFrame {
 		deletePanel.add(lblErrorDelete);
 // --------------------------------------------PANEL EDITAR EMPLEADOS-------------------------------------//
 		editEmployeesPanel = new JPanel();
-		editEmployeesPanel.setBounds(284, 11, 624, 450);
+		editEmployeesPanel.setBounds(274, 0, 695, 496);
 		getContentPane().add(editEmployeesPanel);
 		editEmployeesPanel.setLayout(null);
 		editEmployeesPanel.setForeground(Color.WHITE);
@@ -1043,7 +1047,7 @@ public class AdminWindow extends JFrame {
 		addEmployeePanel = new JPanel();
 		addEmployeePanel.setForeground(Color.WHITE);
 		addEmployeePanel.setBackground(Color.WHITE);
-		addEmployeePanel.setBounds(284, 11, 624, 450);
+		addEmployeePanel.setBounds(274, 0, 695, 496);
 		getContentPane().add(addEmployeePanel);
 		addEmployeePanel.setLayout(null);
 
@@ -1152,13 +1156,15 @@ public class AdminWindow extends JFrame {
 		lblApellido_1.setBounds(32, 127, 101, 16);
 
 // ---------------------------------------PANEL VER PACIENTES-----------------------------------//
-		seePacientsPanel = new JPanel();
-		seePacientsPanel.setLayout(null);
-		seePacientsPanel.setForeground(Color.WHITE);
-		seePacientsPanel.setBackground(Color.WHITE);
-		seePacientsPanel.setBounds(284, 11, 624, 450);
-		seePacientsPanel.setPreferredSize(new Dimension(630, 700));
-		seePacientsPanel.setVisible(false);
-		getContentPane().add(seePacientsPanel);
+		seePatientPane = new JScrollPane();
+		seePatientPane.setBounds(284, 11, 625, 420);
+		seePatientPane.setForeground(Color.WHITE);
+		seePatientPane.setBackground(Color.WHITE);
+		seePatientPane.setPreferredSize(new Dimension(630, 420));
+        seePatientPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        seePatientPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+
+		seePatientPane.setVisible(false);
+		getContentPane().add(seePatientPane);
 	}
 }
