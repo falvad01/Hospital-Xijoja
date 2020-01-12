@@ -82,6 +82,9 @@ public class MedicWindow extends JFrame {
     protected JTextField textEnfermedad;
     protected JButton button;
     protected JTextField textU;
+    protected JTextField eliminados;
+    protected JTextField adds;
+    protected JTextField meds;
    // protected String user;
 	//protected String password;
 
@@ -372,15 +375,33 @@ public class MedicWindow extends JFrame {
 		week.setPreferredSize(new Dimension(630, 700));
 		getContentPane().add(week);
 		
-		JLabel lblPacientesDadosDe = new JLabel("Pacientes dados de alta esta semana");
+		JLabel lblPacientesDadosDe = new JLabel("Pacientes dados de alta esta semana:");
 		lblPacientesDadosDe.setBounds(57, 56, 249, 39);
+		lblPacientesDadosDe.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		week.add(lblPacientesDadosDe);
 		
-		JLabel lblNewLabel_4 = new JLabel("New label");
-		lblNewLabel_4.setBounds(297, 67, 56, 16);
-		week.add(lblNewLabel_4);
-		week.setVisible(true);
-		
+			JLabel lblPacientesNuevosEsta = new JLabel("Pacientes nuevos esta semana:");
+			lblPacientesNuevosEsta.setBounds(60, 142, 213, 32);
+			lblPacientesNuevosEsta.setFont(new Font("Tahoma", Font.PLAIN, 15));
+			week.add(lblPacientesNuevosEsta);
+			
+			JLabel lblTotalMedicamentosUsados = new JLabel("Total medicamentos usados:");
+			lblTotalMedicamentosUsados.setBounds(57, 219, 240, 32);
+			lblTotalMedicamentosUsados.setFont(new Font("Tahoma", Font.PLAIN, 15));
+			week.add(lblTotalMedicamentosUsados);
+			
+			
+				JLabel iconLabel1 = new JLabel("New label");
+				iconLabel1.setBounds(39, 249, 258, 201);
+				week.add(iconLabel1);
+				iconLabel1.setIcon(new ImageIcon(AdminWindow.class.getResource("/resources/iconAdmin.png")));
+				getContentPane().add(week);
+				
+				JLabel iconLabel2 = new JLabel("New label");
+				iconLabel2.setBounds(360, 56, 258, 310);
+				week.add(iconLabel2);
+				iconLabel2.setIcon(new ImageIcon(AdminWindow.class.getResource("/resources/fondo.jpg")));
+				getContentPane().add(week);
 		
 		
 	
@@ -629,3 +650,4 @@ public class MedicWindow extends JFrame {
 		
 	}
 }
+
