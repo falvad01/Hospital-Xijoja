@@ -77,7 +77,7 @@ public class NurseWindow extends JFrame {
 
 	private void initComponents() throws SQLException {
 
-		getContentPane().setBackground(Color.WHITE);
+		getContentPane().setBackground(Color.lightGray);
 		getContentPane().setLayout(null);
 
 		
@@ -124,7 +124,7 @@ public class NurseWindow extends JFrame {
 		JSeparator separator = new JSeparator();
 		separator.setForeground(Color.BLACK);
 		separator.setOrientation(SwingConstants.VERTICAL);
-		separator.setBounds(274, 11, 7, 474);
+		separator.setBounds(274, 0, 7, 496);
 		getContentPane().add(separator);
 
 		JSeparator separator_1 = new JSeparator();
@@ -166,7 +166,7 @@ public class NurseWindow extends JFrame {
 
 
 		seePatientPane = new JScrollPane();
-		seePatientPane.setBounds(284, 11, 625, 420);
+		seePatientPane.setBounds(274, 0, 695, 496);
 		seePatientPane.setForeground(Color.WHITE);
 		seePatientPane.setBackground(Color.WHITE);
 		seePatientPane.setPreferredSize(new Dimension(630, 420));
@@ -182,7 +182,7 @@ public class NurseWindow extends JFrame {
 		
 		//------------------PANEL BUSCAR POR HABITACION O POR DNI--------------
 				getPatientPane = new JPanel();
-				getPatientPane.setBounds(284, 11, 624, 450);
+				getPatientPane.setBounds(274, 0, 695, 496);
 				getContentPane().add(getPatientPane);
 				getPatientPane.setLayout(null);
 				getPatientPane.setForeground(Color.WHITE);

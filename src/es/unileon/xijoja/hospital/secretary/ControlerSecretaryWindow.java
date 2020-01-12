@@ -37,7 +37,7 @@ public class ControlerSecretaryWindow implements ActionListener {
 //TODO comprobar codigo inutil
 	public void actionPerformed(ActionEvent arg0) {
 
-		if (arg0.getActionCommand().equals("Aï¿½adir")) {
+		if (arg0.getActionCommand().equals("Añadir")) {
 
 			boolean add = true;
 			if ((secretarywindow.textFieldName.getText().equals("")) || (secretarywindow.textFieldSurname1.getText().equals(""))
@@ -115,7 +115,7 @@ public class ControlerSecretaryWindow implements ActionListener {
 				secretarywindow.addPatientPane.setVisible(false);
 				secretarywindow.getPatientPane.setVisible(true);
 				
-		} else if (arg0.getActionCommand().equals("Aï¿½adir Paciente")) {
+		} else if (arg0.getActionCommand().equals("Añadir Paciente")) {
 				System.out.println("2");
 				secretarywindow.getPatientPane.setVisible(false);
 				secretarywindow.addPatientPane.setVisible(true);

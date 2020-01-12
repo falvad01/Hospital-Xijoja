@@ -5,6 +5,9 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import java.awt.geom.RoundRectangle2D;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -14,6 +17,9 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Shape;
+
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
@@ -88,8 +94,9 @@ public class SecretaryWindow extends JFrame {
 	
 	private void initComponents() throws SQLException {
 
-		getContentPane().setBackground(Color.WHITE);
+		getContentPane().setBackground(Color.LIGHT_GRAY);
 		getContentPane().setLayout(null);
+	//TODO usar	btnLogin.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 11));
 
 		
 
@@ -118,15 +125,15 @@ public class SecretaryWindow extends JFrame {
 			}
 		});
 
-		JButton btnNewButton = new JButton("Aï¿½adir Paciente");
+		JButton btnNewButton = new RoundedJButton(15);
+		btnNewButton.setText("Añadir Paciente");
 		btnNewButton.setOpaque(false);
-		btnNewButton.setBackground(new Color(255, 255, 255));
 		btnNewButton.setBounds(28, 33, 234, 41);
 		getContentPane().add(btnNewButton);
 		btnNewButton.addActionListener(listener);
 
-		JButton btnEditEmployee = new JButton("Buscar Paciente");
-		btnEditEmployee.setBackground(Color.WHITE);
+		JButton btnEditEmployee = new RoundedJButton(15);
+		btnEditEmployee.setText("Buscar Paciente");
 		btnEditEmployee.setOpaque(false);
 		btnEditEmployee.setBounds(28, 85, 234, 41);
 		getContentPane().add(btnEditEmployee);
@@ -135,7 +142,7 @@ public class SecretaryWindow extends JFrame {
 		JSeparator separator = new JSeparator();
 		separator.setForeground(Color.BLACK);
 		separator.setOrientation(SwingConstants.VERTICAL);
-		separator.setBounds(274, 11, 7, 474);
+		separator.setBounds(274, 0, 7, 496);
 		getContentPane().add(separator);
 
 		JSeparator separator_1 = new JSeparator();
@@ -149,12 +156,14 @@ public class SecretaryWindow extends JFrame {
 		separator_2.setBounds(20, 11, 117, 8);
 		getContentPane().add(separator_2);
 		
-		JButton btnCloseSesion = new JButton("Cerrar sesion");
-		btnCloseSesion.setBounds(842, 473, 117, 23);
+		JButton btnCloseSesion = new RoundedJButton(15);
+		btnCloseSesion.setText("Cerrar sesion");
+		btnCloseSesion.setBounds(60, 465, 180, 23);
 		getContentPane().add(btnCloseSesion);
 		btnCloseSesion.addActionListener(listener);
 		
 		JButton button = new JButton(new ImageIcon(LoginWindow.class.getResource("/resources/--ndice.png")));
+		button.setBackground(Color.LIGHT_GRAY);
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				InfoWindow info = new InfoWindow("secretary");
@@ -176,7 +185,7 @@ public class SecretaryWindow extends JFrame {
 		
 		//------------------PANEL BUSCAR POR HABITACION O POR DNI--------------
 				getPatientPane = new JPanel();
-				getPatientPane.setBounds(284, 11, 624, 450);
+				getPatientPane.setBounds(274, 0, 695, 496);
 				getContentPane().add(getPatientPane);
 				getPatientPane.setLayout(null);
 				getPatientPane.setForeground(Color.WHITE);
@@ -280,7 +289,7 @@ public class SecretaryWindow extends JFrame {
 		addPatientPane = new JPanel();
 		addPatientPane.setForeground(Color.WHITE);
 		addPatientPane.setBackground(Color.WHITE);
-		addPatientPane.setBounds(284, 11, 630, 450);
+		addPatientPane.setBounds(274, 0, 695, 496);
 		getContentPane().add(addPatientPane);
 		addPatientPane.setLayout(null);
 
@@ -324,7 +333,7 @@ public class SecretaryWindow extends JFrame {
 		textFieldRoom.setColumns(10);
 		addPatientPane.add(textFieldRoom);
 
-		JButton btnRegister = new JButton("Aï¿½adir");
+		JButton btnRegister = new JButton("Añadir");
 		btnRegister.setBounds(320, 260, 212, 47);
 		btnRegister.setBackground(Color.WHITE);
 		btnRegister.setOpaque(false);
@@ -382,6 +391,50 @@ public class SecretaryWindow extends JFrame {
 		iconLabel.setIcon(new ImageIcon(AdminWindow.class.getResource("/resources/iconAdmin.png")));
 
 	}
+	public class RoundedJButton extends JButton implements FocusListener {
+
+		
+		  private Shape shape;
+		  
+
+
+		  public RoundedJButton(int size) {
+		  
+		    super.addFocusListener(this);
+	        setOpaque(false); // As suggested by @AVD in comment.
+	        setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 13));
+	        setForeground(Color.BLACK);
+	        setBackground(Color.GRAY);
+
+		  }
+	    protected void paintComponent(Graphics g) {
+	         g.setColor(new Color(150,150,150));
+	         g.fillRoundRect(0, 0, getWidth()-1, getHeight()-1, 10, 10);
+	         super.paintComponent(g);
+	    }
+	    protected void paintBorder(Graphics g) {
+	         g.setColor(new Color(190,190,190));
+	         g.drawRoundRect(0, 0, getWidth()-1, getHeight()-1, 10, 10);
+	    }
+	    public boolean contains(int x, int y) {
+	         if (shape == null || !shape.getBounds().equals(getBounds())) {
+	             shape = new RoundRectangle2D.Float(0, 0, getWidth()-1, getHeight()-1, 10, 10);
+	         }
+	         return shape.contains(x, y);
+	    }
+		@Override
+		public void focusGained(FocusEvent arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+		@Override
+		public void focusLost(FocusEvent arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+
+	}
+		  
 
 	
 }

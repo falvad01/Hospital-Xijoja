@@ -8,6 +8,7 @@ import javax.swing.JFrame;
 import es.unileon.xijoja.hospital.admin.AdminWindow;
 import es.unileon.xijoja.hospital.login.LoginWindow;
 import es.unileon.xijoja.hospital.medicWindow.MedicWindow;
+import es.unileon.xijoja.hospital.nurse.NurseWindow;
 import es.unileon.xijoja.hospital.secretary.SecretaryWindow;
 
 public class main {
@@ -17,15 +18,10 @@ public class main {
 		// llamada al login
 		 //LoginWindow window = new LoginWindow();
 		
-		AdminWindow window = null;
-		try {
-			window = new AdminWindow("root", "root");
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}// Creamos la ventana del administrador
+		NurseWindow window = null;
+		window = new NurseWindow("enfermero", "enfermero");
 		
-		LoginWindow w2=new LoginWindow();
+		SecretaryWindow w2=new SecretaryWindow();
 
 		//window.setVisible(true);
 		w2.setVisible(true);

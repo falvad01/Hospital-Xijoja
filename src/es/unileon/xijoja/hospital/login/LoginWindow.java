@@ -190,6 +190,7 @@ public class LoginWindow extends JFrame {
 		ImageIcon icon = new ImageIcon(LoginWindow.class.getResource("/resources/FlechaGris.png"));
 		Image scaleImage = icon.getImage().getScaledInstance(50, 35,Image.SCALE_DEFAULT);
 		JButton btnLogin = new RoundedJButton(30);
+		btnLogin.setText("Login");
 		btnLogin.setBackground(new Color(228,230,230));
 		btnLogin.setForeground(new Color(100,100,100));
 		btnLogin.setBorder(null);

@@ -2,8 +2,12 @@ package es.unileon.xijoja.hospital.nurse;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.FontFormatException;
+import java.awt.GraphicsEnvironment;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
@@ -45,6 +49,12 @@ public class ControlerNurseWindow implements ActionListener {
 		this.nurseWindow = window;
 		log = new Logs();
 		this. id= daoPersonal.getIdByUserAndPass(nurseWindow.user,nurseWindow.password);
+		try {
+		     GraphicsEnvironment ge =   GraphicsEnvironment.getLocalGraphicsEnvironment();
+		     ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("etc/rexlia.ttf")));
+		} catch (IOException|FontFormatException e) {
+		     //Handle exception
+		}
 
 	}
 	
@@ -82,14 +92,16 @@ public class ControlerNurseWindow implements ActionListener {
 
 				String[][] matrixToInsert = null;
 				
-				titles = new String[] { "  Id", "Nombre", "Apellido 1", "Apellido 2", "NIF", "Fecha", "Habitaci√≥n",
-						"Enfermedad", "Producto", "Medico", "Unidades medicamento", "Enfermero " }; // Titulos de la tabla de
+				titles = new String[] { "ID", "NOMBRE", "APELLIDO", "APELLIDO", "NIF", "FECHA", "N∫HABITACION",
+						"ENFERMEDAD", "IDMEDICAMENTO", "MEDICO", "TRATAMIENTO", "ENFERMERO " }; // Titulos de la tabla de
+		
 																		// los empleados
 				insert = dao.getAllPatients(id,false);// ArrayList de Arrays
 			
 				matrixToInsert = new String[insert.size()][12];
 				nurseWindow.seePatientPane.setPreferredSize(new Dimension(624, 20 + 20 * insert.size()));
-				nurseWindow.seePatientPane.setBounds(284, 11, 624, 430);
+				nurseWindow.seePatientPane.setBounds(274, 30, 695, 466);
+				nurseWindow.setBackground(Color.white);
 				
 				for (int i = 0; i < insert.size(); i++) { // rellenamos la matriz que meteremos en la tabla a partir
 					// del ArrayList de arrays devuelto del DAO
@@ -101,7 +113,9 @@ public class ControlerNurseWindow implements ActionListener {
 	
 				
 				JTable PatientsTable = new JTable();
+				PatientsTable.setBackground(Color.WHITE);
 				PatientsTable.setBounds(5, 5, 600, 20 + 20 * insert.size());
+			;
 
 				PatientsTable.setVisible(true);
 			//	nurseWindow.seePatientPane.add(PatientsTable);
@@ -110,8 +124,9 @@ public class ControlerNurseWindow implements ActionListener {
 
 				
 				DefaultTableModel tableModel = new DefaultTableModel(matrixToInsert, titles);
+
 				PatientsTable.setModel(tableModel);
-				
+				PatientsTable.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 9));				
 				nurseWindow.seePatientPane.setViewportView(PatientsTable);
 
 				
