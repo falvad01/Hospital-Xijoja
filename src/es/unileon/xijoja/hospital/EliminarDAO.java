@@ -254,6 +254,7 @@ public class EliminarDAO {
 	  		
 	  		return elm;
 	  	}
+	 
 		public void eliminadosM(int cont) {
 
 	  		co = Conexion.getInstance();
