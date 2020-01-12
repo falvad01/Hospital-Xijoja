@@ -1,6 +1,8 @@
 package es.unileon.xijoja.hospital.medicWindow;
 
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -11,10 +13,12 @@ import java.util.Calendar;
 import java.util.Iterator;
 
 import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import es.unileon.xijoja.hospital.AlmacenDAO;
+import es.unileon.xijoja.hospital.EliminarDAO;
 import es.unileon.xijoja.hospital.Logs;
 import es.unileon.xijoja.hospital.PacientesDAO;
 import es.unileon.xijoja.hospital.PersonalDAO;
@@ -27,9 +31,13 @@ public class ControlerMedicWindow implements ActionListener {
 	private MedicWindow window;
 	private Logs log;
 	//private PersonalDAO dao;
+	private int count;
+	private int count2;
+	private int count3;
 	private PacientesDAO dao;
 	private PersonalDAO daoPersonal;
 	private AlmacenDAO daoAlmacen;
+	private EliminarDAO daoE;
 	private ArrayList<String[]> arrayNurse, arrayMedic;
 	private ArrayList<String[]> arrayMedicine;
 	String[] getPatientData = null;
@@ -37,9 +45,8 @@ public class ControlerMedicWindow implements ActionListener {
 	private int id,idProduct;
 	private ArrayList<String[]> arrayPacientes;
 	String[] getProductData = null;
-
-
 	
+
 
 	
 
@@ -51,6 +58,7 @@ public class ControlerMedicWindow implements ActionListener {
 		dao = new PacientesDAO();
 		this.daoAlmacen= new AlmacenDAO();
 		this.daoPersonal= new PersonalDAO();
+		this.daoE= new EliminarDAO();
 		//this. id= daoPersonal.getIdByUserAndPass(window.user,window.password);
 		log = new Logs();
 		//TODO inicializar aqui el dao
@@ -246,7 +254,12 @@ public class ControlerMedicWindow implements ActionListener {
 						window.Apellido2.getText(), window.DNI.getText(), date,
 						Integer.parseInt(window.Habitacion.getText()),window.textEnfermedad.getText(),idMedicine,idMedic,idNurse,Integer.parseInt(window.textU.getText()));
 				daoAlmacen.restMedicine(Integer.parseInt(window.textU.getText().toString()),idMedicine);//,idMedic);
-
+				count2=1;
+				daoE.eliminadosB(count2);
+				count3=Integer.parseInt(window.textU.getText().toString());
+				System.out.println("count3"+count3);
+				daoE.eliminadosM(count3);
+				
 				log.InfoLog("A�adido el paciente con id: "+id);
 			}								
 			} catch (SQLException e1) {
@@ -320,7 +333,9 @@ public class ControlerMedicWindow implements ActionListener {
 					window.textFieldFirstDeleteToDelete.getText().toString(),
 					window.textFieldSecondDeleteToDelete.getText().toString(), window.textFieldDNIToDelete.getText().toString());
 					window.lblErrorDelete.setText("");
-				
+					count=1;
+					daoE.eliminadosAct(count);
+					
 
 			}
 		}
@@ -391,7 +406,8 @@ public class ControlerMedicWindow implements ActionListener {
 						//daoAlmacen.restMedicine(Integer.parseInt(window.units.getText().toString()), /Integer.parseInt(window.Medicine.getText().toString()));
 						daoAlmacen.restMedicine(Integer.parseInt(window.units.getText().toString()),idMedicine);//,idMedic);
 						window.lblError2.setText("");
-
+						count3=Integer.parseInt(window.units.getText().toString());
+						daoE.eliminadosM(count3);
 					}
 		
 			
@@ -460,7 +476,28 @@ public class ControlerMedicWindow implements ActionListener {
 		window.addMedicine.setVisible(false);
 		window.week.setVisible(true);
 		
+		JLabel meds = new JLabel(String.valueOf(daoE.getElimMedicines()));
+		meds.setBounds(318, 227, 56, 16);
+		meds.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		meds.setForeground(Color.BLACK);
+		window.week.add(meds);
 		
+
+		JLabel adds = new JLabel(String.valueOf(daoE.getAdd()));
+		adds.setBounds(318, 151, 56, 16);
+		adds.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		window.week.add(adds);
+		
+		
+		JLabel eliminados = new JLabel(String.valueOf(daoE.getEliminated()));
+		eliminados.setBounds(318, 67, 56, 16);
+		eliminados.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		window.week.add(eliminados);
+		
+		
+  		System.out.println(daoE.getEliminated());
+  		System.out.println(daoE.getAdd());
+  		System.out.println(daoE.getElimMedicines());
 		
     }else if (arg0.getActionCommand().equals("Cerrar Sesión")) {
 
