@@ -95,6 +95,7 @@ public class AdminWindow extends JFrame {
 	protected JTextField textFieldFirstDeleteToDelete;
 	protected JTextField textFieldSecondDeleteToDelete;
 	protected JLabel lblErrorDelete;
+	protected JLabel lblErrorEditPacientRomm;
 
 	protected JTextField NombreP;
 	protected JTextField surname1AddPatients;
@@ -389,13 +390,21 @@ public class AdminWindow extends JFrame {
 		editPacientsPanel.add(btnNewButton_6);
 		
 		JButton btnNewButton_7 = new JButton("Guardar paciente");
-		btnNewButton_7.setBounds(203, 272, 121, 23);
+		btnNewButton_7.addActionListener(listener);
+		btnNewButton_7.setBounds(306, 272, 153, 23);
 		editPacientsPanel.add(btnNewButton_7);
 		
 		 lblErrorEditPacient = new JLabel("");
+		 lblErrorEditPacient.setForeground(Color.RED);
 		lblErrorEditPacient.setBackground(Color.RED);
 		lblErrorEditPacient.setBounds(385, 11, 200, 14);
 		editPacientsPanel.add(lblErrorEditPacient);
+		
+		 lblErrorEditPacientRomm = new JLabel("");
+		 lblErrorEditPacientRomm.setForeground(Color.RED);
+		lblErrorEditPacientRomm.setBackground(Color.RED);
+		lblErrorEditPacientRomm.setBounds(10, 281, 286, 14);
+		editPacientsPanel.add(lblErrorEditPacientRomm);
 
 // --------------------------------------PANEL VER ALMACEN---------------------------------------//
 		seeWarehousePanel = new JPanel();

@@ -81,7 +81,7 @@ public class ControlerAdmin implements ActionListener {
 	 * @param surname2
 	 * @return
 	 * 
-	 * 		Generamos un usuario con el nombre y apellidos pasados por parametro
+	 *         Generamos un usuario con el nombre y apellidos pasados por parametro
 	 */
 	private String genUser(String name, String surname1, String surname2) {
 
@@ -127,7 +127,7 @@ public class ControlerAdmin implements ActionListener {
 	 * 
 	 * @return
 	 * 
-	 * 		Generamos una contraseña aleatoria
+	 *         Generamos una contraseña aleatoria
 	 */
 	private String genPassword() {
 
@@ -366,7 +366,6 @@ public class ControlerAdmin implements ActionListener {
 			adminWindow.editPacientsPanel.setVisible(false);
 
 		} else if (arg0.getActionCommand().equals("Buscar")) {
-			
 
 			if ((adminWindow.textFieldSearchDNIEdit.getText().toString().equals(""))
 					|| (!personalDao.checkEmployeeExist(adminWindow.textFieldSearchDNIEdit.getText().toString()))) {
@@ -662,13 +661,13 @@ public class ControlerAdmin implements ActionListener {
 			adminWindow.lblNumParacetalmol.setText(String.valueOf(warehouseDAO.getCountMedicine("Paracetamol")));
 		} else if (arg0.getActionCommand().contentEquals("Añadir o retirar")) {
 			System.out.println("COmprar");
-			warehouseDAO.addNewMedicines("Paracetamol",Integer.valueOf(adminWindow.lblNumParacetalmol.getText()));
-			warehouseDAO.addNewMedicines("Aspirina",Integer.valueOf(adminWindow.lblNumAspirina.getText()));
-			warehouseDAO.addNewMedicines("Betadine",Integer.valueOf(adminWindow.lblNumBetadine.getText()));
-			warehouseDAO.addNewMedicines("Morfina",Integer.valueOf(adminWindow.lblNumMorfina.getText()));
-			
-		}else if (arg0.getActionCommand().contentEquals("Editar Paciente")) {
-			
+			warehouseDAO.addNewMedicines("Paracetamol", Integer.valueOf(adminWindow.lblNumParacetalmol.getText()));
+			warehouseDAO.addNewMedicines("Aspirina", Integer.valueOf(adminWindow.lblNumAspirina.getText()));
+			warehouseDAO.addNewMedicines("Betadine", Integer.valueOf(adminWindow.lblNumBetadine.getText()));
+			warehouseDAO.addNewMedicines("Morfina", Integer.valueOf(adminWindow.lblNumMorfina.getText()));
+
+		} else if (arg0.getActionCommand().contentEquals("Editar Paciente")) {
+
 			adminWindow.seeEmployeesPanel.setVisible(false);
 			adminWindow.addEmployeePanel.setVisible(false);
 			adminWindow.editEmployeesPanel.setVisible(false);
@@ -682,14 +681,15 @@ public class ControlerAdmin implements ActionListener {
 			adminWindow.deletePatientsPanel.setVisible(false);
 			adminWindow.seeWarehousePanel.setVisible(false);
 			adminWindow.editPacientsPanel.setVisible(true);
-			
-		}else if (arg0.getActionCommand().contentEquals("Buscar paciente")) {
-			System.out.println(patientsDao.checkPatientExist(adminWindow.textFieldDNISearchEditPacient.getText().toString(), true));
-			if ((adminWindow.textFieldDNISearchEditPacient.getText().toString().equals(""))
-					|| (!patientsDao.checkPatientExist(adminWindow.textFieldDNISearchEditPacient.getText().toString(), true))) {
+
+		} else if (arg0.getActionCommand().contentEquals("Buscar paciente")) {
+			System.out.println(patientsDao
+					.checkPatientExist(adminWindow.textFieldDNISearchEditPacient.getText().toString(), true));
+			if ((adminWindow.textFieldDNISearchEditPacient.getText().toString().equals("")) || (!patientsDao
+					.checkPatientExist(adminWindow.textFieldDNISearchEditPacient.getText().toString(), true))) {
 				adminWindow.lblErrorEditPacient.setText("Error en el formulario");
 			} else {
-				
+
 				pacientToEdit = patientsDao.getPatient(adminWindow.textFieldDNISearchEditPacient.getText().toString());
 				System.out.println(pacientToEdit[1]);
 				adminWindow.textFieldNameEditPacient.setText(pacientToEdit[1]);
@@ -698,9 +698,47 @@ public class ControlerAdmin implements ActionListener {
 				adminWindow.textFieldDNIEditPacient.setText(pacientToEdit[4]);
 				adminWindow.textFieldIllnesEditPacient.setText(pacientToEdit[7]);
 				adminWindow.textFieldRommEditPacient.setText(pacientToEdit[6]);
-				
-				
+
 			}
+		} else if (arg0.getActionCommand().contentEquals("Guardar paciente")) {
+			System.out.println("Comenzamos a editar el paciente");
+			boolean out = false;
+
+			while (!out) {// Repetimos hasta que se cancela o se introduce la contraseña correcta
+				JPasswordField pf = new JPasswordField();
+				int option = JOptionPane.showConfirmDialog(null, pf, "Enter Password", JOptionPane.OK_CANCEL_OPTION,
+						JOptionPane.PLAIN_MESSAGE);
+
+				if (option == JOptionPane.CANCEL_OPTION) {// si se pulsa cancelar
+					out = true;
+					System.out.println("Se ha cancelado");
+				} else {
+
+					if (pf.getText().equals(adminWindow.password)) {// Si se acierta la contraseña
+						out = true;
+						if (patientsDao.checkIfRoomIsBusy(Integer.parseInt(pacientToEdit[6]))) {//Comprobamos que la habitacion no este ocupada
+
+							adminWindow.lblErrorEditPacientRomm.setText(
+									"Esa habitacion no est� disponible, proxima: " + patientsDao.firstRoomFree());
+						} else {
+							// Llamamos a editar del DAO
+							patientsDao.editPacient(Integer.parseInt(pacientToEdit[0]),
+									adminWindow.textFieldNameEditPacient.getText(),
+									adminWindow.textFieldSurname1EditPacient.getText(),
+									adminWindow.textFieldSurname2EditPacient.getText(),
+									adminWindow.textFieldDNIEditPacient.getText(),
+									Integer.parseInt(adminWindow.textFieldRommEditPacient.getText()),
+									adminWindow.textFieldIllnesEditPacient.getText());
+						}
+
+					} else {// Si se falla la contraseña
+						JOptionPane.showMessageDialog(null, "Contraseña incorrecta", "ERROR",
+								JOptionPane.ERROR_MESSAGE);
+					}
+				}
+
+			}
+
 		}
 	}
 }

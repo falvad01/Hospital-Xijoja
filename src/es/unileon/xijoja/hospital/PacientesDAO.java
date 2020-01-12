@@ -792,6 +792,24 @@ public class PacientesDAO {
 
 		return ret;
 	}
+	public void editPacient(int id, String name, String surname1, String surname2, String DNI, int room, String illnes) {
+
+		co = Conexion.getInstance();
+		conn = co.getConnection();
+
+		String sql = "UPDATE pacientes SET Nombre='" + name + "',Apellido1='" + surname1 + "',Apellido2='" + surname2
+				+ "',NIFNIE='" + DNI + "',Habitacion='" + room + "',Enfermedad='" + illnes + "' WHERE idPaciente = " + id;
+		Statement st;
+		try {
+			st = conn.createStatement();
+			st.executeUpdate(sql);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		co.disconect();// Desconectamos la base de datos
+	}
 	
 
 }
