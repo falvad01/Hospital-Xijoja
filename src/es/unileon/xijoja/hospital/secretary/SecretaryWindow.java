@@ -8,6 +8,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.geom.RoundRectangle2D;
+import java.io.File;
+import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -17,7 +19,9 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.Graphics;
+import java.awt.GraphicsEnvironment;
 import java.awt.Shape;
 
 import javax.swing.JTextField;
@@ -88,7 +92,12 @@ public class SecretaryWindow extends JFrame {
 
 			e.printStackTrace();
 		}
-
+		try {
+		     GraphicsEnvironment ge =   GraphicsEnvironment.getLocalGraphicsEnvironment();
+		     ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("etc/rexlia.ttf")));
+		} catch (IOException|FontFormatException e) {
+		     //Handle exception
+		}
 	}
 
 	
@@ -96,7 +105,6 @@ public class SecretaryWindow extends JFrame {
 
 		getContentPane().setBackground(Color.LIGHT_GRAY);
 		getContentPane().setLayout(null);
-	//TODO usar	btnLogin.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 11));
 
 		
 
@@ -193,55 +201,60 @@ public class SecretaryWindow extends JFrame {
 				getPatientPane.setVisible(false);
 
 				JLabel label = new JLabel("Nombre");
-				label.setFont(new Font("Tahoma", Font.PLAIN, 15));
-				label.setBounds(10, 74, 63, 23);
+				label.setHorizontalAlignment(SwingConstants.TRAILING);
+				label.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
+				label.setBounds(10, 74, 122, 23);
 				getPatientPane.add(label);
 
-				JLabel lblApellido_1 = new JLabel("1ï¿½ Apellido");
-				lblApellido_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
-				lblApellido_1.setBounds(10, 125, 80, 23);
+				JLabel lblApellido_1 = new JLabel("1º Apellido");
+				lblApellido_1.setHorizontalAlignment(SwingConstants.TRAILING);
+				lblApellido_1.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
+				lblApellido_1.setBounds(10, 125, 122, 23);
 				getPatientPane.add(lblApellido_1);
 
 				textFieldNameGetPatient = new JTextField();
 				textFieldNameGetPatient.setEnabled(false);
 				textFieldNameGetPatient.setColumns(10);
-				textFieldNameGetPatient.setBounds(100, 77, 143, 20);
+				textFieldNameGetPatient.setBounds(142, 77, 143, 20);
 				getPatientPane.add(textFieldNameGetPatient);
 
 				textFieldSurname1GetPatient = new JTextField();
 				textFieldSurname1GetPatient.setEnabled(false);
 				textFieldSurname1GetPatient.setColumns(10);
-				textFieldSurname1GetPatient.setBounds(100, 128, 143, 20);
+				textFieldSurname1GetPatient.setBounds(142, 128, 143, 20);
 				getPatientPane.add(textFieldSurname1GetPatient);
 
 				JLabel label_2 = new JLabel("NIF/NIE");
-				label_2.setFont(new Font("Tahoma", Font.PLAIN, 15));
-				label_2.setBounds(10, 217, 63, 23);
+				label_2.setHorizontalAlignment(SwingConstants.TRAILING);
+				label_2.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
+				label_2.setBounds(10, 217, 122, 23);
 				getPatientPane.add(label_2);
 
 				textFieldDNIGetPatient = new JTextField();
 				textFieldDNIGetPatient.setEnabled(false);
 				textFieldDNIGetPatient.setColumns(10);
-				textFieldDNIGetPatient.setBounds(100, 220, 143, 20);
+				textFieldDNIGetPatient.setBounds(142, 220, 143, 20);
 				getPatientPane.add(textFieldDNIGetPatient);
 
 			
 
-				JLabel lblApellido_2 = new JLabel("2ï¿½ Apellido");
-				lblApellido_2.setFont(new Font("Tahoma", Font.PLAIN, 15));
-				lblApellido_2.setBounds(10, 170, 80, 23);
+				JLabel lblApellido_2 = new JLabel("2º Apellido");
+				lblApellido_2.setHorizontalAlignment(SwingConstants.TRAILING);
+				lblApellido_2.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
+				lblApellido_2.setBounds(10, 170, 122, 23);
 				getPatientPane.add(lblApellido_2);
 
 				textFieldSurname2GetPatient = new JTextField();
 				textFieldSurname2GetPatient.setEnabled(false);
 				textFieldSurname2GetPatient.setColumns(10);
-				textFieldSurname2GetPatient.setBounds(100, 173, 143, 20);
+				textFieldSurname2GetPatient.setBounds(142, 173, 143, 20);
 				getPatientPane.add(textFieldSurname2GetPatient);
 				
 				
 				JLabel lblRoom = new JLabel("Habitacion");
-				lblRoom.setFont(new Font("Tahoma", Font.PLAIN, 15));
-				lblRoom.setBounds(390, 74, 80, 23);
+				lblRoom.setHorizontalAlignment(SwingConstants.TRAILING);
+				lblRoom.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
+				lblRoom.setBounds(332, 74, 128, 23);
 				getPatientPane.add(lblRoom);
 
 				textFieldRoomGetPatient = new JTextField();
@@ -253,6 +266,7 @@ public class SecretaryWindow extends JFrame {
 				
 				JLabel label_9 = new JLabel("");
 				label_9.setForeground(Color.RED);
+				label_9.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
 				label_9.setBounds(390, 241, 212, 14);
 				getPatientPane.add(label_9);
 
@@ -262,30 +276,34 @@ public class SecretaryWindow extends JFrame {
 				separator2.setBounds(10, 52, 610, 33);
 				getPatientPane.add(separator2);
 
-				JLabel lblNewLabel = new JLabel("Introduce el DNI o habitaciï¿½n: ");
-				lblNewLabel.setBounds(10, 11, 200, 23);
+				JLabel lblNewLabel = new JLabel("Introduce el DNI o habitación: ");
+				lblNewLabel.setHorizontalAlignment(SwingConstants.TRAILING);
+				lblNewLabel.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
+				lblNewLabel.setBounds(10, 11, 275, 23);
 				getPatientPane.add(lblNewLabel);
 
 				textFieldSearchDNIGetPatient = new JTextField();
-				textFieldSearchDNIGetPatient.setBounds(210, 12, 133, 20);
+				textFieldSearchDNIGetPatient.setBounds(295, 14, 133, 20);
 				getPatientPane.add(textFieldSearchDNIGetPatient);
 				textFieldSearchDNIGetPatient.setColumns(10);
 
-				JButton btnNewButton_1 = new JButton("Buscar");
-				btnNewButton_1.setForeground(Color.BLACK);
-				btnNewButton_1.setBackground(Color.WHITE);
+				JButton btnNewButton_1 = new RoundedJButton(15);
+				btnNewButton_1.setText("Buscar");
 				btnNewButton_1.addActionListener(listener);
 
-				btnNewButton_1.setBounds(353, 11, 89, 23);
+				btnNewButton_1.setBounds(443, 11, 89, 23);
 				getPatientPane.add(btnNewButton_1);
 
 				lblErrorGetPatient = new JLabel("");
 				lblErrorGetPatient.setForeground(Color.RED);
-				lblErrorGetPatient.setBounds(358, 15, 255, 14);
+				lblErrorGetPatient.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 10));
+				lblErrorGetPatient.setBounds(170, 35, 255, 14);
+				
 				getPatientPane.add(lblErrorGetPatient);
 
 		//////////////////////////////////////////////////////////////Aï¿½adir pacientes
-
+				
+				
 		addPatientPane = new JPanel();
 		addPatientPane.setForeground(Color.WHITE);
 		addPatientPane.setBackground(Color.WHITE);
@@ -295,12 +313,12 @@ public class SecretaryWindow extends JFrame {
 
 		JLabel lblNombre = new JLabel("Nombre");
 		lblNombre.setBounds(10, 27, 63, 23);
-		lblNombre.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblNombre.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
 		addPatientPane.add(lblNombre);
 
 		JLabel lblApellidos = new JLabel("1ï¿½ Apellido");
 		lblApellidos.setBounds(10, 78, 80, 23);
-		lblApellidos.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblApellidos.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
 		addPatientPane.add(lblApellidos);
 
 		textFieldName = new JTextField();
@@ -315,7 +333,7 @@ public class SecretaryWindow extends JFrame {
 
 		JLabel lblNifnie = new JLabel("NIF/NIE");
 		lblNifnie.setBounds(10, 170, 63, 23);
-		lblNifnie.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblNifnie.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
 		addPatientPane.add(lblNifnie);
 
 		textFieldNIFNIE = new JTextField();
@@ -325,7 +343,7 @@ public class SecretaryWindow extends JFrame {
 
 		JLabel lblRoom2 = new JLabel("Habitacion");
 		lblRoom2.setBounds(320, 27, 93, 23);
-		lblRoom2.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblRoom2.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
 		addPatientPane.add(lblRoom2);
 
 		textFieldRoom = new JTextField();
@@ -333,16 +351,17 @@ public class SecretaryWindow extends JFrame {
 		textFieldRoom.setColumns(10);
 		addPatientPane.add(textFieldRoom);
 
-		JButton btnRegister = new JButton("Añadir");
+		JButton btnRegister = new RoundedJButton(15);
+		btnRegister.setText("Añadir");
 		btnRegister.setBounds(320, 260, 212, 47);
 		btnRegister.setBackground(Color.WHITE);
 		btnRegister.setOpaque(false);
 		addPatientPane.add(btnRegister);
 		btnRegister.addActionListener(listener);
 
-		JLabel lblApellido = new JLabel("2ï¿½ Apellido");
+		JLabel lblApellido = new JLabel("2º Apellido");
 		lblApellido.setBounds(10, 123, 80, 23);
-		lblApellido.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblApellido.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
 		addPatientPane.add(lblApellido);
 
 		textFieldSurname2 = new JTextField();
@@ -351,7 +370,7 @@ public class SecretaryWindow extends JFrame {
 		addPatientPane.add(textFieldSurname2);
 		
 		JLabel lblnurse = new JLabel("Enfermero");
-		lblnurse.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblnurse.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
 		lblnurse.setBounds(320, 78, 80, 23);
 		addPatientPane.add(lblnurse);
 
@@ -360,8 +379,8 @@ public class SecretaryWindow extends JFrame {
 		jcbNurse.setBounds(400, 81, 213, 20);
 		addPatientPane.add(jcbNurse);
 		
-		JLabel lblMedic = new JLabel("Mï¿½dico");
-		lblMedic.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		JLabel lblMedic = new JLabel("Médico");
+		lblMedic.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
 		lblMedic.setBounds(320, 125, 80, 23);
 		addPatientPane.add(lblMedic);
 
@@ -372,7 +391,7 @@ public class SecretaryWindow extends JFrame {
 
 		JLabel lblEnfermedad = new JLabel("Enfermedad");
 		lblEnfermedad.setBounds(320, 169, 93, 23);
-		lblEnfermedad.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblEnfermedad.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
 		addPatientPane.add(lblEnfermedad);
 
 		textFielddisease = new JTextField();
@@ -382,6 +401,7 @@ public class SecretaryWindow extends JFrame {
 		
 		lblError = new JLabel("");
 		lblError.setForeground(Color.RED);
+		lblError.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 7));
 		lblError.setBounds(320, 241, 352, 14);
 		addPatientPane.add(lblError);
 

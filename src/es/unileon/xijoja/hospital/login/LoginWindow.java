@@ -210,7 +210,7 @@ public class LoginWindow extends JFrame {
 		loginPanel.add(lblinfo);
 		
 
-		JButton buttonInfo = new JButton(new ImageIcon(LoginWindow.class.getResource("/resources/--ndice.png")));
+		JButton buttonInfo = new JButton(new ImageIcon(LoginWindow.class.getResource("/resources/--ndiceBlanco.png")));
 		buttonInfo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				InfoWindow info = new InfoWindow("general");
@@ -260,7 +260,7 @@ public class LoginWindow extends JFrame {
 		lblLoginError = new JLabel("");
 		lblLoginError.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		lblLoginError.setForeground(Color.RED);
-		lblLoginError.setBounds(38, 230, 160, 14);
+		lblLoginError.setBounds(38, 200, 160, 14);
 		loginPanel.add(lblLoginError);
 		
 
