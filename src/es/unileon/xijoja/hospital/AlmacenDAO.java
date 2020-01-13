@@ -1,4 +1,5 @@
 package es.unileon.xijoja.hospital;
+
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.Date;
@@ -14,177 +15,162 @@ import java.util.Calendar;
 import javax.swing.JTextField;
 
 import java.sql.PreparedStatement;
- 
+
 /**
  *
  * @author Xijoja
  *
  */
 public class AlmacenDAO {
- 
+
 	private Connection conn;
-    private Conexion co;
- 
-    /**
-     *
-     */
-    public AlmacenDAO() {
-    }
-    public String getMedicineName (int id) {
+	private Conexion co;
 
-  		co = Conexion.getInstance();
-  		conn = co.getConnection();
-  		ArrayList<String[]> ret = new ArrayList<String[]>();
+	/**
+	 *
+	 */
+	public AlmacenDAO() {
+	}
 
-  		
-  		
-  		try {
-  			String sql;
-  			Statement st = conn.createStatement();
-  	  
-  	  			sql = "SELECT * FROM almacen WHERE idProducto='"+id+"'";  	 	 
-  			
-  	  		
-  	
-  	  		System.out.println(sql);
-  			ResultSet rs = st.executeQuery(sql);
-  			while (rs.next()) {
-  	  		
+	 public String getMedicineName (int id) {
 
-  				return rs.getString(3); // name
-  				
+	  		co = Conexion.getInstance();
+	  		conn = co.getConnection();
+	  		ArrayList<String[]> ret = new ArrayList<String[]>();
+	  		try {
+	  			String sql;
+	  			Statement st = conn.createStatement();
 
-  			}
-  		} catch (SQLException e) {
-  			e.printStackTrace();
-  		}
+	  	  			sql = "SELECT * FROM almacen WHERE idProducto='"+id+"'";  	 	 
+	  	  		System.out.println(sql);
+	  			ResultSet rs = st.executeQuery(sql);
+	  			while (rs.next()) {
 
-  		co.disconect();// Cerramos la conexion con la base de datos
-  		return "";
-  	}
-    
-    public int MedicineA(int unidades, int medicamento) {
 
-  		co = Conexion.getInstance();
-  		conn = co.getConnection();
-  		int ret = 0;
-  		int UActuales;
-		String sql = "SELECT `Cantidad` FROM `almacen` WHERE `idProducto`= '"+medicamento+"'";		  
+	  				return rs.getString(3); // name
 
-  		try {
-  			Statement st = conn.createStatement();
-  			st.executeQuery(sql);
-  			ResultSet rs = st.executeQuery(sql);
- 			while (rs.next()) {
- 				
- 				ret = rs.getInt(1);
- 				
- 				
- 			}
- 			
- 			
- 	  		
-  		} catch (SQLException e) {
-  			e.printStackTrace();
-  		}
-  		
-  		int UBase =ret;
-	  		
-  	  		
-  		co.disconect();// Desconectamos la base de datos
-  		
-  		return UBase;
-  	}
-    
-    
-    
-    public int Medicine(int unidades, int medicamento) {
 
-  		co = Conexion.getInstance();
-  		conn = co.getConnection();
-  		int ret = 0;
-  		int UActuales;
-		String sql = "SELECT `Cantidad` FROM `almacen` WHERE `idProducto`= '"+medicamento+"'";		  
+	  			}
+	  		} catch (SQLException e) {
+	  			e.printStackTrace();
+	  		}
 
-  		try {
-  			Statement st = conn.createStatement();
-  			st.executeQuery(sql);
-  			ResultSet rs = st.executeQuery(sql);
- 			while (rs.next()) {
- 				
- 				ret = rs.getInt(1);
- 				
- 				
- 			}
- 			
- 			
- 	  		
-  		} catch (SQLException e) {
-  			e.printStackTrace();
-  		}
-  		
-  		int UBase =ret;
-	  		UActuales=UBase-unidades;
-	  		
-  		
-  		
-  		co.disconect();// Desconectamos la base de datos
-  		
-  		return UActuales;
-  	}
-    
-    public void restMedicine(int unidades, int medicamento) {
+	  		co.disconect();// Cerramos la conexion con la base de datos
+	  		return "";
+	  	}
 
-  		co = Conexion.getInstance();
-  		conn = co.getConnection();
-  		
-  		int UActuales;
-  		UActuales=Medicine(unidades, medicamento);
-  		System.out.println(UActuales);
-  		try {
-  			Statement st = conn.createStatement();
-  			String sql = "UPDATE `almacen` SET `Cantidad` = '"+UActuales+"' WHERE `almacen`.`idProducto` = '"+medicamento+"'";	  
-  			st.executeUpdate(sql);
+	public int MedicineA(int unidades, int medicamento) {
 
-  		} catch (SQLException e) {
-  			e.printStackTrace();
-  		}
-  		
-  		co.disconect();// Desconectamos la base de datos
-  	}
-    
-    public ArrayList<String[]> getMedicine() {
+		co = Conexion.getInstance();
+		conn = co.getConnection();
+		int ret = 0;
+		int UActuales;
+		String sql = "SELECT `Cantidad` FROM `almacen` WHERE `idProducto`= '" + medicamento + "'";
 
-  		co = Conexion.getInstance();
-  		conn = co.getConnection();
-  		ArrayList<String[]> ret = new ArrayList<String[]>();
+		try {
+			Statement st = conn.createStatement();
+			st.executeQuery(sql);
+			ResultSet rs = st.executeQuery(sql);
+			while (rs.next()) {
 
-  		String sql = "SELECT * FROM almacen WHERE idProducto=?" ;
-  		
-  		try {
-  			PreparedStatement st = conn.prepareStatement(sql);
-  	 	        st.setString(1, "Medicinas");
-  	 	    
-  			ResultSet rs = st.executeQuery();
-  			String[] ret2 = new String[2];
-  			while (rs.next()) {
-  	  			ret2 = new String[2];
+				ret = rs.getInt(1);
 
-  				ret2[0] = rs.getString(1); // ID
-  				ret2[1] = "Medicamento. "+ rs.getString(2) + " "+ rs.getString(3)+" "+ rs.getString(4); //nombre y apellidos
-  				ret.add(ret2);
+			}
 
-  			}
-  		} catch (SQLException e) {
-  			e.printStackTrace();
-  		}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 
-  		co.disconect();// Cerramos la conexion con la base de datos
-  		return ret;
-  	}
-    
-    
-    public String[] getMedicine(int id) {
+		int UBase = ret;
+
+		co.disconect();// Desconectamos la base de datos
+
+		return UBase;
+	}
+
+	public int Medicine(int unidades, int medicamento) {
+
+		co = Conexion.getInstance();
+		conn = co.getConnection();
+		int ret = 0;
+		int UActuales;
+		String sql = "SELECT `Cantidad` FROM `almacen` WHERE `idProducto`= '" + medicamento + "'";
+
+		try {
+			Statement st = conn.createStatement();
+			st.executeQuery(sql);
+			ResultSet rs = st.executeQuery(sql);
+			while (rs.next()) {
+
+				ret = rs.getInt(1);
+
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		int UBase = ret;
+		UActuales = UBase - unidades;
+
+		co.disconect();// Desconectamos la base de datos
+
+		return UActuales;
+	}
+
+	public void restMedicine(int unidades, int medicamento) {
+
+		co = Conexion.getInstance();
+		conn = co.getConnection();
+
+		int UActuales;
+		UActuales = Medicine(unidades, medicamento);
+		System.out.println(UActuales);
+		try {
+			Statement st = conn.createStatement();
+			String sql = "UPDATE `almacen` SET `Cantidad` = '" + UActuales + "' WHERE `almacen`.`idProducto` = '"
+					+ medicamento + "'";
+			st.executeUpdate(sql);
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		co.disconect();// Desconectamos la base de datos
+	}
+
+	public ArrayList<String[]> getMedicine() {
+
+		co = Conexion.getInstance();
+		conn = co.getConnection();
+		ArrayList<String[]> ret = new ArrayList<String[]>();
+
+		String sql = "SELECT * FROM almacen WHERE idProducto=?";
+
+		try {
+			PreparedStatement st = conn.prepareStatement(sql);
+			st.setString(1, "Medicinas");
+
+			ResultSet rs = st.executeQuery();
+			String[] ret2 = new String[2];
+			while (rs.next()) {
+				ret2 = new String[2];
+
+				ret2[0] = rs.getString(1); // ID
+				ret2[1] = "Medicamento. " + rs.getString(2) + " " + rs.getString(3) + " " + rs.getString(4); // nombre y
+																												// apellidos
+				ret.add(ret2);
+
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		co.disconect();// Cerramos la conexion con la base de datos
+		return ret;
+	}
+
+	public String[] getMedicine(int id) {
 
 		co = Conexion.getInstance();
 		conn = co.getConnection();
@@ -197,13 +183,11 @@ public class AlmacenDAO {
 			ResultSet rs = st.executeQuery(sql);
 			ret = new String[4];
 			while (rs.next()) {
-				
+
 				ret[0] = rs.getString(1); // ID
 				ret[1] = rs.getString(2); // Cantidad
 				ret[2] = rs.getString(3); // Nombre
 				ret[3] = rs.getString(4); // Iteraciones
-				
-
 
 			}
 		} catch (SQLException e) {
@@ -213,45 +197,39 @@ public class AlmacenDAO {
 		co.disconect();// Cerramos la conexion con la base de datos
 		return ret;
 	}
-    
-   
+
 	public ArrayList<String[]> getMedicineMedic() {
-		
 
-			co = Conexion.getInstance();
-			conn = co.getConnection();
-			ArrayList<String[]> ret = new ArrayList<String[]>();
+		co = Conexion.getInstance();
+		conn = co.getConnection();
+		ArrayList<String[]> ret = new ArrayList<String[]>();
 
-			try {
-				String sql;
-				Statement st = conn.createStatement();
-				
-					sql = "SELECT * FROM almacen";
-				
+		try {
+			String sql;
+			Statement st = conn.createStatement();
 
-				
-				ResultSet rs = st.executeQuery(sql);
-				String[] ret2 = new String[2];
-				while (rs.next()) {
-					ret2 = new String[2];
+			sql = "SELECT * FROM almacen";
 
-					ret2[0] = rs.getString(1); // ID
-					ret2[1] = rs.getString(3); // nombre y apellidos
-					ret.add(ret2);
-					
+			ResultSet rs = st.executeQuery(sql);
+			String[] ret2 = new String[2];
+			while (rs.next()) {
+				ret2 = new String[2];
 
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
+				ret2[0] = rs.getString(1); // ID
+				ret2[1] = rs.getString(3); // nombre y apellidos
+				ret.add(ret2);
+
 			}
-
-			co.disconect();// Cerramos la conexion con la base de datos
-			return ret;
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
-	
+
+		co.disconect();// Cerramos la conexion con la base de datos
+		return ret;
+	}
+
 	public int getCountMedicine(String medicine) {
-		
-		
+
 		co = Conexion.getInstance();
 		conn = co.getConnection();
 
@@ -275,7 +253,7 @@ public class AlmacenDAO {
 		co.disconect();// Cerramos la conexion con la base de datos
 		return ret;
 	}
-	
+
 	public void addNewMedicines(String medicine, int amount) {
 		co = Conexion.getInstance();
 		conn = co.getConnection();
@@ -293,5 +271,60 @@ public class AlmacenDAO {
 
 		co.disconect();// Desconectamos la base de datos
 	}
+
+	public void addNewMedicine(String name, int amount) {
+
+		co = Conexion.getInstance();
+		conn = co.getConnection();
+
+		String sql = "INSERT INTO almacen (idProducto, Cantidad, Nombre, IteracionesSemana) VALUES(?,?,?,?)";
+
+		try {
+			PreparedStatement st = conn.prepareStatement(sql);
+			st.setInt(1, firstIdFree());
+			st.setInt(2, amount);
+			st.setString(3, name);
+			st.setInt(4, 0);
+
+			st.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		co.disconect();// Desconectamos la base de datos
+
+	}
+
+	public int firstIdFree() {
+		boolean finish = false;
+		co = Conexion.getInstance();
+		conn = co.getConnection();
+		int firstId = 0;
+		while (!finish) {
+
+			try {
+				Statement st = conn.createStatement();
+				String sql = "SELECT * FROM alamcen WHERE idProducto='" + firstId + "'";
+
+				ResultSet rs = st.executeQuery(sql);
+
+				if (rs.next()) {
+
+					firstId++;
+				} else {
+
+					finish = true;
+					return firstId;
+				}
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+			co.disconect();// Cerramos la conexion con la base de datos
+
+		}
+		return firstId;
+	}
+
 }
- 

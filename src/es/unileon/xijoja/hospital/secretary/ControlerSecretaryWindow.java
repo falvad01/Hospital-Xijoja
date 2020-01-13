@@ -37,7 +37,7 @@ public class ControlerSecretaryWindow implements ActionListener {
 //TODO comprobar codigo inutil
 	public void actionPerformed(ActionEvent arg0) {
 
-		if (arg0.getActionCommand().equals("Aï¿½adir")) {
+		if (arg0.getActionCommand().equals("Añadir")) {
 
 			boolean add = true;
 			if ((secretarywindow.textFieldName.getText().equals("")) || (secretarywindow.textFieldSurname1.getText().equals(""))
@@ -103,20 +103,18 @@ public class ControlerSecretaryWindow implements ActionListener {
 
 				secretarywindow.setVisible(false);
 				//TODO arreglar que se borren los campos al cerrar sesion
-				try {
-					LoginWindow newlogin = new LoginWindow();
-					ControlerLoginWindow controlerLogin = new ControlerLoginWindow(newlogin);
-					controlerLogin.resetJField();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
+				LoginWindow newlogin = LoginWindow.getInstance();
+				newlogin.resetJField();
+		
+				
+				
+				
 				
 		} else if (arg0.getActionCommand().equals("Buscar Paciente")) {
 				secretarywindow.addPatientPane.setVisible(false);
 				secretarywindow.getPatientPane.setVisible(true);
 				
-		} else if (arg0.getActionCommand().equals("Aï¿½adir Paciente")) {
-				System.out.println("2");
+		} else if (arg0.getActionCommand().equals("Añadir Paciente")) {
 				secretarywindow.getPatientPane.setVisible(false);
 				secretarywindow.addPatientPane.setVisible(true);
 				
@@ -138,11 +136,11 @@ public class ControlerSecretaryWindow implements ActionListener {
 				}else {
 					
 					getPatientData = dao.getPatient(secretarywindow.textFieldSearchDNIGetPatient.getText().toString(),isDniOrRoom);
-					secretarywindow.textFieldNameGetPatient.setText(getPatientData[1]);
-					secretarywindow.textFieldSurname1GetPatient.setText(getPatientData[2]);
-					secretarywindow.textFieldSurname2GetPatient.setText(getPatientData[3]);
-					secretarywindow.textFieldDNIGetPatient.setText(getPatientData[4]);
-					secretarywindow.textFieldRoomGetPatient.setText(getPatientData[6]);
+					secretarywindow.labelFieldNameGetPatient.setText(getPatientData[1]);
+					secretarywindow.labelFieldSurname1GetPatient.setText(getPatientData[2]);
+					secretarywindow.labelFieldSurname2GetPatient.setText(getPatientData[3]);
+					secretarywindow.labelFieldDNIGetPatient.setText(getPatientData[4]);
+					secretarywindow.labelFieldRoomGetPatient.setText(getPatientData[6]);
 					log.InfoLog("Devuelto el paciente con id: "+getPatientData[0]);
 
 			

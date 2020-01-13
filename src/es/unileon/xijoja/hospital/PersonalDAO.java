@@ -39,7 +39,7 @@ public class PersonalDAO {
 	 * @param password
 	 * @return
 	 * 
-	 * 		Devuelve la profesion, si el login no es correcto o ha ocurrido algun
+	 *         Devuelve la profesion, si el login no es correcto o ha ocurrido algun
 	 *         fallo con la profesion devuelve un null
 	 */
 	public String getProfessionCorrectUser(String user, String password) {
@@ -57,7 +57,6 @@ public class PersonalDAO {
 			if (rs.next()) {
 
 				String profession = rs.getString(8);// Obtenemos la profesion para abrir la ventana correcta
-				System.out.println(profession);
 
 				if (profession.equals("Medico")) {
 					ret = "Medico";
@@ -103,7 +102,6 @@ public class PersonalDAO {
 				ret = (ret < rs.getInt(1)) ? rs.getInt(1) : ret;
 
 			}
-			System.out.println("El id m�s alto es: " + ret);
 
 		} catch (SQLException e) {
 
@@ -141,11 +139,11 @@ public class PersonalDAO {
 		try {
 			PreparedStatement st = conn.prepareStatement(sql);
 			if (medic) {
-				System.out.println("busco medicos");
+
 				st.setString(1, "Medico");
 
 			} else {
-				System.out.println("busco enfermeros");
+
 				st.setString(1, "Enfermero");
 			}
 
@@ -194,7 +192,6 @@ public class PersonalDAO {
 			e.printStackTrace();
 		}
 
-		System.out.println("se ha introducido una persona");
 		co.disconect();// Desconectamos la base de datos
 
 		// Mensaje a enviar por correo
@@ -258,14 +255,14 @@ public class PersonalDAO {
 	 * @param DNI
 	 * @return
 	 * 
-	 * 		Obtenemos un empleado introduciendo su DNI
+	 *         Obtenemos un empleado introduciendo su DNI
 	 */
 	public String[] getEmployee(String DNI) {
 
 		co = Conexion.getInstance();
 		DNI = DNI.replaceFirst("[\\s\\S]{0,1}$", "");
 		conn = co.getConnection();
-		System.out.println("DNI: " + DNI);
+
 		String sql = "SELECT * FROM personal WHERE NIFNIE=" + DNI;
 		Statement st;
 		String[] ret = null;
@@ -290,7 +287,10 @@ public class PersonalDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
+		System.out.println("En ret");
+		for(int i = 0; i < ret.length; i++) {
+			System.out.println(ret[i]);
+		}
 		co.disconect();// Cerramos la conexion con la base de datos
 		return ret;
 
@@ -333,7 +333,7 @@ public class PersonalDAO {
 	 * 
 	 * @return
 	 * 
-	 * 		Obtenemos todos los puestos de trbajo para contarlos
+	 *         Obtenemos todos los puestos de trbajo para contarlos
 	 */
 	public String[] getJobsEmployees() {
 
@@ -364,14 +364,14 @@ public class PersonalDAO {
 	 * 
 	 * @return
 	 * 
-	 * 		Metemos todos los empleados en un arraylist
+	 *         Metemos todos los empleados en un arraylist
 	 */
 	public ArrayList<String[]> getAllEmployees() {
 
 		ArrayList<String[]> ret = new ArrayList<String[]>();
 
 		int lastId = this.getLastID();//
-		System.out.println(lastId);
+
 		for (int i = 0; i <= lastId; i++) {
 			ret.add(getEmployee(i));
 
@@ -465,7 +465,7 @@ public class PersonalDAO {
 		}
 
 		co.disconect();// Desconectamos la base de datos
-		System.out.println(ret);
+
 		return ret;
 	}
 
@@ -474,7 +474,7 @@ public class PersonalDAO {
 	 * @param DNI
 	 * @return
 	 * 
-	 * 		Metodo para comprobar que el DNI introducido pertenece a algun
+	 *         Metodo para comprobar que el DNI introducido pertenece a algun
 	 *         empleado
 	 */
 	public boolean checkEmployeeExist(String DNI) {
@@ -485,15 +485,14 @@ public class PersonalDAO {
 
 		String sql = "SELECT * FROM personal WHERE NIFNIE='" + DNI + "'";
 		Statement st;
-		//TODO REVISAR ESTO CON EDITAR EMPLEADO
+		
+		System.out.println(sql);
 		try {
 			st = conn.createStatement();
 			ResultSet rs = st.executeQuery(sql);
-			System.out.println(sql);
 
-			System.out.println("RS " + rs.isBeforeFirst());
 			if (!rs.isBeforeFirst()) {
-				
+
 				ret = false;
 			} else {
 				ret = true;
@@ -546,15 +545,14 @@ public class PersonalDAO {
 			try {
 				Statement st = conn.createStatement();
 				String sql = "SELECT * FROM personal WHERE idTrabajador='" + firstId + "'";
-				System.out.println(sql);
+
 				ResultSet rs = st.executeQuery(sql);
 
 				if (rs.next()) {
-					System.out.println("existe la id numero " + firstId);
+
 					firstId++;
 				} else {
 
-					System.out.println("Id libre: " + firstId);
 					finish = true;
 					return firstId;
 				}
@@ -574,7 +572,7 @@ public class PersonalDAO {
 		co = Conexion.getInstance();
 		conn = co.getConnection();
 
-		String sql = "DROP TABLE `pacientes`, `personal`, `almacen`";
+		String sql = "DROP TABLE `pacientes`, `personal`, `almacen`, `eliminados`";
 		Statement st;
 		try {
 			st = conn.createStatement();

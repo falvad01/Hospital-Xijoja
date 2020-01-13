@@ -3,11 +3,21 @@ package es.unileon.xijoja.hospital.nurse;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.FontFormatException;
+import java.awt.Graphics;
+import java.awt.GraphicsEnvironment;
+import java.awt.Shape;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import java.awt.geom.RoundRectangle2D;
+import java.io.File;
+import java.io.IOException;
 import java.sql.SQLException;
 
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -27,6 +37,7 @@ import es.unileon.xijoja.hospital.login.LoginWindow;
 import es.unileon.xijoja.hospital.medicWindow.ControlerMedicWindow;
 import es.unileon.xijoja.hospital.medicWindow.MedicWindow;
 import es.unileon.xijoja.hospital.secretary.ControlerSecretaryWindow;
+import es.unileon.xijoja.hospital.secretary.SecretaryWindow.RoundedJButton;
 
 public class NurseWindow extends JFrame {
 	Logs archivo = new Logs(); // Instancia de la clase para utilizar sus metodos
@@ -42,8 +53,8 @@ public class NurseWindow extends JFrame {
 	protected JComboBox jcbNUtits;
 	
 	protected JLabel lblError;
-	protected JTextField textFieldMedicine;
-	protected JTextField textFieldUnits;
+	protected JLabel labelFieldMedicine;
+	protected JLabel labelFieldUnits;
 	
 	protected JLabel lblErrorGetPatient;
 	protected JButton button;
@@ -72,12 +83,18 @@ public class NurseWindow extends JFrame {
 
 			e.printStackTrace();
 		}
+		try {
+		     GraphicsEnvironment ge =   GraphicsEnvironment.getLocalGraphicsEnvironment();
+		     ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("etc/rexlia.ttf")));
+		} catch (IOException|FontFormatException e) {
+		     //Handle exception
+		}
 
 	}
 
 	private void initComponents() throws SQLException {
 
-		getContentPane().setBackground(Color.WHITE);
+		getContentPane().setBackground(Color.lightGray);
 		getContentPane().setLayout(null);
 
 		
@@ -107,15 +124,15 @@ public class NurseWindow extends JFrame {
 			}
 		});
 
-		btnVerPlantilla = new JButton("Ver Pacientes");
-		btnVerPlantilla.setBackground(Color.WHITE);
+		btnVerPlantilla = new RoundedJButton(15);
+		btnVerPlantilla.setText("Ver Pacientes");
 		btnVerPlantilla.setOpaque(false);
 		btnVerPlantilla.setBounds(28, 85, 234, 41);
 		getContentPane().add(btnVerPlantilla);
 		btnVerPlantilla.addActionListener(listener);
 
-		JButton btnEditEmployee = new JButton("Usar Medicamento");
-		btnEditEmployee.setBackground(Color.WHITE);
+		JButton btnEditEmployee = new RoundedJButton(15);
+		btnEditEmployee.setText("Usar Medicamento");
 		btnEditEmployee.setOpaque(false);
 		btnEditEmployee.setBounds(28, 33, 234, 41);
 		getContentPane().add(btnEditEmployee);
@@ -124,7 +141,7 @@ public class NurseWindow extends JFrame {
 		JSeparator separator = new JSeparator();
 		separator.setForeground(Color.BLACK);
 		separator.setOrientation(SwingConstants.VERTICAL);
-		separator.setBounds(274, 11, 7, 474);
+		separator.setBounds(274, 0, 7, 496);
 		getContentPane().add(separator);
 
 		JSeparator separator_1 = new JSeparator();
@@ -138,8 +155,9 @@ public class NurseWindow extends JFrame {
 		separator_2.setBounds(20, 11, 117, 8);
 		getContentPane().add(separator_2);
 		
-		JButton btnCloseSesion = new JButton("Cerrar sesion");
-		btnCloseSesion.setBounds(842, 473, 117, 23);
+		JButton btnCloseSesion = new RoundedJButton(15);
+		btnCloseSesion.setText("Cerrar sesion");
+		btnCloseSesion.setBounds(60, 465, 180, 23);
 		getContentPane().add(btnCloseSesion);
 		btnCloseSesion.addActionListener(listener);
 		
@@ -166,7 +184,7 @@ public class NurseWindow extends JFrame {
 
 
 		seePatientPane = new JScrollPane();
-		seePatientPane.setBounds(284, 11, 625, 420);
+		seePatientPane.setBounds(274, 0, 695, 496);
 		seePatientPane.setForeground(Color.WHITE);
 		seePatientPane.setBackground(Color.WHITE);
 		seePatientPane.setPreferredSize(new Dimension(630, 420));
@@ -182,7 +200,7 @@ public class NurseWindow extends JFrame {
 		
 		//------------------PANEL BUSCAR POR HABITACION O POR DNI--------------
 				getPatientPane = new JPanel();
-				getPatientPane.setBounds(284, 11, 624, 450);
+				getPatientPane.setBounds(274, 0, 695, 496);
 				getContentPane().add(getPatientPane);
 				getPatientPane.setLayout(null);
 				getPatientPane.setForeground(Color.WHITE);
@@ -190,40 +208,44 @@ public class NurseWindow extends JFrame {
 				getPatientPane.setVisible(true);
 
 				JLabel label = new JLabel("Medicamento");
-				label.setFont(new Font("Tahoma", Font.PLAIN, 15));
+				label.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
 				label.setBounds(10, 74, 190, 23);
 				getPatientPane.add(label);
 
 				JLabel lblApellido_1 = new JLabel("Tratamiento restante: ");
-				lblApellido_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
+				lblApellido_1.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
 				lblApellido_1.setBounds(10, 125, 190, 23);
 				getPatientPane.add(lblApellido_1);
 
-				textFieldMedicine = new JTextField();
-				textFieldMedicine.setEnabled(false);
-				textFieldMedicine.setColumns(10);
-				textFieldMedicine.setBounds(205, 77, 163, 20);
-				getPatientPane.add(textFieldMedicine);
+				labelFieldMedicine = new RoundedJLabel();
+				labelFieldMedicine.setFont(new Font("Calibri", Font.BOLD, 15));
+				labelFieldMedicine.setEnabled(false);
+				labelFieldMedicine.setHorizontalAlignment(SwingConstants.CENTER);
+				labelFieldMedicine.setBounds(205, 77, 163, 20);
+				getPatientPane.add(labelFieldMedicine);
 
-				textFieldUnits = new JTextField();
-				textFieldUnits.setEnabled(false);
-				textFieldUnits.setColumns(10);
-				textFieldUnits.setBounds(205, 128, 163, 20);
-				getPatientPane.add(textFieldUnits);
+				labelFieldUnits = new RoundedJLabel();
+				labelFieldUnits.setEnabled(false);
+				labelFieldUnits.setBounds(205, 128, 163, 20);
+				labelFieldUnits.setHorizontalAlignment(SwingConstants.CENTER);
+
+				getPatientPane.add(labelFieldUnits);
 				
 				JLabel lblSelectUnits = new JLabel("Cuantas unidades a tratar: ");
-				lblSelectUnits.setFont(new Font("Tahoma", Font.PLAIN, 15));
+				lblSelectUnits.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
 				lblSelectUnits.setBounds(10, 179, 190, 23);
 				getPatientPane.add(lblSelectUnits);
 				
 				jcbNUtits = new JComboBox();
 				jcbNUtits.setBounds(205, 179, 50, 20);
+				jcbNUtits.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 12));
+
 				getPatientPane.add(jcbNUtits);
 
 				
-				 btnUseMedicine = new JButton("Tratamiento");
-				btnUseMedicine.setForeground(Color.BLACK);
-				btnUseMedicine.setBackground(Color.WHITE);
+				 btnUseMedicine = new RoundedJButton(15);
+				btnUseMedicine.setText("Tratamiento");
+				btnUseMedicine.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
 				btnUseMedicine.setHorizontalAlignment(SwingConstants.CENTER);
 				btnUseMedicine.setEnabled(false);
 				btnUseMedicine.addActionListener(listener);
@@ -246,20 +268,24 @@ public class NurseWindow extends JFrame {
 				getPatientPane.add(separator2);
 
 				JLabel lblNewLabel = new JLabel("Seleciona el paciente: ");
-				lblNewLabel.setBounds(10, 11, 200, 23);
+				lblNewLabel.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 12));
+				lblNewLabel.setBounds(15, 11, 200, 23);
 				getPatientPane.add(lblNewLabel);
 				
 				jcbPatient = new JComboBox();
 				listener.filJComboBox(jcbPatient);
-				jcbPatient.setBounds(150, 12, 343, 20);
+				jcbPatient.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 12));
+
+				jcbPatient.setBounds(175, 12, 343, 20);
 				getPatientPane.add(jcbPatient);
 
-				JButton btnNewButton_1 = new JButton("Buscar");
+				JButton btnNewButton_1 = new RoundedJButton(15);		
+				btnNewButton_1.setText("Buscar");
 				btnNewButton_1.setForeground(Color.BLACK);
 				btnNewButton_1.setBackground(Color.WHITE);
 				btnNewButton_1.addActionListener(listener);
 
-				btnNewButton_1.setBounds(503, 11, 89, 23);
+				btnNewButton_1.setBounds(528, 11, 89, 23);
 				getPatientPane.add(btnNewButton_1);
 
 				lblErrorGetPatient = new JLabel("");
@@ -271,4 +297,122 @@ public class NurseWindow extends JFrame {
 	}
 
 	
+	public class RoundedJButton extends JButton  {
+		//Boton redondeado
+		private Shape shape;
+
+		public RoundedJButton(int size) {
+			setOpaque(false); // As suggested by @AVD in comment.
+			setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 13));
+			setForeground(Color.BLACK);
+			setBackground(Color.GRAY);
+
+		}
+
+		protected void paintComponent(Graphics g) {
+			g.setColor(new Color(150, 150, 150));
+			g.fillRoundRect(0, 0, getWidth() - 1, getHeight() - 1, 10, 10);
+			super.paintComponent(g);
+		}
+
+		protected void paintBorder(Graphics g) {
+			g.setColor(new Color(190, 190, 190));
+			g.drawRoundRect(0, 0, getWidth() - 1, getHeight() - 1, 10, 10);
+		}
+
+		public boolean contains(int x, int y) {
+			if (shape == null || !shape.getBounds().equals(getBounds())) {
+				shape = new RoundRectangle2D.Float(0, 0, getWidth() - 1, getHeight() - 1, 10, 10);
+			}
+			return shape.contains(x, y);
+		}
+
+	}
+	public class HintTextField extends JTextField implements FocusListener {
+			//JText Field con bordes redondeados, y nombre de fondo, pasar como arguemnto el texto de "pista"
+		  private final String hint;
+		  private boolean showingHint;
+		  private Shape shape;
+
+
+		  public HintTextField(final String hint) {
+		    super(hint);
+		    this.hint = hint;
+		    this.showingHint = true;
+		    super.addFocusListener(this);
+	        setOpaque(false); // As suggested by @AVD in comment.
+	        setBackground(new Color(228,230,230));
+			setForeground(new Color(150,150,150));
+			setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 11));
+
+	    }
+	    protected void paintComponent(Graphics g) {
+	         g.setColor(getBackground());
+	         g.fillRoundRect(0, 0, getWidth()-1, getHeight()-1, 10, 10);
+	         super.paintComponent(g);
+	    }
+	    protected void paintBorder(Graphics g) {
+	         g.setColor(Color.BLACK);
+	         g.drawRoundRect(0, 0, getWidth()-1, getHeight()-1, 10, 10);
+	    }
+	    public boolean contains(int x, int y) {
+	         if (shape == null || !shape.getBounds().equals(getBounds())) {
+	             shape = new RoundRectangle2D.Float(0, 0, getWidth()-1, getHeight()-1, 10, 10);
+	         }
+	         return shape.contains(x, y);
+	    }
+
+		  @Override
+		  public void focusGained(FocusEvent e) {
+		    if(this.getText().isEmpty()) {
+		      super.setText("");
+		      setBorder(BorderFactory.createLineBorder(Color.black,1));
+		      setForeground(Color.BLACK);
+		      showingHint = false;
+		    }
+		  }
+		  @Override
+		  public void focusLost(FocusEvent e) {
+		    if(this.getText().isEmpty()) {
+		      super.setText(hint);
+		      setForeground(new Color(150,150,150));
+		      showingHint = true;
+		    }
+		  }
+
+		  @Override
+		  public String getText() {
+		    return showingHint ? "" : super.getText();
+		  }
+		}
+	
+	public class RoundedJLabel extends JLabel {
+	//LABEL COLOR GRIS
+		  private Shape shape;
+		  public RoundedJLabel() {
+	        setOpaque(false); // As suggested by @AVD in comment.
+	        setBackground(new Color(228,230,230));
+			setForeground(Color.BLACK);
+			setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 11));
+
+	    }
+	    protected void paintComponent(Graphics g) {
+	         g.setColor(getBackground());
+	         g.fillRoundRect(0, 0, getWidth()-1, getHeight()-1, 10, 10);
+	         super.paintComponent(g);
+	    }
+	    protected void paintBorder(Graphics g) {
+	         g.setColor(getBackground());
+	         g.drawRoundRect(0, 0, getWidth()-1, getHeight()-1, 10, 10);
+	    }
+	    public boolean contains(int x, int y) {
+	         if (shape == null || !shape.getBounds().equals(getBounds())) {
+	             shape = new RoundRectangle2D.Float(0, 0, getWidth()-1, getHeight()-1, 10, 10);
+	         }
+	         return shape.contains(x, y);
+	    }
+	
+	}
+	
+
 }

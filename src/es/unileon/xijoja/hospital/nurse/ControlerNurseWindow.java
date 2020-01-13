@@ -2,8 +2,12 @@ package es.unileon.xijoja.hospital.nurse;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.FontFormatException;
+import java.awt.GraphicsEnvironment;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
@@ -13,6 +17,7 @@ import java.util.Calendar;
 import javax.swing.JComboBox;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.plaf.synth.SynthSpinnerUI;
 import javax.swing.table.DefaultTableModel;
 
 import com.sun.corba.se.impl.encoding.CodeSetConversion.BTCConverter;
@@ -45,6 +50,12 @@ public class ControlerNurseWindow implements ActionListener {
 		this.nurseWindow = window;
 		log = new Logs();
 		this. id= daoPersonal.getIdByUserAndPass(nurseWindow.user,nurseWindow.password);
+		try {
+		     GraphicsEnvironment ge =   GraphicsEnvironment.getLocalGraphicsEnvironment();
+		     ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("etc/rexlia.ttf")));
+		} catch (IOException|FontFormatException e) {
+		     //Handle exception
+		}
 
 	}
 	
@@ -56,13 +67,8 @@ public class ControlerNurseWindow implements ActionListener {
 
 				nurseWindow.setVisible(false);
 				//TODO arreglar que se borren los campos al cerrar sesion
-				try {
-					LoginWindow newlogin = new LoginWindow();
-					ControlerLoginWindow controlerLogin = new ControlerLoginWindow(newlogin);
-					controlerLogin.resetJField();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
+				LoginWindow newlogin = LoginWindow.getInstance();
+				newlogin.resetJField();
 				
 		} else if (arg0.getActionCommand().equals("Usar Medicamento")) {
 				nurseWindow.seePatientPane.setVisible(false);
@@ -82,14 +88,16 @@ public class ControlerNurseWindow implements ActionListener {
 
 				String[][] matrixToInsert = null;
 				
-				titles = new String[] { "  Id", "Nombre", "Apellido 1", "Apellido 2", "NIF", "Fecha", "Habitaci√≥n",
-						"Enfermedad", "Producto", "Medico", "Unidades medicamento", "Enfermero " }; // Titulos de la tabla de
+				titles = new String[] { "ID", "NOMBRE", "APELLIDO", "APELLIDO", "NIF", "FECHA", "N∫HABITACION",
+						"ENFERMEDAD", "IDMEDICAMENTO", "MEDICO", "TRATAMIENTO", "ENFERMERO " }; // Titulos de la tabla de
+		
 																		// los empleados
 				insert = dao.getAllPatients(id,false);// ArrayList de Arrays
 			
 				matrixToInsert = new String[insert.size()][12];
 				nurseWindow.seePatientPane.setPreferredSize(new Dimension(624, 20 + 20 * insert.size()));
-				nurseWindow.seePatientPane.setBounds(284, 11, 624, 430);
+				nurseWindow.seePatientPane.setBounds(274, 30, 695, 466);
+				nurseWindow.setBackground(Color.white);
 				
 				for (int i = 0; i < insert.size(); i++) { // rellenamos la matriz que meteremos en la tabla a partir
 					// del ArrayList de arrays devuelto del DAO
@@ -101,7 +109,9 @@ public class ControlerNurseWindow implements ActionListener {
 	
 				
 				JTable PatientsTable = new JTable();
+				PatientsTable.setBackground(Color.WHITE);
 				PatientsTable.setBounds(5, 5, 600, 20 + 20 * insert.size());
+			;
 
 				PatientsTable.setVisible(true);
 			//	nurseWindow.seePatientPane.add(PatientsTable);
@@ -110,8 +120,9 @@ public class ControlerNurseWindow implements ActionListener {
 
 				
 				DefaultTableModel tableModel = new DefaultTableModel(matrixToInsert, titles);
+
 				PatientsTable.setModel(tableModel);
-				
+				PatientsTable.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 9));				
 				nurseWindow.seePatientPane.setViewportView(PatientsTable);
 
 				
@@ -133,19 +144,22 @@ public class ControlerNurseWindow implements ActionListener {
 						idPatient=Integer.parseInt(listPatients.get(i)[0]);
 					}
 				}
-					nurseWindow.textFieldMedicine.setEnabled(true);
-					nurseWindow.textFieldUnits.setEnabled(true);
+					nurseWindow.labelFieldMedicine.setEnabled(true);
+					nurseWindow.labelFieldUnits.setEnabled(true);
 					nurseWindow.btnUseMedicine.setEnabled(true);
 
 					filJComboBoxUnits();
 					getPatientData = dao.getPatient(idPatient);
 					if (getPatientData[8]==null) {
-						nurseWindow.textFieldMedicine.setText("Sin tratamiento asignado");
+						nurseWindow.labelFieldMedicine.setText("Sin tratamiento asignado");
 						
 					}else {
-					nurseWindow.textFieldMedicine.setText(daoAlmacen.getMedicineName(Integer.parseInt(getPatientData[8])));
+						String nombreMedicina= daoAlmacen.getMedicineName(Integer.parseInt(getPatientData[8]));
+						System.out.println(nombreMedicina);
+						nombreMedicina= nombreMedicina.replace("0","");
+					nurseWindow.labelFieldMedicine.setText(nombreMedicina);
 					}
-					nurseWindow.textFieldUnits.setText(getPatientData[10]);
+					nurseWindow.labelFieldUnits.setText(getPatientData[10]);
 					log.InfoLog("Devuelto el paciente con id: "+getPatientData[0]);
 
 			
@@ -168,9 +182,17 @@ public class ControlerNurseWindow implements ActionListener {
 				}
 					filJComboBoxUnits();
 					getPatientData = dao.getPatient(idPatient);
-					nurseWindow.textFieldMedicine.setText(daoAlmacen.getMedicineName(Integer.parseInt(getPatientData[8])));
+					if (getPatientData[8]==null) {
+						nurseWindow.labelFieldMedicine.setText("Sin tratamiento asignado");
+
+					}else {
+						String nombreMedicina= daoAlmacen.getMedicineName(Integer.parseInt(getPatientData[8]));
+						System.out.println(nombreMedicina);
+						nombreMedicina= nombreMedicina.replace(" ","");
+						nurseWindow.labelFieldMedicine.setText(nombreMedicina);
+					}
 					
-					nurseWindow.textFieldUnits.setText(getPatientData[10]);
+					nurseWindow.labelFieldUnits.setText(getPatientData[10]);
 					
 					log.InfoLog("Se le aplico el tratamiento al paciente: "+getPatientData[0]);
 

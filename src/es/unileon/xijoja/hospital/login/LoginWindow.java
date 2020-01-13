@@ -20,6 +20,7 @@ import javax.swing.JTextField;
 import javax.swing.KeyStroke;
 import javax.swing.SwingConstants;
 
+import es.unileon.xijoja.hospital.Conexion;
 import es.unileon.xijoja.hospital.InfoWindow;
 import es.unileon.xijoja.hospital.Logs;
 import es.unileon.xijoja.hospital.PersonalDAO;
@@ -37,6 +38,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JPopupMenu;
 import javax.swing.ActionMap;
 import javax.swing.BorderFactory;
+import javax.swing.GroupLayout.Alignment;
 import javax.swing.ImageIcon;
 import javax.swing.InputMap;
 
@@ -56,6 +58,8 @@ public class LoginWindow extends JFrame {
 	private static final int WHEN_IN_FOCUSED_WINDOW = 0;
 	private ControlerLoginWindow listener;
 	/* LOGIN */
+	private static LoginWindow instance; // Singleton
+
 	protected JPanel loginPanel;
 	protected JTextField loginUser;
 	protected JTextField trama;
@@ -69,7 +73,7 @@ public class LoginWindow extends JFrame {
 
 	private Logs log = new Logs();
 
-	public LoginWindow() throws IOException {
+	private LoginWindow() throws IOException {
 
 		log.InfoLog("SE INICIA LA PANTALLA DE LOGIN");
 		getContentPane().setBackground(Color.WHITE);
@@ -95,6 +99,18 @@ public class LoginWindow extends JFrame {
 		     //Handle exception
 		}
 		
+	}
+	public synchronized static LoginWindow getInstance(){
+
+		if (instance == null) {
+			try {
+				instance = new LoginWindow();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return instance;
 	}
 
 	private void initComponents() throws IOException {
@@ -147,23 +163,19 @@ public class LoginWindow extends JFrame {
 		loginPanel.add(trama);
 		
 		JLabel lblLogin = new JLabel("ACCEDER");
-		lblLogin.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 20));
+		lblLogin.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 17));
 		lblLogin.setBounds(40, 70, 150, 50);
 		loginPanel.add(lblLogin);
 		
 		loginUser = new HintTextField("USUARIO",55);
 		loginUser.setBackground(new Color(228,230,230));
 		loginUser.setForeground(new Color(100,100,100));
-
-
-		//loginUser.setVerticalAlignment(SwingConstants.BOTTOM);
-		//loginUser.setHorizontalAlignment(JTextField.TRAILING );
-		loginUser.setBounds(40, 115, 165, 50);
+		loginUser.setBounds(40, 115, 165, 40);
 		loginUser.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 11));
 		
 		lblUser = new JLabel("USUARIO");
 		lblUser.setVisible(false);
-		lblUser.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 8));
+		lblUser.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 7));
 		lblUser.setBounds(5, 0, 120, 20);
 		loginUser.add(lblUser);
 		
@@ -175,34 +187,45 @@ public class LoginWindow extends JFrame {
 		loginPassword.setBackground(new Color(228,230,230));
 		loginPassword.setForeground(new Color(100,100,100));
 
-		loginPassword.setBounds(40, 176, 165, 50);
+		loginPassword.setBounds(40, 161, 165, 40);
 		loginPassword.setEchoChar('\u0000');
 		loginPassword.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 11));
 		
 		lblPassword = new JLabel("CONTRASEÑA");
 		lblPassword.setVisible(false);
-		lblPassword.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 8));
+		lblPassword.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 7));
 		lblPassword.setBounds(5, 0, 120, 20);
 		loginPassword.add(lblPassword);
 		loginPanel.add(loginPassword);
 		loginPassword.addKeyListener(listener);
+		
 
 
-		ImageIcon icon = new ImageIcon(LoginWindow.class.getResource("/resources/flechaIntro.png"));
-		Image scaleImage = icon.getImage().getScaledInstance(73, 23,Image.SCALE_DEFAULT);
-		JButton btnLogin = new JButton(new ImageIcon(scaleImage));
-		btnLogin.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 12));
-		btnLogin.setBounds(125, 257, 73, 23);
 
-		//TODO añadir JbuttonBordered, copiando o outro poñendo a imaxe en distinto color cando os campos estén correctos
-		btnLogin.setBackground(null);
-		// btnLogin.setBorder(null);
+		ImageIcon icon = new ImageIcon(LoginWindow.class.getResource("/resources/FlechaGris.png"));
+		Image scaleImage = icon.getImage().getScaledInstance(50, 35,Image.SCALE_DEFAULT);
+		JButton btnLogin = new RoundedJButton(30);
+		btnLogin.setText("Login");
+		btnLogin.setBackground(new Color(228,230,230));
+		btnLogin.setForeground(new Color(100,100,100));
+		btnLogin.setBorder(null);
+		btnLogin.setBounds(81, 220, 58, 40);
+		btnLogin.setIcon(new ImageIcon(scaleImage));
+		btnLogin.setBackground(new Color(228,232,230));
+		btnLogin.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 11));
+
 		btnLogin.setOpaque(false);
 		btnLogin.addKeyListener(listener);
 		btnLogin.addActionListener(listener);
 		loginPanel.add(btnLogin);
+		
+		JLabel lblinfo = new JLabel("All Rights Reserved ©2020 Xijoja Software ");
+		lblinfo.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 8));
+		lblinfo.setBounds(5, 315, 230, 50);
+		loginPanel.add(lblinfo);
+		
 
-		JButton buttonInfo = new JButton(new ImageIcon(LoginWindow.class.getResource("/resources/--ndice.png")));
+		JButton buttonInfo = new JButton(new ImageIcon(LoginWindow.class.getResource("/resources/--ndiceBlanco.png")));
 		buttonInfo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				InfoWindow info = new InfoWindow("general");
@@ -213,7 +236,7 @@ public class LoginWindow extends JFrame {
 		buttonInfo.setOpaque(false);
 		buttonInfo.setBorder(null);
 		buttonInfo.setBackground((Color) null);
-		buttonInfo.setBounds(10, 314, 23, 23);
+		buttonInfo.setBounds(10, 304, 23, 23);
 		loginPanel.add(buttonInfo);
 		
 		
@@ -224,7 +247,7 @@ public class LoginWindow extends JFrame {
 		buttonSettings.setOpaque(false);
 		buttonSettings.setBorder(null);
 		buttonSettings.setBackground((Color) null);
-		buttonSettings.setBounds(40, 314, 23, 23);
+		buttonSettings.setBounds(40, 304, 23, 23);
 		loginPanel.add(buttonSettings);
 		  
 		
@@ -249,18 +272,19 @@ public class LoginWindow extends JFrame {
             } );
         
  
-           
-		
-			//	buttonSettings.addActionListener(listener);
-
 		lblLoginError = new JLabel("");
 		lblLoginError.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		lblLoginError.setForeground(Color.RED);
-		lblLoginError.setBounds(38, 230, 160, 14);
+		lblLoginError.setBounds(38, 200, 160, 14);
 		loginPanel.add(lblLoginError);
 		
 
 		}
+	public void resetJField() {
+		loginPassword.setText("");
+		loginUser.setText("");
+		
+	}
 
 		public class HintTextField extends JTextField implements FocusListener {
 
@@ -340,7 +364,7 @@ public class LoginWindow extends JFrame {
 		         super.paintComponent(g);
 		    }
 		    protected void paintBorder(Graphics g) {
-		         g.setColor(ColorBorder);
+		         g.setColor(ColorBorderPass);
 		         g.drawRoundRect(0, 0, getWidth()-1, getHeight()-1, 10, 10);
 		    }
 		    public boolean contains(int x, int y) {
@@ -383,6 +407,47 @@ public class LoginWindow extends JFrame {
 			  public String getText() {
 			    return showingHint ? "" : super.getText();
 			  }
+			}
+		public class RoundedJButton extends JButton implements FocusListener {
+
+			
+			  private Shape shape;
+
+
+			  public RoundedJButton(int size) {
+			  
+			    super.addFocusListener(this);
+		        setOpaque(false); // As suggested by @AVD in comment.
+		    }
+		    protected void paintComponent(Graphics g) {
+		         g.setColor(new Color(110,110,120));
+		         g.fillRoundRect(0, 0, getWidth()-1, getHeight()-1, 10, 10);
+		         super.paintComponent(g);
+		    }
+		    protected void paintBorder(Graphics g) {
+		         g.setColor(new Color(110,110,110));
+		         g.drawRoundRect(0, 0, getWidth()-1, getHeight()-1, 10, 10);
+		    }
+		    public boolean contains(int x, int y) {
+		         if (shape == null || !shape.getBounds().equals(getBounds())) {
+		             shape = new RoundRectangle2D.Float(0, 0, getWidth()-1, getHeight()-1, 10, 10);
+		         }
+		         return shape.contains(x, y);
+		    }
+			@Override
+			public void focusGained(FocusEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+			@Override
+			public void focusLost(FocusEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+
+
+			  
 			}
 	}
 

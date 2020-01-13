@@ -36,6 +36,7 @@ public class ControlerAdmin implements ActionListener {
 	protected int numNurse;
 	protected int numSecre;
 	String[] employeeToEdit = null;
+	String[] pacientToEdit = null;
 
 	public ControlerAdmin(AdminWindow adminWindow) {
 		personalDao = new PersonalDAO();
@@ -80,7 +81,7 @@ public class ControlerAdmin implements ActionListener {
 	 * @param surname2
 	 * @return
 	 * 
-	 * 		Generamos un usuario con el nombre y apellidos pasados por parametro
+	 *         Generamos un usuario con el nombre y apellidos pasados por parametro
 	 */
 	private String genUser(String name, String surname1, String surname2) {
 
@@ -126,7 +127,7 @@ public class ControlerAdmin implements ActionListener {
 	 * 
 	 * @return
 	 * 
-	 * 		Generamos una contraseña aleatoria
+	 *         Generamos una contraseña aleatoria
 	 */
 	private String genPassword() {
 
@@ -181,7 +182,7 @@ public class ControlerAdmin implements ActionListener {
 	}
 
 	public void filJComboBox(JComboBox edit, boolean ismedic) {
-
+		edit.removeAllItems();
 		ArrayList<String[]> list = personalDao.getNuseAndMedic(ismedic);
 		if (ismedic) {
 			arrayMedic = list;
@@ -199,6 +200,31 @@ public class ControlerAdmin implements ActionListener {
 
 			}
 		}
+
+	}
+
+	public void filJComboBoxMedicines(JComboBox edit) {
+		edit.removeAllItems();
+		ArrayList<String[]> Medicines = warehouseDAO.getMedicineMedic();// ArrayList de Arrays;
+
+		String[] data = new String[2];
+		if (Medicines == null) {
+
+		} else {
+			for (int i = 0; i < Medicines.size(); i++) {
+				data = Medicines.get(i);
+				edit.addItem(data[1]);
+
+			}
+		}
+
+	}
+
+	public void changeNumMedicines(String medicine) {
+
+		warehouseDAO.getCountMedicine(medicine);
+
+		adminWindow.lblNumberMedicine.setText(String.valueOf(warehouseDAO.getCountMedicine(medicine)));
 
 	}
 
@@ -267,10 +293,10 @@ public class ControlerAdmin implements ActionListener {
 			adminWindow.lblErrorDelete.setText("");
 			adminWindow.lblErrorEdit.setText("");
 			adminWindow.addPatientsPanel.setVisible(false);
-			adminWindow.seePacientsPanel.setVisible(false);
+			adminWindow.seePatientPane.setVisible(false);
 			adminWindow.deletePatientsPanel.setVisible(false);
 			adminWindow.seeWarehousePanel.setVisible(false);
-			adminWindow.editPacientsPanel.setVisible(false);
+			adminWindow.editPatientPanel.setVisible(false);
 
 		} else if ((arg0.getActionCommand().equals("Ver plantilla")) || (arg0.getActionCommand().equals("Recargar"))) {
 
@@ -283,69 +309,51 @@ public class ControlerAdmin implements ActionListener {
 			adminWindow.lblErrorDelete.setText("");
 			adminWindow.lblErrorEdit.setText("");
 			adminWindow.addPatientsPanel.setVisible(false);
-			adminWindow.seePacientsPanel.setVisible(false);
+			adminWindow.seePatientPane.setVisible(false);
 			adminWindow.deletePatientsPanel.setVisible(false);
 			adminWindow.seeWarehousePanel.setVisible(false);
-			adminWindow.editPacientsPanel.setVisible(false);
+			adminWindow.editPatientPanel.setVisible(false);
 
 			ArrayList<String[]> insert = null;
+			// int numOfRows= dao.getNumRow();
 
 			String[] titles = null;
 
 			String[][] matrixToInsert = null;
 
-			titles = new String[] { "  Id", "Nombre", "Apellido 1", "Apellido 2", "NIF", "Fecha", "Cuenta Bancaria",
-					"Puesto", "Contrase�a", "Usuario", "Email" }; // Titulos de la tabla de
-																	// los empleados
+			titles = new String[] { "  Id", "Nombre", "Apellido 1", "Apellido 2", "NIF", "Fecha Alta",
+					"Cuenta Bancaria", "Puesto", "Contraseña", "Usuario", "Email" }; // Titulos de la tabla de
+																						// los empleados
 			insert = personalDao.getAllEmployees();// ArrayList de Arrays
-			System.out.println("inset vale" + insert.size());
-			for (int i = 0; i < insert.size(); i++) {
-				System.out.println(insert.get(i)[0]);
-			}
-			matrixToInsert = new String[insert.size() + 1][11];
+
+			matrixToInsert = new String[insert.size()][12];
 			adminWindow.seeEmployeesPanel.setPreferredSize(new Dimension(624, 20 + 20 * insert.size()));
-			adminWindow.seeEmployeesPanel.setBounds(284, 11, 624, 20 + 20 * insert.size());
+			adminWindow.seeEmployeesPanel.setBounds(284, 11, 624, 430);
 
-			for (int i = 0; i < insert.size() + 1; i++) { // rellenamos la matriz que meteremos en la tabla a partir
-															// del ArrayList de arrays devuelto del DAO /// +1 PORQUE NO
-															// CONTABA QUE HACIA FALTA TAMBIEN LA FILA EN LA CUAL EST�N
-															// LOS TITULOS
+			for (int i = 0; i < insert.size(); i++) { // rellenamos la matriz que meteremos en la tabla a partir
+				// del ArrayList de arrays devuelto del DAO
 				for (int j = 0; j < 11; j++) {
-					if (i == 0) {
 
-						matrixToInsert[i][j] = titles[j];
-
-					} else {
-						matrixToInsert[i][j] = insert.get(i - 1)[j];// a�adi un -1, no se tenia en cuenta la fila que s
-																	// euarda para los titulos, entonces empezaba en el
-																	// id 1
-					}
+					matrixToInsert[i][j] = insert.get(i)[j];
 				}
 			}
 
-			JTable employeesTable = new JTable();
-			employeesTable.setBounds(20, 20, 600, 20 + 20 * insert.size());
+			JTable employeeTable = new JTable();
+			employeeTable.setBounds(5, 5, 600, 20 + 20 * insert.size());
 
-			employeesTable.setVisible(true);
-			adminWindow.seeEmployeesPanel.add(employeesTable);
-			/*
-			 * //TODO lo que hizo xian es esto que esta comentado panelquebaja = new
-			 * JScrollPane(seeEmployeesPanel);
-			 *
-			 * panelquebaja.setHorizontalScrollBarPolicy(JScrollPane.
-			 * HORIZONTAL_SCROLLBAR_NEVER);
-			 * panelquebaja.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS
-			 * ); panelquebaja.setBounds(seeEmployeesPanel.getBounds());
-			 * System.out.println(panelquebaja.getBounds());
-			 * getContentPane().add(panelquebaja);
-			 *
-			 * panelquebaja.setVisible(true);
-			 */
-
-			employeesTable.setAutoscrolls(true);
+			employeeTable.setVisible(true);
+			// nurseWindow.seePatientPane.add(PatientsTable);
+			employeeTable.setAutoscrolls(true);
 
 			DefaultTableModel tableModel = new DefaultTableModel(matrixToInsert, titles);
-			employeesTable.setModel(tableModel);
+			employeeTable.setModel(tableModel);
+
+			adminWindow.seeEmployeesPanel.setViewportView(employeeTable);
+
+			employeeTable.setAutoscrolls(true);
+
+			DefaultTableModel tableModel2 = new DefaultTableModel(matrixToInsert, titles);
+			employeeTable.setModel(tableModel2);
 
 		} else if (arg0.getActionCommand().equals("Editar trabajador")) {
 
@@ -359,13 +367,12 @@ public class ControlerAdmin implements ActionListener {
 			adminWindow.lblErrorDelete.setText("");
 			adminWindow.lblErrorEdit.setText("");
 			adminWindow.addPatientsPanel.setVisible(false);
-			adminWindow.seePacientsPanel.setVisible(false);
+			adminWindow.seePatientPane.setVisible(false);
 			adminWindow.deletePatientsPanel.setVisible(false);
 			adminWindow.seeWarehousePanel.setVisible(false);
-			adminWindow.editPacientsPanel.setVisible(false);
+			adminWindow.editPatientPanel.setVisible(false);
 
 		} else if (arg0.getActionCommand().equals("Buscar")) {
-			
 
 			if ((adminWindow.textFieldSearchDNIEdit.getText().toString().equals(""))
 					|| (!personalDao.checkEmployeeExist(adminWindow.textFieldSearchDNIEdit.getText().toString()))) {
@@ -434,38 +441,48 @@ public class ControlerAdmin implements ActionListener {
 			adminWindow.lblErrorDelete.setText("");
 			adminWindow.lblErrorEdit.setText("");
 			adminWindow.addPatientsPanel.setVisible(false);
-			adminWindow.seePacientsPanel.setVisible(false);
+			adminWindow.seePatientPane.setVisible(false);
 			adminWindow.deletePatientsPanel.setVisible(false);
 			adminWindow.seeWarehousePanel.setVisible(false);
-			adminWindow.editPacientsPanel.setVisible(false);
+			adminWindow.editPatientPanel.setVisible(false);
 
 		} else if (arg0.getActionCommand().equals("Cerrar sesion")) {
 
 			adminWindow.setVisible(false);
-			// TODO arreglar que se borren los campos al cerrar sesion
-			try {
-				LoginWindow newlogin = new LoginWindow();
-				ControlerLoginWindow controlerLogin = new ControlerLoginWindow(newlogin);
-				controlerLogin.resetJField();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			LoginWindow newlogin = LoginWindow.getInstance();
+			newlogin.resetJField();
 
 		} else if (arg0.getActionCommand().equals("Borrar")) {
 
-			if ((!personalDao.checkEmployeeExist(adminWindow.textFieldSearchDNIEdit.getText().toString()))) {
+			System.out.println("asdasdasd " + adminWindow.textFieldDNIToDelete.getText().toString());
+
+			if ((!personalDao.checkEmployeeExist(adminWindow.textFieldDNIToDelete.getText().toString()))) {
 				adminWindow.lblErrorDelete.setText("Empleado no encontrado");
 				// TODO comporbar que el DNI coincida con el nombre y los apellidos
 			} else {
 				System.out.println("Boton borrar pulsado");
-				boolean result = personalDao.deleteEmployee(adminWindow.textFieldNameToDelete.getText(),
-						adminWindow.textFieldFirstDeleteToDelete.getText(),
-						adminWindow.textFieldSecondDeleteToDelete.getText(),
-						adminWindow.textFieldDNIToDelete.getText());
-				if (!result) {// Si algo ha fallado al borrar el empleado
-					adminWindow.lblErrorDelete.setText("Los datos no coinciden");
+
+				String[] toDelete = new String[12];
+
+				toDelete = personalDao.getEmployee(adminWindow.textFieldDNIToDelete.getText().toString());
+
+				for (int i = 0; i < toDelete.length; i++) {
+					System.out.println(toDelete[i]);
+				}
+
+				if (toDelete[0].equals("0")) {
+					adminWindow.lblErrorDelete.setText("No se puede borrar el administrador principal");
 				} else {
-					adminWindow.lblErrorDelete.setText("");
+
+					boolean result = personalDao.deleteEmployee(adminWindow.textFieldNameToDelete.getText(),
+							adminWindow.textFieldFirstDeleteToDelete.getText(),
+							adminWindow.textFieldSecondDeleteToDelete.getText(),
+							adminWindow.textFieldDNIToDelete.getText());
+					if (!result) {// Si algo ha fallado al borrar el empleado
+						adminWindow.lblErrorDelete.setText("Los datos no coinciden");
+					} else {
+						adminWindow.lblErrorDelete.setText("");
+					}
 				}
 			}
 
@@ -480,10 +497,10 @@ public class ControlerAdmin implements ActionListener {
 			adminWindow.lblErrorDelete.setText("");
 			adminWindow.lblErrorEdit.setText("");
 			adminWindow.addPatientsPanel.setVisible(true);
-			adminWindow.seePacientsPanel.setVisible(false);
+			adminWindow.seePatientPane.setVisible(false);
 			adminWindow.deletePatientsPanel.setVisible(false);
 			adminWindow.seeWarehousePanel.setVisible(false);
-			adminWindow.editPacientsPanel.setVisible(false);
+			adminWindow.editPatientPanel.setVisible(false);
 
 		} else if (arg0.getActionCommand().contentEquals("Ingresar")) {
 
@@ -517,7 +534,7 @@ public class ControlerAdmin implements ActionListener {
 			if (add) {// Si da error no se a�ade el empleado
 				System.out.println("Correcto");
 
-				int id = personalDao.getLastID() + 1;// siguiente id
+				int id = patientsDao.getLastID() + 1;// siguiente id
 
 				Date date = new Date(Calendar.getInstance().getTime().getTime());// Obtenemos la fecha actual
 				int idMedic = 0, idNurse = 0;
@@ -559,12 +576,13 @@ public class ControlerAdmin implements ActionListener {
 			adminWindow.lblErrorDelete.setText("");
 			adminWindow.lblErrorEdit.setText("");
 			adminWindow.addPatientsPanel.setVisible(false);
-			adminWindow.seePacientsPanel.setVisible(true);
+			adminWindow.seePatientPane.setVisible(true);
 			adminWindow.deletePatientsPanel.setVisible(false);
 			adminWindow.seeWarehousePanel.setVisible(false);
-			adminWindow.editPacientsPanel.setVisible(false);
+			adminWindow.editPatientPanel.setVisible(false);
 
 			ArrayList<String[]> insert = null;
+			int numOfRows = patientsDao.getNumRow();
 
 			String[] titles = null;
 
@@ -576,20 +594,15 @@ public class ControlerAdmin implements ActionListener {
 			// los empleados
 			insert = patientsDao.getAllPatients();// ArrayList de Arrays
 
-			matrixToInsert = new String[insert.size() + 1][12];
-			adminWindow.seePacientsPanel.setPreferredSize(new Dimension(624, 20 + 20 * insert.size()));
-			adminWindow.seePacientsPanel.setBounds(284, 11, 624, 20 + 20 * insert.size());
+			matrixToInsert = new String[insert.size()][12];
+			adminWindow.seePatientPane.setPreferredSize(new Dimension(624, 20 + 20 * insert.size()));
+			adminWindow.seePatientPane.setBounds(284, 11, 624, 430);
 
-			for (int i = 0; i < insert.size() + 1; i++) { // rellenamos la matriz que meteremos en la tabla a partir
+			for (int i = 0; i < insert.size(); i++) { // rellenamos la matriz que meteremos en la tabla a partir
 				// del ArrayList de arrays devuelto del DAO
 				for (int j = 0; j < 12; j++) {
-					if (i == 0) {
 
-						matrixToInsert[i][j] = titles[j];
-
-					} else {
-						matrixToInsert[i][j] = insert.get(i - 1)[j];
-					}
+					matrixToInsert[i][j] = insert.get(i)[j];
 				}
 			}
 
@@ -597,11 +610,13 @@ public class ControlerAdmin implements ActionListener {
 			PatientsTable.setBounds(5, 5, 600, 20 + 20 * insert.size());
 
 			PatientsTable.setVisible(true);
-			adminWindow.seePacientsPanel.add(PatientsTable);
+			// nurseWindow.seePatientPane.add(PatientsTable);
 			PatientsTable.setAutoscrolls(true);
 
 			DefaultTableModel tableModel = new DefaultTableModel(matrixToInsert, titles);
 			PatientsTable.setModel(tableModel);
+
+			adminWindow.seePatientPane.setViewportView(PatientsTable);
 
 		} else if (arg0.getActionCommand().contentEquals("Borrar paciente")) {
 			adminWindow.seeEmployeesPanel.setVisible(false);
@@ -613,15 +628,15 @@ public class ControlerAdmin implements ActionListener {
 			adminWindow.lblErrorDelete.setText("");
 			adminWindow.lblErrorEdit.setText("");
 			adminWindow.addPatientsPanel.setVisible(false);
-			adminWindow.seePacientsPanel.setVisible(false);
+			adminWindow.seePatientPane.setVisible(false);
 			adminWindow.deletePatientsPanel.setVisible(true);
 			adminWindow.seeWarehousePanel.setVisible(false);
-			adminWindow.editPacientsPanel.setVisible(false);
+			adminWindow.editPatientPanel.setVisible(false);
 
 		} else if (arg0.getActionCommand().contentEquals("Eliminar")) {
 
-			if (!patientsDao.checkPatientExist(adminWindow.textFieldDNIToDeletePacient.getText(), true)) {
-				adminWindow.textFieldErrorDeletePacient.setText("Paciente no encontrado");
+			if (!patientsDao.checkPatientExist(adminWindow.textFieldDNIToDeletePatient.getText(), true)) {
+				adminWindow.textFieldErrorDeletePatient.setText("Paciente no encontrado");
 
 			} else {
 				System.out.println("Boton borrar pulsado");
@@ -629,13 +644,13 @@ public class ControlerAdmin implements ActionListener {
 				boolean restult = patientsDao.deletePatient(adminWindow.textFieldNameToDeleteEmployee.getText(),
 						adminWindow.textFieldFirstSurnameToDeleteEmployee.getText(),
 						adminWindow.textFieldSecondSurnameToDeleteEmployee.getText(),
-						adminWindow.textFieldDNIToDeletePacient.getText());
+						adminWindow.textFieldDNIToDeletePatient.getText());
 
 				if (!restult) {
-					adminWindow.textFieldErrorDeletePacient.setText("Los datos no coinciden");
+					adminWindow.textFieldErrorDeletePatient.setText("Los datos no coinciden");
 
 				} else {
-					adminWindow.textFieldErrorDeletePacient.setText("");
+					adminWindow.textFieldErrorDeletePatient.setText("");
 
 				}
 
@@ -650,24 +665,21 @@ public class ControlerAdmin implements ActionListener {
 			adminWindow.lblErrorDelete.setText("");
 			adminWindow.lblErrorEdit.setText("");
 			adminWindow.addPatientsPanel.setVisible(false);
-			adminWindow.seePacientsPanel.setVisible(false);
+			adminWindow.seePatientPane.setVisible(false);
 			adminWindow.deletePatientsPanel.setVisible(false);
 			adminWindow.seeWarehousePanel.setVisible(true);
-			adminWindow.editPacientsPanel.setVisible(false);
+			adminWindow.editPatientPanel.setVisible(false);
 
-			adminWindow.lblNumBetadine.setText(String.valueOf(warehouseDAO.getCountMedicine("Betadine")));
-			adminWindow.lblNumMorfina.setText(String.valueOf(warehouseDAO.getCountMedicine("Morfina")));
-			adminWindow.lblNumAspirina.setText(String.valueOf(warehouseDAO.getCountMedicine("Aspirina")));
-			adminWindow.lblNumParacetalmol.setText(String.valueOf(warehouseDAO.getCountMedicine("Paracetamol")));
+			this.filJComboBoxMedicines(adminWindow.comboBoxMedicines);
+
 		} else if (arg0.getActionCommand().contentEquals("Añadir o retirar")) {
 			System.out.println("COmprar");
-			warehouseDAO.addNewMedicines("Paracetamol",Integer.valueOf(adminWindow.lblNumParacetalmol.getText()));
-			warehouseDAO.addNewMedicines("Aspirina",Integer.valueOf(adminWindow.lblNumAspirina.getText()));
-			warehouseDAO.addNewMedicines("Betadine",Integer.valueOf(adminWindow.lblNumBetadine.getText()));
-			warehouseDAO.addNewMedicines("Morfina",Integer.valueOf(adminWindow.lblNumMorfina.getText()));
-			
-		}else if (arg0.getActionCommand().contentEquals("Editar Paciente")) {
-			
+
+			warehouseDAO.addNewMedicines(adminWindow.comboBoxMedicines.getSelectedItem().toString(),
+					Integer.parseInt(adminWindow.lblNumberMedicine.getText()));
+
+		} else if (arg0.getActionCommand().contentEquals("Editar Paciente")) {
+
 			adminWindow.seeEmployeesPanel.setVisible(false);
 			adminWindow.addEmployeePanel.setVisible(false);
 			adminWindow.editEmployeesPanel.setVisible(false);
@@ -677,29 +689,75 @@ public class ControlerAdmin implements ActionListener {
 			adminWindow.lblErrorDelete.setText("");
 			adminWindow.lblErrorEdit.setText("");
 			adminWindow.addPatientsPanel.setVisible(false);
-			adminWindow.seePacientsPanel.setVisible(false);
+			adminWindow.seePatientPane.setVisible(false);
 			adminWindow.deletePatientsPanel.setVisible(false);
 			adminWindow.seeWarehousePanel.setVisible(false);
-			adminWindow.editPacientsPanel.setVisible(true);
-			
-		}else if (arg0.getActionCommand().contentEquals("Buscar paciente")) {
-			
-			if ((adminWindow.textFieldDNISearchEditPacient.getText().toString().equals(""))
-					|| (!patientsDao.checkPatientExist(adminWindow.textFieldSearchDNIEdit.getText().toString(), true))) {
-				adminWindow.lblErrorEditPacient.setText("Error en el formulario");
-			} else {
-				enableAllEdit(true);
-				employeeToEdit = patientsDao.getPatient(adminWindow.textFieldSearchDNIEdit.getText().toString());
+			adminWindow.editPatientPanel.setVisible(true);
 
-				adminWindow.textFieldNameEditPacient.setText(employeeToEdit[1]);
-				adminWindow.textFieldSurname1EditPacient.setText(employeeToEdit[2]);
-				adminWindow.textFieldSurname2EditPacient.setText(employeeToEdit[3]);
-				adminWindow.textFieldDNIEditPacient.setText(employeeToEdit[4]);
-				adminWindow.textFieldIllnesEditPacient.setText(employeeToEdit[7]);
-				adminWindow.textFieldRommEditPacient.setText(employeeToEdit[6]);
-				
-				
+		} else if (arg0.getActionCommand().contentEquals("Buscar paciente")) {
+			System.out.println(patientsDao
+					.checkPatientExist(adminWindow.textFieldDNISearchEditPatient.getText().toString(), true));
+			if ((adminWindow.textFieldDNISearchEditPatient.getText().toString().equals("")) || (!patientsDao
+					.checkPatientExist(adminWindow.textFieldDNISearchEditPatient.getText().toString(), true))) {
+				adminWindow.lblErrorEditPatient.setText("Error en el formulario");
+			} else {
+
+				pacientToEdit = patientsDao.getPatient(adminWindow.textFieldDNISearchEditPatient.getText().toString());
+				System.out.println(pacientToEdit[1]);
+				adminWindow.textFieldNameEditPatient.setText(pacientToEdit[1]);
+				adminWindow.textFieldSurname1EditPatient.setText(pacientToEdit[2]);
+				adminWindow.textFieldSurname2EditPatient.setText(pacientToEdit[3]);
+				adminWindow.textFieldDNIEditPatient.setText(pacientToEdit[4]);
+				adminWindow.textFieldIllnesEditPatient.setText(pacientToEdit[7]);
+				adminWindow.textFieldRommEditPacient.setText(pacientToEdit[6]);
+
 			}
+		} else if (arg0.getActionCommand().contentEquals("Guardar paciente")) {
+			System.out.println("Comenzamos a editar el paciente");
+			boolean out = false;
+
+			while (!out) {// Repetimos hasta que se cancela o se introduce la contraseña correcta
+				JPasswordField pf = new JPasswordField();
+				int option = JOptionPane.showConfirmDialog(null, pf, "Enter Password", JOptionPane.OK_CANCEL_OPTION,
+						JOptionPane.PLAIN_MESSAGE);
+
+				if (option == JOptionPane.CANCEL_OPTION) {// si se pulsa cancelar
+					out = true;
+					System.out.println("Se ha cancelado");
+				} else {
+
+					if (pf.getText().equals(adminWindow.password)) {// Si se acierta la contraseña
+						out = true;
+						if (patientsDao.checkIfRoomIsBusy(Integer.parseInt(pacientToEdit[6]))) {// Comprobamos que la
+																								// habitacion no este
+																								// ocupada
+
+							adminWindow.lblErrorEditPatientRomm.setText(
+									"Esa habitacion no est� disponible, proxima: " + patientsDao.firstRoomFree());
+						} else {
+							// Llamamos a editar del DAO
+							patientsDao.editPacient(Integer.parseInt(pacientToEdit[0]),
+									adminWindow.textFieldNameEditPatient.getText(),
+									adminWindow.textFieldSurname1EditPatient.getText(),
+									adminWindow.textFieldSurname2EditPatient.getText(),
+									adminWindow.textFieldDNIEditPatient.getText(),
+									Integer.parseInt(adminWindow.textFieldRommEditPacient.getText()),
+									adminWindow.textFieldIllnesEditPatient.getText());
+						}
+
+					} else {// Si se falla la contraseña
+						JOptionPane.showMessageDialog(null, "Contraseña incorrecta", "ERROR",
+								JOptionPane.ERROR_MESSAGE);
+					}
+				}
+
+			}
+
+		} else if (arg0.getActionCommand().contentEquals("Comprar nuevo")) {
+
+			warehouseDAO.addNewMedicine(adminWindow.textFieldNewMedicine.getText(),
+					Integer.parseInt(adminWindow.textFieldNewMedicineAmount.getText()));
+
 		}
 	}
 }

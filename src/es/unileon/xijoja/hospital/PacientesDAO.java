@@ -370,12 +370,13 @@ public class PacientesDAO {
 	 */
 	public boolean checkPatientExist(String search, boolean isdni) {
 		boolean ret = false;
-		//TODO algo falla aqui COMO SIEMPRE
+		
 		co = Conexion.getInstance();
 		conn = co.getConnection();
 		System.out.println("Aqui parece que si entra");
 		String sql;
 		if (isdni) {
+			//search = search.replaceFirst("[\\s\\S]{0,1}$", "");
 			sql = "SELECT * FROM pacientes WHERE NIFNIE='" + search + "'";
 		} else {
 			sql = "SELECT * FROM pacientes WHERE Habitacion='" + search + "'";
@@ -573,6 +574,7 @@ public class PacientesDAO {
 		co = Conexion.getInstance();
 		conn = co.getConnection();
 		System.out.println("SI NO FUNCIONA EL FALLO ESTARA AQUI");
+		//DNI = DNI.replaceFirst("[\\s\\S]{0,1}$", "");
 		String sql = "SELECT * FROM pacientes WHERE NIFNIE='" + DNI + "'";
 		Statement st;
 		String[] ret = null;
@@ -580,6 +582,7 @@ public class PacientesDAO {
 			st = conn.createStatement();
 			ResultSet rs = st.executeQuery(sql);
 			ret = new String[12];
+			System.out.println(sql);
 			while (rs.next()) {
 
 				ret[0] = rs.getString(1); // ID
@@ -599,7 +602,7 @@ public class PacientesDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
+		System.out.println(ret[2]);
 		co.disconect();// Cerramos la conexion con la base de datos
 		return ret;
 	}
@@ -710,7 +713,7 @@ public class PacientesDAO {
 		String sql;
 
 		if (isdni) {
-			search = search.replaceFirst("[\\s\\S]{0,1}$", "");// TODO no funciona, quitar la letra del DNI para que
+			search = search.replaceFirst("[\\s\\S]{0,1}$", "");// 
 																// funcione
 
 			sql = "SELECT * FROM pacientes WHERE NIFNIE=" + search;
@@ -789,6 +792,26 @@ public class PacientesDAO {
 
 		return ret;
 	}
+	public void editPacient(int id, String name, String surname1, String surname2, String DNI, int room, String illnes) {
+
+		co = Conexion.getInstance();
+		conn = co.getConnection();
+
+		String sql = "UPDATE pacientes SET Nombre='" + name + "',Apellido1='" + surname1 + "',Apellido2='" + surname2
+				+ "',NIFNIE='" + DNI + "',Habitacion='" + room + "',Enfermedad='" + illnes + "' WHERE idPaciente = " + id;
+		Statement st;
+		try {
+			st = conn.createStatement();
+			st.executeUpdate(sql);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		co.disconect();// Desconectamos la base de datos
+	}
+	
+	
 	
 
 }
