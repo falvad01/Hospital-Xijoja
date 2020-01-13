@@ -224,7 +224,7 @@ public class SecretaryWindow extends JFrame {
 		addPatientPane.add(lblNifnie);
 
 		textFieldNIFNIE = new HintTextField("Introduce el NIF/NIE");
-		textFieldNIFNIE.setBounds(159, 173, 143, 20);
+		textFieldNIFNIE.setBounds(159, 173, 143, 25);
 		textFieldNIFNIE.setColumns(10);
 		addPatientPane.add(textFieldNIFNIE);
 
@@ -244,7 +244,7 @@ public class SecretaryWindow extends JFrame {
 		addPatientPane.add(btnRegister);
 		
 		textFieldRoom = new HintTextField(" Nº de habitación");
-		textFieldRoom.setBounds(459, 30, 143, 20);
+		textFieldRoom.setBounds(459, 30, 143, 25);
 		textFieldRoom.setColumns(10);
 		addPatientPane.add(textFieldRoom);
 		
@@ -256,8 +256,7 @@ public class SecretaryWindow extends JFrame {
 		addPatientPane.add(lblApellido);
 
 		textFieldSurname2 = new HintTextField("Introduce el Apellido");
-		textFieldSurname2.setBounds(159, 126, 143, 20);
-		textFieldSurname2.setColumns(10);
+		textFieldSurname2.setBounds(159, 126, 143, 25);
 		addPatientPane.add(textFieldSurname2);
 
 		JLabel lblnurse = new JLabel("Enfermero");
@@ -282,7 +281,7 @@ public class SecretaryWindow extends JFrame {
 
 		jcbMedic = new JComboBox();
 		listener.filJComboBox(jcbMedic, true);
-		jcbMedic.setBounds(459, 128, 213, 20);
+		jcbMedic.setBounds(459, 128, 213, 25);
 		jcbMedic.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 10));
 		jcbMedic.setBackground(new Color(228,230,230));
 
@@ -296,7 +295,7 @@ public class SecretaryWindow extends JFrame {
 		addPatientPane.add(lblEnfermedad);
 
 		textFielddisease = new HintTextField("Enfermedad");
-		textFielddisease.setBounds(459, 172, 143, 20);
+		textFielddisease.setBounds(459, 172, 143, 25);
 		textFielddisease.setColumns(10);
 		addPatientPane.add(textFielddisease);
 
@@ -410,13 +409,11 @@ public class SecretaryWindow extends JFrame {
 
 	}
 
-	public class RoundedJButton extends JButton implements FocusListener {
-
+	public class RoundedJButton extends JButton  {
+		//Boton redondeado
 		private Shape shape;
 
 		public RoundedJButton(int size) {
-
-			super.addFocusListener(this);
 			setOpaque(false); // As suggested by @AVD in comment.
 			setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 13));
 			setForeground(Color.BLACK);
@@ -442,21 +439,9 @@ public class SecretaryWindow extends JFrame {
 			return shape.contains(x, y);
 		}
 
-		@Override
-		public void focusGained(FocusEvent arg0) {
-			// TODO Auto-generated method stub
-
-		}
-
-		@Override
-		public void focusLost(FocusEvent arg0) {
-			// TODO Auto-generated method stub
-
-		}
-
 	}
 	public class HintTextField extends JTextField implements FocusListener {
-
+			//JText Field con bordes redondeados, y nombre de fondo, pasar como arguemnto el texto de "pista"
 		  private final String hint;
 		  private boolean showingHint;
 		  private Shape shape;
@@ -514,11 +499,8 @@ public class SecretaryWindow extends JFrame {
 		}
 	
 	public class RoundedJLabel extends JLabel {
-
-	
+	//LABEL COLOR GRIS
 		  private Shape shape;
-
-
 		  public RoundedJLabel() {
 	        setOpaque(false); // As suggested by @AVD in comment.
 	        setBackground(new Color(228,230,230));
@@ -532,7 +514,7 @@ public class SecretaryWindow extends JFrame {
 	         super.paintComponent(g);
 	    }
 	    protected void paintBorder(Graphics g) {
-	         g.setColor(colorBorder);
+	         g.setColor(getBackground());
 	         g.drawRoundRect(0, 0, getWidth()-1, getHeight()-1, 10, 10);
 	    }
 	    public boolean contains(int x, int y) {

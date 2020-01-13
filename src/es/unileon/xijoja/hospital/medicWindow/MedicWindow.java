@@ -5,6 +5,9 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import java.awt.geom.RoundRectangle2D;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -14,8 +17,12 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Shape;
+
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
+import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JSeparator;
@@ -649,5 +656,126 @@ public class MedicWindow extends JFrame {
 				
 		
 	}
+
+
+public class RoundedJButton extends JButton  {
+	//Boton redondeado
+	private Shape shape;
+
+	public RoundedJButton(int size) {
+		setOpaque(false); // As suggested by @AVD in comment.
+		setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 13));
+		setForeground(Color.BLACK);
+		setBackground(Color.GRAY);
+
+	}
+
+	protected void paintComponent(Graphics g) {
+		g.setColor(new Color(150, 150, 150));
+		g.fillRoundRect(0, 0, getWidth() - 1, getHeight() - 1, 10, 10);
+		super.paintComponent(g);
+	}
+
+	protected void paintBorder(Graphics g) {
+		g.setColor(new Color(190, 190, 190));
+		g.drawRoundRect(0, 0, getWidth() - 1, getHeight() - 1, 10, 10);
+	}
+
+	public boolean contains(int x, int y) {
+		if (shape == null || !shape.getBounds().equals(getBounds())) {
+			shape = new RoundRectangle2D.Float(0, 0, getWidth() - 1, getHeight() - 1, 10, 10);
+		}
+		return shape.contains(x, y);
+	}
+
 }
+public class HintTextField extends JTextField implements FocusListener {
+		//JText Field con bordes redondeados, y nombre de fondo, pasar como arguemnto el texto de "pista"
+	  private final String hint;
+	  private boolean showingHint;
+	  private Shape shape;
+
+
+	  public HintTextField(final String hint) {
+	    super(hint);
+	    this.hint = hint;
+	    this.showingHint = true;
+	    super.addFocusListener(this);
+        setOpaque(false); // As suggested by @AVD in comment.
+        setBackground(new Color(228,230,230));
+		setForeground(new Color(150,150,150));
+		setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 11));
+
+    }
+    protected void paintComponent(Graphics g) {
+         g.setColor(getBackground());
+         g.fillRoundRect(0, 0, getWidth()-1, getHeight()-1, 10, 10);
+         super.paintComponent(g);
+    }
+    protected void paintBorder(Graphics g) {
+         g.setColor(Color.BLACK);
+         g.drawRoundRect(0, 0, getWidth()-1, getHeight()-1, 10, 10);
+    }
+    public boolean contains(int x, int y) {
+         if (shape == null || !shape.getBounds().equals(getBounds())) {
+             shape = new RoundRectangle2D.Float(0, 0, getWidth()-1, getHeight()-1, 10, 10);
+         }
+         return shape.contains(x, y);
+    }
+
+	  @Override
+	  public void focusGained(FocusEvent e) {
+	    if(this.getText().isEmpty()) {
+	      super.setText("");
+	      setBorder(BorderFactory.createLineBorder(Color.black,1));
+	      setForeground(Color.BLACK);
+	      showingHint = false;
+	    }
+	  }
+	  @Override
+	  public void focusLost(FocusEvent e) {
+	    if(this.getText().isEmpty()) {
+	      super.setText(hint);
+	      setForeground(new Color(150,150,150));
+	      showingHint = true;
+	    }
+	  }
+
+	  @Override
+	  public String getText() {
+	    return showingHint ? "" : super.getText();
+	  }
+	}
+
+public class RoundedJLabel extends JLabel {
+//LABEL COLOR GRIS
+	  private Shape shape;
+	  public RoundedJLabel() {
+        setOpaque(false); // As suggested by @AVD in comment.
+        setBackground(new Color(228,230,230));
+		setForeground(Color.BLACK);
+		setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 11));
+
+    }
+    protected void paintComponent(Graphics g) {
+         g.setColor(getBackground());
+         g.fillRoundRect(0, 0, getWidth()-1, getHeight()-1, 10, 10);
+         super.paintComponent(g);
+    }
+    protected void paintBorder(Graphics g) {
+         g.setColor(getBackground());
+         g.drawRoundRect(0, 0, getWidth()-1, getHeight()-1, 10, 10);
+    }
+    public boolean contains(int x, int y) {
+         if (shape == null || !shape.getBounds().equals(getBounds())) {
+             shape = new RoundRectangle2D.Float(0, 0, getWidth()-1, getHeight()-1, 10, 10);
+         }
+         return shape.contains(x, y);
+    }
+
+}
+
+
+}
+
 
