@@ -55,7 +55,6 @@ public class EliminarDAO {
   		String output = dow.getDisplayName( TextStyle.FULL , locale );
   		int elim;
   		int T=getEliminated();
-  		System.out.println("eliminadosAct"+output);
   		
   		try {
   			Statement st = conn.createStatement();
@@ -64,48 +63,41 @@ public class EliminarDAO {
   				String sql = "UPDATE `eliminados` SET `eliminado` = '"+elim+"'";
   				elim=cont+T;
   				String sql1 = "UPDATE `eliminados` SET `eliminado` = '"+elim+"'";
-  				System.out.println("contenido elim"+elim);
 	  			st.executeUpdate(sql);	
 	  			st.executeUpdate(sql1);	
   
   			}else if(output.equals("Thuesday")){
   				elim=cont+T;
 	  			String sql = "UPDATE `eliminados` SET `eliminado` = '"+elim+"'";	
-  				System.out.println("contenido elim"+elim);
 
 	  			st.executeUpdate(sql);	
 			
   			}else if(output.equals("Wednesday")){
   				elim=cont+T;
   				String sql = "UPDATE `eliminados` SET `eliminado` = '"+elim+"'";	
-  				System.out.println("contenido elim"+elim);
 
   				st.executeUpdate(sql);	
 		
   			}else if(output.equals("Thursday")){
   				elim=cont+T;
   				String sql = "UPDATE `eliminados` SET `eliminado` = '"+elim+"'";	
-  				System.out.println("contenido elim"+elim);
 
   				st.executeUpdate(sql);	
 		
   			}else if(output.equals("Friday")){
   				elim=cont+T;
   				String sql = "UPDATE `eliminados` SET `eliminado` = '"+elim+"'";
-  				System.out.println("contenido elim"+elim);
 
   				st.executeUpdate(sql);	
 	
   			}else if(output.equals("Saturday")){
   				elim=cont+T;
   				String sql = "UPDATE `eliminados` SET `eliminado` = '"+elim+"'";	
-  				System.out.println("contenido elim"+elim);
   				st.executeUpdate(sql);	
 	
   			}else if(output.equals("Sunday")){
   				elim=cont+T;
   				String sql = "UPDATE `eliminados` SET `eliminado` = '"+elim+"'";	
-  				System.out.println("contenido elim"+elim);
 
   				st.executeUpdate(sql);	
   			}
@@ -136,51 +128,44 @@ public class EliminarDAO {
   			
   			if(output.equals("Monday")) {
   				elim=0;
-  				String sql = "UPDATE `eliminados` SET `añadido` = '"+elim+"'";
+  				String sql = "UPDATE `eliminados` SET `anhadido` = '"+elim+"'";
   				elim=cont+T;
-  				String sql1 = "UPDATE `eliminados` SET `añadido` = '"+elim+"'";
-  				System.out.println("contenido elim"+elim);
+  				String sql1 = "UPDATE `eliminados` SET `anhadido` = '"+elim+"'";
 	  			st.executeUpdate(sql);	
 	  			st.executeUpdate(sql1);	
   
   			}else if(output.equals("Thuesday")){
   				elim=cont+T;
-	  			String sql = "UPDATE `eliminados` SET `añadido` = '"+elim+"'";	
-  				System.out.println("contenido elim"+elim);
+	  			String sql = "UPDATE `eliminados` SET `anhadido` = '"+elim+"'";	
 
 	  			st.executeUpdate(sql);	
 			
   			}else if(output.equals("Wednesday")){
   				elim=cont+T;
-  				String sql = "UPDATE `eliminados` SET `añadido` = '"+elim+"'";	
-  				System.out.println("contenido elim"+elim);
+  				String sql = "UPDATE `eliminados` SET `anhadido` = '"+elim+"'";	
 
   				st.executeUpdate(sql);	
 		
   			}else if(output.equals("Thursday")){
   				elim=cont+T;
-  				String sql = "UPDATE `eliminados` SET `añadido` = '"+elim+"'";	
-  				System.out.println("contenido elim"+elim);
+  				String sql = "UPDATE `eliminados` SET `anhadido` = '"+elim+"'";	
 
   				st.executeUpdate(sql);	
 		
   			}else if(output.equals("Friday")){
   				elim=cont+T;
-  				String sql = "UPDATE `eliminados` SET `añadido` = '"+elim+"'";
-  				System.out.println("contenido elim"+elim);
+  				String sql = "UPDATE `eliminados` SET `anhadido` = '"+elim+"'";
 
   				st.executeUpdate(sql);	
 	
   			}else if(output.equals("Saturday")){
   				elim=cont+T;
-  				String sql = "UPDATE `eliminados` SET `añadido` = '"+elim+"'";	
-  				System.out.println("contenido elim"+elim);
+  				String sql = "UPDATE `eliminados` SET `anhadido` = '"+elim+"'";	
   				st.executeUpdate(sql);	
 	
   			}else if(output.equals("Sunday")){
   				elim=cont+T;
-  				String sql = "UPDATE `eliminados` SET `añadido` = '"+elim+"'";	
-  				System.out.println("contenido elim"+elim);
+  				String sql = "UPDATE `eliminados` SET `anhadido` = '"+elim+"'";	
 
   				st.executeUpdate(sql);	
   			}
@@ -216,7 +201,6 @@ public class EliminarDAO {
 	  		}
 	  		
 	  		int elm =ret;
-		  	System.out.println("eliminadosget"+ret);
 	  	  		
 	  		co.disconect();// Desconectamos la base de datos
 	  		
@@ -228,7 +212,7 @@ public class EliminarDAO {
 	  		co = Conexion.getInstance();
 	  		conn = co.getConnection();
 	  		int ret = 0;
-			String sql = "SELECT `añadido` FROM `eliminados`";		  
+			String sql = "SELECT `anhadido` FROM `eliminados`";		  
 
 	  		try {
 	  			Statement st = conn.createStatement();
@@ -248,7 +232,6 @@ public class EliminarDAO {
 	  		}
 	  		
 	  		int elm =ret;
-		  	System.out.println("eliminadosget"+ret);
 	  	  		
 	  		co.disconect();// Desconectamos la base de datos
 	  		
@@ -349,7 +332,6 @@ public class EliminarDAO {
 		  		}
 		  		
 		  		int elm =ret;
-			  	System.out.println("eliminadosget"+ret);
 		  	  		
 		  		co.disconect();// Desconectamos la base de datos
 		  		

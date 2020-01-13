@@ -30,7 +30,6 @@ public class ControlerMedicWindow implements ActionListener {
 
 	private MedicWindow window;
 	private Logs log;
-	//private PersonalDAO dao;
 	private int count;
 	private int count2;
 	private int count3;
@@ -49,9 +48,6 @@ public class ControlerMedicWindow implements ActionListener {
 
 
 	
-
-	//TODO poner aqui el dao en privado
-	
 	public ControlerMedicWindow(MedicWindow window) {
 
 		this.window = window;
@@ -59,9 +55,8 @@ public class ControlerMedicWindow implements ActionListener {
 		this.daoAlmacen= new AlmacenDAO();
 		this.daoPersonal= new PersonalDAO();
 		this.daoE= new EliminarDAO();
-		//this. id= daoPersonal.getIdByUserAndPass(window.user,window.password);
 		log = new Logs();
-		//TODO inicializar aqui el dao
+		
 	}
 	
 	
@@ -123,8 +118,8 @@ public class ControlerMedicWindow implements ActionListener {
 
 
 	public void actionPerformed(ActionEvent arg0) {
-		// TODO aqui van las acciones al pulsar botones
-		if ((arg0.getActionCommand().equals("Ver Pacientes"))) {//falta por probar con el dao
+		
+		if ((arg0.getActionCommand().equals("Ver Pacientes"))) {
 			
 			window.seePacientsPanel.setVisible(true);
 			window.addPatientsPanel.setVisible(false);
@@ -178,7 +173,7 @@ public class ControlerMedicWindow implements ActionListener {
 		
 	} else if (arg0.getActionCommand().equals("Registrar")) {
 		
-		// log.InfoLog("Se ha pulsado el boton de registrar");
+		
 
 		boolean add = true;
 
@@ -215,12 +210,10 @@ public class ControlerMedicWindow implements ActionListener {
 			window.lberror.setText("");
 		}
 		
-//TOOD: comprob
-//TOOD: comprobar haitacion unica 
+ 
 		if (add) {// Si da error no se a�ade el empleado
-			System.out.println("Correcto");
-
-			//int id = dao.getLastID()+1;//siguiente id
+			
+		
 			int id = dao.firstIdFree();
 			int m;
 			
@@ -243,7 +236,6 @@ public class ControlerMedicWindow implements ActionListener {
 						idNurse=Integer.parseInt(arrayNurse.get(i)[0]);
 					}
 				}
-				System.out.println("id medico: "+ idMedic+" id Enfermero: "+idNurse+"idMedicine"+idMedicine);
 				
 			if(daoAlmacen.Medicine(Integer.parseInt(window.textU.getText()), idMedicine)<0) {
 				add=false;
@@ -257,7 +249,6 @@ public class ControlerMedicWindow implements ActionListener {
 				count2=1;
 				daoE.eliminadosB(count2);
 				count3=Integer.parseInt(window.textU.getText().toString());
-				System.out.println("count3"+count3);
 				daoE.eliminadosM(count3);
 				
 				log.InfoLog("A�adido el paciente con id: "+id);
@@ -320,14 +311,7 @@ public class ControlerMedicWindow implements ActionListener {
 				log.InfoLog("Error, DNI o habitación erroneos");
 			}else {
 				
-				//getPatientDNI=dao.getPatientDNI(window.textFieldDNIToDelete.getText().toString());
-				//arrayMedicine.add(getPatientDNI);
 				
-				/*
-				Iterator<String[]> it = arrayPacientes.iterator();
-				while(it.hasNext())
-				 System.out.println(it.next());
-				*/
 					Date date = new Date(Calendar.getInstance().getTime().getTime());// Obtenemos la fecha actual
 					dao.deletePatient(window.textFieldNameToDelete.getText().toString(),
 					window.textFieldFirstDeleteToDelete.getText().toString(),
@@ -341,7 +325,7 @@ public class ControlerMedicWindow implements ActionListener {
 		}
 		
 	
-	}else if (arg0.getActionCommand().equals("Asignar Medicamento Paciente")) {
+	}else if (arg0.getActionCommand().equals("Asignar Medicamentos")) {
 		
 		window.seePacientsPanel.setVisible(false);
 		window.addPatientsPanel.setVisible(false);
@@ -351,7 +335,7 @@ public class ControlerMedicWindow implements ActionListener {
 		window.week.setVisible(false);
 
 	
-	}else if (arg0.getActionCommand().equals("Asignar")) {//probablemente haya que hacer un comprobarmedicamento, pro pal final
+	}else if (arg0.getActionCommand().equals("Asignar")) {
 		
 		int n,m;
 		boolean add=true;
@@ -364,7 +348,7 @@ public class ControlerMedicWindow implements ActionListener {
 			}
 		}
 		
-		//habria que cambiarlo con el JBox, el cual aun no funciona
+		
 		if ((window.DNIM.getText().toString().equals("")) || (window.units.getText().toString().equals(""))){
 			add=false;
 			window.lblError2.setText("Hay campos vacios");
@@ -403,7 +387,6 @@ public class ControlerMedicWindow implements ActionListener {
 				
 					dao.AsignMedicine(Integer.parseInt(window.units.getText().toString()),idMedicine,window.DNIM.getText().toString());
 				
-						//daoAlmacen.restMedicine(Integer.parseInt(window.units.getText().toString()), /Integer.parseInt(window.Medicine.getText().toString()));
 						daoAlmacen.restMedicine(Integer.parseInt(window.units.getText().toString()),idMedicine);//,idMedic);
 						window.lblError2.setText("");
 						count3=Integer.parseInt(window.units.getText().toString());
@@ -495,14 +478,10 @@ public class ControlerMedicWindow implements ActionListener {
 		window.week.add(eliminados);
 		
 		
-  		System.out.println(daoE.getEliminated());
-  		System.out.println(daoE.getAdd());
-  		System.out.println(daoE.getElimMedicines());
 		
     }else if (arg0.getActionCommand().equals("Cerrar Sesión")) {
 
 				window.setVisible(false);
-				//TODO arreglar que se borren los campos al cerrar sesion
 				LoginWindow newlogin = LoginWindow.getInstance();
 				newlogin.resetJField();
 		
