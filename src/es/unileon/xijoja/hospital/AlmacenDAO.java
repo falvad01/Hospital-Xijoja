@@ -304,7 +304,7 @@ public class AlmacenDAO {
 
 			try {
 				Statement st = conn.createStatement();
-				String sql = "SELECT * FROM alamcen WHERE idProducto='" + firstId + "'";
+				String sql = "SELECT * FROM almacen WHERE idProducto='" + firstId + "'";
 
 				ResultSet rs = st.executeQuery(sql);
 

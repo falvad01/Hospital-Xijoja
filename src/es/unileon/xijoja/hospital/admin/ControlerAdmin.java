@@ -757,6 +757,8 @@ public class ControlerAdmin implements ActionListener {
 
 			warehouseDAO.addNewMedicine(adminWindow.textFieldNewMedicine.getText(),
 					Integer.parseInt(adminWindow.textFieldNewMedicineAmount.getText()));
+			
+			this.filJComboBoxMedicines(adminWindow.comboBoxMedicines);
 
 		}
 	}
