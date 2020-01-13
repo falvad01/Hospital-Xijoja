@@ -503,13 +503,8 @@ public class ControlerMedicWindow implements ActionListener {
 
 				window.setVisible(false);
 				//TODO arreglar que se borren los campos al cerrar sesion
-				try {
-					LoginWindow newlogin = new LoginWindow();
-					ControlerLoginWindow controlerLogin = new ControlerLoginWindow(newlogin);
-					controlerLogin.resetJField();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
+				LoginWindow newlogin = LoginWindow.getInstance();
+				newlogin.resetJField();
 		
 	
         	}

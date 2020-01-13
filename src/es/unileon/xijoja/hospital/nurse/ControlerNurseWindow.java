@@ -66,13 +66,8 @@ public class ControlerNurseWindow implements ActionListener {
 
 				nurseWindow.setVisible(false);
 				//TODO arreglar que se borren los campos al cerrar sesion
-				try {
-					LoginWindow newlogin = new LoginWindow();
-					ControlerLoginWindow controlerLogin = new ControlerLoginWindow(newlogin);
-					controlerLogin.resetJField();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
+				LoginWindow newlogin = LoginWindow.getInstance();
+				newlogin.resetJField();
 				
 		} else if (arg0.getActionCommand().equals("Usar Medicamento")) {
 				nurseWindow.seePatientPane.setVisible(false);

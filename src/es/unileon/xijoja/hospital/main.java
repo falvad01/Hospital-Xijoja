@@ -16,11 +16,10 @@ public class main {
 	public static void main(String[] args) throws IOException {
 
 		// llamada al login
-		// LoginWindow window = new LoginWindow();
-		
+		 LoginWindow window = LoginWindow.getInstance();
 		//NurseWindow window = new NurseWindow("enfermero", "enfermero");
-		
-		SecretaryWindow window=new SecretaryWindow();
+		//AdminWindow window = new AdminWindow("root", "root");
+		//SecretaryWindow window=new SecretaryWindow();
 
 		window.setVisible(true);
 	

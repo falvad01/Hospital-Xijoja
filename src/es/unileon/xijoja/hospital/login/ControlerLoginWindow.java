@@ -45,7 +45,8 @@ public class ControlerLoginWindow implements ActionListener, KeyListener {
 
 			if (job.equals("Medico")) {
 				log.InfoLog("Se ha logeado como medico el usuario: " + window.loginUser);
-				MedicWindow windowMedic = new MedicWindow();// Creamos la ventana del
+				MedicWindow windowMedic = null;
+				 windowMedic = new MedicWindow();// Creamos la ventana del
 				// administrador
 				windowMedic.setVisible(true);
 				
@@ -73,8 +74,9 @@ public class ControlerLoginWindow implements ActionListener, KeyListener {
 				windowNurse.setVisible(true);
 
 			} else if (job.equals("Secretario")) {
+				SecretaryWindow windowSecretario= null;
 				log.InfoLog("Se ha logeado como secretario el usuario: " + window.loginUser.getText());
-				SecretaryWindow windowSecretario = new SecretaryWindow();
+				 windowSecretario = new SecretaryWindow();
 				windowSecretario.setVisible(true);
 
 			} else {
@@ -118,8 +120,5 @@ public class ControlerLoginWindow implements ActionListener, KeyListener {
 	@Override
 	public void keyReleased(KeyEvent e) {
 	}
-	public void resetJField() {
-		window.loginPassword.setText("");
-		window.loginUser.setText("");
-	}
+	
 }

@@ -20,6 +20,7 @@ import javax.swing.JTextField;
 import javax.swing.KeyStroke;
 import javax.swing.SwingConstants;
 
+import es.unileon.xijoja.hospital.Conexion;
 import es.unileon.xijoja.hospital.InfoWindow;
 import es.unileon.xijoja.hospital.Logs;
 import es.unileon.xijoja.hospital.PersonalDAO;
@@ -57,6 +58,8 @@ public class LoginWindow extends JFrame {
 	private static final int WHEN_IN_FOCUSED_WINDOW = 0;
 	private ControlerLoginWindow listener;
 	/* LOGIN */
+	private static LoginWindow instance; // Singleton
+
 	protected JPanel loginPanel;
 	protected JTextField loginUser;
 	protected JTextField trama;
@@ -70,7 +73,7 @@ public class LoginWindow extends JFrame {
 
 	private Logs log = new Logs();
 
-	public LoginWindow() throws IOException {
+	private LoginWindow() throws IOException {
 
 		log.InfoLog("SE INICIA LA PANTALLA DE LOGIN");
 		getContentPane().setBackground(Color.WHITE);
@@ -96,6 +99,18 @@ public class LoginWindow extends JFrame {
 		     //Handle exception
 		}
 		
+	}
+	public synchronized static LoginWindow getInstance(){
+
+		if (instance == null) {
+			try {
+				instance = new LoginWindow();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return instance;
 	}
 
 	private void initComponents() throws IOException {
@@ -265,6 +280,11 @@ public class LoginWindow extends JFrame {
 		
 
 		}
+	public void resetJField() {
+		loginPassword.setText("");
+		loginUser.setText("");
+		
+	}
 
 		public class HintTextField extends JTextField implements FocusListener {
 
@@ -424,6 +444,7 @@ public class LoginWindow extends JFrame {
 				// TODO Auto-generated method stub
 				
 			}
+			
 
 
 			  
