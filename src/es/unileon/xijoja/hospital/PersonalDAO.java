@@ -485,7 +485,7 @@ public class PersonalDAO {
 
 		String sql = "SELECT * FROM personal WHERE NIFNIE='" + DNI + "'";
 		Statement st;
-		// TODO REVISAR ESTO CON EDITAR EMPLEADO
+		
 		System.out.println(sql);
 		try {
 			st = conn.createStatement();

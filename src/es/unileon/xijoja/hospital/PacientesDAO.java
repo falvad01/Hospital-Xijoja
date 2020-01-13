@@ -370,7 +370,7 @@ public class PacientesDAO {
 	 */
 	public boolean checkPatientExist(String search, boolean isdni) {
 		boolean ret = false;
-		//TODO algo falla aqui COMO SIEMPRE
+		
 		co = Conexion.getInstance();
 		conn = co.getConnection();
 		System.out.println("Aqui parece que si entra");
@@ -713,7 +713,7 @@ public class PacientesDAO {
 		String sql;
 
 		if (isdni) {
-			search = search.replaceFirst("[\\s\\S]{0,1}$", "");// TODO no funciona, quitar la letra del DNI para que
+			search = search.replaceFirst("[\\s\\S]{0,1}$", "");// 
 																// funcione
 
 			sql = "SELECT * FROM pacientes WHERE NIFNIE=" + search;
@@ -810,6 +810,8 @@ public class PacientesDAO {
 
 		co.disconect();// Desconectamos la base de datos
 	}
+	
+	
 	
 
 }

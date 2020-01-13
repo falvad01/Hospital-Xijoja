@@ -29,7 +29,6 @@ import es.unileon.xijoja.hospital.InfoWindow;
 import es.unileon.xijoja.hospital.Logs;
 import es.unileon.xijoja.hospital.login.LoginWindow;
 
-//TODO panel despedir empleados
 //TODO problema con los ID al eliminar trabajadores
 
 @SuppressWarnings("serial")
@@ -115,10 +114,6 @@ public class AdminWindow extends JFrame {
 	protected JTextField textFieldSecondSurnameToDeleteEmployee;
 	protected JTextField textFieldErrorDeletePatient;
 	protected JLabel lblErrorEditPatient;
-	protected JLabel lblNumMorfina;
-	protected JLabel lblNumBetadine;
-	protected JLabel lblNumParacetalmol;
-	protected JLabel lblNumAspirina;
 	protected JTextField textFieldDNISearchEditPatient;
 	protected JTextField textFieldNameEditPatient;
 	protected JTextField textFieldSurname1EditPatient;
@@ -126,6 +121,11 @@ public class AdminWindow extends JFrame {
 	protected JTextField textFieldDNIEditPatient;
 	protected JTextField textFieldIllnesEditPatient;
 	protected JTextField textFieldRommEditPacient;
+
+	protected JComboBox comboBoxMedicines;
+	protected JLabel lblNumberMedicine;
+	protected JTextField textFieldNewMedicine;
+	protected JTextField textFieldNewMedicineAmount;
 
 	public AdminWindow(String user, String password) throws SQLException {
 		log.InfoLog("Iniciada la sesion del administrador");
@@ -199,7 +199,7 @@ public class AdminWindow extends JFrame {
 		JSeparator separator = new JSeparator();
 		separator.setForeground(Color.BLACK);
 		separator.setOrientation(SwingConstants.VERTICAL);
-		separator.setBounds(274, 11, 7, 474);
+		separator.setBounds(274, 0, 7, 500);
 		getContentPane().add(separator);
 
 		JSeparator separator_1 = new JSeparator();
@@ -301,7 +301,7 @@ public class AdminWindow extends JFrame {
 	private void initComponentsPanels() throws SQLException {
 
 //-----------------------------------------------PANEL VER EMPLEADOS-----------------------------------------//
-		
+
 		seeEmployeesPanel = new JScrollPane();
 		seeEmployeesPanel.setBounds(284, 11, 625, 420);
 		seeEmployeesPanel.setForeground(Color.WHITE);
@@ -311,262 +311,380 @@ public class AdminWindow extends JFrame {
 		seeEmployeesPanel.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 
 		seeEmployeesPanel.setVisible(false);
+
+		// ------------------------------PANEL BORRAR
+		// EMPLEADOS-------------------------//
+		deletePatientsPanel = new JPanel();
+		deletePatientsPanel.setVisible(false);
+
+		// --------------------------------------PANEL VER
+		// ALMACEN---------------------------------------//
+		seeWarehousePanel = new JPanel();
+		seeWarehousePanel.setVisible(false);
+		seeWarehousePanel.setBackground(Color.WHITE);
+		getContentPane().add(seeWarehousePanel);
+		seeWarehousePanel.setBounds(274, 0, 695, 496);
+		seeWarehousePanel.setLayout(null);
+
+		JButton btnPlus1 = new JButton(">");
+		btnPlus1.setBackground(Color.WHITE);
+		btnPlus1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				int num = Integer.parseInt(lblNumberMedicine.getText());
+				num++;
+				lblNumberMedicine.setText(String.valueOf(num));
+			}
+		});
+		btnPlus1.setBounds(378, 26, 41, 14);
+		seeWarehousePanel.add(btnPlus1);
+
+		JButton btnMinus1 = new JButton("<");
+		btnMinus1.setBackground(Color.WHITE);
+		btnMinus1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int num = Integer.parseInt(lblNumberMedicine.getText());
+				if (Integer.parseInt(lblNumberMedicine.getText()) > 0) {
+					num--;
+					lblNumberMedicine.setText(String.valueOf(num));
+				}
+
+			}
+		});
+		btnMinus1.setBounds(338, 26, 41, 14);
+		seeWarehousePanel.add(btnMinus1);
+
+		JButton btnNewButton_4 = new JButton("Añadir o retirar");
+		btnNewButton_4.setBackground(Color.WHITE);
+		btnNewButton_4.addActionListener(listener);
+		btnNewButton_4.setBounds(225, 83, 133, 34);
+		seeWarehousePanel.add(btnNewButton_4);
+
+		JButton btnPlus5 = new JButton(">>");
+		btnPlus5.setBackground(Color.WHITE);
+		btnPlus5.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				int num = Integer.parseInt(lblNumberMedicine.getText());
+				num = num + 10;
+				lblNumberMedicine.setText(String.valueOf(num));
+
+			}
+		});
+		btnPlus5.setBounds(418, 26, 49, 14);
+		seeWarehousePanel.add(btnPlus5);
+
+		JButton btnMinus5 = new JButton("<<");
+		btnMinus5.setBackground(Color.WHITE);
+		btnMinus5.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int num = Integer.parseInt(lblNumberMedicine.getText());
+				if (Integer.parseInt(lblNumberMedicine.getText()) > 9) {
+					num = num - 10;
+					lblNumberMedicine.setText(String.valueOf(num));
+				}
+			}
+		});
+		btnMinus5.setBounds(292, 26, 49, 14);
+		seeWarehousePanel.add(btnMinus5);
+
+		comboBoxMedicines = new JComboBox();
+		comboBoxMedicines.setBounds(21, 23, 182, 20);
+		comboBoxMedicines.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				if (comboBoxMedicines.getSelectedItem() != null) {
+					listener.changeNumMedicines(comboBoxMedicines.getSelectedItem().toString());// Cmabiamos la cantidad
+																								// mostrada
+				}
+
+			}
+		});
+		seeWarehousePanel.add(comboBoxMedicines);
+
+		lblNumberMedicine = new JLabel("New label");
+		lblNumberMedicine.setBounds(213, 26, 69, 14);
+		seeWarehousePanel.add(lblNumberMedicine);
 		
-		// ------------------------------PANEL BORRAR EMPLEADOS-------------------------//
-				deletePatientsPanel = new JPanel();
-				deletePatientsPanel.setVisible(false);
-						
-						// ---------------------------------------------PANEL BORRAR EMPLEADOS--------------------------------------//
-								deletePanel = new JPanel();
-								deletePanel.setBackground(Color.WHITE);
-								deletePanel.setBounds(274, 0, 695, 496);
-								getContentPane().add(deletePanel);
-								deletePanel.setLayout(null);
-								deletePanel.setVisible(false);
-								
-										JLabel lblNewLabel_1 = new JLabel("DNI");
-										lblNewLabel_1.setBounds(39, 69, 46, 20);
-										deletePanel.add(lblNewLabel_1);
-										
-												textFieldDNIToDelete = new JTextField();
-												textFieldDNIToDelete.setBounds(125, 69, 138, 20);
-												deletePanel.add(textFieldDNIToDelete);
-												textFieldDNIToDelete.setColumns(10);
-												
-														JLabel lblNewLabel_2 = new JLabel("Nombre");
-														lblNewLabel_2.setBounds(39, 119, 46, 14);
-														deletePanel.add(lblNewLabel_2);
-														
-																textFieldNameToDelete = new JTextField();
-																textFieldNameToDelete.setColumns(10);
-																textFieldNameToDelete.setBounds(125, 119, 138, 20);
-																deletePanel.add(textFieldNameToDelete);
-																
-																		textFieldFirstDeleteToDelete = new JTextField();
-																		textFieldFirstDeleteToDelete.setColumns(10);
-																		textFieldFirstDeleteToDelete.setBounds(125, 166, 138, 20);
-																		deletePanel.add(textFieldFirstDeleteToDelete);
-																		
-																				textFieldSecondDeleteToDelete = new JTextField();
-																				textFieldSecondDeleteToDelete.setColumns(10);
-																				textFieldSecondDeleteToDelete.setBounds(125, 215, 138, 20);
-																				deletePanel.add(textFieldSecondDeleteToDelete);
-																				
-																						JLabel lblApellido_3 = new JLabel("1º Apellido");
-																						lblApellido_3.setBounds(39, 169, 60, 14);
-																						deletePanel.add(lblApellido_3);
-																						
-																								JLabel lblapellido = new JLabel("2ºApellido");
-																								lblapellido.setBounds(39, 218, 60, 14);
-																								deletePanel.add(lblapellido);
-																								
-																										JLabel lblNewLabel_3 = new JLabel("Introducir los siguientes datos para borrar");
-																										lblNewLabel_3.setBounds(39, 23, 275, 20);
-																										deletePanel.add(lblNewLabel_3);
-																										
-																												JButton btnDelete = new JButton("Borrar");
-																												btnDelete.addActionListener(listener);
-																												btnDelete.setBounds(285, 244, 138, 20);
-																												deletePanel.add(btnDelete);
-																												
-																														lblErrorDelete = new JLabel("");
-																														lblErrorDelete.setForeground(Color.RED);
-																														lblErrorDelete.setBounds(433, 247, 165, 14);
-																														deletePanel.add(lblErrorDelete);
-				// --------------------------------------------PANEL EDITAR EMPLEADOS-------------------------------------//
-						editEmployeesPanel = new JPanel();
-						editEmployeesPanel.setBounds(274, 0, 695, 496);
-						getContentPane().add(editEmployeesPanel);
-						editEmployeesPanel.setLayout(null);
-						editEmployeesPanel.setForeground(Color.WHITE);
-						editEmployeesPanel.setBackground(Color.WHITE);
-						editEmployeesPanel.setVisible(false);
-						
-								JLabel label = new JLabel("Nombre");
-								label.setFont(new Font("Tahoma", Font.PLAIN, 15));
-								label.setBounds(10, 74, 63, 23);
-								editEmployeesPanel.add(label);
-								
-										JLabel lblApellido_1 = new JLabel("1º Apellido");
-										lblApellido_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
-										lblApellido_1.setBounds(10, 125, 80, 23);
-										editEmployeesPanel.add(lblApellido_1);
-										
-												textFieldNameEdit = new JTextField();
-												textFieldNameEdit.setEnabled(false);
-												textFieldNameEdit.setColumns(10);
-												textFieldNameEdit.setBounds(100, 77, 143, 20);
-												editEmployeesPanel.add(textFieldNameEdit);
-												
-														textFieldSurname1Edit = new JTextField();
-														textFieldSurname1Edit.setEnabled(false);
-														textFieldSurname1Edit.setColumns(10);
-														textFieldSurname1Edit.setBounds(100, 128, 143, 20);
-														editEmployeesPanel.add(textFieldSurname1Edit);
-														
-																JLabel label_2 = new JLabel("NIF/NIE");
-																label_2.setFont(new Font("Tahoma", Font.PLAIN, 15));
-																label_2.setBounds(10, 217, 63, 23);
-																editEmployeesPanel.add(label_2);
-																
-																		textFieldDNIEdit = new JTextField();
-																		textFieldDNIEdit.setEnabled(false);
-																		textFieldDNIEdit.setColumns(10);
-																		textFieldDNIEdit.setBounds(100, 220, 143, 20);
-																		editEmployeesPanel.add(textFieldDNIEdit);
-																		
-																				JLabel label_3 = new JLabel("Cuenta bancaria");
-																				label_3.setFont(new Font("Tahoma", Font.PLAIN, 15));
-																				label_3.setBounds(10, 262, 120, 23);
-																				editEmployeesPanel.add(label_3);
-																				
-																						textFieldBankEdit = new JTextField();
-																						textFieldBankEdit.setEnabled(false);
-																						textFieldBankEdit.setColumns(10);
-																						textFieldBankEdit.setBounds(132, 265, 143, 20);
-																						editEmployeesPanel.add(textFieldBankEdit);
-																						
-																								JLabel label_4 = new JLabel("Puesto");
-																								label_4.setFont(new Font("Tahoma", Font.PLAIN, 15));
-																								label_4.setBounds(390, 74, 63, 23);
-																								editEmployeesPanel.add(label_4);
-																								
-																										comboBoxJobEdit = new JComboBox<Object>();
-																										comboBoxJobEdit.setEnabled(false);
-																										comboBoxJobEdit.setOpaque(false);
-																										comboBoxJobEdit.setModel(new DefaultComboBoxModel<Object>(
-																												new String[] { "Administrador", "Medico", "Enfermero", "Secretario" }));
-																										comboBoxJobEdit.setBackground(Color.WHITE);
-																										comboBoxJobEdit.setBounds(450, 76, 133, 23);
-																										editEmployeesPanel.add(comboBoxJobEdit);
-																										
-																												JLabel label_5 = new JLabel("Email");
-																												label_5.setFont(new Font("Tahoma", Font.PLAIN, 15));
-																												label_5.setBounds(390, 125, 63, 23);
-																												editEmployeesPanel.add(label_5);
-																												
-																														textFieldEmailEdit = new JTextField();
-																														textFieldEmailEdit.setEnabled(false);
-																														textFieldEmailEdit.setColumns(10);
-																														textFieldEmailEdit.setBounds(450, 128, 133, 20);
-																														editEmployeesPanel.add(textFieldEmailEdit);
-																														
-																																labelUserNameEdit = new JLabel("");
-																																labelUserNameEdit.setFont(new Font("Tahoma", Font.PLAIN, 15));
-																																labelUserNameEdit.setBorder(new TitledBorder("Usuario"));
-																																labelUserNameEdit.setBounds(390, 173, 193, 41);
-																																editEmployeesPanel.add(labelUserNameEdit);
-																																
-																																		btnSaveEdit = new JButton("Guardar");
-																																		btnSaveEdit.addActionListener(listener);
-																																		btnSaveEdit.setOpaque(false);
-																																		btnSaveEdit.setBackground(Color.WHITE);
-																																		btnSaveEdit.setBounds(390, 252, 212, 47);
-																																		editEmployeesPanel.add(btnSaveEdit);
-																																		
-																																				JLabel lblApellido_2 = new JLabel("2º Apellido");
-																																				lblApellido_2.setFont(new Font("Tahoma", Font.PLAIN, 15));
-																																				lblApellido_2.setBounds(10, 170, 80, 23);
-																																				editEmployeesPanel.add(lblApellido_2);
-																																				
-																																						textFieldSurname2Edit = new JTextField();
-																																						textFieldSurname2Edit.setEnabled(false);
-																																						textFieldSurname2Edit.setColumns(10);
-																																						textFieldSurname2Edit.setBounds(100, 173, 143, 20);
-																																						editEmployeesPanel.add(textFieldSurname2Edit);
-																																						
-																																								JLabel label_9 = new JLabel("");
-																																								label_9.setForeground(Color.RED);
-																																								label_9.setBounds(390, 241, 212, 14);
-																																								editEmployeesPanel.add(label_9);
-																																								
-																																										JLabel label_10 = new JLabel("New label");
-																																										label_10.setBounds(43, 292, 252, 194);
-																																										editEmployeesPanel.add(label_10);
-																																										
-																																												JSeparator separator = new JSeparator();
-																																												separator.setBounds(10, 52, 610, 33);
-																																												editEmployeesPanel.add(separator);
-																																												
-																																														JLabel lblNewLabel = new JLabel("Introduce el DNI");
-																																														lblNewLabel.setBounds(10, 11, 109, 23);
-																																														editEmployeesPanel.add(lblNewLabel);
-																																														
-																																																textFieldSearchDNIEdit = new JTextField();
-																																																textFieldSearchDNIEdit.setBounds(110, 12, 133, 20);
-																																																editEmployeesPanel.add(textFieldSearchDNIEdit);
-																																																textFieldSearchDNIEdit.setColumns(10);
-																																																
-																																																		JButton btnNewButton_1 = new JButton("Buscar");
-																																																		btnNewButton_1.setForeground(Color.BLACK);
-																																																		btnNewButton_1.setBackground(Color.WHITE);
-																																																		btnNewButton_1.addActionListener(listener);
-																																																		
-																																																				btnNewButton_1.setBounds(253, 11, 89, 23);
-																																																				editEmployeesPanel.add(btnNewButton_1);
-																																																				
-																																																						lblErrorEdit = new JLabel("");
-																																																						lblErrorEdit.setForeground(Color.RED);
-																																																						lblErrorEdit.setBounds(358, 15, 143, 14);
-																																																						editEmployeesPanel.add(lblErrorEdit);
-																																																						lblApellido_1.setBounds(32, 127, 101, 16);
-				deletePatientsPanel.setBackground(Color.WHITE);
-				deletePatientsPanel.setBounds(274, 0, 695, 496);
-				getContentPane().add(deletePatientsPanel);
-				deletePatientsPanel.setLayout(null);
-				
-						JLabel lblNewLabel_123 = new JLabel("DNI");
-						lblNewLabel_123.setBounds(39, 69, 46, 20);
-						deletePatientsPanel.add(lblNewLabel_123);
-						
-								JLabel lblNewLabel_22 = new JLabel("Nombre");
-								lblNewLabel_22.setBounds(39, 119, 46, 14);
-								deletePatientsPanel.add(lblNewLabel_22);
-								
-										JLabel lblApellido_32 = new JLabel("1º Apellido");
-										lblApellido_32.setBounds(39, 169, 60, 14);
-										deletePatientsPanel.add(lblApellido_32);
-										
-												JLabel lblapellido2 = new JLabel("2ºApellido");
-												lblapellido2.setBounds(39, 218, 60, 14);
-												deletePatientsPanel.add(lblapellido2);
-												
-														JLabel lblNewLabel_32 = new JLabel("Introducir los siguientes datos para borrar");
-														lblNewLabel_32.setBounds(39, 23, 275, 20);
-														deletePatientsPanel.add(lblNewLabel_32);
-														
-																JButton btnDelete2 = new JButton("Eliminar");
-																btnDelete2.addActionListener(listener);
-																btnDelete2.setBounds(285, 244, 138, 20);
-																btnDelete2.setOpaque(false);
-																btnDelete2.setBackground(new Color(255, 255, 255));
-																deletePatientsPanel.add(btnDelete2);
-																
-																		textFieldDNIToDeletePatient = new JTextField();
-																		textFieldDNIToDeletePatient.setBounds(111, 69, 100, 20);
-																		deletePatientsPanel.add(textFieldDNIToDeletePatient);
-																		textFieldDNIToDeletePatient.setColumns(10);
-																		
-																				textFieldNameToDeleteEmployee = new JTextField();
-																				textFieldNameToDeleteEmployee.setBounds(111, 116, 100, 20);
-																				deletePatientsPanel.add(textFieldNameToDeleteEmployee);
-																				textFieldNameToDeleteEmployee.setColumns(10);
-																				
-																						textFieldFirstSurnameToDeleteEmployee = new JTextField();
-																						textFieldFirstSurnameToDeleteEmployee.setBounds(109, 166, 100, 20);
-																						deletePatientsPanel.add(textFieldFirstSurnameToDeleteEmployee);
-																						textFieldFirstSurnameToDeleteEmployee.setColumns(10);
-																						
-																								textFieldSecondSurnameToDeleteEmployee = new JTextField();
-																								textFieldSecondSurnameToDeleteEmployee.setColumns(10);
-																								textFieldSecondSurnameToDeleteEmployee.setBounds(109, 215, 100, 20);
-																								deletePatientsPanel.add(textFieldSecondSurnameToDeleteEmployee);
-																								
-																										textFieldErrorDeletePatient = new JTextField();
-																										textFieldErrorDeletePatient.setCaretColor(Color.RED);
-																										textFieldErrorDeletePatient.setBounds(436, 244, 154, 20);
-																										deletePatientsPanel.add(textFieldErrorDeletePatient);
-																										textFieldErrorDeletePatient.setColumns(10);
+		JLabel lblNewLabel_4 = new JLabel("INTRODUCIR UN NUEVO MEDICAMENTO");
+		lblNewLabel_4.setBounds(21, 180, 207, 14);
+		seeWarehousePanel.add(lblNewLabel_4);
+		
+		textFieldNewMedicine = new JTextField();
+		textFieldNewMedicine.setBounds(82, 222, 86, 20);
+		seeWarehousePanel.add(textFieldNewMedicine);
+		textFieldNewMedicine.setColumns(10);
+		
+		JLabel lblNewLabel_7 = new JLabel("Nombre");
+		lblNewLabel_7.setBounds(21, 225, 46, 14);
+		seeWarehousePanel.add(lblNewLabel_7);
+		
+		JLabel lblCantidad = new JLabel("Cantidad");
+		lblCantidad.setBounds(21, 255, 46, 14);
+		seeWarehousePanel.add(lblCantidad);
+		
+		textFieldNewMedicineAmount = new JTextField();
+		textFieldNewMedicineAmount.setColumns(10);
+		textFieldNewMedicineAmount.setBounds(82, 253, 86, 20);
+		seeWarehousePanel.add(textFieldNewMedicineAmount);
+		
+		JButton btnNewButton_2 = new JButton("Comprar nuevo");
+		btnNewButton_2.addActionListener(listener);
+		btnNewButton_2.setBounds(225, 289, 154, 23);
+		seeWarehousePanel.add(btnNewButton_2);
+
+		// ---------------------------------------------PANEL BORRAR
+		// EMPLEADOS--------------------------------------//
+		deletePanel = new JPanel();
+		deletePanel.setBackground(Color.WHITE);
+		deletePanel.setBounds(274, 0, 695, 496);
+		getContentPane().add(deletePanel);
+		deletePanel.setLayout(null);
+		deletePanel.setVisible(false);
+
+		JLabel lblNewLabel_1 = new JLabel("DNI");
+		lblNewLabel_1.setBounds(39, 69, 46, 20);
+		deletePanel.add(lblNewLabel_1);
+
+		textFieldDNIToDelete = new JTextField();
+		textFieldDNIToDelete.setBounds(125, 69, 138, 20);
+		deletePanel.add(textFieldDNIToDelete);
+		textFieldDNIToDelete.setColumns(10);
+
+		JLabel lblNewLabel_2 = new JLabel("Nombre");
+		lblNewLabel_2.setBounds(39, 119, 46, 14);
+		deletePanel.add(lblNewLabel_2);
+
+		textFieldNameToDelete = new JTextField();
+		textFieldNameToDelete.setColumns(10);
+		textFieldNameToDelete.setBounds(125, 119, 138, 20);
+		deletePanel.add(textFieldNameToDelete);
+
+		textFieldFirstDeleteToDelete = new JTextField();
+		textFieldFirstDeleteToDelete.setColumns(10);
+		textFieldFirstDeleteToDelete.setBounds(125, 166, 138, 20);
+		deletePanel.add(textFieldFirstDeleteToDelete);
+
+		textFieldSecondDeleteToDelete = new JTextField();
+		textFieldSecondDeleteToDelete.setColumns(10);
+		textFieldSecondDeleteToDelete.setBounds(125, 215, 138, 20);
+		deletePanel.add(textFieldSecondDeleteToDelete);
+
+		JLabel lblApellido_3 = new JLabel("1º Apellido");
+		lblApellido_3.setBounds(39, 169, 60, 14);
+		deletePanel.add(lblApellido_3);
+
+		JLabel lblapellido = new JLabel("2ºApellido");
+		lblapellido.setBounds(39, 218, 60, 14);
+		deletePanel.add(lblapellido);
+
+		JLabel lblNewLabel_3 = new JLabel("Introducir los siguientes datos para borrar");
+		lblNewLabel_3.setBounds(39, 23, 275, 20);
+		deletePanel.add(lblNewLabel_3);
+
+		JButton btnDelete = new JButton("Borrar");
+		btnDelete.addActionListener(listener);
+		btnDelete.setBounds(285, 244, 138, 20);
+		deletePanel.add(btnDelete);
+
+		lblErrorDelete = new JLabel("");
+		lblErrorDelete.setForeground(Color.RED);
+		lblErrorDelete.setBounds(433, 247, 165, 14);
+		deletePanel.add(lblErrorDelete);
+		// --------------------------------------------PANEL EDITAR
+		// EMPLEADOS-------------------------------------//
+		editEmployeesPanel = new JPanel();
+		editEmployeesPanel.setBounds(274, 0, 695, 496);
+		getContentPane().add(editEmployeesPanel);
+		editEmployeesPanel.setLayout(null);
+		editEmployeesPanel.setForeground(Color.WHITE);
+		editEmployeesPanel.setBackground(Color.WHITE);
+		editEmployeesPanel.setVisible(false);
+
+		JLabel label = new JLabel("Nombre");
+		label.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		label.setBounds(10, 74, 63, 23);
+		editEmployeesPanel.add(label);
+
+		JLabel lblApellido_1 = new JLabel("1º Apellido");
+		lblApellido_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblApellido_1.setBounds(10, 125, 80, 23);
+		editEmployeesPanel.add(lblApellido_1);
+
+		textFieldNameEdit = new JTextField();
+		textFieldNameEdit.setEnabled(false);
+		textFieldNameEdit.setColumns(10);
+		textFieldNameEdit.setBounds(100, 77, 143, 20);
+		editEmployeesPanel.add(textFieldNameEdit);
+
+		textFieldSurname1Edit = new JTextField();
+		textFieldSurname1Edit.setEnabled(false);
+		textFieldSurname1Edit.setColumns(10);
+		textFieldSurname1Edit.setBounds(100, 128, 143, 20);
+		editEmployeesPanel.add(textFieldSurname1Edit);
+
+		JLabel label_2 = new JLabel("NIF/NIE");
+		label_2.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		label_2.setBounds(10, 217, 63, 23);
+		editEmployeesPanel.add(label_2);
+
+		textFieldDNIEdit = new JTextField();
+		textFieldDNIEdit.setEnabled(false);
+		textFieldDNIEdit.setColumns(10);
+		textFieldDNIEdit.setBounds(100, 220, 143, 20);
+		editEmployeesPanel.add(textFieldDNIEdit);
+
+		JLabel label_3 = new JLabel("Cuenta bancaria");
+		label_3.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		label_3.setBounds(10, 262, 120, 23);
+		editEmployeesPanel.add(label_3);
+
+		textFieldBankEdit = new JTextField();
+		textFieldBankEdit.setEnabled(false);
+		textFieldBankEdit.setColumns(10);
+		textFieldBankEdit.setBounds(132, 265, 143, 20);
+		editEmployeesPanel.add(textFieldBankEdit);
+
+		JLabel label_4 = new JLabel("Puesto");
+		label_4.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		label_4.setBounds(390, 74, 63, 23);
+		editEmployeesPanel.add(label_4);
+
+		comboBoxJobEdit = new JComboBox<Object>();
+		comboBoxJobEdit.setEnabled(false);
+		comboBoxJobEdit.setOpaque(false);
+		comboBoxJobEdit.setModel(new DefaultComboBoxModel<Object>(
+				new String[] { "Administrador", "Medico", "Enfermero", "Secretario" }));
+		comboBoxJobEdit.setBackground(Color.WHITE);
+		comboBoxJobEdit.setBounds(450, 76, 133, 23);
+		editEmployeesPanel.add(comboBoxJobEdit);
+
+		JLabel label_5 = new JLabel("Email");
+		label_5.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		label_5.setBounds(390, 125, 63, 23);
+		editEmployeesPanel.add(label_5);
+
+		textFieldEmailEdit = new JTextField();
+		textFieldEmailEdit.setEnabled(false);
+		textFieldEmailEdit.setColumns(10);
+		textFieldEmailEdit.setBounds(450, 128, 133, 20);
+		editEmployeesPanel.add(textFieldEmailEdit);
+
+		labelUserNameEdit = new JLabel("");
+		labelUserNameEdit.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		labelUserNameEdit.setBorder(new TitledBorder("Usuario"));
+		labelUserNameEdit.setBounds(390, 173, 193, 41);
+		editEmployeesPanel.add(labelUserNameEdit);
+
+		btnSaveEdit = new JButton("Guardar");
+		btnSaveEdit.addActionListener(listener);
+		btnSaveEdit.setOpaque(false);
+		btnSaveEdit.setBackground(Color.WHITE);
+		btnSaveEdit.setBounds(390, 252, 212, 47);
+		editEmployeesPanel.add(btnSaveEdit);
+
+		JLabel lblApellido_2 = new JLabel("2º Apellido");
+		lblApellido_2.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblApellido_2.setBounds(10, 170, 80, 23);
+		editEmployeesPanel.add(lblApellido_2);
+
+		textFieldSurname2Edit = new JTextField();
+		textFieldSurname2Edit.setEnabled(false);
+		textFieldSurname2Edit.setColumns(10);
+		textFieldSurname2Edit.setBounds(100, 173, 143, 20);
+		editEmployeesPanel.add(textFieldSurname2Edit);
+
+		JLabel label_9 = new JLabel("");
+		label_9.setForeground(Color.RED);
+		label_9.setBounds(390, 241, 212, 14);
+		editEmployeesPanel.add(label_9);
+
+		JLabel label_10 = new JLabel("New label");
+		label_10.setBounds(43, 292, 252, 194);
+		editEmployeesPanel.add(label_10);
+
+		JSeparator separator = new JSeparator();
+		separator.setBounds(10, 52, 610, 33);
+		editEmployeesPanel.add(separator);
+
+		JLabel lblNewLabel = new JLabel("Introduce el DNI");
+		lblNewLabel.setBounds(10, 11, 109, 23);
+		editEmployeesPanel.add(lblNewLabel);
+
+		textFieldSearchDNIEdit = new JTextField();
+		textFieldSearchDNIEdit.setBounds(110, 12, 133, 20);
+		editEmployeesPanel.add(textFieldSearchDNIEdit);
+		textFieldSearchDNIEdit.setColumns(10);
+
+		JButton btnNewButton_1 = new JButton("Buscar");
+		btnNewButton_1.setForeground(Color.BLACK);
+		btnNewButton_1.setBackground(Color.WHITE);
+		btnNewButton_1.addActionListener(listener);
+
+		btnNewButton_1.setBounds(253, 11, 89, 23);
+		editEmployeesPanel.add(btnNewButton_1);
+
+		lblErrorEdit = new JLabel("");
+		lblErrorEdit.setForeground(Color.RED);
+		lblErrorEdit.setBounds(358, 15, 143, 14);
+		editEmployeesPanel.add(lblErrorEdit);
+		lblApellido_1.setBounds(32, 127, 101, 16);
+		deletePatientsPanel.setBackground(Color.WHITE);
+		deletePatientsPanel.setBounds(274, 0, 695, 496);
+		getContentPane().add(deletePatientsPanel);
+		deletePatientsPanel.setLayout(null);
+
+		JLabel lblNewLabel_123 = new JLabel("DNI");
+		lblNewLabel_123.setBounds(39, 69, 46, 20);
+		deletePatientsPanel.add(lblNewLabel_123);
+
+		JLabel lblNewLabel_22 = new JLabel("Nombre");
+		lblNewLabel_22.setBounds(39, 119, 46, 14);
+		deletePatientsPanel.add(lblNewLabel_22);
+
+		JLabel lblApellido_32 = new JLabel("1º Apellido");
+		lblApellido_32.setBounds(39, 169, 60, 14);
+		deletePatientsPanel.add(lblApellido_32);
+
+		JLabel lblapellido2 = new JLabel("2ºApellido");
+		lblapellido2.setBounds(39, 218, 60, 14);
+		deletePatientsPanel.add(lblapellido2);
+
+		JLabel lblNewLabel_32 = new JLabel("Introducir los siguientes datos para borrar");
+		lblNewLabel_32.setBounds(39, 23, 275, 20);
+		deletePatientsPanel.add(lblNewLabel_32);
+
+		JButton btnDelete2 = new JButton("Eliminar");
+		btnDelete2.addActionListener(listener);
+		btnDelete2.setBounds(285, 244, 138, 20);
+		btnDelete2.setOpaque(false);
+		btnDelete2.setBackground(new Color(255, 255, 255));
+		deletePatientsPanel.add(btnDelete2);
+
+		textFieldDNIToDeletePatient = new JTextField();
+		textFieldDNIToDeletePatient.setBounds(111, 69, 100, 20);
+		deletePatientsPanel.add(textFieldDNIToDeletePatient);
+		textFieldDNIToDeletePatient.setColumns(10);
+
+		textFieldNameToDeleteEmployee = new JTextField();
+		textFieldNameToDeleteEmployee.setBounds(111, 116, 100, 20);
+		deletePatientsPanel.add(textFieldNameToDeleteEmployee);
+		textFieldNameToDeleteEmployee.setColumns(10);
+
+		textFieldFirstSurnameToDeleteEmployee = new JTextField();
+		textFieldFirstSurnameToDeleteEmployee.setBounds(109, 166, 100, 20);
+		deletePatientsPanel.add(textFieldFirstSurnameToDeleteEmployee);
+		textFieldFirstSurnameToDeleteEmployee.setColumns(10);
+
+		textFieldSecondSurnameToDeleteEmployee = new JTextField();
+		textFieldSecondSurnameToDeleteEmployee.setColumns(10);
+		textFieldSecondSurnameToDeleteEmployee.setBounds(109, 215, 100, 20);
+		deletePatientsPanel.add(textFieldSecondSurnameToDeleteEmployee);
+
+		textFieldErrorDeletePatient = new JTextField();
+		textFieldErrorDeletePatient.setCaretColor(Color.RED);
+		textFieldErrorDeletePatient.setBounds(436, 244, 154, 20);
+		deletePatientsPanel.add(textFieldErrorDeletePatient);
+		textFieldErrorDeletePatient.setColumns(10);
 		getContentPane().add(seeEmployeesPanel);
 
 // --------------------------------------PANEL EDITAR PACIENTE-------------------------------//
@@ -576,373 +694,95 @@ public class AdminWindow extends JFrame {
 		editPatientPanel.setBounds(274, 0, 695, 496);
 		getContentPane().add(editPatientPanel);
 		editPatientPanel.setLayout(null);
-		
+
 		JLabel lblNewLabel_5 = new JLabel("Introduce DNI");
 		lblNewLabel_5.setBounds(10, 11, 121, 14);
 		editPatientPanel.add(lblNewLabel_5);
-		
+
 		JSeparator separator_2 = new JSeparator();
 		separator_2.setBounds(10, 34, 610, 14);
 		editPatientPanel.add(separator_2);
-		
+
 		textFieldDNISearchEditPatient = new JTextField();
 		textFieldDNISearchEditPatient.setBounds(99, 8, 128, 20);
 		editPatientPanel.add(textFieldDNISearchEditPatient);
 		textFieldDNISearchEditPatient.setColumns(10);
-		
+
 		JLabel lblNewLabel_6 = new JLabel("Nombre");
 		lblNewLabel_6.setBounds(10, 67, 46, 14);
 		editPatientPanel.add(lblNewLabel_6);
-		
+
 		JLabel lblApellido_4 = new JLabel("1º Apellido");
 		lblApellido_4.setBounds(10, 103, 74, 14);
 		editPatientPanel.add(lblApellido_4);
-		
+
 		JLabel lblApellido_5 = new JLabel("2º Apellido");
 		lblApellido_5.setBounds(10, 139, 74, 14);
 		editPatientPanel.add(lblApellido_5);
-		
+
 		JLabel lblNifnie_1 = new JLabel("NIF/NIE");
 		lblNifnie_1.setBounds(10, 176, 46, 14);
 		editPatientPanel.add(lblNifnie_1);
-		
+
 		JLabel lblEnfermedad_1 = new JLabel("Enfermedad");
 		lblEnfermedad_1.setBounds(10, 211, 74, 14);
 		editPatientPanel.add(lblEnfermedad_1);
-		
+
 		JLabel lblHabitacion = new JLabel("Habitacion");
 		lblHabitacion.setBounds(10, 247, 74, 14);
 		editPatientPanel.add(lblHabitacion);
-		
+
 		textFieldNameEditPatient = new JTextField();
 		textFieldNameEditPatient.setBounds(79, 64, 86, 20);
 		editPatientPanel.add(textFieldNameEditPatient);
 		textFieldNameEditPatient.setColumns(10);
-		
+
 		textFieldSurname1EditPatient = new JTextField();
 		textFieldSurname1EditPatient.setColumns(10);
 		textFieldSurname1EditPatient.setBounds(79, 100, 86, 20);
 		editPatientPanel.add(textFieldSurname1EditPatient);
-		
+
 		textFieldSurname2EditPatient = new JTextField();
 		textFieldSurname2EditPatient.setColumns(10);
 		textFieldSurname2EditPatient.setBounds(79, 136, 86, 20);
 		editPatientPanel.add(textFieldSurname2EditPatient);
-		
+
 		textFieldDNIEditPatient = new JTextField();
 		textFieldDNIEditPatient.setColumns(10);
 		textFieldDNIEditPatient.setBounds(79, 173, 86, 20);
 		editPatientPanel.add(textFieldDNIEditPatient);
-		
+
 		textFieldIllnesEditPatient = new JTextField();
 		textFieldIllnesEditPatient.setColumns(10);
 		textFieldIllnesEditPatient.setBounds(79, 208, 86, 20);
 		editPatientPanel.add(textFieldIllnesEditPatient);
-		
+
 		textFieldRommEditPacient = new JTextField();
 		textFieldRommEditPacient.setColumns(10);
 		textFieldRommEditPacient.setBounds(79, 244, 86, 20);
 		editPatientPanel.add(textFieldRommEditPacient);
-		
+
 		JButton btnNewButton_6 = new JButton("Buscar paciente");
 		btnNewButton_6.addActionListener(listener);
 		btnNewButton_6.setBounds(247, 7, 128, 23);
 		editPatientPanel.add(btnNewButton_6);
-		
+
 		JButton btnNewButton_7 = new JButton("Guardar paciente");
 		btnNewButton_7.addActionListener(listener);
 		btnNewButton_7.setBounds(306, 272, 153, 23);
 		editPatientPanel.add(btnNewButton_7);
-		
-		 lblErrorEditPatient = new JLabel("");
-		 lblErrorEditPatient.setForeground(Color.RED);
+
+		lblErrorEditPatient = new JLabel("");
+		lblErrorEditPatient.setForeground(Color.RED);
 		lblErrorEditPatient.setBackground(Color.RED);
 		lblErrorEditPatient.setBounds(385, 11, 200, 14);
 		editPatientPanel.add(lblErrorEditPatient);
-		
-		 lblErrorEditPatientRomm = new JLabel("");
-		 lblErrorEditPatientRomm.setForeground(Color.RED);
+
+		lblErrorEditPatientRomm = new JLabel("");
+		lblErrorEditPatientRomm.setForeground(Color.RED);
 		lblErrorEditPatientRomm.setBackground(Color.RED);
 		lblErrorEditPatientRomm.setBounds(10, 281, 286, 14);
 		editPatientPanel.add(lblErrorEditPatientRomm);
-
-// --------------------------------------PANEL VER ALMACEN---------------------------------------//
-		seeWarehousePanel = new JPanel();
-		seeWarehousePanel.setVisible(false);
-		seeWarehousePanel.setBackground(Color.WHITE);
-		getContentPane().add(seeWarehousePanel);
-		seeWarehousePanel.setBounds(274, 0, 695, 496);
-		seeWarehousePanel.setLayout(null);
-
-		JLabel lblNewLabel_4 = new JLabel("Paracetamol");
-		lblNewLabel_4.setBounds(16, 51, 78, 14);
-		seeWarehousePanel.add(lblNewLabel_4);
-
-		JLabel lblAspirina = new JLabel("Aspirina");
-		lblAspirina.setBounds(34, 74, 78, 14);
-		seeWarehousePanel.add(lblAspirina);
-
-		JLabel lblBetadine = new JLabel("Betadine");
-		lblBetadine.setBounds(34, 99, 78, 14);
-		seeWarehousePanel.add(lblBetadine);
-
-		JLabel lblMorfina = new JLabel("Morfina");
-		lblMorfina.setBounds(34, 124, 78, 14);
-		seeWarehousePanel.add(lblMorfina);
-
-		lblNumParacetalmol = new JLabel("New label");
-		lblNumParacetalmol.setBounds(104, 51, 46, 14);
-		seeWarehousePanel.add(lblNumParacetalmol);
-
-		lblNumAspirina = new JLabel("New label");
-		lblNumAspirina.setBounds(104, 74, 46, 14);
-		seeWarehousePanel.add(lblNumAspirina);
-
-		JSeparator separator_1 = new JSeparator();
-		separator_1.setOrientation(SwingConstants.VERTICAL);
-		separator_1.setForeground(Color.BLACK);
-		separator_1.setBounds(92, 51, 8, 87);
-		seeWarehousePanel.add(separator_1);
-
-		lblNumBetadine = new JLabel("New label");
-		lblNumBetadine.setBounds(104, 99, 46, 14);
-		seeWarehousePanel.add(lblNumBetadine);
-
-		lblNumMorfina = new JLabel("New label");
-		lblNumMorfina.setBounds(104, 124, 46, 14);
-		seeWarehousePanel.add(lblNumMorfina);
-
-		JButton btnNewButton_3 = new JButton(">");
-		btnNewButton_3.setBackground(Color.WHITE);
-		btnNewButton_3.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				int num = Integer.valueOf(lblNumParacetalmol.getText());
-				num++;
-				lblNumParacetalmol.setText(String.valueOf(num));
-			}
-		});
-		btnNewButton_3.setBounds(254, 51, 41, 14);
-		seeWarehousePanel.add(btnNewButton_3);
-
-		JButton button = new JButton(">");
-		button.setBackground(Color.WHITE);
-		button.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				int num = Integer.valueOf(lblNumAspirina.getText());
-				num++;
-				lblNumAspirina.setText(String.valueOf(num));
-			}
-		});
-		button.setBounds(254, 74, 41, 14);
-		seeWarehousePanel.add(button);
-
-		JButton button_1 = new JButton(">");
-		button_1.setBackground(Color.WHITE);
-		button_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				int num = Integer.valueOf(lblNumBetadine.getText());
-				num++;
-				lblNumBetadine.setText(String.valueOf(num));
-			}
-		});
-		button_1.setBounds(254, 99, 41, 14);
-		seeWarehousePanel.add(button_1);
-
-		JButton button_2 = new JButton(">");
-		button_2.setBackground(Color.WHITE);
-		button_2.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				int num = Integer.valueOf(lblNumMorfina.getText());
-				num++;
-				lblNumMorfina.setText(String.valueOf(num));
-			}
-		});
-		button_2.setBounds(254, 124, 41, 14);
-		seeWarehousePanel.add(button_2);
-
-		JButton button_3 = new JButton("<");
-		button_3.setBackground(Color.WHITE);
-		button_3.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-
-				if (Integer.valueOf(lblNumParacetalmol.getText()) <= 0) {
-					// TODO poner aqui el error en el label
-				} else {
-					int num = Integer.valueOf(lblNumParacetalmol.getText());
-					num--;
-					lblNumParacetalmol.setText(String.valueOf(num));
-				}
-
-			}
-		});
-		button_3.setBounds(214, 51, 41, 14);
-		seeWarehousePanel.add(button_3);
-
-		JButton button_4 = new JButton("<");
-		button_4.setBackground(Color.WHITE);
-		button_4.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (Integer.valueOf(lblNumAspirina.getText()) <= 0) {
-					// TODO poner aqui el error en el label
-				} else {
-					int num = Integer.valueOf(lblNumAspirina.getText());
-					num--;
-					lblNumAspirina.setText(String.valueOf(num));
-				}
-			}
-		});
-		button_4.setBounds(214, 74, 41, 14);
-		seeWarehousePanel.add(button_4);
-
-		JButton button_5 = new JButton("<");
-		button_5.setBackground(Color.WHITE);
-		button_5.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (Integer.valueOf(lblNumBetadine.getText()) <= 0) {
-					// TODO poner aqui el error en el label
-				} else {
-					int num = Integer.valueOf(lblNumBetadine.getText());
-					num--;
-					lblNumBetadine.setText(String.valueOf(num));
-				}
-			}
-		});
-		button_5.setBounds(214, 99, 41, 14);
-		seeWarehousePanel.add(button_5);
-
-		JButton button_6 = new JButton("<");
-		button_6.setBackground(Color.WHITE);
-		button_6.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (Integer.valueOf(lblNumMorfina.getText()) <= 0) {
-					// TODO poner aqui el error en el label
-				} else {
-					int num = Integer.valueOf(lblNumMorfina.getText());
-					num--;
-					lblNumMorfina.setText(String.valueOf(num));
-				}
-			}
-		});
-		button_6.setBounds(214, 124, 41, 14);
-		seeWarehousePanel.add(button_6);
-
-		JButton btnNewButton_4 = new JButton("Añadir o retirar");
-		btnNewButton_4.setBackground(Color.WHITE);
-		btnNewButton_4.addActionListener(listener);
-		btnNewButton_4.setBounds(262, 172, 133, 34);
-		seeWarehousePanel.add(btnNewButton_4);
-
-		JButton btnNewButton_5 = new JButton(">>");
-		btnNewButton_5.setBackground(Color.WHITE);
-		btnNewButton_5.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				int num = Integer.valueOf(lblNumParacetalmol.getText());
-				num = num + 5;
-				lblNumParacetalmol.setText(String.valueOf(num));
-			}
-		});
-		btnNewButton_5.setBounds(294, 51, 49, 14);
-		seeWarehousePanel.add(btnNewButton_5);
-
-		JButton button_7 = new JButton(">>");
-		button_7.setBackground(Color.WHITE);
-		button_7.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				int num = Integer.valueOf(lblNumAspirina.getText());
-				num = num + 5;
-				lblNumAspirina.setText(String.valueOf(num));
-			}
-		});
-		button_7.setBounds(294, 74, 49, 14);
-		seeWarehousePanel.add(button_7);
-
-		JButton button_8 = new JButton(">>");
-		button_8.setBackground(Color.WHITE);
-		button_8.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				int num = Integer.valueOf(lblNumBetadine.getText());
-				num = num + 5;
-				lblNumBetadine.setText(String.valueOf(num));
-			}
-		});
-		button_8.setBounds(294, 99, 49, 14);
-		seeWarehousePanel.add(button_8);
-
-		JButton button_9 = new JButton(">>");
-		button_9.setBackground(Color.WHITE);
-		button_9.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				int num = Integer.valueOf(lblNumMorfina.getText());
-				num = num + 5;
-				lblNumMorfina.setText(String.valueOf(num));
-			}
-		});
-		button_9.setBounds(294, 124, 49, 14);
-		seeWarehousePanel.add(button_9);
-
-		JButton button_10 = new JButton("<<");
-		button_10.setBackground(Color.WHITE);
-		button_10.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (Integer.valueOf(lblNumParacetalmol.getText()) < 5) {
-					// TODO poner aqui el error en el label
-				} else {
-					int num = Integer.valueOf(lblNumParacetalmol.getText());
-					num = num - 5;
-					lblNumParacetalmol.setText(String.valueOf(num));
-				}
-			}
-		});
-		button_10.setBounds(168, 51, 49, 14);
-		seeWarehousePanel.add(button_10);
-
-		JButton button_11 = new JButton("<<");
-		button_11.setBackground(Color.WHITE);
-		button_11.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (Integer.valueOf(lblNumAspirina.getText()) < 5) {
-					// TODO poner aqui el error en el label
-				} else {
-					int num = Integer.valueOf(lblNumAspirina.getText());
-					num = num - 5;
-					lblNumAspirina.setText(String.valueOf(num));
-				}
-			}
-		});
-		button_11.setBounds(168, 74, 49, 14);
-		seeWarehousePanel.add(button_11);
-
-		JButton button_12 = new JButton("<<");
-		button_12.setBackground(Color.WHITE);
-		button_12.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (Integer.valueOf(lblNumBetadine.getText()) < 5) {
-					// TODO poner aqui el error en el label
-				} else {
-					int num = Integer.valueOf(lblNumBetadine.getText());
-					num = num - 5;
-					lblNumBetadine.setText(String.valueOf(num));
-				}
-			}
-		});
-		button_12.setBounds(168, 99, 49, 14);
-		seeWarehousePanel.add(button_12);
-
-		JButton button_13 = new JButton("<<");
-		button_13.setBackground(Color.WHITE);
-		button_13.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (Integer.valueOf(lblNumMorfina.getText()) < 5) {
-					// TODO poner aqui el error en el label
-				} else {
-					int num = Integer.valueOf(lblNumMorfina.getText());
-					num = num - 5;
-					lblNumMorfina.setText(String.valueOf(num));
-				}
-			}
-		});
-		button_13.setBounds(168, 124, 49, 14);
-		seeWarehousePanel.add(button_13);
 
 		// ----------------------------------PANEL AÑADIR
 		// PACIENTES--------------------------//
@@ -1161,8 +1001,8 @@ public class AdminWindow extends JFrame {
 		seePatientPane.setForeground(Color.WHITE);
 		seePatientPane.setBackground(Color.WHITE);
 		seePatientPane.setPreferredSize(new Dimension(630, 420));
-        seePatientPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        seePatientPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		seePatientPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		seePatientPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 
 		seePatientPane.setVisible(false);
 		getContentPane().add(seePatientPane);

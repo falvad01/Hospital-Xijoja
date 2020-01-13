@@ -182,7 +182,7 @@ public class ControlerAdmin implements ActionListener {
 	}
 
 	public void filJComboBox(JComboBox edit, boolean ismedic) {
-
+		edit.removeAllItems();
 		ArrayList<String[]> list = personalDao.getNuseAndMedic(ismedic);
 		if (ismedic) {
 			arrayMedic = list;
@@ -200,6 +200,31 @@ public class ControlerAdmin implements ActionListener {
 
 			}
 		}
+
+	}
+
+	public void filJComboBoxMedicines(JComboBox edit) {
+		edit.removeAllItems();
+		ArrayList<String[]> Medicines = warehouseDAO.getMedicineMedic();// ArrayList de Arrays;
+
+		String[] data = new String[2];
+		if (Medicines == null) {
+
+		} else {
+			for (int i = 0; i < Medicines.size(); i++) {
+				data = Medicines.get(i);
+				edit.addItem(data[1]);
+
+			}
+		}
+
+	}
+
+	public void changeNumMedicines(String medicine) {
+
+		warehouseDAO.getCountMedicine(medicine);
+
+		adminWindow.lblNumberMedicine.setText(String.valueOf(warehouseDAO.getCountMedicine(medicine)));
 
 	}
 
@@ -424,14 +449,8 @@ public class ControlerAdmin implements ActionListener {
 		} else if (arg0.getActionCommand().equals("Cerrar sesion")) {
 
 			adminWindow.setVisible(false);
-			// TODO arreglar que se borren los campos al cerrar sesion
-			try {
-				LoginWindow newlogin = new LoginWindow();
-				ControlerLoginWindow controlerLogin = new ControlerLoginWindow(newlogin);
-				controlerLogin.resetJField();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			LoginWindow newlogin = LoginWindow.getInstance();
+			newlogin.resetJField();
 
 		} else if (arg0.getActionCommand().equals("Borrar")) {
 
@@ -447,11 +466,10 @@ public class ControlerAdmin implements ActionListener {
 
 				toDelete = personalDao.getEmployee(adminWindow.textFieldDNIToDelete.getText().toString());
 
-				for(int i = 0; i < toDelete.length; i++) {
+				for (int i = 0; i < toDelete.length; i++) {
 					System.out.println(toDelete[i]);
 				}
-				
-				
+
 				if (toDelete[0].equals("0")) {
 					adminWindow.lblErrorDelete.setText("No se puede borrar el administrador principal");
 				} else {
@@ -652,16 +670,13 @@ public class ControlerAdmin implements ActionListener {
 			adminWindow.seeWarehousePanel.setVisible(true);
 			adminWindow.editPatientPanel.setVisible(false);
 
-			adminWindow.lblNumBetadine.setText(String.valueOf(warehouseDAO.getCountMedicine("Betadine")));
-			adminWindow.lblNumMorfina.setText(String.valueOf(warehouseDAO.getCountMedicine("Morfina")));
-			adminWindow.lblNumAspirina.setText(String.valueOf(warehouseDAO.getCountMedicine("Aspirina")));
-			adminWindow.lblNumParacetalmol.setText(String.valueOf(warehouseDAO.getCountMedicine("Paracetamol")));
+			this.filJComboBoxMedicines(adminWindow.comboBoxMedicines);
+
 		} else if (arg0.getActionCommand().contentEquals("Añadir o retirar")) {
 			System.out.println("COmprar");
-			warehouseDAO.addNewMedicines("Paracetamol", Integer.valueOf(adminWindow.lblNumParacetalmol.getText()));
-			warehouseDAO.addNewMedicines("Aspirina", Integer.valueOf(adminWindow.lblNumAspirina.getText()));
-			warehouseDAO.addNewMedicines("Betadine", Integer.valueOf(adminWindow.lblNumBetadine.getText()));
-			warehouseDAO.addNewMedicines("Morfina", Integer.valueOf(adminWindow.lblNumMorfina.getText()));
+
+			warehouseDAO.addNewMedicines(adminWindow.comboBoxMedicines.getSelectedItem().toString(),
+					Integer.parseInt(adminWindow.lblNumberMedicine.getText()));
 
 		} else if (arg0.getActionCommand().contentEquals("Editar Paciente")) {
 
@@ -737,6 +752,11 @@ public class ControlerAdmin implements ActionListener {
 				}
 
 			}
+
+		} else if (arg0.getActionCommand().contentEquals("Comprar nuevo")) {
+
+			warehouseDAO.addNewMedicine(adminWindow.textFieldNewMedicine.getText(),
+					Integer.parseInt(adminWindow.textFieldNewMedicineAmount.getText()));
 
 		}
 	}
