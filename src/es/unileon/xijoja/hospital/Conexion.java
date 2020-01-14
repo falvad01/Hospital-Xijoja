@@ -11,9 +11,9 @@ public class Conexion {
 	/*
 	 * Datos de BBDD en local
 	 */
-	private final String urlServerLocal = "jdbc:mysql://localhost:3306/xijoja base de datos?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
-	private final String userLocal = "root";
-	private final String passwordLocal = "";
+	private final static String urlServerLocal = "jdbc:mysql://localhost:3306/xijoja?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+	private final static String userLocal = "root";
+	private final static String passwordLocal = "";
 
 	
 	/**
@@ -68,4 +68,15 @@ public class Conexion {
 
 		instance = null;
 	}
+	 public static String getUs() {
+	        return userLocal;
+	    }
+
+	    public static String getPas() {
+	        return passwordLocal;
+	    }
+
+	    public static String getBd() {
+	        return "xijoja base de datos";
+	    }
 }

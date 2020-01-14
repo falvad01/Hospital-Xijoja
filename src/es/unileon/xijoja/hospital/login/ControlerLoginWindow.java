@@ -4,10 +4,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.InetAddress;
 import java.sql.SQLException;
 
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
 import es.unileon.xijoja.hospital.Logs;
@@ -100,8 +104,24 @@ public class ControlerLoginWindow implements ActionListener, KeyListener {
 			}
 			
 		}else if(arg0.getActionCommand().equals("Exportar la base de datos")){
-			
-		}
+			JFileChooser ch = new JFileChooser();
+	        ch.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+	        int se = ch.showSaveDialog(null);
+	        String ruta="";
+	        String name = "\\backus.sql";
+	        if(se == JFileChooser.APPROVE_OPTION){
+	             ruta = ch.getSelectedFile().getPath();
+	        }
+				   try {
+				      Process p = Runtime
+				            .getRuntime()
+				            .exec("E:\\Programas\\xampp\\mysql\\bin\\mysqldump -u root -B xijoja -r "+ruta+name);
+				      JOptionPane.showMessageDialog(null, "Backus creado: "+ruta);
+		            }catch(Exception ex){
+		                JOptionPane.showMessageDialog(null, ex.getMessage());
+		            }
+				}
+	
 	}
 
 	@Override
