@@ -104,7 +104,7 @@ public class AdminWindow extends JFrame {
 	protected JTextField textFieldFirstDeleteToDelete;
 	protected JTextField textFieldSecondSurnameToDelete;
 	protected JLabel lblErrorDelete;
-	
+
 	protected JLabel lblErrorEditPatientRomm;
 	protected JLabel lberror;
 	protected JTextField NombreP;
@@ -340,11 +340,6 @@ public class AdminWindow extends JFrame {
 
 		seeEmployeesPanel.setVisible(false);
 
-		// --------------------------------------PANEL VER
-		// ALMACEN---------------------------------------//
-		seeWarehousePanel = new JPanel();
-		seeWarehousePanel.setVisible(false);
-
 		// ----------------------------------PANEL AÑADIR
 		// PACIENTES--------------------------//
 		addPatientsPanel = new JPanel();
@@ -360,6 +355,110 @@ public class AdminWindow extends JFrame {
 		editPatientPanel = new JPanel();
 		editPatientPanel.setBackground(Color.WHITE);
 		editPatientPanel.setVisible(false);
+
+		// --------------------------------------PANEL VER
+		// ALMACEN---------------------------------------//
+		seeWarehousePanel = new JPanel();
+		seeWarehousePanel.setVisible(false);
+
+		seeWarehousePanel.setBackground(Color.WHITE);
+		getContentPane().add(seeWarehousePanel);
+		seeWarehousePanel.setBounds(274, 0, 695, 496);
+		seeWarehousePanel.setLayout(null);
+
+		JButton btnPlus1 = new JButton(">");
+		btnPlus1.setBackground(Color.WHITE);
+		btnPlus1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				int num = Integer.parseInt(lblNumberMedicine.getText());
+				num++;
+				lblNumberMedicine.setText(String.valueOf(num));
+			}
+		});
+		btnPlus1.setBounds(378, 26, 41, 14);
+		seeWarehousePanel.add(btnPlus1);
+
+		JButton btnMinus1 = new JButton("<");
+		btnMinus1.setBackground(Color.WHITE);
+		btnMinus1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int num = Integer.parseInt(lblNumberMedicine.getText());
+				if (Integer.parseInt(lblNumberMedicine.getText()) > 0) {
+					num--;
+					lblNumberMedicine.setText(String.valueOf(num));
+				}
+
+			}
+		});
+		btnMinus1.setBounds(338, 26, 50, 14);
+		seeWarehousePanel.add(btnMinus1);
+		
+
+		JButton btnPlus5 = new JButton(">>");
+		btnPlus5.setBackground(Color.WHITE);
+		btnPlus5.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				int num = Integer.parseInt(lblNumberMedicine.getText());
+				num = num + 10;
+				lblNumberMedicine.setText(String.valueOf(num));
+
+			}
+		});
+		btnPlus5.setBounds(418, 26, 49, 14);
+		seeWarehousePanel.add(btnPlus5);
+
+		JButton btnMinus5 = new JButton("<<");
+		btnMinus5.setBackground(Color.WHITE);
+		btnMinus5.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int num = Integer.parseInt(lblNumberMedicine.getText());
+				if (Integer.parseInt(lblNumberMedicine.getText()) > 9) {
+					num = num - 10;
+					lblNumberMedicine.setText(String.valueOf(num));
+				}
+			}
+		});
+		btnMinus5.setBounds(292, 26, 49, 14);
+		seeWarehousePanel.add(btnMinus5);
+
+		comboBoxMedicines = new JComboBox();
+		comboBoxMedicines.setBounds(21, 23, 182, 20);
+		comboBoxMedicines.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				if (comboBoxMedicines.getSelectedItem() != null) {
+					listener.changeNumMedicines(comboBoxMedicines.getSelectedItem().toString());// Cmabiamos la cantidad
+																								// mostrada
+				}
+
+			}
+		});
+		seeWarehousePanel.add(comboBoxMedicines);
+
+		lblNumberMedicine = new JLabel("New label");
+		lblNumberMedicine.setBounds(213, 26, 69, 14);
+		seeWarehousePanel.add(lblNumberMedicine);
+
+		JLabel lblNewLabel_4 = new JLabel("INTRODUCIR UN NUEVO MEDICAMENTO");
+		lblNewLabel_4.setBounds(21, 180, 582, 14);
+		lblNewLabel_4.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
+		seeWarehousePanel.add(lblNewLabel_4);
+		
+
+		JLabel lblNewLabel_7 = new JLabel("Nombre");
+		lblNewLabel_7.setHorizontalAlignment(SwingConstants.TRAILING);
+		lblNewLabel_7.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
+		lblNewLabel_7.setBounds(21, 228, 69, 14);
+		seeWarehousePanel.add(lblNewLabel_7);
+
+		JLabel lblCantidad = new JLabel("Cantidad");
+		lblCantidad.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
+		lblCantidad.setHorizontalAlignment(SwingConstants.TRAILING);
+		lblCantidad.setBounds(10, 259, 80, 14);
+		seeWarehousePanel.add(lblCantidad);
+		
+	
 		editPatientPanel.setBounds(274, 0, 695, 496);
 		getContentPane().add(editPatientPanel);
 		editPatientPanel.setLayout(null);
@@ -443,7 +542,6 @@ public class AdminWindow extends JFrame {
 		textFieldRommEditPacient.setColumns(10);
 		textFieldRommEditPacient.setBounds(141, 241, 95, 20);
 		editPatientPanel.add(textFieldRommEditPacient);
-		
 
 		lblErrorEditPatient = new JLabel("");
 		lblErrorEditPatient.setForeground(Color.RED);
@@ -532,11 +630,11 @@ public class AdminWindow extends JFrame {
 		addPatientsPanel.add(btnModificarEstadoPaciente);
 		btnModificarEstadoPaciente.addActionListener(listener);
 
-		JLabel label_1 = new JLabel("Nombre Paciente");
-		label_1.setHorizontalAlignment(SwingConstants.TRAILING);
-		label_1.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 12));
-		label_1.setBounds(0, 47, 135, 16);
-		addPatientsPanel.add(label_1);
+		JLabel lblNombre_1 = new JLabel("Nombre ");
+		lblNombre_1.setHorizontalAlignment(SwingConstants.TRAILING);
+		lblNombre_1.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
+		lblNombre_1.setBounds(0, 47, 135, 16);
+		addPatientsPanel.add(lblNombre_1);
 
 		JLabel lblApellido2 = new JLabel("Apellido 1");
 		lblApellido2.setHorizontalAlignment(SwingConstants.TRAILING);
@@ -573,13 +671,13 @@ public class AdminWindow extends JFrame {
 		JLabel lblMedico_1 = new JLabel("Medico");
 		lblMedico_1.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
 		lblMedico_1.setHorizontalAlignment(SwingConstants.TRAILING);
-		lblMedico_1.setBounds(326, 47, 56, 16);
+		lblMedico_1.setBounds(278, 47, 93, 16);
 		addPatientsPanel.add(lblMedico_1);
 
 		JLabel lblEnfermera = new JLabel("Enfermera");
 		lblEnfermera.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
 		lblEnfermera.setHorizontalAlignment(SwingConstants.TRAILING);
-		lblEnfermera.setBounds(309, 88, 73, 16);
+		lblEnfermera.setBounds(278, 88, 104, 16);
 		addPatientsPanel.add(lblEnfermera);
 
 		JLabel lblEnfermedad = new JLabel("Enfermedad");
@@ -595,7 +693,7 @@ public class AdminWindow extends JFrame {
 		addPatientsPanel.add(lblApellido_6);
 
 		lberror = new JLabel("");
-		
+
 		lberror.setForeground(Color.RED);
 		lberror.setBounds(34, 335, 452, 36);
 		lberror.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
@@ -797,7 +895,7 @@ public class AdminWindow extends JFrame {
 		btnSaveEdit.setText("Guardar");
 		btnSaveEdit.addActionListener(listener);
 		btnSaveEdit.setOpaque(false);
-		
+
 		btnSaveEdit.setBackground(Color.WHITE);
 		btnSaveEdit.setBounds(390, 252, 212, 47);
 		editEmployeesPanel.add(btnSaveEdit);
@@ -860,38 +958,6 @@ public class AdminWindow extends JFrame {
 		btnDelete.setBounds(309, 244, 138, 20);
 		deletePanel.add(btnDelete);
 
-		seeWarehousePanel.setBackground(Color.WHITE);
-		getContentPane().add(seeWarehousePanel);
-		seeWarehousePanel.setBounds(274, 0, 695, 496);
-		seeWarehousePanel.setLayout(null);
-
-		JButton btnPlus1 = new JButton(">");
-		btnPlus1.setBackground(Color.WHITE);
-		btnPlus1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				int num = Integer.parseInt(lblNumberMedicine.getText());
-				num++;
-				lblNumberMedicine.setText(String.valueOf(num));
-			}
-		});
-		btnPlus1.setBounds(378, 26, 41, 14);
-		seeWarehousePanel.add(btnPlus1);
-
-		JButton btnMinus1 = new JButton("<");
-		btnMinus1.setBackground(Color.WHITE);
-		btnMinus1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				int num = Integer.parseInt(lblNumberMedicine.getText());
-				if (Integer.parseInt(lblNumberMedicine.getText()) > 0) {
-					num--;
-					lblNumberMedicine.setText(String.valueOf(num));
-				}
-
-			}
-		});
-		btnMinus1.setBounds(338, 26, 50, 14);
-		seeWarehousePanel.add(btnMinus1);
-
 		JButton btnNewButton_4 = new RoundedJButton(15);
 		btnNewButton_4.setText("Añadir o retirar");
 		btnNewButton_4.setBackground(Color.WHITE);
@@ -899,73 +965,11 @@ public class AdminWindow extends JFrame {
 		btnNewButton_4.setBounds(225, 83, 150, 34);
 		seeWarehousePanel.add(btnNewButton_4);
 
-		JButton btnPlus5 = new JButton(">>");
-		btnPlus5.setBackground(Color.WHITE);
-		btnPlus5.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-
-				int num = Integer.parseInt(lblNumberMedicine.getText());
-				num = num + 10;
-				lblNumberMedicine.setText(String.valueOf(num));
-
-			}
-		});
-		btnPlus5.setBounds(418, 26, 49, 14);
-		seeWarehousePanel.add(btnPlus5);
-
-		JButton btnMinus5 = new JButton("<<");
-		btnMinus5.setBackground(Color.WHITE);
-		btnMinus5.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				int num = Integer.parseInt(lblNumberMedicine.getText());
-				if (Integer.parseInt(lblNumberMedicine.getText()) > 9) {
-					num = num - 10;
-					lblNumberMedicine.setText(String.valueOf(num));
-				}
-			}
-		});
-		btnMinus5.setBounds(292, 26, 49, 14);
-		seeWarehousePanel.add(btnMinus5);
-
-		comboBoxMedicines = new JComboBox();
-		comboBoxMedicines.setBounds(21, 23, 182, 20);
-		comboBoxMedicines.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-
-				if (comboBoxMedicines.getSelectedItem() != null) {
-					listener.changeNumMedicines(comboBoxMedicines.getSelectedItem().toString());// Cmabiamos la cantidad
-																								// mostrada
-				}
-
-			}
-		});
-		seeWarehousePanel.add(comboBoxMedicines);
-
-		lblNumberMedicine = new JLabel("New label");
-		lblNumberMedicine.setBounds(213, 26, 69, 14);
-		seeWarehousePanel.add(lblNumberMedicine);
-
-		JLabel lblNewLabel_4 = new JLabel("INTRODUCIR UN NUEVO MEDICAMENTO");
-		lblNewLabel_4.setBounds(21, 180, 582, 14);
-		lblNewLabel_4.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
-		seeWarehousePanel.add(lblNewLabel_4);
-
 		textFieldNewMedicine = new HintTextField("Medicamento");
-		textFieldNewMedicine.setBounds(100, 225, 90, 20);
-		seeWarehousePanel.add(textFieldNewMedicine);
+		textFieldNewMedicine.setBounds(100, 225, 110, 20);
 		textFieldNewMedicine.setColumns(10);
-
-		JLabel lblNewLabel_7 = new JLabel("Nombre");
-		lblNewLabel_7.setHorizontalAlignment(SwingConstants.TRAILING);
-		lblNewLabel_7.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
-		lblNewLabel_7.setBounds(21, 228, 69, 14);
-		seeWarehousePanel.add(lblNewLabel_7);
-
-		JLabel lblCantidad = new JLabel("Cantidad");
-		lblCantidad.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
-		lblCantidad.setHorizontalAlignment(SwingConstants.TRAILING);
-		lblCantidad.setBounds(10, 259, 80, 14);
-		seeWarehousePanel.add(lblCantidad);
+		seeWarehousePanel.add(textFieldNewMedicine);
+		seeWarehousePanel.add(textFieldNewMedicine);
 
 		textFieldNewMedicineAmount = new HintTextField("Cantidad(En Nº)");
 		textFieldNewMedicineAmount.setColumns(10);
@@ -977,6 +981,26 @@ public class AdminWindow extends JFrame {
 		btnNewButton_2.addActionListener(listener);
 		btnNewButton_2.setBounds(225, 289, 154, 23);
 		seeWarehousePanel.add(btnNewButton_2);
+		
+		JLabel lblNewLabel_8 = new JLabel("+10");
+		lblNewLabel_8.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
+		lblNewLabel_8.setBounds(430, 11, 26, 14);
+		seeWarehousePanel.add(lblNewLabel_8);
+		
+		JLabel label_6 = new JLabel("+1");
+		label_6.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
+		label_6.setBounds(393, 11, 26, 14);
+		seeWarehousePanel.add(label_6);
+		
+		JLabel label_7 = new JLabel("-1");
+		label_7.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
+		label_7.setBounds(353, 11, 26, 14);
+		seeWarehousePanel.add(label_7);
+		
+		JLabel label_8 = new JLabel("-10");
+		label_8.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
+		label_8.setBounds(304, 11, 26, 14);
+		seeWarehousePanel.add(label_8);
 
 		// ------------------------------------------PANEL AÑADIR
 		// EMPLEADOS-----------------------------------------//
@@ -1107,16 +1131,13 @@ public class AdminWindow extends JFrame {
 		btnNewButton_6.addActionListener(listener);
 		btnNewButton_6.setBounds(247, 7, 160, 23);
 		editPatientPanel.add(btnNewButton_6);
-		
 
 		JButton btnNewButton_7 = new RoundedJButton(15);
 		btnNewButton_7.setText("Guardar paciente");
 		btnNewButton_7.addActionListener(listener);
 		btnNewButton_7.setBounds(306, 272, 160, 23);
 		editPatientPanel.add(btnNewButton_7);
-		
-		
-		
+
 		getContentPane().add(seeEmployeesPanel);
 
 // ---------------------------------------PANEL VER PACIENTES-----------------------------------//
@@ -1291,5 +1312,4 @@ public class AdminWindow extends JFrame {
 		}
 
 	}
-
 }
