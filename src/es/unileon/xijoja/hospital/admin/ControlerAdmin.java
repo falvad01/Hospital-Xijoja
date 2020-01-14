@@ -476,7 +476,7 @@ public class ControlerAdmin implements ActionListener {
 
 					boolean result = personalDao.deleteEmployee(adminWindow.textFieldNameToDelete.getText(),
 							adminWindow.textFieldFirstDeleteToDelete.getText(),
-							adminWindow.textFieldSecondDeleteToDelete.getText(),
+							adminWindow.textFieldSecondSurnameToDelete.getText(),
 							adminWindow.textFieldDNIToDelete.getText());
 					if (!result) {// Si algo ha fallado al borrar el empleado
 						adminWindow.lblErrorDelete.setText("Los datos no coinciden");
@@ -641,9 +641,9 @@ public class ControlerAdmin implements ActionListener {
 			} else {
 				System.out.println("Boton borrar pulsado");
 
-				boolean restult = patientsDao.deletePatient(adminWindow.textFieldNameToDeleteEmployee.getText(),
-						adminWindow.textFieldFirstSurnameToDeleteEmployee.getText(),
-						adminWindow.textFieldSecondSurnameToDeleteEmployee.getText(),
+				boolean restult = patientsDao.deletePatient(adminWindow.textFieldNameToDeletePatient.getText(),//TODO algo podria fallar aqui
+						adminWindow.textFieldFirstSurnameToDeletePatient.getText(),
+						adminWindow.textFieldSecondSurnameToDeletePatient.getText(),
 						adminWindow.textFieldDNIToDeletePatient.getText());
 
 				if (!restult) {

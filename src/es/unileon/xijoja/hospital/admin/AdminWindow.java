@@ -102,7 +102,7 @@ public class AdminWindow extends JFrame {
 	protected JTextField textFieldDNIToDelete;
 	protected JTextField textFieldNameToDelete;
 	protected JTextField textFieldFirstDeleteToDelete;
-	protected JTextField textFieldSecondDeleteToDelete;
+	protected JTextField textFieldSecondSurnameToDelete;
 	protected JLabel lblErrorDelete;
 	protected JLabel lblErrorEditPatientRomm;
 	protected JLabel lberror;
@@ -118,10 +118,10 @@ public class AdminWindow extends JFrame {
 	protected JComboBox jcbMedicine;
 	protected JTextField textEnfermedad;
 	protected JTextField textFieldDNIToDeletePatient;
-	protected JTextField textFieldNameToDeleteEmployee;
-	protected JTextField textFieldFirstSurnameToDeleteEmployee;
-	protected JTextField textFieldSecondSurnameToDeleteEmployee;
-	protected JTextField textFieldErrorDeletePatient;
+	protected JTextField textFieldNameToDeletePatient;
+	protected JTextField textFieldFirstSurnameToDeletePatient;
+	protected JTextField textFieldSecondSurnameToDeletePatient;
+	protected JLabel textFieldErrorDeletePatient;
 	protected JLabel lblErrorEditPatient;
 	protected JTextField textFieldDNISearchEditPatient;
 	protected JTextField textFieldNameEditPatient;
@@ -344,15 +344,173 @@ public class AdminWindow extends JFrame {
 		seeWarehousePanel = new JPanel();
 		seeWarehousePanel.setVisible(false);
 
+		// ----------------------------------PANEL AÑADIR
+		// PACIENTES--------------------------//
+		addPatientsPanel = new JPanel();
+		addPatientsPanel.setVisible(false);
+
 		// ------------------------------PANEL BORRAR
 		// EMPLEADOS-------------------------//
 		deletePatientsPanel = new JPanel();
 		deletePatientsPanel.setVisible(false);
 
-		// ----------------------------------PANEL AÑADIR
-		// PACIENTES--------------------------//
-		addPatientsPanel = new JPanel();
-		addPatientsPanel.setVisible(false);
+		// --------------------------------------PANEL EDITAR
+		// PACIENTE-------------------------------//
+		editPatientPanel = new JPanel();
+		editPatientPanel.setBackground(Color.WHITE);
+		editPatientPanel.setVisible(false);
+		editPatientPanel.setBounds(274, 0, 695, 496);
+		getContentPane().add(editPatientPanel);
+		editPatientPanel.setLayout(null);
+
+		JLabel lblNewLabel_5 = new JLabel("Introduce DNI");
+		lblNewLabel_5.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 10));
+		lblNewLabel_5.setBounds(10, 11, 121, 14);
+		editPatientPanel.add(lblNewLabel_5);
+
+		JSeparator separator_2 = new JSeparator();
+		separator_2.setBounds(10, 34, 610, 14);
+		editPatientPanel.add(separator_2);
+
+		textFieldDNISearchEditPatient = new HintTextField("DNI");
+		textFieldDNISearchEditPatient.setBounds(99, 8, 128, 20);
+		editPatientPanel.add(textFieldDNISearchEditPatient);
+		textFieldDNISearchEditPatient.setColumns(10);
+
+		JLabel lblNewLabel_6 = new JLabel("Nombre");
+		lblNewLabel_6.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
+		lblNewLabel_6.setHorizontalAlignment(SwingConstants.TRAILING);
+		lblNewLabel_6.setBounds(57, 64, 74, 14);
+		editPatientPanel.add(lblNewLabel_6);
+
+		JLabel lblApellido_4 = new JLabel("1º Apellido");
+		lblApellido_4.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
+		lblApellido_4.setHorizontalAlignment(SwingConstants.TRAILING);
+		lblApellido_4.setBounds(28, 100, 103, 14);
+		editPatientPanel.add(lblApellido_4);
+
+		JLabel lblApellido_5 = new JLabel("2º Apellido");
+		lblApellido_5.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
+		lblApellido_5.setHorizontalAlignment(SwingConstants.TRAILING);
+		lblApellido_5.setBounds(28, 136, 103, 14);
+		editPatientPanel.add(lblApellido_5);
+
+		JLabel lblNifnie_1 = new JLabel("NIF/NIE");
+		lblNifnie_1.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
+		lblNifnie_1.setHorizontalAlignment(SwingConstants.TRAILING);
+		lblNifnie_1.setBounds(57, 173, 74, 14);
+		editPatientPanel.add(lblNifnie_1);
+
+		JLabel lblEnfermedad_1 = new JLabel("Enfermedad");
+		lblEnfermedad_1.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
+		lblEnfermedad_1.setHorizontalAlignment(SwingConstants.TRAILING);
+		lblEnfermedad_1.setBounds(10, 208, 121, 14);
+		editPatientPanel.add(lblEnfermedad_1);
+
+		JLabel lblHabitacion = new JLabel("Habitacion");
+		lblHabitacion.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
+		lblHabitacion.setHorizontalAlignment(SwingConstants.TRAILING);
+		lblHabitacion.setBounds(10, 244, 121, 14);
+		editPatientPanel.add(lblHabitacion);
+
+		textFieldNameEditPatient = new HintTextField("Nombre");
+		textFieldNameEditPatient.setBounds(141, 61, 86, 20);
+		editPatientPanel.add(textFieldNameEditPatient);
+		textFieldNameEditPatient.setColumns(10);
+
+		textFieldSurname1EditPatient = new HintTextField("1º Apellido");
+		textFieldSurname1EditPatient.setColumns(10);
+		textFieldSurname1EditPatient.setBounds(141, 97, 86, 20);
+		editPatientPanel.add(textFieldSurname1EditPatient);
+
+		textFieldSurname2EditPatient =new HintTextField("2º Apellido");
+		textFieldSurname2EditPatient.setColumns(10);
+		textFieldSurname2EditPatient.setBounds(141, 133, 86, 20);
+		editPatientPanel.add(textFieldSurname2EditPatient);
+
+		textFieldDNIEditPatient = new HintTextField("DNI");
+		textFieldDNIEditPatient.setColumns(10);
+		textFieldDNIEditPatient.setBounds(141, 170, 86, 20);
+		editPatientPanel.add(textFieldDNIEditPatient);
+
+		textFieldIllnesEditPatient = new HintTextField("Enfermedad");
+		textFieldIllnesEditPatient.setColumns(10);
+		textFieldIllnesEditPatient.setBounds(141, 205, 86, 20);
+		editPatientPanel.add(textFieldIllnesEditPatient);
+
+		textFieldRommEditPacient = new HintTextField("Habitacion(Nº)");
+		textFieldRommEditPacient.setColumns(10);
+		textFieldRommEditPacient.setBounds(141, 241, 95, 20);
+		editPatientPanel.add(textFieldRommEditPacient);
+		
+
+		lblErrorEditPatient = new JLabel("");
+		lblErrorEditPatient.setForeground(Color.RED);
+		lblErrorEditPatient.setBackground(Color.RED);
+		lblErrorEditPatient.setBounds(385, 11, 200, 14);
+		editPatientPanel.add(lblErrorEditPatient);
+
+		lblErrorEditPatientRomm = new JLabel("");
+		lblErrorEditPatientRomm.setForeground(Color.RED);
+		lblErrorEditPatientRomm.setBackground(Color.RED);
+		lblErrorEditPatientRomm.setBounds(10, 281, 286, 14);
+		editPatientPanel.add(lblErrorEditPatientRomm);
+
+		deletePatientsPanel.setBackground(Color.WHITE);
+		deletePatientsPanel.setBounds(274, 0, 695, 496);
+		getContentPane().add(deletePatientsPanel);
+		deletePatientsPanel.setLayout(null);
+
+		JLabel lblNewLabel_123 = new JLabel("DNI");
+		lblNewLabel_123.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
+		lblNewLabel_123.setHorizontalAlignment(SwingConstants.TRAILING);
+		lblNewLabel_123.setBounds(10, 69, 89, 20);
+		deletePatientsPanel.add(lblNewLabel_123);
+
+		JLabel lblNewLabel_22 = new JLabel("Nombre");
+		lblNewLabel_22.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
+		lblNewLabel_22.setHorizontalAlignment(SwingConstants.TRAILING);
+		lblNewLabel_22.setBounds(10, 119, 89, 14);
+		deletePatientsPanel.add(lblNewLabel_22);
+
+		JLabel lblApellido_32 = new JLabel("1º Apellido");
+		lblApellido_32.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
+		lblApellido_32.setHorizontalAlignment(SwingConstants.TRAILING);
+		lblApellido_32.setBounds(10, 169, 89, 14);
+		deletePatientsPanel.add(lblApellido_32);
+
+		JLabel lblapellido2 = new JLabel("2ºApellido");
+		lblapellido2.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
+		lblapellido2.setHorizontalAlignment(SwingConstants.TRAILING);
+		lblapellido2.setBounds(0, 218, 99, 14);
+		deletePatientsPanel.add(lblapellido2);
+
+		JLabel lblNewLabel_32 = new JLabel("Introducir los siguientes datos para borrar");
+		lblNewLabel_32.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
+		lblNewLabel_32.setBounds(39, 23, 371, 20);
+		deletePatientsPanel.add(lblNewLabel_32);
+
+		textFieldNameToDeletePatient = new HintTextField("Nombre");
+		textFieldNameToDeletePatient.setBounds(111, 116, 100, 20);
+		deletePatientsPanel.add(textFieldNameToDeletePatient);
+		textFieldNameToDeletePatient.setColumns(10);
+
+		textFieldFirstSurnameToDeletePatient = new HintTextField("1º Apellido");
+		textFieldFirstSurnameToDeletePatient.setBounds(109, 166, 100, 20);
+		deletePatientsPanel.add(textFieldFirstSurnameToDeletePatient);
+		textFieldFirstSurnameToDeletePatient.setColumns(10);
+
+		textFieldSecondSurnameToDeletePatient = new HintTextField("2º Apellido");
+		textFieldSecondSurnameToDeletePatient.setColumns(10);
+		textFieldSecondSurnameToDeletePatient.setBounds(109, 215, 100, 20);
+		deletePatientsPanel.add(textFieldSecondSurnameToDeletePatient);
+
+		textFieldErrorDeletePatient = new JLabel();
+		textFieldErrorDeletePatient.setForeground(Color.RED);
+
+		textFieldErrorDeletePatient.setBounds(436, 244, 154, 20);
+		deletePatientsPanel.add(textFieldErrorDeletePatient);
+
 		addPatientsPanel.setBounds(274, 0, 695, 496);
 		getContentPane().add(addPatientsPanel);
 		addPatientsPanel.setLayout(null);
@@ -365,7 +523,8 @@ public class AdminWindow extends JFrame {
 		iconLabel2.setIcon(new ImageIcon(AdminWindow.class.getResource("/resources/iconAdmin.png")));
 		getContentPane().add(addPatientsPanel);
 
-		JButton btnModificarEstadoPaciente = new JButton("Ingresar");
+		JButton btnModificarEstadoPaciente = new RoundedJButton(15);
+		btnModificarEstadoPaciente.setText("Ingresar");
 		btnModificarEstadoPaciente.setOpaque(false);
 		btnModificarEstadoPaciente.setBackground(new Color(255, 255, 255));
 		btnModificarEstadoPaciente.setBounds(407, 381, 198, 41);
@@ -374,51 +533,31 @@ public class AdminWindow extends JFrame {
 
 		JLabel label_1 = new JLabel("Nombre Paciente");
 		label_1.setHorizontalAlignment(SwingConstants.TRAILING);
-		label_1.setBounds(34, 47, 101, 16);
+		label_1.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 12));
+		label_1.setBounds(0, 47, 135, 16);
 		addPatientsPanel.add(label_1);
-
-		NombreP = new HintTextField("Nombre");
-		NombreP.setColumns(10);
-		NombreP.setBounds(145, 44, 116, 22);
-		addPatientsPanel.add(NombreP);
 
 		JLabel lblApellido2 = new JLabel("Apellido 1");
 		lblApellido2.setHorizontalAlignment(SwingConstants.TRAILING);
-		lblApellido2.setBounds(32, 88, 101, 16);
+		lblApellido2.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
+		lblApellido2.setBounds(10, 88, 123, 16);
 		addPatientsPanel.add(lblApellido2);
 
 		JLabel lblApellido_12 = new JLabel("Apellido 2");
 		addPatientsPanel.add(lblApellido_12);
-
-		surname1AddPatients = new HintTextField("1º Apellido");
-		surname1AddPatients.setColumns(10);
-		surname1AddPatients.setBounds(145, 85, 116, 22);
-		addPatientsPanel.add(surname1AddPatients);
-
-		surname2AddPatients = new HintTextField("2º Apellido");
-		surname2AddPatients.setColumns(10);
-		surname2AddPatients.setBounds(145, 124, 116, 22);
-		addPatientsPanel.add(surname2AddPatients);
+		lblApellido_12.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
 
 		JLabel lblNifnie2 = new JLabel("NIFNIE");
 		lblNifnie2.setHorizontalAlignment(SwingConstants.TRAILING);
-		lblNifnie2.setBounds(79, 168, 56, 16);
+		lblNifnie2.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
+		lblNifnie2.setBounds(10, 168, 125, 16);
 		addPatientsPanel.add(lblNifnie2);
 
-		DNI = new HintTextField("DNI");
-		DNI.setBounds(145, 165, 116, 22);
-		addPatientsPanel.add(DNI);
-		DNI.setColumns(10);
-
-		JLabel lblHabitacin = new JLabel("Habitación");
-		lblHabitacin.setHorizontalAlignment(SwingConstants.TRAILING);
-		lblHabitacin.setBounds(46, 209, 89, 16);
-		addPatientsPanel.add(lblHabitacin);
-
-		roomAddPatients = new HintTextField("Habitacion");
-		roomAddPatients.setBounds(145, 206, 116, 22);
-		addPatientsPanel.add(roomAddPatients);
-		roomAddPatients.setColumns(10);
+		JLabel lblRoom = new JLabel("Habitación");
+		lblRoom.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
+		lblRoom.setHorizontalAlignment(SwingConstants.TRAILING);
+		lblRoom.setBounds(10, 209, 125, 16);
+		addPatientsPanel.add(lblRoom);
 
 		jcbNurse = new JComboBox();
 		listener.filJComboBox(jcbNurse, false);
@@ -431,238 +570,35 @@ public class AdminWindow extends JFrame {
 		addPatientsPanel.add(jcbMedic);
 
 		JLabel lblMedico_1 = new JLabel("Medico");
+		lblMedico_1.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
 		lblMedico_1.setHorizontalAlignment(SwingConstants.TRAILING);
 		lblMedico_1.setBounds(326, 47, 56, 16);
 		addPatientsPanel.add(lblMedico_1);
 
 		JLabel lblEnfermera = new JLabel("Enfermera");
+		lblEnfermera.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
 		lblEnfermera.setHorizontalAlignment(SwingConstants.TRAILING);
 		lblEnfermera.setBounds(309, 88, 73, 16);
 		addPatientsPanel.add(lblEnfermera);
 
 		JLabel lblEnfermedad = new JLabel("Enfermedad");
+		lblEnfermedad.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
 		lblEnfermedad.setHorizontalAlignment(SwingConstants.TRAILING);
-		lblEnfermedad.setBounds(46, 254, 89, 16);
+		lblEnfermedad.setBounds(10, 254, 125, 16);
 		addPatientsPanel.add(lblEnfermedad);
 
-		textEnfermedad = new HintTextField("Enfermedad");
-		textEnfermedad.setColumns(10);
-		textEnfermedad.setBounds(145, 251, 116, 22);
-		addPatientsPanel.add(textEnfermedad);
-
 		JLabel lblApellido_6 = new JLabel("Apellido 2");
+		lblApellido_6.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
 		lblApellido_6.setHorizontalAlignment(SwingConstants.TRAILING);
-		lblApellido_6.setBounds(32, 128, 101, 16);
+		lblApellido_6.setBounds(10, 128, 123, 16);
 		addPatientsPanel.add(lblApellido_6);
+
+		lberror = new JLabel("");
 		
-		 lberror = new JLabel("");
 		lberror.setForeground(Color.RED);
 		lberror.setBounds(34, 335, 329, 14);
+		lberror.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
 		addPatientsPanel.add(lberror);
-		// --------------------------------------------PANEL EDITAR
-		// EMPLEADOS-------------------------------------//
-		editEmployeesPanel = new JPanel();
-		editEmployeesPanel.setBounds(274, 0, 695, 496);
-		getContentPane().add(editEmployeesPanel);
-		editEmployeesPanel.setLayout(null);
-		editEmployeesPanel.setForeground(Color.WHITE);
-		editEmployeesPanel.setBackground(Color.WHITE);
-		editEmployeesPanel.setVisible(false);
-
-		JLabel label = new JLabel("Nombre");
-		label.setHorizontalAlignment(SwingConstants.TRAILING);
-		label.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		label.setBounds(70, 71, 63, 23);
-		editEmployeesPanel.add(label);
-
-		textFieldNameEdit = new HintTextFieldNoText();
-		textFieldNameEdit.setEnabled(false);
-		textFieldNameEdit.setColumns(10);
-		textFieldNameEdit.setBounds(143, 74, 143, 20);
-		editEmployeesPanel.add(textFieldNameEdit);
-
-		textFieldSurname1Edit = new HintTextFieldNoText();
-		textFieldSurname1Edit.setEnabled(false);
-		textFieldSurname1Edit.setColumns(10);
-		textFieldSurname1Edit.setBounds(143, 125, 143, 20);
-		editEmployeesPanel.add(textFieldSurname1Edit);
-
-		JLabel label_2 = new JLabel("NIF/NIE");
-		label_2.setHorizontalAlignment(SwingConstants.TRAILING);
-		label_2.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		label_2.setBounds(70, 214, 63, 23);
-		editEmployeesPanel.add(label_2);
-
-		textFieldDNIEdit = new HintTextFieldNoText();
-		textFieldDNIEdit.setEnabled(false);
-		textFieldDNIEdit.setColumns(10);
-		textFieldDNIEdit.setBounds(143, 217, 143, 20);
-		editEmployeesPanel.add(textFieldDNIEdit);
-
-		JLabel label_3 = new JLabel("Cuenta bancaria");
-		label_3.setHorizontalAlignment(SwingConstants.TRAILING);
-		label_3.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		label_3.setBounds(13, 262, 120, 23);
-		editEmployeesPanel.add(label_3);
-
-		textFieldBankEdit = new HintTextFieldNoText();
-		textFieldBankEdit.setEnabled(false);
-		textFieldBankEdit.setColumns(10);
-		textFieldBankEdit.setBounds(143, 265, 143, 20);
-		editEmployeesPanel.add(textFieldBankEdit);
-
-		JLabel label_4 = new JLabel("Puesto");
-		label_4.setHorizontalAlignment(SwingConstants.TRAILING);
-		label_4.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		label_4.setBounds(378, 71, 63, 23);
-		editEmployeesPanel.add(label_4);
-
-		comboBoxJobEdit = new JComboBox<Object>();
-		comboBoxJobEdit.setEnabled(false);
-		comboBoxJobEdit.setOpaque(false);
-		comboBoxJobEdit.setModel(new DefaultComboBoxModel<Object>(
-				new String[] { "Administrador", "Medico", "Enfermero", "Secretario" }));
-		comboBoxJobEdit.setBackground(Color.WHITE);
-		comboBoxJobEdit.setBounds(450, 76, 133, 23);
-		editEmployeesPanel.add(comboBoxJobEdit);
-
-		JLabel label_5 = new JLabel("Email");
-		label_5.setHorizontalAlignment(SwingConstants.TRAILING);
-		label_5.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		label_5.setBounds(378, 122, 63, 23);
-		editEmployeesPanel.add(label_5);
-
-		textFieldEmailEdit = new HintTextFieldNoText();
-		textFieldEmailEdit.setEnabled(false);
-		textFieldEmailEdit.setColumns(10);
-		textFieldEmailEdit.setBounds(450, 128, 133, 20);
-		editEmployeesPanel.add(textFieldEmailEdit);
-
-		labelUserNameEdit = new JLabel("");
-		labelUserNameEdit.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		labelUserNameEdit.setBorder(new TitledBorder("Usuario"));
-		labelUserNameEdit.setBounds(390, 173, 193, 41);
-		editEmployeesPanel.add(labelUserNameEdit);
-
-		btnSaveEdit = new RoundedJButton(15);
-		btnSaveEdit.setText("Guardar");
-		btnSaveEdit.addActionListener(listener);
-		btnSaveEdit.setOpaque(false);
-		btnSaveEdit.setBackground(Color.WHITE);
-		btnSaveEdit.setBounds(390, 252, 212, 47);
-		editEmployeesPanel.add(btnSaveEdit);
-
-		JLabel lblApellido_2 = new JLabel("2º Apellido");
-		lblApellido_2.setHorizontalAlignment(SwingConstants.TRAILING);
-		lblApellido_2.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblApellido_2.setBounds(53, 174, 80, 14);
-		editEmployeesPanel.add(lblApellido_2);
-
-		textFieldSurname2Edit = new HintTextFieldNoText();
-		textFieldSurname2Edit.setEnabled(false);
-		textFieldSurname2Edit.setColumns(10);
-		textFieldSurname2Edit.setBounds(143, 173, 143, 20);
-		editEmployeesPanel.add(textFieldSurname2Edit);
-
-		JLabel label_9 = new JLabel("");
-		label_9.setForeground(Color.RED);
-		label_9.setBounds(390, 241, 212, 14);
-		editEmployeesPanel.add(label_9);
-
-		JSeparator separator = new JSeparator();
-		separator.setBounds(10, 52, 610, 33);
-		editEmployeesPanel.add(separator);
-
-		JLabel lblNewLabel = new JLabel("Introduce el DNI");
-		lblNewLabel.setBounds(10, 11, 109, 23);
-		editEmployeesPanel.add(lblNewLabel);
-
-		textFieldSearchDNIEdit = new HintTextField("DNI");
-		textFieldSearchDNIEdit.setBounds(110, 12, 133, 20);
-		editEmployeesPanel.add(textFieldSearchDNIEdit);
-		textFieldSearchDNIEdit.setColumns(10);
-
-		JButton btnNewButton_1 = new RoundedJButton(15);
-
-		btnNewButton_1.setText("Buscar");
-		btnNewButton_1.setForeground(Color.BLACK);
-		btnNewButton_1.setBackground(Color.WHITE);
-		btnNewButton_1.addActionListener(listener);
-
-		btnNewButton_1.setBounds(253, 11, 89, 23);
-		editEmployeesPanel.add(btnNewButton_1);
-
-		lblErrorEdit = new JLabel("");
-		lblErrorEdit.setForeground(Color.RED);
-		lblErrorEdit.setBounds(358, 15, 143, 14);
-		editEmployeesPanel.add(lblErrorEdit);
-
-		JLabel lblApellido_1 = new JLabel("1º Apellido");
-		lblApellido_1.setHorizontalAlignment(SwingConstants.TRAILING);
-		lblApellido_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblApellido_1.setBounds(53, 123, 80, 20);
-		editEmployeesPanel.add(lblApellido_1);
-		deletePatientsPanel.setBackground(Color.WHITE);
-		deletePatientsPanel.setBounds(274, 0, 695, 496);
-		getContentPane().add(deletePatientsPanel);
-		deletePatientsPanel.setLayout(null);
-
-		JLabel lblNewLabel_123 = new JLabel("DNI");
-		lblNewLabel_123.setHorizontalAlignment(SwingConstants.TRAILING);
-		lblNewLabel_123.setBounds(53, 69, 46, 20);
-		deletePatientsPanel.add(lblNewLabel_123);
-
-		JLabel lblNewLabel_22 = new JLabel("Nombre");
-		lblNewLabel_22.setHorizontalAlignment(SwingConstants.TRAILING);
-		lblNewLabel_22.setBounds(53, 119, 46, 14);
-		deletePatientsPanel.add(lblNewLabel_22);
-
-		JLabel lblApellido_32 = new JLabel("1º Apellido");
-		lblApellido_32.setHorizontalAlignment(SwingConstants.TRAILING);
-		lblApellido_32.setBounds(39, 169, 60, 14);
-		deletePatientsPanel.add(lblApellido_32);
-
-		JLabel lblapellido2 = new JLabel("2ºApellido");
-		lblapellido2.setHorizontalAlignment(SwingConstants.TRAILING);
-		lblapellido2.setBounds(39, 218, 60, 14);
-		deletePatientsPanel.add(lblapellido2);
-
-		JLabel lblNewLabel_32 = new JLabel("Introducir los siguientes datos para borrar");
-		lblNewLabel_32.setBounds(39, 23, 275, 20);
-		deletePatientsPanel.add(lblNewLabel_32);
-
-		JButton btnDelete2 = new JButton("Eliminar");
-		btnDelete2.addActionListener(listener);
-		btnDelete2.setBounds(285, 244, 138, 20);
-		btnDelete2.setOpaque(false);
-		btnDelete2.setBackground(new Color(255, 255, 255));
-		deletePatientsPanel.add(btnDelete2);
-
-		textFieldDNIToDeletePatient = new HintTextField("DNI");
-		textFieldDNIToDeletePatient.setBounds(111, 69, 100, 20);
-		deletePatientsPanel.add(textFieldDNIToDeletePatient);
-		textFieldDNIToDeletePatient.setColumns(10);
-
-		textFieldNameToDeleteEmployee = new JTextField();
-		textFieldNameToDeleteEmployee.setBounds(111, 116, 100, 20);
-		deletePatientsPanel.add(textFieldNameToDeleteEmployee);
-		textFieldNameToDeleteEmployee.setColumns(10);
-
-		textFieldFirstSurnameToDeleteEmployee = new JTextField();
-		textFieldFirstSurnameToDeleteEmployee.setBounds(109, 166, 100, 20);
-		deletePatientsPanel.add(textFieldFirstSurnameToDeleteEmployee);
-		textFieldFirstSurnameToDeleteEmployee.setColumns(10);
-
-		textFieldSecondSurnameToDeleteEmployee = new JTextField();
-		textFieldSecondSurnameToDeleteEmployee.setColumns(10);
-		textFieldSecondSurnameToDeleteEmployee.setBounds(109, 215, 100, 20);
-		deletePatientsPanel.add(textFieldSecondSurnameToDeleteEmployee);
-
-		textFieldErrorDeletePatient = new JTextField();
-		textFieldErrorDeletePatient.setCaretColor(Color.RED);
-		textFieldErrorDeletePatient.setBounds(436, 244, 154, 20);
-		deletePatientsPanel.add(textFieldErrorDeletePatient);
-		textFieldErrorDeletePatient.setColumns(10);
 
 		// ---------------------------------------------PANEL BORRAR
 		// EMPLEADOS--------------------------------------//
@@ -699,7 +635,7 @@ public class AdminWindow extends JFrame {
 
 		JLabel lblNewLabel_3 = new JLabel("Introducir los siguientes datos para borrar");
 		lblNewLabel_3.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
-		lblNewLabel_3.setBounds(39, 23, 275, 20);
+		lblNewLabel_3.setBounds(39, 23, 367, 20);
 		deletePanel.add(lblNewLabel_3);
 
 		lblErrorDelete = new JLabel("");
@@ -709,6 +645,193 @@ public class AdminWindow extends JFrame {
 		lblErrorDelete.setBounds(428, 245, 257, 14);
 		deletePanel.add(lblErrorDelete);
 
+		// --------------------------------------------PANEL EDITAR
+		// EMPLEADOS-------------------------------------//
+		editEmployeesPanel = new JPanel();
+		editEmployeesPanel.setBounds(274, 0, 695, 496);
+		getContentPane().add(editEmployeesPanel);
+		editEmployeesPanel.setLayout(null);
+		editEmployeesPanel.setForeground(Color.WHITE);
+		editEmployeesPanel.setBackground(Color.WHITE);
+		editEmployeesPanel.setVisible(false);
+
+		JLabel label = new JLabel("Nombre");
+		label.setHorizontalAlignment(SwingConstants.TRAILING);
+		label.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
+		label.setBounds(20, 71, 113, 23);
+		editEmployeesPanel.add(label);
+
+		JLabel label_2 = new JLabel("NIF/NIE");
+		label_2.setHorizontalAlignment(SwingConstants.TRAILING);
+		label_2.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
+		label_2.setBounds(30, 214, 103, 23);
+		editEmployeesPanel.add(label_2);
+
+		JLabel label_3 = new JLabel("Cuenta bancaria");
+		label_3.setHorizontalAlignment(SwingConstants.TRAILING);
+		label_3.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 14));
+		label_3.setBounds(-20, 262, 153, 23);
+		editEmployeesPanel.add(label_3);
+
+		JLabel label_4 = new JLabel("Puesto");
+		label_4.setHorizontalAlignment(SwingConstants.TRAILING);
+		label_4.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
+		label_4.setBounds(378, 71, 63, 23);
+		editEmployeesPanel.add(label_4);
+
+		comboBoxJobEdit = new JComboBox<Object>();
+		comboBoxJobEdit.setEnabled(false);
+		comboBoxJobEdit.setOpaque(false);
+		comboBoxJobEdit.setModel(new DefaultComboBoxModel<Object>(
+				new String[] { "Administrador", "Medico", "Enfermero", "Secretario" }));
+		comboBoxJobEdit.setBackground(Color.WHITE);
+		comboBoxJobEdit.setBounds(450, 76, 133, 23);
+		editEmployeesPanel.add(comboBoxJobEdit);
+
+		JLabel label_5 = new JLabel("Email");
+		label_5.setHorizontalAlignment(SwingConstants.TRAILING);
+		label_5.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
+		label_5.setBounds(378, 122, 63, 23);
+		editEmployeesPanel.add(label_5);
+
+		labelUserNameEdit = new JLabel("");
+		labelUserNameEdit.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
+		labelUserNameEdit.setBorder(new TitledBorder("Usuario"));
+		labelUserNameEdit.setBounds(390, 173, 193, 41);
+		editEmployeesPanel.add(labelUserNameEdit);
+
+		JLabel lblApellido_2 = new JLabel("2º Apellido");
+		lblApellido_2.setHorizontalAlignment(SwingConstants.TRAILING);
+		lblApellido_2.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
+		lblApellido_2.setBounds(20, 174, 113, 14);
+		editEmployeesPanel.add(lblApellido_2);
+
+		JLabel label_9 = new JLabel("");
+		label_9.setForeground(Color.RED);
+		label_9.setBounds(390, 241, 212, 14);
+		label_9.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
+		editEmployeesPanel.add(label_9);
+
+		JSeparator separator = new JSeparator();
+		separator.setBounds(10, 52, 610, 33);
+		editEmployeesPanel.add(separator);
+
+		JLabel lblNewLabel = new JLabel("Introduce el DNI");
+		lblNewLabel.setBounds(10, 11, 109, 23);
+		editEmployeesPanel.add(lblNewLabel);
+
+		lblErrorEdit = new JLabel("");
+		lblErrorEdit.setForeground(Color.RED);
+		lblErrorEdit.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
+		lblErrorEdit.setBounds(358, 15, 244, 14);
+		editEmployeesPanel.add(lblErrorEdit);
+
+		JLabel lblApellido_1 = new JLabel("1º Apellido");
+		lblApellido_1.setHorizontalAlignment(SwingConstants.TRAILING);
+		lblApellido_1.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
+		lblApellido_1.setBounds(20, 123, 113, 20);
+		editEmployeesPanel.add(lblApellido_1);
+
+		NombreP = new HintTextField("Nombre");
+		NombreP.setColumns(10);
+		NombreP.setBounds(145, 44, 116, 22);
+		addPatientsPanel.add(NombreP);
+
+		surname1AddPatients = new HintTextField("1º Apellido");
+		surname1AddPatients.setColumns(10);
+		surname1AddPatients.setBounds(145, 85, 116, 22);
+		addPatientsPanel.add(surname1AddPatients);
+
+		surname2AddPatients = new HintTextField("2º Apellido");
+		surname2AddPatients.setColumns(10);
+		surname2AddPatients.setBounds(145, 124, 116, 22);
+		addPatientsPanel.add(surname2AddPatients);
+
+		DNI = new HintTextField("DNI");
+		DNI.setBounds(145, 165, 116, 22);
+		DNI.setColumns(10);
+		addPatientsPanel.add(DNI);
+
+		roomAddPatients = new HintTextField("Habitacion");
+		roomAddPatients.setBounds(145, 206, 116, 22);
+		roomAddPatients.setColumns(10);
+		addPatientsPanel.add(roomAddPatients);
+
+		textEnfermedad = new HintTextField("Enfermedad");
+		textEnfermedad.setColumns(10);
+		textEnfermedad.setBounds(145, 251, 116, 22);
+		addPatientsPanel.add(textEnfermedad);
+
+		textFieldNameEdit = new HintTextFieldNoText();
+		textFieldNameEdit.setEnabled(false);
+		textFieldNameEdit.setColumns(10);
+		textFieldNameEdit.setBounds(143, 74, 143, 20);
+		editEmployeesPanel.add(textFieldNameEdit);
+
+		textFieldSurname1Edit = new HintTextFieldNoText();
+		textFieldSurname1Edit.setEnabled(false);
+		textFieldSurname1Edit.setColumns(10);
+		textFieldSurname1Edit.setBounds(143, 125, 143, 20);
+		editEmployeesPanel.add(textFieldSurname1Edit);
+
+		textFieldDNIEdit = new HintTextFieldNoText();
+		textFieldDNIEdit.setEnabled(false);
+		textFieldDNIEdit.setColumns(10);
+		textFieldDNIEdit.setBounds(143, 217, 143, 20);
+		editEmployeesPanel.add(textFieldDNIEdit);
+
+		textFieldBankEdit = new HintTextFieldNoText();
+		textFieldBankEdit.setEnabled(false);
+		textFieldBankEdit.setColumns(10);
+		textFieldBankEdit.setBounds(143, 265, 143, 20);
+		editEmployeesPanel.add(textFieldBankEdit);
+
+		textFieldEmailEdit = new HintTextFieldNoText();
+		textFieldEmailEdit.setEnabled(false);
+		textFieldEmailEdit.setColumns(10);
+		textFieldEmailEdit.setBounds(450, 128, 133, 20);
+		editEmployeesPanel.add(textFieldEmailEdit);
+
+		btnSaveEdit = new RoundedJButton(15);
+		btnSaveEdit.setText("Guardar");
+		btnSaveEdit.addActionListener(listener);
+		btnSaveEdit.setOpaque(false);
+		btnSaveEdit.setBackground(Color.WHITE);
+		btnSaveEdit.setBounds(390, 252, 212, 47);
+		editEmployeesPanel.add(btnSaveEdit);
+
+		textFieldSurname2Edit = new HintTextFieldNoText();
+		textFieldSurname2Edit.setEnabled(false);
+		textFieldSurname2Edit.setColumns(10);
+		textFieldSurname2Edit.setBounds(143, 173, 143, 20);
+		editEmployeesPanel.add(textFieldSurname2Edit);
+
+		textFieldSearchDNIEdit = new HintTextField("DNI");
+		textFieldSearchDNIEdit.setBounds(110, 12, 133, 20);
+		textFieldSearchDNIEdit.setColumns(10);
+		editEmployeesPanel.add(textFieldSearchDNIEdit);
+
+		JButton btnNewButton_1 = new RoundedJButton(15);
+		btnNewButton_1.setText("Buscar");
+		btnNewButton_1.setForeground(Color.BLACK);
+		btnNewButton_1.setBackground(Color.WHITE);
+		btnNewButton_1.addActionListener(listener);
+		btnNewButton_1.setBounds(253, 11, 89, 23);
+		editEmployeesPanel.add(btnNewButton_1);
+
+		JButton btnDelete2 = new RoundedJButton(15);
+		btnDelete2.setText("Eliminar");
+		btnDelete2.addActionListener(listener);
+		btnDelete2.setBounds(285, 244, 138, 20);
+		btnDelete2.setOpaque(false);
+		btnDelete2.setBackground(new Color(255, 255, 255));
+		deletePatientsPanel.add(btnDelete2);
+
+		textFieldDNIToDeletePatient = new HintTextField("DNI");
+		textFieldDNIToDeletePatient.setBounds(111, 69, 100, 20);
+		textFieldDNIToDeletePatient.setColumns(10);
+		deletePatientsPanel.add(textFieldDNIToDeletePatient);
+
 		textFieldDNIToDelete = new HintTextField("DNI");
 		textFieldDNIToDelete.setBounds(106, 69, 138, 20);
 		textFieldDNIToDelete.setColumns(10);
@@ -717,14 +840,17 @@ public class AdminWindow extends JFrame {
 		textFieldNameToDelete = new HintTextField("Nombre");
 		textFieldNameToDelete.setColumns(10);
 		textFieldNameToDelete.setBounds(106, 119, 138, 20);
+		deletePanel.add(textFieldNameToDelete);
 
 		textFieldFirstDeleteToDelete = new HintTextField("1º Apellido");
 		textFieldFirstDeleteToDelete.setColumns(10);
 		textFieldFirstDeleteToDelete.setBounds(106, 166, 138, 20);
+		deletePanel.add(textFieldFirstDeleteToDelete);
 
-		textFieldSecondDeleteToDelete = new HintTextField("2º Apellido");
-		textFieldSecondDeleteToDelete.setColumns(10);
-		textFieldSecondDeleteToDelete.setBounds(106, 215, 138, 20);
+		textFieldSecondSurnameToDelete = new HintTextField("2º Apellido");
+		textFieldSecondSurnameToDelete.setColumns(10);
+		textFieldSecondSurnameToDelete.setBounds(106, 215, 138, 20);
+		deletePanel.add(textFieldSecondSurnameToDelete);
 
 		JButton btnDelete = new RoundedJButton(15);
 		btnDelete.setText("Borrar");
@@ -878,10 +1004,6 @@ public class AdminWindow extends JFrame {
 		addEmployeePanel.add(textFieldName);
 		textFieldName.setColumns(10);
 
-		deletePanel.add(textFieldNameToDelete);
-		deletePanel.add(textFieldFirstDeleteToDelete);
-		deletePanel.add(textFieldSecondDeleteToDelete);
-
 		textFieldSurname1 = new HintTextField("1º Apellido");
 
 		textFieldSurname1.setBounds(161, 81, 143, 20);
@@ -902,7 +1024,7 @@ public class AdminWindow extends JFrame {
 		JLabel lblCuentaBancaria = new JLabel("Cuenta bancaria");
 		lblCuentaBancaria.setHorizontalAlignment(SwingConstants.TRAILING);
 		lblCuentaBancaria.setBounds(10, 215, 141, 23);
-		lblCuentaBancaria.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
+		lblCuentaBancaria.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 14));
 		addEmployeePanel.add(lblCuentaBancaria);
 
 		textFieldBankAccount = new HintTextField("Cuenta bancaria");
@@ -978,102 +1100,21 @@ public class AdminWindow extends JFrame {
 		iconLabel.setIcon(new ImageIcon(AdminWindow.class.getResource("/resources/iconAdmin.png")));
 		getContentPane().add(seeEmployeesPanel);
 
-// --------------------------------------PANEL EDITAR PACIENTE-------------------------------//
-		editPatientPanel = new JPanel();
-		editPatientPanel.setBackground(Color.WHITE);
-		editPatientPanel.setVisible(false);
-		editPatientPanel.setBounds(274, 0, 695, 496);
-		getContentPane().add(editPatientPanel);
-		editPatientPanel.setLayout(null);
-
-		JLabel lblNewLabel_5 = new JLabel("Introduce DNI");
-		lblNewLabel_5.setBounds(10, 11, 121, 14);
-		editPatientPanel.add(lblNewLabel_5);
-
-		JSeparator separator_2 = new JSeparator();
-		separator_2.setBounds(10, 34, 610, 14);
-		editPatientPanel.add(separator_2);
-
-		textFieldDNISearchEditPatient = new JTextField();
-		textFieldDNISearchEditPatient.setBounds(99, 8, 128, 20);
-		editPatientPanel.add(textFieldDNISearchEditPatient);
-		textFieldDNISearchEditPatient.setColumns(10);
-
-		JLabel lblNewLabel_6 = new JLabel("Nombre");
-		lblNewLabel_6.setBounds(10, 67, 46, 14);
-		editPatientPanel.add(lblNewLabel_6);
-
-		JLabel lblApellido_4 = new JLabel("1º Apellido");
-		lblApellido_4.setBounds(10, 103, 74, 14);
-		editPatientPanel.add(lblApellido_4);
-
-		JLabel lblApellido_5 = new JLabel("2º Apellido");
-		lblApellido_5.setBounds(10, 139, 74, 14);
-		editPatientPanel.add(lblApellido_5);
-
-		JLabel lblNifnie_1 = new JLabel("NIF/NIE");
-		lblNifnie_1.setBounds(10, 176, 46, 14);
-		editPatientPanel.add(lblNifnie_1);
-
-		JLabel lblEnfermedad_1 = new JLabel("Enfermedad");
-		lblEnfermedad_1.setBounds(10, 211, 74, 14);
-		editPatientPanel.add(lblEnfermedad_1);
-
-		JLabel lblHabitacion = new JLabel("Habitacion");
-		lblHabitacion.setBounds(10, 247, 74, 14);
-		editPatientPanel.add(lblHabitacion);
-
-		textFieldNameEditPatient = new JTextField();
-		textFieldNameEditPatient.setBounds(79, 64, 86, 20);
-		editPatientPanel.add(textFieldNameEditPatient);
-		textFieldNameEditPatient.setColumns(10);
-
-		textFieldSurname1EditPatient = new JTextField();
-		textFieldSurname1EditPatient.setColumns(10);
-		textFieldSurname1EditPatient.setBounds(79, 100, 86, 20);
-		editPatientPanel.add(textFieldSurname1EditPatient);
-
-		textFieldSurname2EditPatient = new JTextField();
-		textFieldSurname2EditPatient.setColumns(10);
-		textFieldSurname2EditPatient.setBounds(79, 136, 86, 20);
-		editPatientPanel.add(textFieldSurname2EditPatient);
-
-		textFieldDNIEditPatient = new JTextField();
-		textFieldDNIEditPatient.setColumns(10);
-		textFieldDNIEditPatient.setBounds(79, 173, 86, 20);
-		editPatientPanel.add(textFieldDNIEditPatient);
-
-		textFieldIllnesEditPatient = new JTextField();
-		textFieldIllnesEditPatient.setColumns(10);
-		textFieldIllnesEditPatient.setBounds(79, 208, 86, 20);
-		editPatientPanel.add(textFieldIllnesEditPatient);
-
-		textFieldRommEditPacient = new JTextField();
-		textFieldRommEditPacient.setColumns(10);
-		textFieldRommEditPacient.setBounds(79, 244, 86, 20);
-		editPatientPanel.add(textFieldRommEditPacient);
-
-		JButton btnNewButton_6 = new JButton("Buscar paciente");
+		JButton btnNewButton_6 = new RoundedJButton(15);
+		btnNewButton_6.setText("Buscar paciente");
 		btnNewButton_6.addActionListener(listener);
-		btnNewButton_6.setBounds(247, 7, 128, 23);
+		btnNewButton_6.setBounds(247, 7, 160, 23);
 		editPatientPanel.add(btnNewButton_6);
+		
 
-		JButton btnNewButton_7 = new JButton("Guardar paciente");
+		JButton btnNewButton_7 = new RoundedJButton(15);
+		btnNewButton_7.setText("Guardar paciente");
 		btnNewButton_7.addActionListener(listener);
-		btnNewButton_7.setBounds(306, 272, 153, 23);
+		btnNewButton_7.setBounds(306, 272, 160, 23);
 		editPatientPanel.add(btnNewButton_7);
-
-		lblErrorEditPatient = new JLabel("");
-		lblErrorEditPatient.setForeground(Color.RED);
-		lblErrorEditPatient.setBackground(Color.RED);
-		lblErrorEditPatient.setBounds(385, 11, 200, 14);
-		editPatientPanel.add(lblErrorEditPatient);
-
-		lblErrorEditPatientRomm = new JLabel("");
-		lblErrorEditPatientRomm.setForeground(Color.RED);
-		lblErrorEditPatientRomm.setBackground(Color.RED);
-		lblErrorEditPatientRomm.setBounds(10, 281, 286, 14);
-		editPatientPanel.add(lblErrorEditPatientRomm);
+		
+		
+		
 		getContentPane().add(seeEmployeesPanel);
 
 // ---------------------------------------PANEL VER PACIENTES-----------------------------------//
