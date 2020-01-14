@@ -17,6 +17,7 @@ import java.util.Calendar;
 import javax.swing.JComboBox;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.plaf.synth.SynthSpinnerUI;
 import javax.swing.table.DefaultTableModel;
 
 import com.sun.corba.se.impl.encoding.CodeSetConversion.BTCConverter;
@@ -143,19 +144,22 @@ public class ControlerNurseWindow implements ActionListener {
 						idPatient=Integer.parseInt(listPatients.get(i)[0]);
 					}
 				}
-					nurseWindow.textFieldMedicine.setEnabled(true);
-					nurseWindow.textFieldUnits.setEnabled(true);
+					nurseWindow.labelFieldMedicine.setEnabled(true);
+					nurseWindow.labelFieldUnits.setEnabled(true);
 					nurseWindow.btnUseMedicine.setEnabled(true);
 
 					filJComboBoxUnits();
 					getPatientData = dao.getPatient(idPatient);
 					if (getPatientData[8]==null) {
-						nurseWindow.textFieldMedicine.setText("Sin tratamiento asignado");
+						nurseWindow.labelFieldMedicine.setText("Sin tratamiento asignado");
 						
 					}else {
-					nurseWindow.textFieldMedicine.setText(daoAlmacen.getMedicineName(Integer.parseInt(getPatientData[8])));
+						String nombreMedicina= daoAlmacen.getMedicineName(Integer.parseInt(getPatientData[8]));
+						System.out.println(nombreMedicina);
+						nombreMedicina= nombreMedicina.replace("0","");
+					nurseWindow.labelFieldMedicine.setText(nombreMedicina);
 					}
-					nurseWindow.textFieldUnits.setText(getPatientData[10]);
+					nurseWindow.labelFieldUnits.setText(getPatientData[10]);
 					log.InfoLog("Devuelto el paciente con id: "+getPatientData[0]);
 
 			
@@ -178,9 +182,17 @@ public class ControlerNurseWindow implements ActionListener {
 				}
 					filJComboBoxUnits();
 					getPatientData = dao.getPatient(idPatient);
-					nurseWindow.textFieldMedicine.setText(daoAlmacen.getMedicineName(Integer.parseInt(getPatientData[8])));
+					if (getPatientData[8]==null) {
+						nurseWindow.labelFieldMedicine.setText("Sin tratamiento asignado");
+
+					}else {
+						String nombreMedicina= daoAlmacen.getMedicineName(Integer.parseInt(getPatientData[8]));
+						System.out.println(nombreMedicina);
+						nombreMedicina= nombreMedicina.replace(" ","");
+						nurseWindow.labelFieldMedicine.setText(nombreMedicina);
+					}
 					
-					nurseWindow.textFieldUnits.setText(getPatientData[10]);
+					nurseWindow.labelFieldUnits.setText(getPatientData[10]);
 					
 					log.InfoLog("Se le aplico el tratamiento al paciente: "+getPatientData[0]);
 

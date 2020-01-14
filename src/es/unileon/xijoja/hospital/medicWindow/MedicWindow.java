@@ -8,6 +8,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.geom.RoundRectangle2D;
+import java.io.File;
+import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -15,9 +17,12 @@ import java.util.Calendar;
 import javax.swing.JFrame;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.Graphics;
+import java.awt.GraphicsEnvironment;
 import java.awt.Shape;
 
 import javax.swing.JTextField;
@@ -37,6 +42,10 @@ import es.unileon.xijoja.hospital.Logs;
 import es.unileon.xijoja.hospital.PacientesDAO;
 import es.unileon.xijoja.hospital.admin.AdminWindow;
 import es.unileon.xijoja.hospital.login.LoginWindow;
+import es.unileon.xijoja.hospital.secretary.SecretaryWindow.HintTextField;
+import es.unileon.xijoja.hospital.secretary.SecretaryWindow.RoundedJButton;
+import es.unileon.xijoja.hospital.secretary.SecretaryWindow.RoundedJLabel;
+
 import javax.swing.JTextPane;
 import javax.swing.JTextArea;
 
@@ -47,7 +56,7 @@ public class MedicWindow extends JFrame {
 
 	Toolkit screen;
 	private Logs log = new Logs();
-	protected JPanel seePacientsPanel;
+	protected JScrollPane seePacientsPanel;
 	protected JPanel addPatientsPanel;
 	protected JPanel deletePatientsPanel;
 	protected JPanel addMedicine;
@@ -68,18 +77,18 @@ public class MedicWindow extends JFrame {
 	protected JComboBox jcbMedic;
 	protected JComboBox jcbMedicine;
 	protected JComboBox jcbMedicineadd;
-	protected JTextField textFieldNameGetPatient;
-	protected JTextField textFieldSurname1GetPatient;
-	protected JTextField textFieldDNIGetPatient;
+	protected RoundedJLabel textFieldNameGetPatient;
+	protected RoundedJLabel textFieldSurname1GetPatient;
+	protected RoundedJLabel textFieldDNIGetPatient;
 	protected JTextField textFieldSearchDNIGetPatient;
-	protected JTextField textFieldRoomGetPatient;
+	protected RoundedJLabel textFieldRoomGetPatient;
 	protected JTextField textFieldDNIToDelete;
 	protected JTextField textFieldNameToDelete;
 	protected JTextField textFieldFirstDeleteToDelete;
 	protected JTextField textFieldSecondDeleteToDelete;
 	protected JLabel lblErrorDelete;
 	protected JLabel lblErrorGetPatient;
-	protected JTextField textFieldSurname2GetPatient;
+	protected RoundedJLabel textFieldSurname2GetPatient;
 	protected JTextField textFieldSearch;
 	protected JTextField textFieldDNI;
 	protected JTextField textField;
@@ -124,12 +133,19 @@ public class MedicWindow extends JFrame {
 
 			e.printStackTrace();
 		}
+		
+		try {
+			GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+			ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("etc/rexlia.ttf")));
+		} catch (IOException | FontFormatException e) {
+			// Handle exception
+		}
 
 	}
 
 	private void initComponents() throws SQLException {
 
-		getContentPane().setBackground(Color.WHITE);
+		getContentPane().setBackground(Color.LIGHT_GRAY);
 		getContentPane().setLayout(null);
 
 		JButton crossButton = new JButton(new ImageIcon(MedicWindow.class.getResource("/resources/cross.png")));
@@ -156,10 +172,11 @@ public class MedicWindow extends JFrame {
 				setExtendedState(JFrame.CROSSHAIR_CURSOR);
 			}
 		});
+
 		JSeparator separator = new JSeparator();
 		separator.setForeground(Color.BLACK);
 		separator.setOrientation(SwingConstants.VERTICAL);
-		separator.setBounds(274, 11, 7, 474);
+		separator.setBounds(274, 0, 7, 496);
 		getContentPane().add(separator);
 
 		JSeparator separator_1 = new JSeparator();
@@ -173,52 +190,52 @@ public class MedicWindow extends JFrame {
 		separator_2.setBounds(20, 11, 117, 8);
 		getContentPane().add(separator_2);
 		
-		JButton btnAsignarMedicamentoPaciente = new JButton("Asignar Medicamento Paciente");
+		JButton btnAsignarMedicamentoPaciente = new RoundedJButton(15);
+		btnAsignarMedicamentoPaciente.setText("Asignar Medicamentos");
 		btnAsignarMedicamentoPaciente.setOpaque(false);
-		btnAsignarMedicamentoPaciente.setBackground(new Color(255, 255, 255));
-		btnAsignarMedicamentoPaciente.setBounds(10, 144, 229, 52);
+		btnAsignarMedicamentoPaciente.setBounds(28, 130, 234, 45);
 		getContentPane().add(btnAsignarMedicamentoPaciente);
 		btnAsignarMedicamentoPaciente.addActionListener(listener);
 		
-		JButton btnVerPacientes = new JButton("Ver Pacientes");
+		JButton btnVerPacientes = new RoundedJButton(15);
+		btnVerPacientes.setText("Ver Pacientes");
 		btnVerPacientes.setOpaque(false);
-		btnVerPacientes.setBackground(new Color(255, 255, 255));
-		btnVerPacientes.setBounds(10, 209, 229, 41);
+		btnVerPacientes.setBounds(28, 186, 234, 45);
 		getContentPane().add(btnVerPacientes);
 		btnVerPacientes.addActionListener(listener);
 		
-		JButton btnInformeDeLa = new JButton("Informe de la semana");
+		JButton btnInformeDeLa = new RoundedJButton(15);
+		btnInformeDeLa.setText("Informe de la semana");
 		btnInformeDeLa.setOpaque(false);
-		btnInformeDeLa.setBackground(new Color(255, 255, 255));
-		btnInformeDeLa.setBounds(10, 263, 229, 41);
+		btnInformeDeLa.setBounds(28, 240, 234, 45);
 		getContentPane().add(btnInformeDeLa);
 		btnInformeDeLa.addActionListener(listener);
 		
-		JButton btnDarAltaPaciente = new JButton("Dar alta Paciente");
+		JButton btnDarAltaPaciente = new RoundedJButton(15);
+		btnDarAltaPaciente.setText("Dar alta Paciente");
 		btnDarAltaPaciente.setOpaque(false);
-		btnDarAltaPaciente.setBackground(new Color(255, 255, 255));
-		btnDarAltaPaciente.setBounds(10, 86, 229, 45);
+		btnDarAltaPaciente.setBounds(28, 76, 234, 45);
 		getContentPane().add(btnDarAltaPaciente);
 		btnDarAltaPaciente.addActionListener(listener);
 		
-		JButton btnIngresarPaciente = new JButton("Ingresar Paciente");
+		JButton btnIngresarPaciente = new RoundedJButton(15);
+		btnIngresarPaciente.setText("Ingresar Paciente");
 		btnIngresarPaciente.setOpaque(false);
-		btnIngresarPaciente.setBackground(new Color(255, 255, 255));
-		btnIngresarPaciente.setBounds(10, 21, 229, 52);
+		btnIngresarPaciente.setBounds(28, 22, 234, 45);
 		getContentPane().add(btnIngresarPaciente);
 		btnIngresarPaciente.addActionListener(listener);
 		
-		JButton btnCerrarSesin = new JButton("Cerrar Sesión");
-		btnCerrarSesin.setBounds(10, 416, 229, 41);
+		JButton btnCerrarSesin = new RoundedJButton(15);
+		btnCerrarSesin.setText("Cerrar Sesión");
+		btnCerrarSesin.setBounds(28, 416, 234, 45);
 		btnCerrarSesin.setOpaque(false);
-		btnCerrarSesin.setBackground(new Color(255, 255, 255));
 		getContentPane().add(btnCerrarSesin);
 		btnCerrarSesin.addActionListener(listener);
 		
-		JButton btnNewButton = new JButton("Buscar Paciente");
-		btnNewButton.setBounds(10, 317, 229, 46);
+		JButton btnNewButton = new RoundedJButton(15);
+		btnNewButton.setText("Buscar Paciente");
+		btnNewButton.setBounds(28, 295, 234, 45);
 		btnNewButton.setOpaque(false);
-		btnNewButton.setBackground(new Color(255, 255, 255));
 		getContentPane().add(btnNewButton);
 		btnNewButton.addActionListener(listener);
 		
@@ -243,19 +260,23 @@ public class MedicWindow extends JFrame {
 		// INICIALIZADO)
 		
 		//panel ver pacientes
-		seePacientsPanel = new JPanel();
-		seePacientsPanel.setLayout(null);
+
+		seePacientsPanel = new JScrollPane();
+		seePacientsPanel.setBounds(278, 0, 691, 496);
 		seePacientsPanel.setForeground(Color.WHITE);
 		seePacientsPanel.setBackground(Color.WHITE);
-		seePacientsPanel.setBounds(284, 11, 624, 450);
-		seePacientsPanel.setPreferredSize(new Dimension(630, 700));
+		seePacientsPanel.setPreferredSize(new Dimension(630, 420));
+		seePacientsPanel.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		seePacientsPanel.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+
 		seePacientsPanel.setVisible(false);
+		getContentPane().add(seePacientsPanel);
 		
 		//panel ingresar paciente
 		
 		
 		addPatientsPanel = new JPanel();
-		addPatientsPanel.setBounds(278, 11, 630, 450);
+		addPatientsPanel.setBounds(278, 0, 691, 496);
 		getContentPane().add(addPatientsPanel);
 		addPatientsPanel.setLayout(null);
 		addPatientsPanel.setForeground(Color.WHITE);
@@ -268,37 +289,43 @@ public class MedicWindow extends JFrame {
 		iconLabel.setIcon(new ImageIcon(AdminWindow.class.getResource("/resources/iconAdmin.png")));
 		getContentPane().add(addPatientsPanel);
 		
-		JButton btnModificarEstadoPaciente = new JButton("Registrar");
+		JButton btnModificarEstadoPaciente = new RoundedJButton(15);
+		btnModificarEstadoPaciente.setText("Registrar");
 		btnModificarEstadoPaciente.setOpaque(false);
-		btnModificarEstadoPaciente.setBackground(new Color(255, 255, 255));
 		btnModificarEstadoPaciente.setBounds(407, 381, 198, 41);
 		addPatientsPanel.add(btnModificarEstadoPaciente);
 		btnModificarEstadoPaciente.addActionListener(listener);
 		
 				
-				JLabel label_1 = new JLabel("Nombre Paciente");
-				label_1.setBounds(32, 47, 101, 16);
+				JLabel label_1 = new JLabel("Nombre");
+				label_1.setHorizontalAlignment(SwingConstants.LEFT);
+				label_1.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
+				label_1.setBounds(16, 46, 105, 16);
 				addPatientsPanel.add(label_1);
 				
-				NombreP = new JTextField();
+				NombreP = new HintTextField("introduce nombre");
 				NombreP.setColumns(10);
 				NombreP.setBounds(145, 44, 116, 22);
 				addPatientsPanel.add(NombreP);
 				
 				JLabel lblApellido = new JLabel("Apellido 1");
-				lblApellido.setBounds(32, 88, 101, 16);
+				lblApellido.setHorizontalAlignment(SwingConstants.LEFT);
+				lblApellido.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
+				lblApellido.setBounds(16, 87, 89, 16);
 				addPatientsPanel.add(lblApellido);
 				
 				JLabel lblApellido_1 = new JLabel("Apellido 2");
-				lblApellido_1.setBounds(32, 127, 101, 16);
+				lblApellido_1.setHorizontalAlignment(SwingConstants.LEFT);
+				lblApellido_1.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
+				lblApellido_1.setBounds(16, 127, 105, 16);
 				addPatientsPanel.add(lblApellido_1);
 				
-				Apellido1 = new JTextField();
+				Apellido1 = new HintTextField("introduce Apellido1");
 				Apellido1.setColumns(10);
 				Apellido1.setBounds(145, 85, 116, 22);
 				addPatientsPanel.add(Apellido1);
 				
-				Apellido2 = new JTextField();
+				Apellido2 = new HintTextField("introduce Apellido2");
 				Apellido2.setColumns(10);
 				Apellido2.setBounds(145, 124, 116, 22);
 				addPatientsPanel.add(Apellido2);
@@ -309,22 +336,27 @@ public class MedicWindow extends JFrame {
 				listener.filJComboBoxMedicines(jcbMedicineadd);
 				
 				JLabel lblNifnie = new JLabel("NIFNIE");
-				lblNifnie.setBounds(32, 168, 56, 16);
+				lblNifnie.setHorizontalAlignment(SwingConstants.LEFT);
+				lblNifnie.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
+				lblNifnie.setBounds(16, 169, 89, 16);
 				addPatientsPanel.add(lblNifnie);
 				
-				DNI = new JTextField();
+				DNI = new HintTextField("introduce DNI");
 				DNI.setBounds(145, 165, 116, 22);
 				addPatientsPanel.add(DNI);
 				DNI.setColumns(10);
 				
-				JLabel lblHabitacin = new JLabel("Habitación");
-				lblHabitacin.setBounds(32, 209, 89, 16);
+				JLabel lblHabitacin = new JLabel("Habitacion");
+				lblHabitacin.setHorizontalAlignment(SwingConstants.LEFT);
+				lblHabitacin.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
+				lblHabitacin.setBounds(16, 212, 100, 16);
 				addPatientsPanel.add(lblHabitacin);
 				
-				Habitacion = new JTextField();
+				Habitacion = new HintTextField("introduce habitacion");
 				Habitacion.setBounds(145, 206, 116, 22);
 				addPatientsPanel.add(Habitacion);
 				Habitacion.setColumns(10);
+				
 				lberror = new JLabel("");
 				lberror.setForeground(Color.RED);
 				lberror.setBounds(50, 361, 260, 46);
@@ -341,18 +373,24 @@ public class MedicWindow extends JFrame {
 				addPatientsPanel.add(jcbMedic);
 				
 				JLabel lblMedico = new JLabel("Medico");
-				lblMedico.setBounds(307, 47, 56, 16);
+				lblMedico.setHorizontalAlignment(SwingConstants.LEFT);
+				lblMedico.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
+				lblMedico.setBounds(279, 46, 73, 16);
 				addPatientsPanel.add(lblMedico);
 				
 				JLabel lblEnfermera = new JLabel("Enfermera");
-				lblEnfermera.setBounds(307, 88, 73, 16);
+				lblEnfermera.setHorizontalAlignment(SwingConstants.LEFT);
+				lblEnfermera.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
+				lblEnfermera.setBounds(279, 87, 105, 16);
 				addPatientsPanel.add(lblEnfermera);
 				
 				JLabel lblEnfermedad = new JLabel("Enfermedad");
-				lblEnfermedad.setBounds(32, 254, 89, 16);
+				lblEnfermedad.setHorizontalAlignment(SwingConstants.LEFT);
+				lblEnfermedad.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
+				lblEnfermedad.setBounds(16, 256, 115, 16);
 				addPatientsPanel.add(lblEnfermedad);
 				
-				textEnfermedad = new JTextField();
+				textEnfermedad = new HintTextField("introduce Enfermedad");
 				textEnfermedad.setColumns(10);
 				textEnfermedad.setBounds(145, 251, 116, 22);
 				addPatientsPanel.add(textEnfermedad);
@@ -360,43 +398,50 @@ public class MedicWindow extends JFrame {
 				addPatientsPanel.add(jcbNurse);
 				
 				JLabel lblMedicina = new JLabel("Medicina");
-				lblMedicina.setBounds(32, 297, 101, 16);
+				lblMedicina.setHorizontalAlignment(SwingConstants.LEFT);
+				lblMedicina.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
+				lblMedicina.setBounds(16, 296, 83, 16);
 				addPatientsPanel.add(lblMedicina);
 				
-				textU = new JTextField();
+				textU = new HintTextField("introduce Unidades");
 				textU.setColumns(10);
 				textU.setBounds(145, 328, 116, 22);
 				addPatientsPanel.add(textU);
 				
 				JLabel lblUnidades_1 = new JLabel("Unidades");
-				lblUnidades_1.setBounds(32, 332, 56, 16);
+				lblUnidades_1.setHorizontalAlignment(SwingConstants.LEFT);
+				lblUnidades_1.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
+				lblUnidades_1.setBounds(16, 333, 105, 16);
 				addPatientsPanel.add(lblUnidades_1);
 		
 		
 		//panel resumen semana
-		week = new JPanel();
-		week.setLayout(null);
-		week.setForeground(Color.WHITE);
-		week.setBackground(Color.WHITE);
-		week.setBounds(278, 11, 630, 450);
-		week.setPreferredSize(new Dimension(630, 700));
-		getContentPane().add(week);
-		
-		JLabel lblPacientesDadosDe = new JLabel("Pacientes dados de alta esta semana:");
-		lblPacientesDadosDe.setBounds(57, 56, 249, 39);
-		lblPacientesDadosDe.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		week.add(lblPacientesDadosDe);
-		
-			JLabel lblPacientesNuevosEsta = new JLabel("Pacientes nuevos esta semana:");
-			lblPacientesNuevosEsta.setBounds(60, 142, 213, 32);
-			lblPacientesNuevosEsta.setFont(new Font("Tahoma", Font.PLAIN, 15));
-			week.add(lblPacientesNuevosEsta);
-			
-			JLabel lblTotalMedicamentosUsados = new JLabel("Total medicamentos usados:");
-			lblTotalMedicamentosUsados.setBounds(57, 219, 240, 32);
-			lblTotalMedicamentosUsados.setFont(new Font("Tahoma", Font.PLAIN, 15));
-			week.add(lblTotalMedicamentosUsados);
-			
+				week = new JPanel();
+				week.setLayout(null);
+				week.setForeground(Color.WHITE);
+				week.setBackground(Color.WHITE);
+				week.setBounds(278, 0, 691, 496);
+				week.setPreferredSize(new Dimension(630, 700));
+				getContentPane().add(week);
+				
+				
+				JLabel lblPacientesDadosDe = new JLabel("Pacientes dados de alta:");
+				lblPacientesDadosDe.setHorizontalAlignment(SwingConstants.LEFT);
+				lblPacientesDadosDe.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
+				lblPacientesDadosDe.setBounds(12, 56, 283, 39);
+				week.add(lblPacientesDadosDe);
+				
+					JLabel lblPacientesNuevosEsta = new JLabel("Pacientes nuevos:");
+					lblPacientesNuevosEsta.setHorizontalAlignment(SwingConstants.LEFT);
+					lblPacientesNuevosEsta.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
+					lblPacientesNuevosEsta.setBounds(12, 147, 250, 32);
+					week.add(lblPacientesNuevosEsta);
+					
+					JLabel lblTotalMedicamentosUsados = new JLabel("Total medicamentos usados:");
+					lblTotalMedicamentosUsados.setHorizontalAlignment(SwingConstants.LEFT);
+					lblTotalMedicamentosUsados.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
+					lblTotalMedicamentosUsados.setBounds(12, 219, 274, 32);
+					week.add(lblTotalMedicamentosUsados);
 			
 				JLabel iconLabel1 = new JLabel("New label");
 				iconLabel1.setBounds(39, 249, 258, 201);
@@ -416,22 +461,26 @@ public class MedicWindow extends JFrame {
 		
 		addMedicine=new JPanel();
 		addMedicine.setBackground(Color.WHITE);
-		addMedicine.setBounds(274, 0, 649, 467);
+		addMedicine.setBounds(278, 0, 691, 496);
 		getContentPane().add(addMedicine);
 		addMedicine.setLayout(null);
 		addMedicine.setVisible(false);
 		
 		JLabel medicina = new JLabel("DNI");
-		medicina.setBounds(39, 69, 46, 20);
+		medicina.setHorizontalAlignment(SwingConstants.LEFT);
+		medicina.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
+		medicina.setBounds(20, 71, 46, 20);
 		addMedicine.add(medicina);
 		
-		DNIM = new JTextField();
-		DNIM.setBounds(125, 69, 138, 20);
+		DNIM = new HintTextField("Introduce el DNI");
+		DNIM.setBounds(125, 69, 113, 20);
 		addMedicine.add(DNIM);
 		DNIM.setColumns(10);
 		
-		JLabel lblNewLabel3 = new JLabel("Introducir el DNI del paciente y el medicamento que desea asignarle");
-		lblNewLabel3.setBounds(39, 23, 451, 20);
+		JLabel lblNewLabel3 = new JLabel("Introducir el DNI y medicamento");
+		lblNewLabel3.setHorizontalAlignment(SwingConstants.LEFT);
+		lblNewLabel3.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
+		lblNewLabel3.setBounds(20, 23, 451, 20);
 		addMedicine.add(lblNewLabel3);
 		
 		lblError2 = new JLabel("");
@@ -439,25 +488,30 @@ public class MedicWindow extends JFrame {
 		lblError2.setBounds(275, 90, 337, 80);
 		addMedicine.add(lblError2);
 		
-		JButton btnAsignar = new JButton("Asignar");
+		JButton btnAsignar = new RoundedJButton(15);
+		btnAsignar.setText("Asignar");
 		btnAsignar.setBounds(385, 341, 169, 59);
 		btnAsignar.setOpaque(false);
-		btnAsignar.setBackground(new Color(255, 255, 255));
+		btnAsignar.setBackground(Color.WHITE);
 		addMedicine.add(btnAsignar);
 		
-		units = new JTextField();
+		units = new HintTextField("Introduce las unidades");
 		units.setColumns(10);
 		units.setBounds(125, 116, 138, 22);
 		addMedicine.add(units);
 		
 		JLabel lblUnidades = new JLabel("Unidades");
-		lblUnidades.setBounds(39, 119, 56, 16);
+		lblUnidades.setHorizontalAlignment(SwingConstants.LEFT);
+		lblUnidades.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
+		lblUnidades.setBounds(20, 118, 101, 16);
 		addMedicine.add(lblUnidades);
 		btnAsignar.addActionListener(listener);
 		
 		
-		JLabel label_3 = new JLabel("Medicamento");
-		label_3.setBounds(39, 170, 91, 16);
+		JLabel label_3 = new JLabel("Medicina");
+		label_3.setHorizontalAlignment(SwingConstants.LEFT);
+		label_3.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
+		label_3.setBounds(20, 169, 126, 16);
 		addMedicine.add(label_3);
 		
 		jcbMedicine = new JComboBox();
@@ -467,77 +521,73 @@ public class MedicWindow extends JFrame {
 		getContentPane().add(seePacientsPanel);
 
 		
-
-		
-		
-		/*
-		JLabel lblMedicamentos = new JLabel("Medicamentos");
-		lblMedicamentos.setBounds(32, 298, 116, 16);
-		addPatientsPanel.add(lblMedicamentos);
-		
-		Medicamentos = new JTextField();
-		Medicamentos.setBounds(145, 295, 116, 22);
-		addPatientsPanel.add(Medicamentos);
-		Medicamentos.setColumns(10);
-		
-		
-		*/
-		
 		
 		//dar de alta pacientes
 		
 		deletePatientsPanel = new JPanel();
 		deletePatientsPanel.setBackground(Color.WHITE);
-		deletePatientsPanel.setBounds(274, 0, 649, 467);
+		deletePatientsPanel.setBounds(278, 0, 691, 496);
 		getContentPane().add(deletePatientsPanel);
 		deletePatientsPanel.setLayout(null);
 		deletePatientsPanel.setVisible(false);
 
 		JLabel lblNewLabel_1 = new JLabel("DNI");
-		lblNewLabel_1.setBounds(39, 69, 46, 20);
+		lblNewLabel_1.setHorizontalAlignment(SwingConstants.LEFT);
+		lblNewLabel_1.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
+		lblNewLabel_1.setBounds(20, 69, 46, 20);
 		deletePatientsPanel.add(lblNewLabel_1);
 
-		textFieldDNIToDelete = new JTextField();
-		textFieldDNIToDelete.setBounds(125, 69, 138, 20);
+		textFieldDNIToDelete = new HintTextField("Introduce el DNI");
+		textFieldDNIToDelete.setBounds(125, 69, 102, 20);
 		deletePatientsPanel.add(textFieldDNIToDelete);
 		textFieldDNIToDelete.setColumns(10);
 
 		JLabel lblNewLabel_2 = new JLabel("Nombre");
-		lblNewLabel_2.setBounds(39, 119, 46, 14);
+		lblNewLabel_2.setHorizontalAlignment(SwingConstants.LEFT);
+		lblNewLabel_2.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
+		lblNewLabel_2.setBounds(20, 119, 102, 14);
 		deletePatientsPanel.add(lblNewLabel_2);
 
-		textFieldNameToDelete = new JTextField();
+		
+		textFieldNameToDelete = new HintTextField("Introduce el Nombre");
 		textFieldNameToDelete.setColumns(10);
 		textFieldNameToDelete.setBounds(125, 119, 138, 20);
 		deletePatientsPanel.add(textFieldNameToDelete);
 
-		textFieldFirstDeleteToDelete = new JTextField();
+		textFieldFirstDeleteToDelete = new HintTextField("Introduce el Apellido1");
 		textFieldFirstDeleteToDelete.setColumns(10);
 		textFieldFirstDeleteToDelete.setBounds(125, 166, 138, 20);
 		deletePatientsPanel.add(textFieldFirstDeleteToDelete);
 
-		textFieldSecondDeleteToDelete = new JTextField();
+		textFieldSecondDeleteToDelete = new HintTextField("Introduce el Apellido2");
 		textFieldSecondDeleteToDelete.setColumns(10);
 		textFieldSecondDeleteToDelete.setBounds(125, 215, 138, 20);
 		deletePatientsPanel.add(textFieldSecondDeleteToDelete);
 
-		JLabel lblApellido_3 = new JLabel("1º Apellido");
-		lblApellido_3.setBounds(39, 169, 60, 14);
+		JLabel lblApellido_3 = new JLabel("Apellido 1");
+		lblApellido_3.setHorizontalAlignment(SwingConstants.LEFT);
+		lblApellido_3.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
+		lblApellido_3.setBounds(20, 168, 102, 14);
 		deletePatientsPanel.add(lblApellido_3);
 
-		JLabel lblapellido = new JLabel("2ºApellido");
-		lblapellido.setBounds(39, 218, 60, 14);
+		JLabel lblapellido = new JLabel("Apellido 2");
+		lblapellido.setHorizontalAlignment(SwingConstants.LEFT);
+		lblapellido.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
+		lblapellido.setBounds(20, 220, 102, 14);
 		deletePatientsPanel.add(lblapellido);
 
-		JLabel lblNewLabel_3 = new JLabel("Introducir los siguientes datos para borrar");
-		lblNewLabel_3.setBounds(39, 23, 275, 20);
+		JLabel lblNewLabel_3 = new JLabel("Introducir los siguientes datos");
+		lblNewLabel_3.setHorizontalAlignment(SwingConstants.LEFT);
+		lblNewLabel_3.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
+		lblNewLabel_3.setBounds(20, 23, 275, 20);
 		deletePatientsPanel.add(lblNewLabel_3);
 
-		JButton btnDelete = new JButton("Borrar");
+		JButton btnDelete = new RoundedJButton(15);
+		btnDelete.setText("Borrar");
 		btnDelete.addActionListener(listener);
 		btnDelete.setBounds(285, 244, 138, 20);
+		btnDelete.setBackground(Color.WHITE);
 		btnDelete.setOpaque(false);
-		btnDelete.setBackground(new Color(255, 255, 255));
 		deletePatientsPanel.add(btnDelete);
 
 		 lblErrorDelete = new JLabel("");
@@ -549,7 +599,7 @@ public class MedicWindow extends JFrame {
 		
 		//panel buscar
 		getPatientPane = new JPanel();
-		getPatientPane.setBounds(284, 11, 624, 450);
+		getPatientPane.setBounds(278, 0, 691, 496);
 		getContentPane().add(getPatientPane);
 		getPatientPane.setLayout(null);
 		getPatientPane.setForeground(Color.WHITE);
@@ -557,8 +607,9 @@ public class MedicWindow extends JFrame {
 		getPatientPane.setVisible(false);
 		
 	    JLabel label = new JLabel("Nombre");
-	    label.setFont(new Font("Tahoma", Font.PLAIN, 15));
-	    label.setBounds(10, 74, 63, 23);
+	    label.setHorizontalAlignment(SwingConstants.LEFT);
+	    label.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
+	    label.setBounds(5, 74, 70, 23);
 	    getPatientPane.add(label);
 	    
 	    lblErrorGetPatient = new JLabel("");
@@ -567,63 +618,62 @@ public class MedicWindow extends JFrame {
 	    getPatientPane.add(lblErrorGetPatient);
 	    
 	    		
-	    JLabel lblApellido1 = new JLabel("1� Apellido");
-	    lblApellido1.setFont(new Font("Tahoma", Font.PLAIN, 15));
-	    lblApellido1.setBounds(10, 125, 80, 23);
+	    JLabel lblApellido1 = new JLabel("Apellido 1");
+	    lblApellido1.setHorizontalAlignment(SwingConstants.LEFT);
+	    lblApellido1.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
+	    lblApellido1.setBounds(5, 124, 97, 23);
 	    getPatientPane.add(lblApellido1);
 	    
-		textFieldNameGetPatient = new JTextField();
+		textFieldNameGetPatient = new RoundedJLabel();
 		textFieldNameGetPatient.setEnabled(false);
-		textFieldNameGetPatient.setColumns(10);
 		textFieldNameGetPatient.setBounds(100, 77, 143, 20);
 		getPatientPane.add(textFieldNameGetPatient);
 		
-		textFieldSurname1GetPatient = new JTextField();
+		textFieldSurname1GetPatient = new RoundedJLabel();
 		textFieldSurname1GetPatient.setEnabled(false);
-		textFieldSurname1GetPatient.setColumns(10);
 		textFieldSurname1GetPatient.setBounds(100, 128, 143, 20);
 		getPatientPane.add(textFieldSurname1GetPatient);
 		
 		JLabel label_2 = new JLabel("NIF/NIE");
-		label_2.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		label_2.setBounds(10, 217, 63, 23);
+		label_2.setHorizontalAlignment(SwingConstants.LEFT);
+		label_2.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
+		label_2.setBounds(5, 217, 80, 23);
 		getPatientPane.add(label_2);
 		
-		textFieldDNIGetPatient = new JTextField();
+		textFieldDNIGetPatient = new RoundedJLabel();
 		textFieldDNIGetPatient.setEnabled(false);
-		textFieldDNIGetPatient.setColumns(10);
 		textFieldDNIGetPatient.setBounds(100, 220, 143, 20);
 		getPatientPane.add(textFieldDNIGetPatient);
 		
 			
 		
-	    JLabel lblApellido_2 = new JLabel("2� Apellido");
-	    lblApellido_2.setFont(new Font("Tahoma", Font.PLAIN, 15));
-	    lblApellido_2.setBounds(10, 170, 80, 23);
+	    JLabel lblApellido_2 = new JLabel("Apellido 1");
+	    lblApellido_2.setHorizontalAlignment(SwingConstants.LEFT);
+	    lblApellido_2.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));	  
+	    lblApellido_2.setBounds(5, 171, 108, 23);
 	    getPatientPane.add(lblApellido_2);
 	    
-		textFieldSurname2GetPatient = new JTextField();
+		textFieldSurname2GetPatient = new RoundedJLabel();
 		textFieldSurname2GetPatient.setEnabled(false);
-		textFieldSurname2GetPatient.setColumns(10);
 		textFieldSurname2GetPatient.setBounds(100, 173, 143, 20);
 		getPatientPane.add(textFieldSurname2GetPatient);
 		
 		
 		JLabel lblRoom = new JLabel("Habitacion");
-		lblRoom.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblRoom.setBounds(390, 74, 80, 23);
+		lblRoom.setHorizontalAlignment(SwingConstants.LEFT);
+		lblRoom.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));	
+		lblRoom.setBounds(358, 74, 97, 23);
 		getPatientPane.add(lblRoom);
 		
-		textFieldRoomGetPatient = new JTextField();
+		textFieldRoomGetPatient = new RoundedJLabel();
 		textFieldRoomGetPatient.setEnabled(false);
-		textFieldRoomGetPatient.setColumns(10);
 		textFieldRoomGetPatient.setBounds(470, 77, 143, 20);
 		getPatientPane.add(textFieldRoomGetPatient);
 		
 		
 		JLabel label_9 = new JLabel("");
 		label_9.setForeground(Color.RED);
-		label_9.setBounds(390, 241, 212, 14);
+		label_9.setBounds(374, 74, 97, 23);
 		getPatientPane.add(label_9);
 		
 				
@@ -632,17 +682,20 @@ public class MedicWindow extends JFrame {
 		separator2.setBounds(10, 52, 610, 33);
 		getPatientPane.add(separator2);
 		
-		JLabel lblNewLabel = new JLabel("Introduce el DNI o habitaci�n: ");
+		JLabel lblNewLabel = new JLabel("Introduce el DNI: ");
+		lblNewLabel.setHorizontalAlignment(SwingConstants.TRAILING);
+		lblNewLabel.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
 		lblNewLabel.setBounds(10, 11, 200, 23);
 		getPatientPane.add(lblNewLabel);
 		
-        textFieldSearchDNIGetPatient = new JTextField();
+        textFieldSearchDNIGetPatient = new HintTextField("DNI o Habitaci�n");
+		textFieldSearchDNIGetPatient.setHorizontalAlignment(SwingConstants.CENTER);
         textFieldSearchDNIGetPatient.setBounds(210, 12, 133, 20);
         getPatientPane.add(textFieldSearchDNIGetPatient);
         textFieldSearchDNIGetPatient.setColumns(10);
         
-		JButton btnNewButton_1 = new JButton("Buscar");
-		btnNewButton_1.setForeground(Color.BLACK);
+        JButton btnNewButton_1 = new RoundedJButton(15);
+        btnNewButton_1.setText("Buscar");
 		btnNewButton_1.setBackground(Color.WHITE);
 		btnNewButton_1.addActionListener(listener);
 		

@@ -11,6 +11,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
+import java.awt.FontFormatException;
+import java.awt.GraphicsEnvironment;
 
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -24,13 +26,18 @@ import es.unileon.xijoja.hospital.PacientesDAO;
 import es.unileon.xijoja.hospital.PersonalDAO;
 import es.unileon.xijoja.hospital.login.ControlerLoginWindow;
 import es.unileon.xijoja.hospital.login.LoginWindow;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.plaf.synth.SynthSpinnerUI;
+import javax.swing.table.DefaultTableModel;
 
+import com.sun.corba.se.impl.encoding.CodeSetConversion.BTCConverter;
+import com.sun.mail.handlers.text_html;
 
 public class ControlerMedicWindow implements ActionListener {
 
 	private MedicWindow window;
 	private Logs log;
-	//private PersonalDAO dao;
 	private int count;
 	private int count2;
 	private int count3;
@@ -49,9 +56,6 @@ public class ControlerMedicWindow implements ActionListener {
 
 
 	
-
-	//TODO poner aqui el dao en privado
-	
 	public ControlerMedicWindow(MedicWindow window) {
 
 		this.window = window;
@@ -59,9 +63,8 @@ public class ControlerMedicWindow implements ActionListener {
 		this.daoAlmacen= new AlmacenDAO();
 		this.daoPersonal= new PersonalDAO();
 		this.daoE= new EliminarDAO();
-		//this. id= daoPersonal.getIdByUserAndPass(window.user,window.password);
 		log = new Logs();
-		//TODO inicializar aqui el dao
+		
 	}
 	
 	
@@ -123,8 +126,8 @@ public class ControlerMedicWindow implements ActionListener {
 
 
 	public void actionPerformed(ActionEvent arg0) {
-		// TODO aqui van las acciones al pulsar botones
-		if ((arg0.getActionCommand().equals("Ver Pacientes"))) {//falta por probar con el dao
+		
+		if ((arg0.getActionCommand().equals("Ver Pacientes"))) {
 			
 			window.seePacientsPanel.setVisible(true);
 			window.addPatientsPanel.setVisible(false);
@@ -133,52 +136,58 @@ public class ControlerMedicWindow implements ActionListener {
 			window.addMedicine.setVisible(false);
 			window.week.setVisible(false);
 
-			
+		
+
 			ArrayList<String[]> insert = null;
+			int numOfRows= dao.getNumRow();
 
 			String[] titles = null;
 
 			String[][] matrixToInsert = null;
-
-			titles = new String[] { "  Id", "Nombre", "Apellido 1", "Apellido 2", "NIF", "Fecha", "Habitación",
-					"Enfermedad", "Producto", "Medico", "Unidades medicamento", "Enfermero " }; // Titulos de la tabla de
+			
+			titles = new String[] { "ID", "NOMBRE", "APELLIDO", "APELLIDO", "NIF", "FECHA", "N�HABITACION",
+					"ENFERMEDAD", "IDMEDICAMENTO", "MEDICO", "TRATAMIENTO", "ENFERMERO " }; // Titulos de la tabla de
+	
 																	// los empleados
 			insert = dao.getAllPatients();// ArrayList de Arrays
 		
-			matrixToInsert = new String[insert.size() + 1][12];
+			matrixToInsert = new String[insert.size()][12];
 			window.seePacientsPanel.setPreferredSize(new Dimension(624, 20 + 20 * insert.size()));
-			window.seePacientsPanel.setBounds(284, 11, 624, 20 + 20 * insert.size());
+			window.seePacientsPanel.setBounds(274, 30, 695, 466);
+			window.setBackground(Color.white);
 			
-			for (int i = 0; i < insert.size()+1; i++) { // rellenamos la matriz que meteremos en la tabla a partir
+			for (int i = 0; i < insert.size(); i++) { // rellenamos la matriz que meteremos en la tabla a partir
 				// del ArrayList de arrays devuelto del DAO
 				for (int j = 0; j < 12; j++) {
-					if (i == 0) {
-						
-
-						matrixToInsert[i][j] = titles[j];
-
-					} else {
-						matrixToInsert[i][j] = insert.get(i-1)[j];					}
+				
+						matrixToInsert[i][j] = insert.get(i)[j];					
 				}
-}
+			}
+
 			
 			JTable PatientsTable = new JTable();
+			PatientsTable.setBackground(Color.WHITE);
 			PatientsTable.setBounds(5, 5, 600, 20 + 20 * insert.size());
+		;
 
 			PatientsTable.setVisible(true);
-			window.seePacientsPanel.add(PatientsTable);
+		//	nurseWindow.seePatientPane.add(PatientsTable);
 			PatientsTable.setAutoscrolls(true);
 			
 
 			
 			DefaultTableModel tableModel = new DefaultTableModel(matrixToInsert, titles);
+
 			PatientsTable.setModel(tableModel);
+			PatientsTable.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 9));				
+			window.seePacientsPanel.setViewportView(PatientsTable);
+
 			
 			
 		
 	} else if (arg0.getActionCommand().equals("Registrar")) {
 		
-		// log.InfoLog("Se ha pulsado el boton de registrar");
+		
 
 		boolean add = true;
 
@@ -215,12 +224,10 @@ public class ControlerMedicWindow implements ActionListener {
 			window.lberror.setText("");
 		}
 		
-//TOOD: comprob
-//TOOD: comprobar haitacion unica 
+ 
 		if (add) {// Si da error no se a�ade el empleado
-			System.out.println("Correcto");
-
-			//int id = dao.getLastID()+1;//siguiente id
+			
+		
 			int id = dao.firstIdFree();
 			int m;
 			
@@ -243,7 +250,6 @@ public class ControlerMedicWindow implements ActionListener {
 						idNurse=Integer.parseInt(arrayNurse.get(i)[0]);
 					}
 				}
-				System.out.println("id medico: "+ idMedic+" id Enfermero: "+idNurse+"idMedicine"+idMedicine);
 				
 			if(daoAlmacen.Medicine(Integer.parseInt(window.textU.getText()), idMedicine)<0) {
 				add=false;
@@ -257,7 +263,6 @@ public class ControlerMedicWindow implements ActionListener {
 				count2=1;
 				daoE.eliminadosB(count2);
 				count3=Integer.parseInt(window.textU.getText().toString());
-				System.out.println("count3"+count3);
 				daoE.eliminadosM(count3);
 				
 				log.InfoLog("A�adido el paciente con id: "+id);
@@ -320,14 +325,7 @@ public class ControlerMedicWindow implements ActionListener {
 				log.InfoLog("Error, DNI o habitación erroneos");
 			}else {
 				
-				//getPatientDNI=dao.getPatientDNI(window.textFieldDNIToDelete.getText().toString());
-				//arrayMedicine.add(getPatientDNI);
 				
-				/*
-				Iterator<String[]> it = arrayPacientes.iterator();
-				while(it.hasNext())
-				 System.out.println(it.next());
-				*/
 					Date date = new Date(Calendar.getInstance().getTime().getTime());// Obtenemos la fecha actual
 					dao.deletePatient(window.textFieldNameToDelete.getText().toString(),
 					window.textFieldFirstDeleteToDelete.getText().toString(),
@@ -341,7 +339,7 @@ public class ControlerMedicWindow implements ActionListener {
 		}
 		
 	
-	}else if (arg0.getActionCommand().equals("Asignar Medicamento Paciente")) {
+	}else if (arg0.getActionCommand().equals("Asignar Medicamentos")) {
 		
 		window.seePacientsPanel.setVisible(false);
 		window.addPatientsPanel.setVisible(false);
@@ -351,7 +349,7 @@ public class ControlerMedicWindow implements ActionListener {
 		window.week.setVisible(false);
 
 	
-	}else if (arg0.getActionCommand().equals("Asignar")) {//probablemente haya que hacer un comprobarmedicamento, pro pal final
+	}else if (arg0.getActionCommand().equals("Asignar")) {
 		
 		int n,m;
 		boolean add=true;
@@ -364,7 +362,7 @@ public class ControlerMedicWindow implements ActionListener {
 			}
 		}
 		
-		//habria que cambiarlo con el JBox, el cual aun no funciona
+		
 		if ((window.DNIM.getText().toString().equals("")) || (window.units.getText().toString().equals(""))){
 			add=false;
 			window.lblError2.setText("Hay campos vacios");
@@ -403,7 +401,6 @@ public class ControlerMedicWindow implements ActionListener {
 				
 					dao.AsignMedicine(Integer.parseInt(window.units.getText().toString()),idMedicine,window.DNIM.getText().toString());
 				
-						//daoAlmacen.restMedicine(Integer.parseInt(window.units.getText().toString()), /Integer.parseInt(window.Medicine.getText().toString()));
 						daoAlmacen.restMedicine(Integer.parseInt(window.units.getText().toString()),idMedicine);//,idMedic);
 						window.lblError2.setText("");
 						count3=Integer.parseInt(window.units.getText().toString());
@@ -495,14 +492,10 @@ public class ControlerMedicWindow implements ActionListener {
 		window.week.add(eliminados);
 		
 		
-  		System.out.println(daoE.getEliminated());
-  		System.out.println(daoE.getAdd());
-  		System.out.println(daoE.getElimMedicines());
 		
     }else if (arg0.getActionCommand().equals("Cerrar Sesión")) {
 
 				window.setVisible(false);
-				//TODO arreglar que se borren los campos al cerrar sesion
 				LoginWindow newlogin = LoginWindow.getInstance();
 				newlogin.resetJField();
 		
