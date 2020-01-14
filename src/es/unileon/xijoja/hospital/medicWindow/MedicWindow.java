@@ -193,48 +193,48 @@ public class MedicWindow extends JFrame {
 		JButton btnAsignarMedicamentoPaciente = new RoundedJButton(15);
 		btnAsignarMedicamentoPaciente.setText("Asignar Medicamentos");
 		btnAsignarMedicamentoPaciente.setOpaque(false);
-		btnAsignarMedicamentoPaciente.setBounds(10, 144, 229, 52);
+		btnAsignarMedicamentoPaciente.setBounds(28, 130, 234, 45);
 		getContentPane().add(btnAsignarMedicamentoPaciente);
 		btnAsignarMedicamentoPaciente.addActionListener(listener);
 		
 		JButton btnVerPacientes = new RoundedJButton(15);
 		btnVerPacientes.setText("Ver Pacientes");
 		btnVerPacientes.setOpaque(false);
-		btnVerPacientes.setBounds(10, 209, 229, 41);
+		btnVerPacientes.setBounds(28, 186, 234, 45);
 		getContentPane().add(btnVerPacientes);
 		btnVerPacientes.addActionListener(listener);
 		
 		JButton btnInformeDeLa = new RoundedJButton(15);
 		btnInformeDeLa.setText("Informe de la semana");
 		btnInformeDeLa.setOpaque(false);
-		btnInformeDeLa.setBounds(10, 263, 229, 41);
+		btnInformeDeLa.setBounds(28, 240, 234, 45);
 		getContentPane().add(btnInformeDeLa);
 		btnInformeDeLa.addActionListener(listener);
 		
 		JButton btnDarAltaPaciente = new RoundedJButton(15);
 		btnDarAltaPaciente.setText("Dar alta Paciente");
 		btnDarAltaPaciente.setOpaque(false);
-		btnDarAltaPaciente.setBounds(10, 86, 229, 45);
+		btnDarAltaPaciente.setBounds(28, 76, 234, 45);
 		getContentPane().add(btnDarAltaPaciente);
 		btnDarAltaPaciente.addActionListener(listener);
 		
 		JButton btnIngresarPaciente = new RoundedJButton(15);
 		btnIngresarPaciente.setText("Ingresar Paciente");
 		btnIngresarPaciente.setOpaque(false);
-		btnIngresarPaciente.setBounds(10, 21, 229, 52);
+		btnIngresarPaciente.setBounds(28, 22, 234, 45);
 		getContentPane().add(btnIngresarPaciente);
 		btnIngresarPaciente.addActionListener(listener);
 		
 		JButton btnCerrarSesin = new RoundedJButton(15);
 		btnCerrarSesin.setText("Cerrar Sesión");
-		btnCerrarSesin.setBounds(10, 416, 229, 41);
+		btnCerrarSesin.setBounds(28, 416, 234, 45);
 		btnCerrarSesin.setOpaque(false);
 		getContentPane().add(btnCerrarSesin);
 		btnCerrarSesin.addActionListener(listener);
 		
 		JButton btnNewButton = new RoundedJButton(15);
 		btnNewButton.setText("Buscar Paciente");
-		btnNewButton.setBounds(10, 317, 229, 46);
+		btnNewButton.setBounds(28, 295, 234, 45);
 		btnNewButton.setOpaque(false);
 		getContentPane().add(btnNewButton);
 		btnNewButton.addActionListener(listener);
