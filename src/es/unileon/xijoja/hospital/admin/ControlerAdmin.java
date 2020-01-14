@@ -166,7 +166,6 @@ public class ControlerAdmin implements ActionListener {
 		adminWindow.textFieldEmailEdit.enable(state);
 		adminWindow.comboBoxJobEdit.enable(state);
 		adminWindow.btnSaveEdit.enable(state);
-		
 
 		if (!state) {// Si es falso borramos las string que habian anteriormente
 
@@ -523,10 +522,18 @@ public class ControlerAdmin implements ActionListener {
 				add = false;
 				adminWindow.lberror.setText("No hay medicos/enfermeros disponibles");
 
+			} else if (!adminWindow.roomAddPatients.getText().matches("[+-]?\\d*(\\.\\d+)?")) {
+				add = false;
+
+				adminWindow.lberror.setText("La habitacion debe ser concretada con numero");
+
 			} else if (patientsDao.checkIfRoomIsBusy(Integer.parseInt(adminWindow.roomAddPatients.getText()))) {
 				add = false;
-				adminWindow.lberror
-						.setText("Esa habitacion no est� disponible, proxima: " + patientsDao.firstRoomFree());
+				StringBuilder texto = new StringBuilder();
+				texto.append("<html><body>Esa habitacion no esta disponible, <br> proxima: ");
+				texto.append(patientsDao.firstRoomFree());
+				texto.append("</body></html>");
+				adminWindow.lberror.setText(texto.toString());
 			} else {
 				adminWindow.lberror.setText("");
 			}
@@ -565,8 +572,6 @@ public class ControlerAdmin implements ActionListener {
 					e1.printStackTrace();
 				}
 			}
-
-			
 
 		} else if (arg0.getActionCommand().contentEquals("Ver pacientes")) {
 
@@ -735,13 +740,18 @@ public class ControlerAdmin implements ActionListener {
 
 					if (pf.getText().equals(adminWindow.password)) {// Si se acierta la contraseña
 						out = true;
-						if (patientsDao.checkIfRoomIsBusy(Integer.parseInt(pacientToEdit[6]))) {// Comprobamos que la
-																								// habitacion no este
-																								// ocupada
-
+						if (!adminWindow.textFieldRommEditPacient.getText().matches("[+-]?\\d*(\\.\\d+)?")) {
+							System.out.println("Aqui");
+							adminWindow.lblErrorEditPatientRomm.setText("La habitacion debe ser concretada con numero"); // la
+							out = true;
+						} else if (patientsDao
+								.checkIfRoomIsBusy(Integer.parseInt(adminWindow.textFieldRommEditPacient.getText()))) {
+							out = true;
 							adminWindow.lblErrorEditPatientRomm.setText(
-									"Esa habitacion no est� disponible, proxima: " + patientsDao.firstRoomFree());
+									"Esa habitacion no esta disponible, proxima: " + patientsDao.firstRoomFree());
+
 						} else {
+
 							// Llamamos a editar del DAO
 							patientsDao.editPacient(Integer.parseInt(pacientToEdit[0]),
 									adminWindow.textFieldNameEditPatient.getText(),
@@ -750,6 +760,8 @@ public class ControlerAdmin implements ActionListener {
 									adminWindow.textFieldDNIEditPatient.getText(),
 									Integer.parseInt(adminWindow.textFieldRommEditPacient.getText()),
 									adminWindow.textFieldIllnesEditPatient.getText());
+							adminWindow.lblErrorEditPatientRomm.setText("");
+
 						}
 
 					} else {// Si se falla la contraseña

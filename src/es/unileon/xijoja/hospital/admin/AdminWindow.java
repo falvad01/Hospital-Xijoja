@@ -372,7 +372,7 @@ public class AdminWindow extends JFrame {
 		separator_2.setBounds(10, 34, 610, 14);
 		editPatientPanel.add(separator_2);
 
-		textFieldDNISearchEditPatient = new HintTextField("DNI");
+		textFieldDNISearchEditPatient = new HintTextFieldNoText();
 		textFieldDNISearchEditPatient.setBounds(99, 8, 128, 20);
 		editPatientPanel.add(textFieldDNISearchEditPatient);
 		textFieldDNISearchEditPatient.setColumns(10);
@@ -413,32 +413,32 @@ public class AdminWindow extends JFrame {
 		lblHabitacion.setBounds(10, 244, 121, 14);
 		editPatientPanel.add(lblHabitacion);
 
-		textFieldNameEditPatient = new HintTextField("Nombre");
+		textFieldNameEditPatient = new HintTextFieldNoText();
 		textFieldNameEditPatient.setBounds(141, 61, 86, 20);
 		editPatientPanel.add(textFieldNameEditPatient);
 		textFieldNameEditPatient.setColumns(10);
 
-		textFieldSurname1EditPatient = new HintTextField("1º Apellido");
+		textFieldSurname1EditPatient = new HintTextFieldNoText();
 		textFieldSurname1EditPatient.setColumns(10);
 		textFieldSurname1EditPatient.setBounds(141, 97, 86, 20);
 		editPatientPanel.add(textFieldSurname1EditPatient);
 
-		textFieldSurname2EditPatient =new HintTextField("2º Apellido");
+		textFieldSurname2EditPatient = new HintTextFieldNoText();
 		textFieldSurname2EditPatient.setColumns(10);
 		textFieldSurname2EditPatient.setBounds(141, 133, 86, 20);
 		editPatientPanel.add(textFieldSurname2EditPatient);
 
-		textFieldDNIEditPatient = new HintTextField("DNI");
+		textFieldDNIEditPatient = new HintTextFieldNoText();
 		textFieldDNIEditPatient.setColumns(10);
 		textFieldDNIEditPatient.setBounds(141, 170, 86, 20);
 		editPatientPanel.add(textFieldDNIEditPatient);
 
-		textFieldIllnesEditPatient = new HintTextField("Enfermedad");
+		textFieldIllnesEditPatient = new HintTextFieldNoText();
 		textFieldIllnesEditPatient.setColumns(10);
 		textFieldIllnesEditPatient.setBounds(141, 205, 86, 20);
 		editPatientPanel.add(textFieldIllnesEditPatient);
 
-		textFieldRommEditPacient = new HintTextField("Habitacion(Nº)");
+		textFieldRommEditPacient = new HintTextFieldNoText();
 		textFieldRommEditPacient.setColumns(10);
 		textFieldRommEditPacient.setBounds(141, 241, 95, 20);
 		editPatientPanel.add(textFieldRommEditPacient);
@@ -596,7 +596,7 @@ public class AdminWindow extends JFrame {
 		lberror = new JLabel("");
 		
 		lberror.setForeground(Color.RED);
-		lberror.setBounds(34, 335, 329, 14);
+		lberror.setBounds(34, 335, 452, 36);
 		lberror.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
 		addPatientsPanel.add(lberror);
 

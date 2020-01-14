@@ -195,15 +195,20 @@ public class PersonalDAO {
 		co.disconect();// Desconectamos la base de datos
 
 		// Mensaje a enviar por correo
-		/*
-		 * String msn = "Saludos " + name + " " + surname1 + surname2 +
-		 * ", ha entrado a formar parte de la plantilla del hospital Xijoja, le adjuntamos el usuario y contrase�a\n\n"
-		 * + "Usuario: " + user + "\n" + "Contrase�a: " + password;
-		 * 
-		 * Email mail = new Email(email, "NO CONTESTAR A ESTE CORREO\n" +
-		 * "ALTA HOSPITAL XIJOJA", msn); try { mail.send();// Enviamos el email } catch
-		 * (IOException e) { e.printStackTrace(); }
-		 */
+
+		String msn = "Saludos " + name + " " + surname1 + surname2
+				+ ", ha entrado a formar parte de la plantilla del hospital Xijoja, le adjuntamos el usuario y contrase�a\n\n"
+				+ "Usuario: " + user + "\n" + "Contrase�a: " + password;
+
+		Email mail = new Email(email, "NO CONTESTAR A ESTE CORREO\n" + "ALTA HOSPITAL XIJOJA", msn);
+		try {
+			mail.send();// Enviamos el email }
+
+		} catch (IOException e) {
+			e.printStackTrace();
+
+		}
+
 		co.disconect();// Cerramos la conexion con la base de datos
 
 	}
@@ -288,7 +293,7 @@ public class PersonalDAO {
 			e.printStackTrace();
 		}
 		System.out.println("En ret");
-		for(int i = 0; i < ret.length; i++) {
+		for (int i = 0; i < ret.length; i++) {
 			System.out.println(ret[i]);
 		}
 		co.disconect();// Cerramos la conexion con la base de datos
@@ -485,7 +490,7 @@ public class PersonalDAO {
 
 		String sql = "SELECT * FROM personal WHERE NIFNIE='" + DNI + "'";
 		Statement st;
-		
+
 		System.out.println(sql);
 		try {
 			st = conn.createStatement();
