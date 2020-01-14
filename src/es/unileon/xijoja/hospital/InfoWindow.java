@@ -141,6 +141,41 @@ public class InfoWindow extends JFrame {
 		});
 		btnNewButton_4.setBounds(10, 356, 180, 57);
 		getContentPane().add(btnNewButton_4);
+				
+
+		adminPanel = new JPanel();
+		adminPanel.setBounds(200, 79, 476, 335);
+		getContentPane().add(adminPanel);
+		adminPanel.setLayout(null);
+		
+				JLabel lblNewLabel_1 = new JLabel("Ayuda Administrador");
+				lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 37));
+				lblNewLabel_1.setBounds(0, 0, 407, 45);
+				adminPanel.add(lblNewLabel_1);
+				
+				JTextArea txtrLaVentanaDe_1 = new JTextArea("La ventana de admnistrador cuenta con 9 menús diferenciados en la parte izquierda \r\nque realizan las siguientes tareas sobre los empleados y pacientes.\r\n\r\n-Añadir: añadir pacientes o empleados al hospital rellenando el formulario que se le presenta\r\n\r\n-Ver: ver la plantilla de empleados o los pacientes ingresados, así como sus caracteristicas\r\n\r\n-Borrar: Despedir empleados o dar el alta a pacientes(siempre con el aviso del medico) o \t     sacarlos del sistema tras su defunción.\r\n\r\n-Editar: Editar cualquier paciente o empelado devido a un error en el formulario de registro o en combios en su estado\r\n\r\nTambiene tiene potestad de editar el almacen, comprar mercancia y retirar \r\nmercancia en mal estado");
+				txtrLaVentanaDe_1.setLineWrap(true);
+				txtrLaVentanaDe_1.setFont(new Font("Tahoma", Font.PLAIN, 11));
+				txtrLaVentanaDe_1.setBackground(Color.LIGHT_GRAY);
+				txtrLaVentanaDe_1.setBounds(10, 44, 466, 267);
+				adminPanel.add(txtrLaVentanaDe_1);
+		
+				generalPanel = new JPanel();
+				generalPanel.setBounds(200, 79, 476, 335);
+				getContentPane().add(generalPanel);
+				generalPanel.setLayout(null);
+				
+						JLabel lblNewLabel = new JLabel("Ayuda general");
+						lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 36));
+						lblNewLabel.setBounds(0, 0, 304, 44);
+						generalPanel.add(lblNewLabel);
+						
+						JTextArea txtrLaVentanaDe = new JTextArea("Bienvenido al hospital Xijoja, para comenzar su trabajo introduzca \r\nsu usuario y contraseña que se ha enviado a su correo electronico \r\ntras su contratación, espero que su lugar de trabajo le resulte \r\ncomodo y apacible.Para cualquier duda o sugerencia sobre el\r\n funcioanmiento de la aplicación mandenos un correo a \r\nhospitalxijoja@gmail.com");
+						txtrLaVentanaDe.setLineWrap(true);
+						txtrLaVentanaDe.setFont(new Font("Tahoma", Font.PLAIN, 15));
+						txtrLaVentanaDe.setBackground(Color.LIGHT_GRAY);
+						txtrLaVentanaDe.setBounds(10, 55, 456, 269);
+						generalPanel.add(txtrLaVentanaDe);
 
 		secretaryPanel = new JPanel();
 		secretaryPanel.setBounds(200, 79, 476, 335);
@@ -233,27 +268,6 @@ public class InfoWindow extends JFrame {
 		 lblAyudaMedicoAmplio.setText(ayudaMedico);
 		 lblAyudaMedicoAmplio.setBounds(5,60,476,275);
 		 medicPanel.add(lblAyudaMedicoAmplio);
-		 
-
-		adminPanel = new JPanel();
-		adminPanel.setBounds(200, 79, 476, 335);
-		getContentPane().add(adminPanel);
-		adminPanel.setLayout(null);
-
-		JLabel lblNewLabel_1 = new JLabel("Ayuda Administrador");
-		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 37));
-		lblNewLabel_1.setBounds(0, 0, 407, 45);
-		adminPanel.add(lblNewLabel_1);
-
-		generalPanel = new JPanel();
-		generalPanel.setBounds(200, 79, 476, 335);
-		getContentPane().add(generalPanel);
-		generalPanel.setLayout(null);
-
-		JLabel lblNewLabel = new JLabel("Ayuda general");
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 36));
-		lblNewLabel.setBounds(0, 0, 304, 44);
-		generalPanel.add(lblNewLabel);
 
 	}
 }

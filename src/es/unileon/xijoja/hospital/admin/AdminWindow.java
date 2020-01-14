@@ -796,6 +796,7 @@ public class AdminWindow extends JFrame {
 		btnSaveEdit.setText("Guardar");
 		btnSaveEdit.addActionListener(listener);
 		btnSaveEdit.setOpaque(false);
+		
 		btnSaveEdit.setBackground(Color.WHITE);
 		btnSaveEdit.setBounds(390, 252, 212, 47);
 		editEmployeesPanel.add(btnSaveEdit);

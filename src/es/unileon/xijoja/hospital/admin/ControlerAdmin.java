@@ -166,6 +166,7 @@ public class ControlerAdmin implements ActionListener {
 		adminWindow.textFieldEmailEdit.enable(state);
 		adminWindow.comboBoxJobEdit.enable(state);
 		adminWindow.btnSaveEdit.enable(state);
+		
 
 		if (!state) {// Si es falso borramos las string que habian anteriormente
 
@@ -565,6 +566,8 @@ public class ControlerAdmin implements ActionListener {
 				}
 			}
 
+			
+
 		} else if (arg0.getActionCommand().contentEquals("Ver pacientes")) {
 
 			adminWindow.seeEmployeesPanel.setVisible(false);
@@ -641,7 +644,11 @@ public class ControlerAdmin implements ActionListener {
 			} else {
 				System.out.println("Boton borrar pulsado");
 
-				boolean restult = patientsDao.deletePatient(adminWindow.textFieldNameToDeletePatient.getText(),//TODO algo podria fallar aqui
+				boolean restult = patientsDao.deletePatient(adminWindow.textFieldNameToDeletePatient.getText(), // TODO
+																												// algo
+																												// podria
+																												// fallar
+																												// aqui
 						adminWindow.textFieldFirstSurnameToDeletePatient.getText(),
 						adminWindow.textFieldSecondSurnameToDeletePatient.getText(),
 						adminWindow.textFieldDNIToDeletePatient.getText());
@@ -757,7 +764,7 @@ public class ControlerAdmin implements ActionListener {
 
 			warehouseDAO.addNewMedicine(adminWindow.textFieldNewMedicine.getText(),
 					Integer.parseInt(adminWindow.textFieldNewMedicineAmount.getText()));
-			
+
 			this.filJComboBoxMedicines(adminWindow.comboBoxMedicines);
 
 		}
