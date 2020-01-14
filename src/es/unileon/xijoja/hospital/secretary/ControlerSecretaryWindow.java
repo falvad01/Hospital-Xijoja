@@ -11,6 +11,7 @@ import java.util.Calendar;
 
 import javax.swing.JComboBox;
 
+import es.unileon.xijoja.hospital.EliminarDAO;
 import es.unileon.xijoja.hospital.Logs;
 import es.unileon.xijoja.hospital.PatientsDAO;
 import es.unileon.xijoja.hospital.PersonalDAO;
@@ -23,6 +24,9 @@ public class ControlerSecretaryWindow implements ActionListener {
 	private Logs log;
 	private PatientsDAO dao;
 	private PersonalDAO daoPersonal;
+	
+	private int count2;
+	private EliminarDAO daoE;
 	private ArrayList<String[]> arrayNurse, arrayMedic;
 	String[] getPatientData = null;
 	
@@ -30,6 +34,8 @@ public class ControlerSecretaryWindow implements ActionListener {
 		this.dao = new PatientsDAO();
 		this.daoPersonal= new PersonalDAO();
 		this.secretarywindow = window;
+		this.daoE= new EliminarDAO();
+
 		log = new Logs();
 
 	}
@@ -96,9 +102,12 @@ public class ControlerSecretaryWindow implements ActionListener {
 																					// funcion del DAO
 																					// que inserta el
 																					// paciente
+						count2=1;
+						daoE.eliminadosB(count2);
+						
 						log.InfoLog("Aï¿½adido el paciente con id: "+id);
 						secretarywindow.lblError.setForeground(Color.BLACK);
-						secretarywindow.lblError.setText("Añadido el paciente correctamente");
+						secretarywindow.lblError.setText("Aï¿½adido el paciente correctamente");
 
 					} catch (SQLException e1) {
 	

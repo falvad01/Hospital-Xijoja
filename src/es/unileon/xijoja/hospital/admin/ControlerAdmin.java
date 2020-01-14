@@ -17,6 +17,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import es.unileon.xijoja.hospital.WarehouseDAO;
+import es.unileon.xijoja.hospital.EliminarDAO;
 import es.unileon.xijoja.hospital.Logs;
 import es.unileon.xijoja.hospital.PatientsDAO;
 import es.unileon.xijoja.hospital.PersonalDAO;
@@ -30,11 +31,14 @@ public class ControlerAdmin implements ActionListener {
 	private PatientsDAO patientsDao;
 	private WarehouseDAO warehouseDAO;
 	private AdminWindow adminWindow;
+	private int count;
+	private int count2;
 	private ArrayList<String[]> arrayNurse, arrayMedic;
 	protected int numAdmin;
 	protected int numDoc;
 	protected int numNurse;
 	protected int numSecre;
+	private EliminarDAO daoE;
 	private String[] employeeToEdit = null;
 	private String[] pacientToEdit = null;
 
@@ -42,6 +46,8 @@ public class ControlerAdmin implements ActionListener {
 		personalDao = new PersonalDAO();
 		patientsDao = new PatientsDAO();
 		warehouseDAO = new WarehouseDAO();
+		this.daoE= new EliminarDAO();
+		
 		log = new Logs();
 		this.adminWindow = adminWindow;
 	}
@@ -478,6 +484,7 @@ public class ControlerAdmin implements ActionListener {
 							adminWindow.textFieldFirstDeleteToDelete.getText(),
 							adminWindow.textFieldSecondSurnameToDelete.getText(),
 							adminWindow.textFieldDNIToDelete.getText());
+					
 					if (!result) {// Si algo ha fallado al borrar el empleado
 						adminWindow.lblErrorDelete.setText("Los datos no coinciden");
 					} else {
@@ -566,7 +573,11 @@ public class ControlerAdmin implements ActionListener {
 							adminWindow.surname2AddPatients.getText(), adminWindow.DNI.getText(), date,
 							Integer.parseInt(adminWindow.roomAddPatients.getText()),
 							adminWindow.textEnfermedad.getText(), idMedic, idNurse);
-
+					count2=1;
+					daoE.eliminadosB(count2);
+					
+					
+					
 				} catch (SQLException e1) {
 
 					e1.printStackTrace();
@@ -649,14 +660,16 @@ public class ControlerAdmin implements ActionListener {
 			} else {
 				System.out.println("Boton borrar pulsado");
 
-				boolean restult = patientsDao.deletePatient(adminWindow.textFieldNameToDeletePatient.getText(), // TODO
-																												// algo
-																												// podria
-																												// fallar
-																												// aqui
+				boolean restult = patientsDao.deletePatient(adminWindow.textFieldNameToDeletePatient.getText(), 
+																									
+																												
 						adminWindow.textFieldFirstSurnameToDeletePatient.getText(),
 						adminWindow.textFieldSecondSurnameToDeletePatient.getText(),
 						adminWindow.textFieldDNIToDeletePatient.getText());
+				
+				count=1;
+				daoE.eliminadosAct(count);
+				
 
 				if (!restult) {
 					adminWindow.textFieldErrorDeletePatient.setText("Los datos no coinciden");
