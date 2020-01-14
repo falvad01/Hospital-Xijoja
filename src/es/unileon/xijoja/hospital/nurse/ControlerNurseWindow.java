@@ -54,7 +54,6 @@ public class ControlerNurseWindow implements ActionListener {
 		     GraphicsEnvironment ge =   GraphicsEnvironment.getLocalGraphicsEnvironment();
 		     ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("etc/rexlia.ttf")));
 		} catch (IOException|FontFormatException e) {
-		     //Handle exception
 		}
 
 	}
@@ -66,7 +65,6 @@ public class ControlerNurseWindow implements ActionListener {
 		if  (arg0.getActionCommand().equals("Cerrar sesion")) {
 
 				nurseWindow.setVisible(false);
-				//TODO arreglar que se borren los campos al cerrar sesion
 				LoginWindow newlogin = LoginWindow.getInstance();
 				newlogin.resetJField();
 				
@@ -79,7 +77,6 @@ public class ControlerNurseWindow implements ActionListener {
 				nurseWindow.seePatientPane.setVisible(true);
 				nurseWindow.getPatientPane.setVisible(false);
 				nurseWindow.btnVerPlantilla.setText("Recargar");
-				//nurseWindow.lblError.setText("");
 
 				ArrayList<String[]> insert = null;
 				int numOfRows= dao.getNumRow();

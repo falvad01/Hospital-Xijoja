@@ -35,7 +35,6 @@ public class ControlerSecretaryWindow implements ActionListener {
 	}
 	
 	
-//TODO comprobar codigo inutil
 	public void actionPerformed(ActionEvent arg0) {
 
 		if (arg0.getActionCommand().equals("A�adir")) {
@@ -72,7 +71,6 @@ public class ControlerSecretaryWindow implements ActionListener {
 				if (add) {// Si da error no se a�ade el 
 					System.out.println("Correcto");
 	
-				//	int id = dao.getLastID()+1;//siguiente id
 					int id = dao.firstIdFree();
 					
 					Date date = new Date(Calendar.getInstance().getTime().getTime());// Obtenemos la fecha actual
@@ -111,7 +109,6 @@ public class ControlerSecretaryWindow implements ActionListener {
 		} else if (arg0.getActionCommand().equals("Cerrar sesion")) {
 
 				secretarywindow.setVisible(false);
-				//TODO arreglar que se borren los campos al cerrar sesion
 				LoginWindow newlogin = LoginWindow.getInstance();
 				newlogin.resetJField();
 		
