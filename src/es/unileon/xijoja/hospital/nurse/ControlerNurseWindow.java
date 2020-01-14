@@ -114,7 +114,6 @@ public class ControlerNurseWindow implements ActionListener {
 			;
 
 				PatientsTable.setVisible(true);
-			//	nurseWindow.seePatientPane.add(PatientsTable);
 				PatientsTable.setAutoscrolls(true);
 				
 

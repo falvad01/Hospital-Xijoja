@@ -198,7 +198,7 @@ public class NurseWindow extends JFrame {
        
 
 		
-		//------------------PANEL BUSCAR POR HABITACION O POR DNI--------------
+		//------------------PANEL USAR MEDICINAS--------------
 				getPatientPane = new JPanel();
 				getPatientPane.setBounds(274, 0, 695, 496);
 				getContentPane().add(getPatientPane);
