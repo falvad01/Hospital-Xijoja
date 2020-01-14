@@ -115,7 +115,7 @@ public class ControlerLoginWindow implements ActionListener, KeyListener {
 				   try {
 				      Process p = Runtime
 				            .getRuntime()
-				            .exec("E:\\Programas\\xampp\\mysql\\bin\\mysqldump -u root -B xijoja -r "+ruta+name);
+				            .exec("C:\\xampp\\mysql\\bin\\mysqldump -u root -B xijoja -r "+ruta+name);
 				      JOptionPane.showMessageDialog(null, "Backus creado: "+ruta);
 		            }catch(Exception ex){
 		                JOptionPane.showMessageDialog(null, ex.getMessage());
