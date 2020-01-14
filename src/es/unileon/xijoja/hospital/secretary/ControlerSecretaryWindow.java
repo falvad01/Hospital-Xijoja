@@ -1,5 +1,6 @@
 package es.unileon.xijoja.hospital.secretary;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -38,6 +39,7 @@ public class ControlerSecretaryWindow implements ActionListener {
 	public void actionPerformed(ActionEvent arg0) {
 
 		if (arg0.getActionCommand().equals("Aï¿½adir")) {
+			secretarywindow.lblError.setForeground(Color.red);
 
 			boolean add = true;
 			if ((secretarywindow.textFieldName.getText().equals("")) || (secretarywindow.textFieldSurname1.getText().equals(""))
@@ -54,6 +56,11 @@ public class ControlerSecretaryWindow implements ActionListener {
 				log.InfoLog("Error, no se pudo introducir el paciente, no hay medicos/enfermeros disponibles");
 
 				
+			} else if (!secretarywindow.textFieldRoom.getText().matches("[+-]?\\d*(\\.\\d+)?")) {
+				add = false;
+
+				secretarywindow.lblError.setText("La habitacion debe ser concretada con numero");
+
 			}else if (dao.checkIfRoomIsBusy(Integer.parseInt(secretarywindow.textFieldRoom.getText()))) {
 				add = false;
 				secretarywindow.lblError.setText("Esa habitacion no estï¿½ disponible, proxima: "+ dao.firstRoomFree());
@@ -62,7 +69,7 @@ public class ControlerSecretaryWindow implements ActionListener {
 			}else{
 				secretarywindow.lblError.setText("");
 			}
-				if (add) {// Si da error no se aï¿½ade el empleado
+				if (add) {// Si da error no se aï¿½ade el 
 					System.out.println("Correcto");
 	
 				//	int id = dao.getLastID()+1;//siguiente id
@@ -92,6 +99,8 @@ public class ControlerSecretaryWindow implements ActionListener {
 																					// que inserta el
 																					// paciente
 						log.InfoLog("Aï¿½adido el paciente con id: "+id);
+						secretarywindow.lblError.setForeground(Color.BLACK);
+						secretarywindow.lblError.setText("Añadido el paciente correctamente");
 
 					} catch (SQLException e1) {
 	
@@ -120,9 +129,10 @@ public class ControlerSecretaryWindow implements ActionListener {
 				
 				
 		} else if (arg0.getActionCommand().equals("Buscar")) {
-				
+			secretarywindow.lblErrorGetPatient.setText("");
 			if ((secretarywindow.textFieldSearchDNIGetPatient.getText().toString().equals(""))){
-				secretarywindow.lblErrorGetPatient.setText("                                          Error en el formulario");
+				secretarywindow.lblErrorGetPatient.setForeground(Color.red);
+				secretarywindow.lblErrorGetPatient.setText("Error en el formulario");
 				log.InfoLog("Error al buscar el paciente");
 
 				
@@ -131,6 +141,7 @@ public class ControlerSecretaryWindow implements ActionListener {
 				boolean isDniOrRoom = isDni(secretarywindow.textFieldSearchDNIGetPatient.getText().toString());
 				
 				if (!dao.checkPatientExist(secretarywindow.textFieldSearchDNIGetPatient.getText().toString(),isDniOrRoom)) {
+					secretarywindow.lblErrorGetPatient.setForeground(Color.red);
 					secretarywindow.lblErrorGetPatient.setText("Error en el formulario");
 					log.InfoLog("Error, no se encuentra el paciente indicado");
 				}else {
@@ -142,6 +153,9 @@ public class ControlerSecretaryWindow implements ActionListener {
 					secretarywindow.labelFieldDNIGetPatient.setText(getPatientData[4]);
 					secretarywindow.labelFieldRoomGetPatient.setText(getPatientData[6]);
 					log.InfoLog("Devuelto el paciente con id: "+getPatientData[0]);
+					secretarywindow.lblErrorGetPatient.setForeground(Color.black);
+					secretarywindow.lblErrorGetPatient.setText("Mostrando informacion del paciente");
+
 
 			
 				}	

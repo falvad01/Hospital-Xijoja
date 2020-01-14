@@ -283,6 +283,7 @@ public class LoginWindow extends JFrame {
 	public void resetJField() {
 		loginPassword.setText("");
 		loginUser.setText("");
+		lblLoginError.setText("");
 		
 	}
 

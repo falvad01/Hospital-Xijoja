@@ -209,35 +209,40 @@ public class NurseWindow extends JFrame {
 
 				JLabel label = new JLabel("Medicamento");
 				label.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
-				label.setBounds(10, 74, 190, 23);
+				label.setHorizontalAlignment(SwingConstants.TRAILING);
+
+				label.setBounds(10, 74, 250, 23);
 				getPatientPane.add(label);
 
-				JLabel lblApellido_1 = new JLabel("Tratamiento restante: ");
-				lblApellido_1.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
-				lblApellido_1.setBounds(10, 125, 190, 23);
-				getPatientPane.add(lblApellido_1);
+				JLabel lblMedine = new JLabel("Tratamiento restante: ");
+				lblMedine.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
+				lblMedine.setHorizontalAlignment(SwingConstants.TRAILING);
+
+				lblMedine.setBounds(10, 125, 250, 23);
+				getPatientPane.add(lblMedine);
 
 				labelFieldMedicine = new RoundedJLabel();
 				labelFieldMedicine.setFont(new Font("Calibri", Font.BOLD, 15));
 				labelFieldMedicine.setEnabled(false);
 				labelFieldMedicine.setHorizontalAlignment(SwingConstants.CENTER);
-				labelFieldMedicine.setBounds(205, 77, 163, 20);
+				labelFieldMedicine.setBounds(260, 77, 163, 20);
 				getPatientPane.add(labelFieldMedicine);
 
 				labelFieldUnits = new RoundedJLabel();
 				labelFieldUnits.setEnabled(false);
-				labelFieldUnits.setBounds(205, 128, 163, 20);
+				labelFieldUnits.setBounds(260, 128, 163, 20);
 				labelFieldUnits.setHorizontalAlignment(SwingConstants.CENTER);
 
 				getPatientPane.add(labelFieldUnits);
 				
 				JLabel lblSelectUnits = new JLabel("Cuantas unidades a tratar: ");
+				lblSelectUnits.setHorizontalAlignment(SwingConstants.TRAILING);
 				lblSelectUnits.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
-				lblSelectUnits.setBounds(10, 179, 190, 23);
+				lblSelectUnits.setBounds(10, 179, 250, 23);
 				getPatientPane.add(lblSelectUnits);
 				
 				jcbNUtits = new JComboBox();
-				jcbNUtits.setBounds(205, 179, 50, 20);
+				jcbNUtits.setBounds(260, 179, 50, 20);
 				jcbNUtits.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 12));
 
 				getPatientPane.add(jcbNUtits);

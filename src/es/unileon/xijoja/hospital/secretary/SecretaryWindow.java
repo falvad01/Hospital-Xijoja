@@ -401,7 +401,7 @@ public class SecretaryWindow extends JFrame {
 		lblErrorGetPatient = new JLabel("");
 		lblErrorGetPatient.setForeground(Color.RED);
 		lblErrorGetPatient.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 10));
-		lblErrorGetPatient.setBounds(170, 35, 255, 14);
+		lblErrorGetPatient.setBounds(300, 35, 255, 14);
 
 		getPatientPane.add(lblErrorGetPatient);
 
