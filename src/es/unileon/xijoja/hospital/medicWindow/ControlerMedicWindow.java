@@ -192,7 +192,7 @@ public class ControlerMedicWindow implements ActionListener {
 		boolean add = true;
 
 		
-	
+		
 		
 		
 		if ((window.NombreP.getText().equals("")) || (window.Apellido1.getText().equals(""))
@@ -205,7 +205,14 @@ public class ControlerMedicWindow implements ActionListener {
 			add = false;
 			window.lberror.setText("Hay campos vacios");
 			log.InfoLog("Error, no se pudo introducir el paciente, hay campos vacios");
+		} else if (!window.textU.getText().matches("[+-]?\\d*(\\.\\d+)?")) {
+			add = false;
 
+			window.lberror.setText("Las unidades deben ser un numero");
+		} else if (!window.Habitacion.getText().matches("[+-]?\\d*(\\.\\d+)?")) {
+			add = false;
+
+			window.lberror.setText("La habitacion debe ser un numero");
 		} else if(window.jcbMedic.getSelectedItem()==null||window.jcbNurse.getSelectedItem()==null) {
 			add = false;
 			window.lberror.setText("No hay medicos/enfermeros disponibles");
@@ -219,7 +226,7 @@ public class ControlerMedicWindow implements ActionListener {
 			add = false;
 			window.lberror.setText("No hay medicamentos");
 			log.InfoLog("Error, No hay medicamentos");
-			
+	
 		}else{
 			window.lberror.setText("");
 		}
@@ -367,6 +374,10 @@ public class ControlerMedicWindow implements ActionListener {
 			add=false;
 			window.lblError2.setText("Hay campos vacios");
 			log.InfoLog("campos vacios al asignar medicamento");
+		} else if (!window.units.getText().matches("[+-]?\\d*(\\.\\d+)?")) {
+			add = false;
+
+			window.lblError2.setText("Las unidades deben ser un numero");
 		}else if(daoAlmacen.Medicine(Integer.parseInt(window.units.getText().toString()), idMedicine)<0) {
 			add=false;
 			m=daoAlmacen.MedicineA(Integer.parseInt(window.units.getText().toString()), idMedicine);
