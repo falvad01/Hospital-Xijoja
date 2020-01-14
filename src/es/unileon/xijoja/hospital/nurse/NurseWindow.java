@@ -31,7 +31,7 @@ import javax.swing.SwingConstants;
 
 import es.unileon.xijoja.hospital.InfoWindow;
 import es.unileon.xijoja.hospital.Logs;
-import es.unileon.xijoja.hospital.PacientesDAO;
+import es.unileon.xijoja.hospital.PatientsDAO;
 import es.unileon.xijoja.hospital.admin.AdminWindow;
 import es.unileon.xijoja.hospital.login.LoginWindow;
 import es.unileon.xijoja.hospital.medicWindow.ControlerMedicWindow;
@@ -42,7 +42,7 @@ import es.unileon.xijoja.hospital.secretary.SecretaryWindow.RoundedJButton;
 public class NurseWindow extends JFrame {
 	Logs archivo = new Logs(); // Instancia de la clase para utilizar sus metodos
 
-	private PacientesDAO dao;
+	private PatientsDAO dao;
 	protected JScrollPane seePatientPane;
 	protected JPanel getPatientPane;
 	private ControlerNurseWindow listener;
@@ -75,7 +75,7 @@ public class NurseWindow extends JFrame {
 		this.listener = new ControlerNurseWindow(this);
 		
 		try {
-			dao = new PacientesDAO();
+			dao = new PatientsDAO();
 			initComponents();
 			initComponentsPanels();
 

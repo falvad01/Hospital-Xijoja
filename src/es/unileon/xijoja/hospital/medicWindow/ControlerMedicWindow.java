@@ -19,10 +19,10 @@ import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import es.unileon.xijoja.hospital.AlmacenDAO;
+import es.unileon.xijoja.hospital.WarehouseDAO;
 import es.unileon.xijoja.hospital.EliminarDAO;
 import es.unileon.xijoja.hospital.Logs;
-import es.unileon.xijoja.hospital.PacientesDAO;
+import es.unileon.xijoja.hospital.PatientsDAO;
 import es.unileon.xijoja.hospital.PersonalDAO;
 import es.unileon.xijoja.hospital.login.ControlerLoginWindow;
 import es.unileon.xijoja.hospital.login.LoginWindow;
@@ -41,9 +41,9 @@ public class ControlerMedicWindow implements ActionListener {
 	private int count;
 	private int count2;
 	private int count3;
-	private PacientesDAO dao;
+	private PatientsDAO dao;
 	private PersonalDAO daoPersonal;
-	private AlmacenDAO daoAlmacen;
+	private WarehouseDAO daoAlmacen;
 	private EliminarDAO daoE;
 	private ArrayList<String[]> arrayNurse, arrayMedic;
 	private ArrayList<String[]> arrayMedicine;
@@ -59,8 +59,8 @@ public class ControlerMedicWindow implements ActionListener {
 	public ControlerMedicWindow(MedicWindow window) {
 
 		this.window = window;
-		dao = new PacientesDAO();
-		this.daoAlmacen= new AlmacenDAO();
+		dao = new PatientsDAO();
+		this.daoAlmacen= new WarehouseDAO();
 		this.daoPersonal= new PersonalDAO();
 		this.daoE= new EliminarDAO();
 		log = new Logs();

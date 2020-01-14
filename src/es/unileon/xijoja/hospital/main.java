@@ -13,7 +13,7 @@ import es.unileon.xijoja.hospital.secretary.SecretaryWindow;
 
 public class main {
 
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws IOException, SQLException {
 
 		// llamada al login
 		 LoginWindow window = LoginWindow.getInstance();

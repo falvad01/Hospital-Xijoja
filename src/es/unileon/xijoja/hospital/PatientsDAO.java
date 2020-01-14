@@ -22,7 +22,7 @@ import java.sql.PreparedStatement;
  * @author Xijoja
  *
  */
-public class PacientesDAO {
+public class PatientsDAO {
 
 	private Connection conn;
 	private Conexion co;
@@ -30,7 +30,7 @@ public class PacientesDAO {
 	/**
 	 *
 	 */
-	public PacientesDAO() {
+	public PatientsDAO() {
 	}
 
 	/**

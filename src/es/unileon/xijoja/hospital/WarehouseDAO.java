@@ -21,7 +21,7 @@ import java.sql.PreparedStatement;
  * @author Xijoja
  *
  */
-public class AlmacenDAO {
+public class WarehouseDAO {
 
 	private Connection conn;
 	private Conexion co;
@@ -29,7 +29,7 @@ public class AlmacenDAO {
 	/**
 	 *
 	 */
-	public AlmacenDAO() {
+	public WarehouseDAO() {
 	}
 
 	 public String getMedicineName (int id) {

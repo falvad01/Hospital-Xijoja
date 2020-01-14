@@ -104,6 +104,7 @@ public class AdminWindow extends JFrame {
 	protected JTextField textFieldFirstDeleteToDelete;
 	protected JTextField textFieldSecondSurnameToDelete;
 	protected JLabel lblErrorDelete;
+	
 	protected JLabel lblErrorEditPatientRomm;
 	protected JLabel lberror;
 	protected JTextField NombreP;
@@ -111,11 +112,11 @@ public class AdminWindow extends JFrame {
 	protected JTextField surname2AddPatients;
 	protected JTextField DNI;
 	protected JTextField roomAddPatients;
-	protected JTextField Medicamentos;
+	protected JTextField medicamentos;
 	protected JLabel lblError2;
-	protected JComboBox jcbNurse;
-	protected JComboBox jcbMedic;
-	protected JComboBox jcbMedicine;
+	protected JComboBox<Object> jcbNurse;
+	protected JComboBox<Object> jcbMedic;
+	protected JComboBox<Object> jcbMedicine;
 	protected JTextField textEnfermedad;
 	protected JTextField textFieldDNIToDeletePatient;
 	protected JTextField textFieldNameToDeletePatient;
@@ -131,7 +132,7 @@ public class AdminWindow extends JFrame {
 	protected JTextField textFieldIllnesEditPatient;
 	protected JTextField textFieldRommEditPacient;
 
-	protected JComboBox comboBoxMedicines;
+	protected JComboBox<Object> comboBoxMedicines;
 	protected JLabel lblNumberMedicine;
 	protected JTextField textFieldNewMedicine;
 	protected JTextField textFieldNewMedicineAmount;
@@ -378,8 +379,8 @@ public class AdminWindow extends JFrame {
 		textFieldDNISearchEditPatient.setColumns(10);
 
 		JLabel lblNewLabel_6 = new JLabel("Nombre");
-		lblNewLabel_6.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
 		lblNewLabel_6.setHorizontalAlignment(SwingConstants.TRAILING);
+		lblNewLabel_6.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
 		lblNewLabel_6.setBounds(57, 64, 74, 14);
 		editPatientPanel.add(lblNewLabel_6);
 

@@ -11,7 +11,7 @@ import java.util.Calendar;
 import javax.swing.JComboBox;
 
 import es.unileon.xijoja.hospital.Logs;
-import es.unileon.xijoja.hospital.PacientesDAO;
+import es.unileon.xijoja.hospital.PatientsDAO;
 import es.unileon.xijoja.hospital.PersonalDAO;
 import es.unileon.xijoja.hospital.login.ControlerLoginWindow;
 import es.unileon.xijoja.hospital.login.LoginWindow;
@@ -20,13 +20,13 @@ public class ControlerSecretaryWindow implements ActionListener {
 	
 	private SecretaryWindow secretarywindow;
 	private Logs log;
-	private PacientesDAO dao;
+	private PatientsDAO dao;
 	private PersonalDAO daoPersonal;
 	private ArrayList<String[]> arrayNurse, arrayMedic;
 	String[] getPatientData = null;
 	
 	public ControlerSecretaryWindow(SecretaryWindow window) {
-		this.dao = new PacientesDAO();
+		this.dao = new PatientsDAO();
 		this.daoPersonal= new PersonalDAO();
 		this.secretarywindow = window;
 		log = new Logs();
@@ -37,7 +37,7 @@ public class ControlerSecretaryWindow implements ActionListener {
 //TODO comprobar codigo inutil
 	public void actionPerformed(ActionEvent arg0) {
 
-		if (arg0.getActionCommand().equals("Añadir")) {
+		if (arg0.getActionCommand().equals("Aï¿½adir")) {
 
 			boolean add = true;
 			if ((secretarywindow.textFieldName.getText().equals("")) || (secretarywindow.textFieldSurname1.getText().equals(""))
@@ -114,7 +114,7 @@ public class ControlerSecretaryWindow implements ActionListener {
 				secretarywindow.addPatientPane.setVisible(false);
 				secretarywindow.getPatientPane.setVisible(true);
 				
-		} else if (arg0.getActionCommand().equals("Añadir Paciente")) {
+		} else if (arg0.getActionCommand().equals("Aï¿½adir Paciente")) {
 				secretarywindow.getPatientPane.setVisible(false);
 				secretarywindow.addPatientPane.setVisible(true);
 				

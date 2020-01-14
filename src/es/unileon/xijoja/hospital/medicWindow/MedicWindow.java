@@ -39,7 +39,7 @@ import javax.swing.table.DefaultTableModel;
 
 import es.unileon.xijoja.hospital.InfoWindow;
 import es.unileon.xijoja.hospital.Logs;
-import es.unileon.xijoja.hospital.PacientesDAO;
+import es.unileon.xijoja.hospital.PatientsDAO;
 import es.unileon.xijoja.hospital.admin.AdminWindow;
 import es.unileon.xijoja.hospital.login.LoginWindow;
 import es.unileon.xijoja.hospital.secretary.SecretaryWindow.HintTextField;
@@ -63,7 +63,7 @@ public class MedicWindow extends JFrame {
 	protected JPanel getPatientPane;
 	protected JPanel week;
 	
-	private PacientesDAO dao;
+	private PatientsDAO dao;
 	private ControlerMedicWindow listener;
 	protected JTextField NombreP;
 	protected JTextField Apellido1;
@@ -125,7 +125,7 @@ public class MedicWindow extends JFrame {
 		setTitle("Medico");
 		listener = new ControlerMedicWindow(this);
 		try {
-			dao = new PacientesDAO();
+			dao = new PatientsDAO();
 			initComponents();
 			initComponentsPanels();
 

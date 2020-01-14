@@ -23,9 +23,9 @@ import javax.swing.table.DefaultTableModel;
 import com.sun.corba.se.impl.encoding.CodeSetConversion.BTCConverter;
 import com.sun.mail.handlers.text_html;
 
-import es.unileon.xijoja.hospital.AlmacenDAO;
+import es.unileon.xijoja.hospital.WarehouseDAO;
 import es.unileon.xijoja.hospital.Logs;
-import es.unileon.xijoja.hospital.PacientesDAO;
+import es.unileon.xijoja.hospital.PatientsDAO;
 import es.unileon.xijoja.hospital.PersonalDAO;
 import es.unileon.xijoja.hospital.login.ControlerLoginWindow;
 import es.unileon.xijoja.hospital.login.LoginWindow;
@@ -36,17 +36,17 @@ public class ControlerNurseWindow implements ActionListener {
 
 	private NurseWindow nurseWindow;
 	private Logs log;
-	private PacientesDAO dao;
+	private PatientsDAO dao;
 	private PersonalDAO daoPersonal;
-	private AlmacenDAO daoAlmacen;
+	private WarehouseDAO daoAlmacen;
 	private int id, idPatient;;
 	private ArrayList<String[]> listPatients;
 	String[] getPatientData = null;
 	
 	public ControlerNurseWindow(NurseWindow window) {
-		this.dao = new PacientesDAO();
+		this.dao = new PatientsDAO();
 		this.daoPersonal= new PersonalDAO();
-		this.daoAlmacen= new AlmacenDAO();
+		this.daoAlmacen= new WarehouseDAO();
 		this.nurseWindow = window;
 		log = new Logs();
 		this. id= daoPersonal.getIdByUserAndPass(nurseWindow.user,nurseWindow.password);
@@ -88,7 +88,7 @@ public class ControlerNurseWindow implements ActionListener {
 
 				String[][] matrixToInsert = null;
 				
-				titles = new String[] { "ID", "NOMBRE", "APELLIDO", "APELLIDO", "NIF", "FECHA", "NºHABITACION",
+				titles = new String[] { "ID", "NOMBRE", "APELLIDO", "APELLIDO", "NIF", "FECHA", "Nï¿½HABITACION",
 						"ENFERMEDAD", "IDMEDICAMENTO", "MEDICO", "TRATAMIENTO", "ENFERMERO " }; // Titulos de la tabla de
 		
 																		// los empleados
@@ -133,7 +133,7 @@ public class ControlerNurseWindow implements ActionListener {
 				
 			if ((nurseWindow.jcbPatient.getSelectedItem()==null)){
 				nurseWindow.lblErrorGetPatient.setText("No tiene pacientes asignados");
-				log.InfoLog("Error, no se selecionó un paciente");
+				log.InfoLog("Error, no se selecionï¿½ un paciente");
 
 				
 			}else {

@@ -16,9 +16,9 @@ import javax.swing.JPasswordField;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import es.unileon.xijoja.hospital.AlmacenDAO;
+import es.unileon.xijoja.hospital.WarehouseDAO;
 import es.unileon.xijoja.hospital.Logs;
-import es.unileon.xijoja.hospital.PacientesDAO;
+import es.unileon.xijoja.hospital.PatientsDAO;
 import es.unileon.xijoja.hospital.PersonalDAO;
 import es.unileon.xijoja.hospital.login.ControlerLoginWindow;
 import es.unileon.xijoja.hospital.login.LoginWindow;
@@ -27,21 +27,21 @@ public class ControlerAdmin implements ActionListener {
 
 	private Logs log;
 	private PersonalDAO personalDao;
-	private PacientesDAO patientsDao;
-	private AlmacenDAO warehouseDAO;
+	private PatientsDAO patientsDao;
+	private WarehouseDAO warehouseDAO;
 	private AdminWindow adminWindow;
 	private ArrayList<String[]> arrayNurse, arrayMedic;
 	protected int numAdmin;
 	protected int numDoc;
 	protected int numNurse;
 	protected int numSecre;
-	String[] employeeToEdit = null;
-	String[] pacientToEdit = null;
+	private String[] employeeToEdit = null;
+	private String[] pacientToEdit = null;
 
 	public ControlerAdmin(AdminWindow adminWindow) {
 		personalDao = new PersonalDAO();
-		patientsDao = new PacientesDAO();
-		warehouseDAO = new AlmacenDAO();
+		patientsDao = new PatientsDAO();
+		warehouseDAO = new WarehouseDAO();
 		log = new Logs();
 		this.adminWindow = adminWindow;
 	}
@@ -742,7 +742,7 @@ public class ControlerAdmin implements ActionListener {
 						out = true;
 						if (!adminWindow.textFieldRommEditPacient.getText().matches("[+-]?\\d*(\\.\\d+)?")) {
 							System.out.println("Aqui");
-							adminWindow.lblErrorEditPatientRomm.setText("La habitacion debe ser concretada con numero"); // la
+							adminWindow.lblErrorEditPatientRomm.setText("La habitacion debe ser concretada con numero"); 
 							out = true;
 						} else if (patientsDao
 								.checkIfRoomIsBusy(Integer.parseInt(adminWindow.textFieldRommEditPacient.getText()))) {
