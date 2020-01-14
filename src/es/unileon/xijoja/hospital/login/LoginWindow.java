@@ -94,7 +94,7 @@ public class LoginWindow extends JFrame {
 		}
 		try {
 		     GraphicsEnvironment ge =   GraphicsEnvironment.getLocalGraphicsEnvironment();
-		     ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("etc/rexlia.ttf")));
+		     ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("src/resources/rexlia.ttf")));
 		} catch (IOException|FontFormatException e) {
 		     //Handle exception
 		}

@@ -15,11 +15,7 @@ public class main {
 
 	public static void main(String[] args) throws IOException, SQLException {
 
-		// llamada al login
-		 LoginWindow window = LoginWindow.getInstance();
-		//NurseWindow window = new NurseWindow("enfermero", "enfermero");
-		//AdminWindow window = new AdminWindow("root", "root");
-		//SecretaryWindow window=new SecretaryWindow();
+		LoginWindow window = LoginWindow.getInstance();
 
 		window.setVisible(true);
 	

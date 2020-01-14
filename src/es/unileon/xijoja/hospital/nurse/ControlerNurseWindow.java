@@ -50,11 +50,7 @@ public class ControlerNurseWindow implements ActionListener {
 		this.nurseWindow = window;
 		log = new Logs();
 		this. id= daoPersonal.getIdByUserAndPass(nurseWindow.user,nurseWindow.password);
-		try {
-		     GraphicsEnvironment ge =   GraphicsEnvironment.getLocalGraphicsEnvironment();
-		     ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("etc/rexlia.ttf")));
-		} catch (IOException|FontFormatException e) {
-		}
+		
 
 	}
 	

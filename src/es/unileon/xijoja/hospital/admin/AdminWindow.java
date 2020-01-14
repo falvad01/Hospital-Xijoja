@@ -138,12 +138,7 @@ public class AdminWindow extends JFrame {
 	protected JTextField textFieldNewMedicineAmount;
 
 	public AdminWindow(String user, String password) throws SQLException {
-		try {
-			GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-			ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("etc/rexlia.ttf")));
-		} catch (IOException | FontFormatException e) {
-			// Handle exception
-		}
+		
 		log.InfoLog("Iniciada la sesion del administrador");
 		this.user = user;
 		this.password = password;

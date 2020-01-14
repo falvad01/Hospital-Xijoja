@@ -589,7 +589,7 @@ public class PersonalDAO {
 			e.printStackTrace();
 		}
 
-		BufferedReader in = new BufferedReader(new FileReader("etc/xijoja_base_de_datos.sql"));
+		BufferedReader in = new BufferedReader(new FileReader("src/resources/xijoja_base_de_datos.sql"));
 		String str;
 		StringBuffer sb = new StringBuffer();
 

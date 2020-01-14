@@ -83,12 +83,7 @@ public class NurseWindow extends JFrame {
 
 			e.printStackTrace();
 		}
-		try {
-		     GraphicsEnvironment ge =   GraphicsEnvironment.getLocalGraphicsEnvironment();
-		     ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("etc/rexlia.ttf")));
-		} catch (IOException|FontFormatException e) {
-		     //Handle exception
-		}
+		
 
 	}
 

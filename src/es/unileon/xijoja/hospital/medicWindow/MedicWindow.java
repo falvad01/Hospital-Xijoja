@@ -101,19 +101,9 @@ public class MedicWindow extends JFrame {
     protected JTextField eliminados;
     protected JTextField adds;
     protected JTextField meds;
-   // protected String user;
-	//protected String password;
 
-
-   
-
-	// TODO las variables que se quieran ser usadas en el controlador tienen que
-	// estar en protected NO en private
-
-	//public MedicWindow(String user, String password) { 
 		public MedicWindow() { 	
-		//this.user = user;
-		//this.password = password;
+
 
 		log.InfoLog("Iniciada la sesion del medico");
 		screen = Toolkit.getDefaultToolkit();
@@ -134,12 +124,7 @@ public class MedicWindow extends JFrame {
 			e.printStackTrace();
 		}
 		
-		try {
-			GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-			ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("etc/rexlia.ttf")));
-		} catch (IOException | FontFormatException e) {
-			// Handle exception
-		}
+		
 
 	}
 
@@ -256,8 +241,7 @@ public class MedicWindow extends JFrame {
 
 	
 	private void initComponentsPanels() throws SQLException {
-		// TODO el lister de los botones se llama listenner(YA ESTA DECLARADO E
-		// INICIALIZADO)
+	
 		
 		//panel ver pacientes
 
