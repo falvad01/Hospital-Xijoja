@@ -264,7 +264,7 @@ public class EliminarDAO {
 		  			st.executeUpdate(sql);	
 		  			st.executeUpdate(sql1);	
 	  
-	  			}else if(output.equals("Thuesday")){
+	  			}else if(output.equals("Tuesday")){
 	  				elim=cont+T;
 		  			String sql = "UPDATE `eliminados` SET `medicinas` = '"+elim+"'";	
 

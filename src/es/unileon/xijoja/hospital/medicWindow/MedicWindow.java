@@ -330,13 +330,13 @@ public class MedicWindow extends JFrame {
 				addPatientsPanel.add(DNI);
 				DNI.setColumns(10);
 				
-				JLabel lblHabitacin = new JLabel("Habitacion");
+				JLabel lblHabitacin = new JLabel("Habitación");
 				lblHabitacin.setHorizontalAlignment(SwingConstants.TRAILING);
 				lblHabitacin.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
 				lblHabitacin.setBounds(0, 212, 128, 16);
 				addPatientsPanel.add(lblHabitacin);
 				
-				Habitacion = new HintTextField("Habitacion");
+				Habitacion = new HintTextField("Habitación");
 				Habitacion.setBounds(145, 206, 116, 22);
 				addPatientsPanel.add(Habitacion);
 				Habitacion.setColumns(10);
@@ -643,7 +643,7 @@ public class MedicWindow extends JFrame {
 		getPatientPane.add(textFieldSurname2GetPatient);
 		
 		
-		JLabel lblRoom = new JLabel("Habitacion");
+		JLabel lblRoom = new JLabel("Habitación");
 		lblRoom.setHorizontalAlignment(SwingConstants.TRAILING);
 		lblRoom.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));	
 		lblRoom.setBounds(358, 74, 97, 23);
@@ -672,7 +672,7 @@ public class MedicWindow extends JFrame {
 		lblNewLabel.setBounds(0, 11, 200, 23);
 		getPatientPane.add(lblNewLabel);
 		
-        textFieldSearchDNIGetPatient = new HintTextField("DNI o Habitaciï¿½n");
+        textFieldSearchDNIGetPatient = new HintTextField("DNI o Habitación");
 		textFieldSearchDNIGetPatient.setHorizontalAlignment(SwingConstants.CENTER);
         textFieldSearchDNIGetPatient.setBounds(210, 12, 133, 20);
         getPatientPane.add(textFieldSearchDNIGetPatient);

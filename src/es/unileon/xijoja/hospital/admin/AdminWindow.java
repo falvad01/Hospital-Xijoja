@@ -187,7 +187,7 @@ public class AdminWindow extends JFrame {
 		});
 
 		JButton btnNewButton = new RoundedJButton(15);
-		btnNewButton.setText("AÃ±adir trabajador");
+		btnNewButton.setText("Añadir trabajador");
 		btnNewButton.setOpaque(false);
 		btnNewButton.setBackground(new Color(255, 255, 255));
 		btnNewButton.setBounds(28, 33, 234, 23);
@@ -478,13 +478,13 @@ public class AdminWindow extends JFrame {
 		lblNewLabel_6.setBounds(57, 64, 74, 14);
 		editPatientPanel.add(lblNewLabel_6);
 
-		JLabel lblApellido_4 = new JLabel("1Âº Apellido");
+		JLabel lblApellido_4 = new JLabel("1º Apellido");
 		lblApellido_4.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
 		lblApellido_4.setHorizontalAlignment(SwingConstants.TRAILING);
 		lblApellido_4.setBounds(28, 100, 103, 14);
 		editPatientPanel.add(lblApellido_4);
 
-		JLabel lblApellido_5 = new JLabel("2Âº Apellido");
+		JLabel lblApellido_5 = new JLabel("2º Apellido");
 		lblApellido_5.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
 		lblApellido_5.setHorizontalAlignment(SwingConstants.TRAILING);
 		lblApellido_5.setBounds(28, 136, 103, 14);
@@ -502,7 +502,7 @@ public class AdminWindow extends JFrame {
 		lblEnfermedad_1.setBounds(10, 208, 121, 14);
 		editPatientPanel.add(lblEnfermedad_1);
 
-		JLabel lblHabitacion = new JLabel("Habitacion");
+		JLabel lblHabitacion = new JLabel("Habitación");
 		lblHabitacion.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
 		lblHabitacion.setHorizontalAlignment(SwingConstants.TRAILING);
 		lblHabitacion.setBounds(10, 244, 121, 14);
@@ -567,13 +567,13 @@ public class AdminWindow extends JFrame {
 		lblNewLabel_22.setBounds(10, 119, 89, 14);
 		deletePatientsPanel.add(lblNewLabel_22);
 
-		JLabel lblApellido_32 = new JLabel("1Âº Apellido");
+		JLabel lblApellido_32 = new JLabel("1º Apellido");
 		lblApellido_32.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
 		lblApellido_32.setHorizontalAlignment(SwingConstants.TRAILING);
 		lblApellido_32.setBounds(10, 169, 89, 14);
 		deletePatientsPanel.add(lblApellido_32);
 
-		JLabel lblapellido2 = new JLabel("2ÂºApellido");
+		JLabel lblapellido2 = new JLabel("2ºApellido");
 		lblapellido2.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
 		lblapellido2.setHorizontalAlignment(SwingConstants.TRAILING);
 		lblapellido2.setBounds(0, 218, 99, 14);
@@ -589,12 +589,12 @@ public class AdminWindow extends JFrame {
 		deletePatientsPanel.add(textFieldNameToDeletePatient);
 		textFieldNameToDeletePatient.setColumns(10);
 
-		textFieldFirstSurnameToDeletePatient = new HintTextField("1Âº Apellido");
+		textFieldFirstSurnameToDeletePatient = new HintTextField("1º Apellido");
 		textFieldFirstSurnameToDeletePatient.setBounds(109, 166, 100, 20);
 		deletePatientsPanel.add(textFieldFirstSurnameToDeletePatient);
 		textFieldFirstSurnameToDeletePatient.setColumns(10);
 
-		textFieldSecondSurnameToDeletePatient = new HintTextField("2Âº Apellido");
+		textFieldSecondSurnameToDeletePatient = new HintTextField("2º Apellido");
 		textFieldSecondSurnameToDeletePatient.setColumns(10);
 		textFieldSecondSurnameToDeletePatient.setBounds(109, 215, 100, 20);
 		deletePatientsPanel.add(textFieldSecondSurnameToDeletePatient);
@@ -647,7 +647,7 @@ public class AdminWindow extends JFrame {
 		lblNifnie2.setBounds(10, 168, 125, 16);
 		addPatientsPanel.add(lblNifnie2);
 
-		JLabel lblRoom = new JLabel("HabitaciÃ³n");
+		JLabel lblRoom = new JLabel("Habitación");
 		lblRoom.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
 		lblRoom.setHorizontalAlignment(SwingConstants.TRAILING);
 		lblRoom.setBounds(10, 209, 125, 16);
@@ -663,7 +663,7 @@ public class AdminWindow extends JFrame {
 		jcbMedic.setBounds(392, 45, 213, 20);
 		addPatientsPanel.add(jcbMedic);
 
-		JLabel lblMedico_1 = new JLabel("Medico");
+		JLabel lblMedico_1 = new JLabel("Médico");
 		lblMedico_1.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
 		lblMedico_1.setHorizontalAlignment(SwingConstants.TRAILING);
 		lblMedico_1.setBounds(278, 47, 93, 16);
@@ -715,13 +715,13 @@ public class AdminWindow extends JFrame {
 		lblNewLabel_2.setBounds(10, 122, 86, 14);
 		deletePanel.add(lblNewLabel_2);
 
-		JLabel lblApellido_3 = new JLabel("1Âº Apellido");
+		JLabel lblApellido_3 = new JLabel("1º Apellido");
 		lblApellido_3.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
 		lblApellido_3.setHorizontalAlignment(SwingConstants.TRAILING);
 		lblApellido_3.setBounds(-17, 169, 113, 14);
 		deletePanel.add(lblApellido_3);
 
-		JLabel lblapellido = new JLabel("2ÂºApellido");
+		JLabel lblapellido = new JLabel("2ºApellido");
 		lblapellido.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
 		lblapellido.setHorizontalAlignment(SwingConstants.TRAILING);
 		lblapellido.setBounds(-17, 218, 113, 14);
@@ -777,7 +777,7 @@ public class AdminWindow extends JFrame {
 		comboBoxJobEdit.setEnabled(false);
 		comboBoxJobEdit.setOpaque(false);
 		comboBoxJobEdit.setModel(new DefaultComboBoxModel<Object>(
-				new String[] { "Administrador", "Medico", "Enfermero", "Secretario" }));
+				new String[] { "Administrador", "Médico", "Enfermero", "Secretario" }));
 		comboBoxJobEdit.setBackground(Color.WHITE);
 		comboBoxJobEdit.setBounds(450, 76, 133, 23);
 		editEmployeesPanel.add(comboBoxJobEdit);
@@ -794,7 +794,7 @@ public class AdminWindow extends JFrame {
 		labelUserNameEdit.setBounds(390, 173, 193, 41);
 		editEmployeesPanel.add(labelUserNameEdit);
 
-		JLabel lblApellido_2 = new JLabel("2Âº Apellido");
+		JLabel lblApellido_2 = new JLabel("2º Apellido");
 		lblApellido_2.setHorizontalAlignment(SwingConstants.TRAILING);
 		lblApellido_2.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
 		lblApellido_2.setBounds(20, 174, 113, 14);
@@ -820,7 +820,7 @@ public class AdminWindow extends JFrame {
 		lblErrorEdit.setBounds(358, 15, 244, 14);
 		editEmployeesPanel.add(lblErrorEdit);
 
-		JLabel lblApellido_1 = new JLabel("1Âº Apellido");
+		JLabel lblApellido_1 = new JLabel("1º Apellido");
 		lblApellido_1.setHorizontalAlignment(SwingConstants.TRAILING);
 		lblApellido_1.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
 		lblApellido_1.setBounds(20, 123, 113, 20);
@@ -831,12 +831,12 @@ public class AdminWindow extends JFrame {
 		NombreP.setBounds(145, 44, 116, 22);
 		addPatientsPanel.add(NombreP);
 
-		surname1AddPatients = new HintTextField("1Âº Apellido");
+		surname1AddPatients = new HintTextField("1º Apellido");
 		surname1AddPatients.setColumns(10);
 		surname1AddPatients.setBounds(145, 85, 116, 22);
 		addPatientsPanel.add(surname1AddPatients);
 
-		surname2AddPatients = new HintTextField("2Âº Apellido");
+		surname2AddPatients = new HintTextField("2º Apellido");
 		surname2AddPatients.setColumns(10);
 		surname2AddPatients.setBounds(145, 124, 116, 22);
 		addPatientsPanel.add(surname2AddPatients);
@@ -937,12 +937,12 @@ public class AdminWindow extends JFrame {
 		textFieldNameToDelete.setBounds(106, 119, 138, 20);
 		deletePanel.add(textFieldNameToDelete);
 
-		textFieldFirstDeleteToDelete = new HintTextField("1Âº Apellido");
+		textFieldFirstDeleteToDelete = new HintTextField("1º Apellido");
 		textFieldFirstDeleteToDelete.setColumns(10);
 		textFieldFirstDeleteToDelete.setBounds(106, 166, 138, 20);
 		deletePanel.add(textFieldFirstDeleteToDelete);
 
-		textFieldSecondSurnameToDelete = new HintTextField("2Âº Apellido");
+		textFieldSecondSurnameToDelete = new HintTextField("2º Apellido");
 		textFieldSecondSurnameToDelete.setColumns(10);
 		textFieldSecondSurnameToDelete.setBounds(106, 215, 138, 20);
 		deletePanel.add(textFieldSecondSurnameToDelete);
@@ -966,7 +966,7 @@ public class AdminWindow extends JFrame {
 		seeWarehousePanel.add(textFieldNewMedicine);
 		seeWarehousePanel.add(textFieldNewMedicine);
 
-		textFieldNewMedicineAmount = new HintTextField("Cantidad(En NÂº)");
+		textFieldNewMedicineAmount = new HintTextField("Cantidad(En Nº)");
 		textFieldNewMedicineAmount.setColumns(10);
 		textFieldNewMedicineAmount.setBounds(100, 256, 110, 20);
 		seeWarehousePanel.add(textFieldNewMedicineAmount);
@@ -1014,7 +1014,7 @@ public class AdminWindow extends JFrame {
 
 		addEmployeePanel.add(lblNombre);
 
-		JLabel lblApellidos = new JLabel("1Âº Apellido");
+		JLabel lblApellidos = new JLabel("1º Apellido");
 		lblApellidos.setHorizontalAlignment(SwingConstants.TRAILING);
 		lblApellidos.setBounds(52, 78, 99, 23);
 		lblApellidos.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
@@ -1025,7 +1025,7 @@ public class AdminWindow extends JFrame {
 		addEmployeePanel.add(textFieldName);
 		textFieldName.setColumns(10);
 
-		textFieldSurname1 = new HintTextField("1Âº Apellido");
+		textFieldSurname1 = new HintTextField("1º Apellido");
 
 		textFieldSurname1.setBounds(161, 81, 143, 20);
 		addEmployeePanel.add(textFieldSurname1);
@@ -1063,7 +1063,7 @@ public class AdminWindow extends JFrame {
 		comboBoxJob.setBounds(450, 29, 133, 23);
 		comboBoxJob.setBackground(Color.WHITE);
 		comboBoxJob.setModel(new DefaultComboBoxModel<Object>(
-				new String[] { "Administrador", "Medico", "Enfermero", "Secretario" }));
+				new String[] { "Administrador", "Médico", "Enfermero", "Secretario" }));
 		comboBoxJob.setOpaque(false);
 		addEmployeePanel.add(comboBoxJob);
 
@@ -1086,7 +1086,7 @@ public class AdminWindow extends JFrame {
 
 		lblPassword = new JLabel("");
 		lblPassword.setBorder(
-				new TitledBorder(null, "Contrase\u00F1a", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+				new TitledBorder(null, "Contraseña", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		lblPassword.setBounds(390, 178, 193, 41);
 		lblPassword.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
 		addEmployeePanel.add(lblPassword);
@@ -1099,13 +1099,13 @@ public class AdminWindow extends JFrame {
 		addEmployeePanel.add(btnRegister);
 		btnRegister.addActionListener(listener);
 
-		JLabel lblApellido = new JLabel("2Âº Apellido");
+		JLabel lblApellido = new JLabel("2º Apellido");
 		lblApellido.setHorizontalAlignment(SwingConstants.TRAILING);
 		lblApellido.setBounds(52, 123, 99, 23);
 		lblApellido.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
 		addEmployeePanel.add(lblApellido);
 
-		textFieldSurname2 = new HintTextField("2Âº Apellido");
+		textFieldSurname2 = new HintTextField("2º Apellido");
 		textFieldSurname2.setBounds(161, 126, 143, 20);
 		textFieldSurname2.setColumns(10);
 		addEmployeePanel.add(textFieldSurname2);

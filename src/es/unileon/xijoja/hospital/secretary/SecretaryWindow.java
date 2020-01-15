@@ -131,7 +131,7 @@ public class SecretaryWindow extends JFrame {
 		});
 
 		JButton btnNewButton = new RoundedJButton(15);
-		btnNewButton.setText("Aï¿½adir Paciente");
+		btnNewButton.setText("Aºadir Paciente");
 		btnNewButton.setOpaque(false);
 		btnNewButton.setBounds(28, 33, 234, 41);
 		getContentPane().add(btnNewButton);
@@ -186,7 +186,7 @@ public class SecretaryWindow extends JFrame {
 
 	private void initComponentsPanels() throws SQLException {
 
-		////////////////////////////////////////////////////////////// Aï¿½adir pacientes
+		////////////////////////////////////////////////////////////// Aºadir pacientes
 
 		addPatientPane = new JPanel();
 		addPatientPane.setForeground(Color.WHITE);
@@ -201,7 +201,7 @@ public class SecretaryWindow extends JFrame {
 		lblNombre.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
 		addPatientPane.add(lblNombre);
 
-		JLabel lblApellidos = new JLabel("1ï¿½ Apellido");
+		JLabel lblApellidos = new JLabel("1º Apellido");
 		lblApellidos.setHorizontalAlignment(SwingConstants.TRAILING);
 		lblApellidos.setBounds(28, 78, 121, 23);
 		lblApellidos.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
@@ -236,20 +236,20 @@ public class SecretaryWindow extends JFrame {
 
 		
 		JButton btnRegister = new RoundedJButton(15);
-		btnRegister.setText("Aï¿½adir");
+		btnRegister.setText("Aºadir");
 		btnRegister.setBounds(320, 260, 212, 47);
 		btnRegister.setBackground(Color.WHITE);
 		btnRegister.setOpaque(false);
 		btnRegister.addActionListener(listener);
 		addPatientPane.add(btnRegister);
 		
-		textFieldRoom = new HintTextField(" Nï¿½ de habitaciï¿½n");
+		textFieldRoom = new HintTextField(" Nº de habitación");
 		textFieldRoom.setBounds(459, 30, 143, 25);
 		textFieldRoom.setColumns(10);
 		addPatientPane.add(textFieldRoom);
 		
 
-		JLabel lblApellido = new JLabel("2ï¿½ Apellido");
+		JLabel lblApellido = new JLabel("2º Apellido");
 		lblApellido.setHorizontalAlignment(SwingConstants.TRAILING);
 		lblApellido.setBounds(28, 123, 121, 23);
 		lblApellido.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
@@ -273,7 +273,7 @@ public class SecretaryWindow extends JFrame {
 
 		addPatientPane.add(jcbNurse);
 
-		JLabel lblMedic = new JLabel("Mï¿½dico");
+		JLabel lblMedic = new JLabel("Médico");
 		lblMedic.setHorizontalAlignment(SwingConstants.TRAILING);
 		lblMedic.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
 		lblMedic.setBounds(335, 123, 114, 23);
@@ -320,7 +320,7 @@ public class SecretaryWindow extends JFrame {
 		label.setBounds(10, 74, 122, 23);
 		getPatientPane.add(label);
 
-		JLabel lblApellido_1 = new JLabel("1ï¿½ Apellido:");
+		JLabel lblApellido_1 = new JLabel("1º Apellido:");
 		lblApellido_1.setHorizontalAlignment(SwingConstants.TRAILING);
 		lblApellido_1.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
 		lblApellido_1.setBounds(10, 125, 122, 23);
@@ -347,7 +347,7 @@ public class SecretaryWindow extends JFrame {
 		labelFieldDNIGetPatient.setHorizontalAlignment(SwingConstants.CENTER);
 		getPatientPane.add(labelFieldDNIGetPatient);
 
-		JLabel lblApellido_2 = new JLabel("2ï¿½ Apellido:");
+		JLabel lblApellido_2 = new JLabel("2º Apellido:");
 		lblApellido_2.setHorizontalAlignment(SwingConstants.TRAILING);
 		lblApellido_2.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
 		lblApellido_2.setBounds(10, 170, 122, 23);
@@ -358,7 +358,7 @@ public class SecretaryWindow extends JFrame {
 		labelFieldSurname2GetPatient.setBounds(142, 173, 143, 20);
 		getPatientPane.add(labelFieldSurname2GetPatient);
 
-		JLabel lblRoom = new JLabel("Habitaciï¿½n:");
+		JLabel lblRoom = new JLabel("Habitación:");
 		lblRoom.setHorizontalAlignment(SwingConstants.TRAILING);
 		lblRoom.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
 		lblRoom.setBounds(332, 74, 128, 23);
@@ -379,13 +379,13 @@ public class SecretaryWindow extends JFrame {
 		separator2.setBounds(10, 52, 610, 33);
 		getPatientPane.add(separator2);
 
-		JLabel lblNewLabel = new JLabel("Introduce el DNI o habitaciï¿½n: ");
+		JLabel lblNewLabel = new JLabel("Introduce el DNI o habitación: ");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.TRAILING);
 		lblNewLabel.setFont(new Font("Rexlia Rg", Font.TRUETYPE_FONT, 15));
 		lblNewLabel.setBounds(10, 11, 275, 23);
 		getPatientPane.add(lblNewLabel);
 
-		textFieldSearchDNIGetPatient = new HintTextField("DNI o Habitaciï¿½n");
+		textFieldSearchDNIGetPatient = new HintTextField("DNI o Habitación");
 		textFieldSearchDNIGetPatient.setHorizontalAlignment(SwingConstants.CENTER);
 		textFieldSearchDNIGetPatient.setBounds(295, 14, 133, 20);
 		getPatientPane.add(textFieldSearchDNIGetPatient);

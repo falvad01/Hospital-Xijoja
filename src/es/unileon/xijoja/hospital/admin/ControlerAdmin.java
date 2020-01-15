@@ -285,9 +285,9 @@ public class ControlerAdmin implements ActionListener {
 
 			}
 
-			log.InfoLog("Usuario + " + adminWindow.lblUser.getText() + " aÃ±adido correctamente");
+			log.InfoLog("Usuario + " + adminWindow.lblUser.getText() + " añadido correctamente");
 
-		} else if (arg0.getActionCommand().equals("AÃ±adir trabajador")) {///////////////////////////////// ADD
+		} else if (arg0.getActionCommand().equals("Añadir trabajador")) {///////////////////////////////// ADD
 
 			adminWindow.seeEmployeesPanel.setVisible(false);
 			adminWindow.addEmployeePanel.setVisible(true);

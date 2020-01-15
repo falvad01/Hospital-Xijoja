@@ -1,9 +1,13 @@
 package es.unileon.xijoja.hospital;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -588,8 +592,10 @@ public class PersonalDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
-		BufferedReader in = new BufferedReader(new FileReader("src/resources/xijoja_base_de_datos.sql"));
+		//File a = new File(PersonalDAO.class.getClassLoader().getResource("resources/xijoja_base_de_datos.sql"));
+		InputStream resourceStream =  PersonalDAO.class.getResourceAsStream("/resources/xijoja_base_de_datos.sql");
+		InputStreamReader r = new InputStreamReader(resourceStream);
+		BufferedReader in = new BufferedReader(r);
 		String str;
 		StringBuffer sb = new StringBuffer();
 

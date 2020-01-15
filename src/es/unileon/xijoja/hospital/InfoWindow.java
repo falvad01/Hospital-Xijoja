@@ -153,7 +153,7 @@ public class InfoWindow extends JFrame {
 				lblNewLabel_1.setBounds(0, 0, 407, 45);
 				adminPanel.add(lblNewLabel_1);
 				
-				JTextArea txtrLaVentanaDe_1 = new JTextArea("La ventana de admnistrador cuenta con 9 menÃºs diferenciados en la parte izquierda \r\nque realizan las siguientes tareas sobre los empleados y pacientes.\r\n\r\n-AÃ±adir: aÃ±adir pacientes o empleados al hospital rellenando el formulario que se le presenta\r\n\r\n-Ver: ver la plantilla de empleados o los pacientes ingresados, asÃ­ como sus caracteristicas\r\n\r\n-Borrar: Despedir empleados o dar el alta a pacientes(siempre con el aviso del medico) o \t     sacarlos del sistema tras su defunciÃ³n.\r\n\r\n-Editar: Editar cualquier paciente o empelado devido a un error en el formulario de registro o en combios en su estado\r\n\r\nTambiene tiene potestad de editar el almacen, comprar mercancia y retirar \r\nmercancia en mal estado");
+				JTextArea txtrLaVentanaDe_1 = new JTextArea("La ventana de admnistrador cuenta con 9 menús diferenciados en la parte izquierda \r\nque realizan las siguientes tareas sobre los empleados y pacientes.\r\n\r\n-Añadir: añadir pacientes o empleados al hospital rellenando el formulario que se le presenta\r\n\r\n-Ver: ver la plantilla de empleados o los pacientes ingresados, asÃ­ como sus caracteristicas\r\n\r\n-Borrar: Despedir empleados o dar el alta a pacientes(siempre con el aviso del medico) o \t     sacarlos del sistema tras su defunciÃ³n.\r\n\r\n-Editar: Editar cualquier paciente o empelado devido a un error en el formulario de registro o en combios en su estado\r\n\r\nTambiene tiene potestad de editar el almacen, comprar mercancia y retirar \r\nmercancia en mal estado");
 				txtrLaVentanaDe_1.setLineWrap(true);
 				txtrLaVentanaDe_1.setFont(new Font("Tahoma", Font.PLAIN, 11));
 				txtrLaVentanaDe_1.setBackground(Color.LIGHT_GRAY);
@@ -170,7 +170,7 @@ public class InfoWindow extends JFrame {
 						lblNewLabel.setBounds(0, 0, 304, 44);
 						generalPanel.add(lblNewLabel);
 						
-						JTextArea txtrLaVentanaDe = new JTextArea("Bienvenido al hospital Xijoja, para comenzar su trabajo introduzca \r\nsu usuario y contraseÃ±a que se ha enviado a su correo electronico \r\ntras su contrataciÃ³n, espero que su lugar de trabajo le resulte \r\ncomodo y apacible.Para cualquier duda o sugerencia sobre el\r\n funcioanmiento de la aplicaciÃ³n mandenos un correo a \r\nhospitalxijoja@gmail.com");
+						JTextArea txtrLaVentanaDe = new JTextArea("Bienvenido al hospital Xijoja, para comenzar su trabajo introduzca \r\nsu usuario y contraseña que se ha enviado a su correo electronico \r\ntras su contratación, espero que su lugar de trabajo le resulte \r\ncomodo y apreciable.\nLos botones de abajo le permitiran resetear la base de datos o guardar\r una copia de seguridad de la misma \n\n Para cualquier duda o sugerencia sobre el\r\n funcioanmiento de la aplicación mandenos un correo a \r\nhospitalxijoja@gmail.com. ");
 						txtrLaVentanaDe.setLineWrap(true);
 						txtrLaVentanaDe.setFont(new Font("Tahoma", Font.PLAIN, 15));
 						txtrLaVentanaDe.setBackground(Color.LIGHT_GRAY);
@@ -192,9 +192,9 @@ public class InfoWindow extends JFrame {
 		lblAyudaSecretarioAmplio.setBounds(0,5,300,200);
 		lblAyudaSecretarioAmplio.setBackground(Color.LIGHT_GRAY);
 		String ayuda = 
-				"La ventana de secretario cuenta con 2 menï¿½s diferenciados en la parte izquierda \n"
+				"La ventana de secretario cuenta con 2 menús diferenciados en la parte izquierda \n"
 				+ " y son los siguientes: \n"
-				+ "\n   -Aï¿½adir Paciente: Se introduce un paciente a la base de datos.\n"
+				+ "\n   -Añadir Paciente: Se introduce un paciente a la base de datos.\n"
 				+ "\n   -Buscar Paciente: Buscando tanto por DNI como por el numero de la habitacion nos "
 				+ "\n    devuelve los datos del paciente buscado.";
 		lblAyudaSecretarioAmplio.setText(ayuda);
@@ -218,13 +218,13 @@ public class InfoWindow extends JFrame {
 		lblAyudaEnfermeroAmplio.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		lblAyudaEnfermeroAmplio.setBackground(Color.lightGray);
 		 String ayudaEnfermero = 
-				"   La ventana de enfermero cuenta con 2 menï¿½s diferenciados en la parte izquierda \n"
+				"   La ventana de enfermero cuenta con 2 menús diferenciados en la parte izquierda \n"
 				+ "   y son los siguientes: \n"
 				+ "\n   -Usar Medicamento: Se empieza introduciendo un paciente, el cual tiene que"
 				+ "\n\testar previamente asignado a ese enfermero. Le damos al boton de buscar"
 				+ "\n\ty nos aparece la informacion del tratamiento asignado, el nombre y la cantidad"
 				+ "\n\tselecionamos la cantidad de medicamento que se le ha tratado y le damos"
-				+ "\n\tal botï¿½n de 'Tratamiento', seguidamente se borrarï¿½n las unidades de la "
+				+ "\n\tal botón de 'Tratamiento', seguidamente se borrarán las unidades de la "
 				+ "\n\tbase de datos y se actualizan los datos en pantalla.\n"
 				+ "\n   -Ver Pacientes: Se muestra una lista de todos los pacientes asigandos al"
 				+ "\n\tenfermero actual.";
@@ -248,23 +248,23 @@ public class InfoWindow extends JFrame {
 		lblAyudaMedicoAmplio.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		lblAyudaMedicoAmplio.setBackground(Color.lightGray);
 		 String ayudaMedico = 
-				"   La ventana de medico cuenta con 6 menï¿½s diferenciados en la parte izquierda \n"
+				"   La ventana de medico cuenta con 6 menús diferenciados en la parte izquierda \n"
 				+ "   y son los siguientes: \n"
 				+ "\n   -Asignar Medicamento: Se introduce el DNI, medicamento y cantidad del mismo"
-				+ "\n despuÃ©s lo actualizarÃ¡ en la base de datos cuando se pulse el boton asignar, "
-				+ "\navisarÃ¡ de cuantos productos de un medicamento quedan"
-				+ "\n  -Ingresar Paciente: AquÃ­ se rellenarÃ¡n todos los campos para aÃ±adir un"
+				+ "\n después lo actualizará en la base de datos cuando se pulse el boton asignar, "
+				+ "\navisará de cuantos productos de un medicamento quedan"
+				+ "\n  -Ingresar Paciente: Aquí se rellenarán todos los campos para añadir un"
 				+ "\n paciente nuevo a la base de datos"
-				+ "\n  -Dar alta paciente: AquÃ­ introducciendo DNI, Nombre y los 2 apellidos "
-				+ "\nse le darÃ¡ el alta a un paciente  "
-				+ "\n y serÃ¡ eliminado de la base de datos"
+				+ "\n  -Dar alta paciente: Aquí­ introducciendo DNI, Nombre y los 2 apellidos "
+				+ "\nse le dará el alta a un paciente  "
+				+ "\n y será eliminado de la base de datos"
 				+ "\n\tbase de datos y se actualizan los datos en pantalla.\n"
 				+ "\n   -Ver Pacientes: Se muestra una lista de todos los pacientes asigandos al"
 				+ "\n\tenfermero actual."
-				+ "\n   -informe semana: Se muestra un resuemn de los pacientes dados"
+				+ "\n   -informe semana: Se muestra un resumen de los pacientes dados"
 				+ "\n de alta en la semana"
-		 		+ "\n   -Buscar paciente: Se muestra una ventana en la cual podrÃ¡s "
-		 		+ "\nbuscar por nombre o habitaciÃ³n un paciente en especÃ­fico";
+		 		+ "\n   -Buscar paciente: Se muestra una ventana en la cual podrás "
+		 		+ "\nbuscar por nombre o habitación un paciente en específico";
 		 lblAyudaMedicoAmplio.setText(ayudaMedico);
 		 lblAyudaMedicoAmplio.setBounds(5,60,476,275);
 		 medicPanel.add(lblAyudaMedicoAmplio);
