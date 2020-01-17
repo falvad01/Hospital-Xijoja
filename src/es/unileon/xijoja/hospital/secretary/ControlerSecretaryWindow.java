@@ -43,7 +43,7 @@ public class ControlerSecretaryWindow implements ActionListener {
 	
 	public void actionPerformed(ActionEvent arg0) {
 
-		if (arg0.getActionCommand().equals("Aï¿½adir")) {
+		if (arg0.getActionCommand().equals("Añadir")) {
 			secretarywindow.lblError.setForeground(Color.red);
 
 			boolean add = true;
@@ -107,7 +107,7 @@ public class ControlerSecretaryWindow implements ActionListener {
 						
 						log.InfoLog("Aï¿½adido el paciente con id: "+id);
 						secretarywindow.lblError.setForeground(Color.BLACK);
-						secretarywindow.lblError.setText("Aï¿½adido el paciente correctamente");
+						secretarywindow.lblError.setText("Añadido el paciente correctamente");
 
 					} catch (SQLException e1) {
 	
@@ -129,7 +129,7 @@ public class ControlerSecretaryWindow implements ActionListener {
 				secretarywindow.addPatientPane.setVisible(false);
 				secretarywindow.getPatientPane.setVisible(true);
 				
-		} else if (arg0.getActionCommand().equals("Aï¿½adir Paciente")) {
+		} else if (arg0.getActionCommand().equals("Añadir Paciente")) {
 				secretarywindow.getPatientPane.setVisible(false);
 				secretarywindow.addPatientPane.setVisible(true);
 				

@@ -43,7 +43,7 @@ public class ControlerLoginWindow implements ActionListener, KeyListener {
 				window.loginPassword.getText().toString());
 
 		if (job == null) {
-			window.lblLoginError.setText("Ususario o contraseÃ±a incorrectos");
+			window.lblLoginError.setText("Ususario o contraseña incorrectos");
 
 		} else {
 

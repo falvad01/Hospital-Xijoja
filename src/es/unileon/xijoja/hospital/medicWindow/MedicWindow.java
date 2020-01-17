@@ -211,7 +211,7 @@ public class MedicWindow extends JFrame {
 		btnIngresarPaciente.addActionListener(listener);
 		
 		JButton btnCerrarSesin = new RoundedJButton(15);
-		btnCerrarSesin.setText("Cerrar SesiÃ³n");
+		btnCerrarSesin.setText("Cerrar Sesión");
 		btnCerrarSesin.setBounds(60, 465, 180, 23);
 		btnCerrarSesin.setOpaque(false);
 		getContentPane().add(btnCerrarSesin);

@@ -131,7 +131,7 @@ public class SecretaryWindow extends JFrame {
 		});
 
 		JButton btnNewButton = new RoundedJButton(15);
-		btnNewButton.setText("Aºadir Paciente");
+		btnNewButton.setText("Añadir Paciente");
 		btnNewButton.setOpaque(false);
 		btnNewButton.setBounds(28, 33, 234, 41);
 		getContentPane().add(btnNewButton);
@@ -236,7 +236,7 @@ public class SecretaryWindow extends JFrame {
 
 		
 		JButton btnRegister = new RoundedJButton(15);
-		btnRegister.setText("Aºadir");
+		btnRegister.setText("Añadir");
 		btnRegister.setBounds(320, 260, 212, 47);
 		btnRegister.setBackground(Color.WHITE);
 		btnRegister.setOpaque(false);

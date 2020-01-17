@@ -145,7 +145,7 @@ public class ControlerMedicWindow implements ActionListener {
 
 			String[][] matrixToInsert = null;
 			
-			titles = new String[] { "ID", "NOMBRE", "APELLIDO", "APELLIDO", "NIF", "FECHA", "Nï¿½HABITACION",
+			titles = new String[] { "ID", "NOMBRE", "APELLIDO", "APELLIDO", "NIF", "FECHA", "NºHABITACION",
 					"ENFERMEDAD", "IDMEDICAMENTO", "MEDICO", "TRATAMIENTO", "ENFERMERO " }; // Titulos de la tabla de
 	
 																	// los empleados
@@ -220,7 +220,7 @@ public class ControlerMedicWindow implements ActionListener {
 
 		}else if (dao.checkIfRoomIsBusy(Integer.parseInt(window.Habitacion.getText()))) {
 			add = false;
-			window.lberror.setText("Esa habitacion no estï¿½ disponible, proxima: "+ dao.firstRoomFree());
+			window.lberror.setText("Esa habitación no está disponible, proxima: "+ dao.firstRoomFree());
 			log.InfoLog("Error, no se pudo introducir el paciente, habitaciï¿½n ocupada");
 		}else if(window.jcbMedicineadd.getSelectedItem()==null) {
 			add = false;
@@ -265,14 +265,14 @@ public class ControlerMedicWindow implements ActionListener {
 			}else {
 				dao.addPatientM(id, window.NombreP.getText(), window.Apellido1.getText(),
 						window.Apellido2.getText(), window.DNI.getText(), date,
-						Integer.parseInt(window.Habitacion.getText()),window.textEnfermedad.getText(),idMedicine,idMedic,idNurse,Integer.parseInt(window.textU.getText()));
+						Integer.parseInt(window.Habitacion.getText()),window.textEnfermedad.getText(),idMedicine,idMedic,Integer.parseInt(window.textU.getText()),idNurse);
 				daoAlmacen.restMedicine(Integer.parseInt(window.textU.getText().toString()),idMedicine);//,idMedic);
 				count2=1;
 				daoE.eliminadosB(count2);
 				count3=Integer.parseInt(window.textU.getText().toString());
 				daoE.eliminadosM(count3);
 				
-				log.InfoLog("Aï¿½adido el paciente con id: "+id);
+				log.InfoLog("Añadido el paciente con id: "+id);
 			}								
 			} catch (SQLException e1) {
 
@@ -313,7 +313,7 @@ public class ControlerMedicWindow implements ActionListener {
 		log.InfoLog("Error, no se pudo borrar el paciente, hay campos vacios");
 		}else if ((window.jcbMedicine.getSelectedItem()==null)){
 				window.lblErrorGetPatient.setText("No tiene pacientes asignados");
-				log.InfoLog("Error, no se selecionï¿½ un paciente");
+				log.InfoLog("Error, no se selecionó un paciente");
 	}else {
 		window.lblErrorDelete.setText("");
 
@@ -504,7 +504,7 @@ public class ControlerMedicWindow implements ActionListener {
 		
 		
 		
-    }else if (arg0.getActionCommand().equals("Cerrar SesiÃ³n")) {
+    }else if (arg0.getActionCommand().equals("Cerrar Sesión")) {
 
 				window.setVisible(false);
 				LoginWindow newlogin = LoginWindow.getInstance();

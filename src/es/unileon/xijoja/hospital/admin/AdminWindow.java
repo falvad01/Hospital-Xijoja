@@ -954,7 +954,7 @@ public class AdminWindow extends JFrame {
 		deletePanel.add(btnDelete);
 
 		JButton btnNewButton_4 = new RoundedJButton(15);
-		btnNewButton_4.setText("AÃ±adir o retirar");
+		btnNewButton_4.setText("Añadir o retirar");
 		btnNewButton_4.setBackground(Color.WHITE);
 		btnNewButton_4.addActionListener(listener);
 		btnNewButton_4.setBounds(225, 83, 150, 34);

@@ -133,7 +133,7 @@ public class ControlerAdmin implements ActionListener {
 	 * 
 	 * @return
 	 * 
-	 *         Generamos una contraseÃ±a aleatoria
+	 *         Generamos una contraseña aleatoria
 	 */
 	private String genPassword() {
 
@@ -142,7 +142,7 @@ public class ControlerAdmin implements ActionListener {
 
 		int i = 0;
 		while (i < 7) {
-			int rand = (int) ((Math.random() * ((61 - 0) + 1)));// Con el random generamos la contraseÃ±a sacando los
+			int rand = (int) ((Math.random() * ((61 - 0) + 1)));// Con el random generamos la contraseña sacando los
 																// careacteres del array alphabet
 
 			password.append(alphabet.charAt(rand));
@@ -259,7 +259,7 @@ public class ControlerAdmin implements ActionListener {
 				adminWindow.lblError.setText("");
 			}
 
-			if (add) {// Si da error no se aÃ±ade el empleado
+			if (add) {// Si da error no se añade el empleado
 
 				adminWindow.lblUser.setText(genUser(adminWindow.textFieldName.getText(),
 						adminWindow.textFieldSurname1.getText(), adminWindow.textFieldSurname1.getText()));
@@ -328,7 +328,7 @@ public class ControlerAdmin implements ActionListener {
 			String[][] matrixToInsert = null;
 
 			titles = new String[] { "  Id", "Nombre", "Apellido 1", "Apellido 2", "NIF", "Fecha Alta",
-					"Cuenta Bancaria", "Puesto", "ContraseÃ±a", "Usuario", "Email" }; // Titulos de la tabla de
+					"Cuenta Bancaria", "Puesto", "Contraseña", "Usuario", "Email" }; // Titulos de la tabla de
 																						// los empleados
 			insert = personalDao.getAllEmployees();// ArrayList de Arrays
 
@@ -402,7 +402,7 @@ public class ControlerAdmin implements ActionListener {
 			System.out.println("Comenzamos a editar el trabajador");
 			boolean out = false;
 
-			while (!out) {// Repetimos hasta que se cancela o se introduce la contraseÃ±a correcta
+			while (!out) {// Repetimos hasta que se cancela o se introduce la contraseña correcta
 				JPasswordField pf = new JPasswordField();
 				int option = JOptionPane.showConfirmDialog(null, pf, "Enter Password", JOptionPane.OK_CANCEL_OPTION,
 						JOptionPane.PLAIN_MESSAGE);
@@ -412,7 +412,7 @@ public class ControlerAdmin implements ActionListener {
 					System.out.println("Se ha cancelado");
 				} else {
 
-					if (pf.getText().equals(adminWindow.password)) {// Si se acierta la contraseÃ±a
+					if (pf.getText().equals(adminWindow.password)) {// Si se acierta la contraseña
 						out = true;
 
 						adminWindow.labelUserNameEdit.setText(genUser(adminWindow.textFieldNameEdit.getText(),
@@ -428,8 +428,8 @@ public class ControlerAdmin implements ActionListener {
 								adminWindow.comboBoxJobEdit.getSelectedItem().toString(),
 								adminWindow.labelUserNameEdit.getText(), adminWindow.textFieldEmailEdit.getText());
 
-					} else {// Si se falla la contraseÃ±a
-						JOptionPane.showMessageDialog(null, "ContraseÃ±a incorrecta", "ERROR",
+					} else {// Si se falla la contraseña
+						JOptionPane.showMessageDialog(null, "Contraseña incorrecta", "ERROR",
 								JOptionPane.ERROR_MESSAGE);
 					}
 				}
@@ -697,7 +697,7 @@ public class ControlerAdmin implements ActionListener {
 
 			this.filJComboBoxMedicines(adminWindow.comboBoxMedicines);
 
-		} else if (arg0.getActionCommand().contentEquals("AÃ±adir o retirar")) {
+		} else if (arg0.getActionCommand().contentEquals("Añadir o retirar")) {
 			System.out.println("COmprar");
 
 			warehouseDAO.addNewMedicines(adminWindow.comboBoxMedicines.getSelectedItem().toString(),
@@ -741,7 +741,7 @@ public class ControlerAdmin implements ActionListener {
 			System.out.println("Comenzamos a editar el paciente");
 			boolean out = false;
 
-			while (!out) {// Repetimos hasta que se cancela o se introduce la contraseÃ±a correcta
+			while (!out) {// Repetimos hasta que se cancela o se introduce la contraseña correcta
 				JPasswordField pf = new JPasswordField();
 				int option = JOptionPane.showConfirmDialog(null, pf, "Enter Password", JOptionPane.OK_CANCEL_OPTION,
 						JOptionPane.PLAIN_MESSAGE);
@@ -751,7 +751,7 @@ public class ControlerAdmin implements ActionListener {
 					System.out.println("Se ha cancelado");
 				} else {
 
-					if (pf.getText().equals(adminWindow.password)) {// Si se acierta la contraseÃ±a
+					if (pf.getText().equals(adminWindow.password)) {// Si se acierta la contraseña
 						out = true;
 						if (!adminWindow.textFieldRommEditPacient.getText().matches("[+-]?\\d*(\\.\\d+)?")) {
 							System.out.println("Aqui");
@@ -777,8 +777,8 @@ public class ControlerAdmin implements ActionListener {
 
 						}
 
-					} else {// Si se falla la contraseÃ±a
-						JOptionPane.showMessageDialog(null, "ContraseÃ±a incorrecta", "ERROR",
+					} else {// Si se falla la contraseña
+						JOptionPane.showMessageDialog(null, "Contraseña incorrecta", "ERROR",
 								JOptionPane.ERROR_MESSAGE);
 					}
 				}
